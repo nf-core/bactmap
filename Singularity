@@ -3,11 +3,11 @@ Bootstrap:docker
 
 %labels
     MAINTAINER Anthony Underwood
-    DESCRIPTION Singularity image containing all requirements for the nf-core/bacterialmappingphylogeny pipeline
+    DESCRIPTION Singularity image containing all requirements for the nf-core/bactmap pipeline
     VERSION 1.0dev
 
 %environment
-    PATH=/opt/conda/envs/nf-core-bacterialmappingphylogeny-1.0dev/bin:$PATH
+    PATH=/opt/conda/envs/nf-core-bactmap-1.0dev/bin:$PATH
     export PATH
 
 %files

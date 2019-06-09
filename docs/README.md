@@ -1,6 +1,6 @@
-# nf-core/bacterialmappingphylogeny: Documentation
+# nf-core/bactmap: Documentation
 
-The nf-core/bacterialmappingphylogeny documentation is split into the following files:
+The nf-core/bactmap documentation is split into the following files:
 
 1. [Installation](installation.md)
 2. [Running the pipeline](usage.md)

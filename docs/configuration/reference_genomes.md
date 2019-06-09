@@ -1,6 +1,6 @@
-# nf-core/bacterialmappingphylogeny: Reference Genomes Configuration
+# nf-core/bactmap: Reference Genomes Configuration
 
-The nf-core/bacterialmappingphylogeny pipeline needs a reference genome for alignment and annotation.
+The nf-core/bactmap pipeline needs a reference genome for alignment and annotation.
 
 These paths can be supplied on the command line at run time (see the [usage docs](../usage.md)),
 but for convenience it's often better to save these paths in a nextflow config file.
