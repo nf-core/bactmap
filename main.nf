@@ -237,7 +237,9 @@ include 'lib/bactmap_processes' params(
     depth_cutoff: depth_cutoff,
     filtering_conditions: filtering_conditions,
     non_GATC_bases_threshold: non_GATC_bases_threshold,
-    remove_recombination: params.remove_recombination
+    remove_recombination: params.remove_recombination,
+    cpus_for_tree_building: params.cpus_for_tree_building,
+    memory_for_tree_building: params.memory_for_tree_building
   )
 
 /*

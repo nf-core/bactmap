@@ -27,8 +27,7 @@ install:
   - mkdir ${TRAVIS_BUILD_DIR}/tests && cd ${TRAVIS_BUILD_DIR}/tests
 
 env:
-  - NXF_VER='19.05.0' # Specify a minimum NF version that should be tested and work
-  - NXF_VER='' # Plus: get the latest NF version and check that it works
+  - NXF_VER='19.05.0-edge' # Specify a minimum NF version that should be tested and work
 
 script:
   # Lint the pipeline code

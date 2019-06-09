@@ -231,8 +231,8 @@ process create_pseudogenome_alignment{
 //  remove non-informative positions with snp-sites
 
 process create_variant_only_alignment{
-  memory '15GB'
-  cpus 4
+  memory { params.memory_for_tree_building * task.attempt }
+  cpus params.cpus_for_tree_building
 
   tag { 'create variant only pseudogenome alignment' }
 
@@ -261,8 +261,8 @@ process create_variant_only_alignment{
 
 // Build ML tree
 process build_tree {
-  memory { 15.GB * task.attempt }
-  cpus 4
+  memory { params.memory_for_tree_building * task.attempt }
+  cpus params.cpus_for_tree_building
 
   tag {'build tree'}
   publishDir "${params.outdir}",
