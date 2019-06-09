@@ -87,7 +87,7 @@ if (params.help){
 }
 include 'lib/helper_functions'
 
-check_optional_parameters(params, ['indir', 'accession_number_file'])
+check_optional_parameters(params, ['indir', 'accession_number_file', 'read_paths'])
 
 //  check a pattern has been specified
 if (params.indir){
@@ -253,14 +253,16 @@ prepared_reference_files = prepare_reference(reference_sequence)
 if (params.accession_number_file){
   // Fetch samples from ENA
   accession_number_file = params.accession_number_file - ~/\/$/
-  Channel
+  accession_numbers = Channel
       .fromPath(accession_number_file)
       .splitText()
       .map{ x -> x.trim()}
-      .set { accession_numbers }
   
   raw_fastqs = fetch_from_ena(accession_numbers)
 
+} else if (params.read_paths) {
+  raw_fastqs = Channel.from( params.read_paths )
+    .map { row -> [ row[0], [file(row[1][0]), file(row[1][1])]] }
 } else if (params.indir) {
   indir = params.indir - ~/\/$/
   fastqs = indir + '/' + fastq_pattern
