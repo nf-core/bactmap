@@ -9,6 +9,17 @@ regexes = {
     'Nextflow': ['v_nextflow.txt', r"(\S+)"],
     'FastQC': ['v_fastqc.txt', r"FastQC v(\S+)"],
     'MultiQC': ['v_multiqc.txt', r"multiqc, version (\S+)"],
+    'BWA': ['v_bwa.txt', r"Version: (\S+)"],
+    'SAMtools ': ['v_samtools.txt', r"Version: (\S+)"],
+    'BCFtools': ['v_bcftools.txt', r"Version: (\S+)"],
+    'PySam': ['v_pysam.txt', r"(\S+)"],
+    'Trimmomatic': ['v_trimmomatic.txt', r"(\S+)"],
+    'Mash': ['v_mash.txt', r"Mash version (\S+)"],
+    'Seqtk': ['v_seqtk.txt', r"Version: (\S+)"],
+    'IQtree': ['v_iqtree.txt', r"version (\S+)"],
+    'SNP-sites': ['v_snp-sites.txt', r"snp-sites: (\S+)"],
+    'Gubbins': ['v_gubbins.txt', r"Version: (\S+)"],
+    'FastTree': ['v_fasttree.txt', r"(version \S+)"]
 }
 results = OrderedDict()
 results['nf-core/bactmap'] = '<span style="color:#999999;\">N/A</span>'
@@ -24,9 +35,14 @@ for k, v in regexes.items():
         if match:
             results[k] = "v{}".format(match.group(1))
 
+# Remove software set to false in results
+for k in results:
+    if not results[k]:
+        del(results[k])
+
 # Dump to YAML
 print ('''
-id: 'nf-core/bactmap-software-versions'
+id: 'software_versions'
 section_name: 'nf-core/bactmap Software Versions'
 section_href: 'https://github.com/nf-core/bactmap'
 plot_type: 'html'
@@ -35,5 +51,10 @@ data: |
     <dl class="dl-horizontal">
 ''')
 for k,v in results.items():
-    print("        <dt>{}</dt><dd>{}</dd>".format(k,v))
+    print("        <dt>{}</dt><dd><samp>{}</samp></dd>".format(k,v))
 print ("    </dl>")
+
+# Write out regexes as csv file:
+with open('software_versions.csv', 'w') as f:
+    for k,v in results.items():
+        f.write("{}\t{}\n".format(k,v))
