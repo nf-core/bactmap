@@ -22,7 +22,7 @@ install:
   - sudo ln -s /tmp/nextflow/nextflow /usr/local/bin/nextflow
   # Install nf-core/tools
   - pip install --upgrade pip 
-  - pip install nf-core
+  - pip install -e git+https://github.com/nf-core/tools@dev
   # Reset
   - mkdir ${TRAVIS_BUILD_DIR}/tests && cd ${TRAVIS_BUILD_DIR}/tests
 
