@@ -2,7 +2,7 @@
 **A mapping-based pipeline for creating a phylogeny from bacterial whole genome sequences**
 
 [![Build Status](https://travis-ci.org/nf-core/bactmap.svg?branch=master)](https://travis-ci.org/nf-core/bactmap)
-[![Nextflow](https://img.shields.io/badge/nextflow-%E2%89%A519.05.0-brightgreen.svg)](https://www.nextflow.io/)
+[![Nextflow](https://img.shields.io/badge/nextflow-%E2%89%A519.05.0--edge-brightgreen.svg)](https://www.nextflow.io/)
 
 [![install with bioconda](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg)](http://bioconda.github.io/)
 [![Docker](https://img.shields.io/docker/automated/nfcore/bactmap.svg)](https://hub.docker.com/r/bioinformant/bactmap)

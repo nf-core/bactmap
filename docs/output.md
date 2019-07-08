@@ -1,41 +1,84 @@
 # nf-core/bactmap: Output
 
-This document describes the output produced by the pipeline. Most of the plots are taken from the MultiQC report, which summarises results at the end of the pipeline.
-
-<!-- TODO nf-core: Write this documentation describing your workflow's output -->
+This document describes the output produced by the pipeline. 
 
 ## Pipeline overview
 The pipeline is built using [Nextflow](https://www.nextflow.io/)
 and processes data using the following steps:
 
-* [FastQC](#fastqc) - read quality control
-* [MultiQC](#multiqc) - aggregate report, describing results of the whole pipeline
 
-## FastQC
-[FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) gives general quality metrics about your reads. It provides information about the quality score distribution across your reads, the per base sequence content (%T/A/G/C). You get information about adapter contamination and other overrepresented sequences.
-
-For further reading and documentation see the [FastQC help](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/).
-
-> **NB:** The FastQC plots displayed in the MultiQC report shows _untrimmed_ reads. They may contain adapter sequence and potentially regions with low quality. To see how your reads look after trimming, look at the FastQC reports in the `trim_galore` directory.
-
-**Output directory: `results/fastqc`**
-
-* `sample_fastqc.html`
-  * FastQC report, containing quality metrics for your untrimmed raw fastq files
-* `zips/sample_fastqc.zip`
-  * zip file containing the FastQC report, tab-delimited data file and plot images
+* [Fetch from ENA](#fetch-from-ena) (Optional) Fetch reads from the ENA
+* [Trim Reads](#trim-reads) Read trimmimg using trimmomatic 
+* [Estimate genome size](#genome-size-estimation)
+* [Downsample reads](#downsample-reads) 
+* [Map reads](#map-reads)
+* [Call variants](#call-variants)
+* [Filter variant](#filter-variants)
+* [Pseudogenome creation](#pseudogenome-creation)
+* [Pseudogenome alignment creation](#pseudogenome-alignment-creation)
+* [Recombination removal](#recombination-removal)(Optional)
+* [Invariant site removal](#invariant-site-removal)
+* [Phylogenetic tree creation](#phylogenetic-tree-removal) (Optional) 
 
 
-## MultiQC
-[MultiQC](http://multiqc.info) is a visualisation tool that generates a single HTML report summarising all samples in your project. Most of the pipeline QC results are visualised in the report and further statistics are available in within the report data directory.
 
-The pipeline has special steps which allow the software versions used to be reported in the MultiQC output for future traceability.
+## Fetch from ENA
+This process will fetch reads from the ENA archive using the `enaDataGet` tool from [ENA Browser Tools](https://github.com/enasequence/enaBrowserTools)
 
-**Output directory: `results/multiqc`**
+## Trim Reads
+Trim with [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic) reads based on the parameters ILLUMINACLIP:adapter_file.fas:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 and with MIN_LEN dynamically determined based on 30% of the read length
+**Output directory: `<OUTPUT DIR>/trimmed_fastqs`**
+Fastq files post trimming will be written here
 
-* `Project_multiqc_report.html`
-  * MultiQC report - a standalone HTML file that can be viewed in your web browser
-* `Project_multiqc_data/`
-  * Directory containing parsed statistics from the different tools used in the pipeline
+## Genome Size Estimation
+Estimate the size of the genome using [Mash](https://mash.readthedocs.io/en/latest/)
 
-For more information about how to use MultiQC reports, see http://multiqc.info
+## Downsample reads
+If the `--depth_cutoff` parameter is specified then reads will be downsampled using [seqtk](https://github.com/lh3/seqtk) to the specified depth
+
+
+## Map reads
+The reads will be mapped to the specified reference genome using [bwa mem](https://github.com/lh3/bwa)
+**Output directory: `<OUTPUT DIR>/sorted_bams`**
+Sorted bam files will be written here
+
+## Call variants
+Variants will be called using [samtools](http://www.htslib.org/doc/samtools.html)
+
+## Filter variants
+Variants will be filtered using [bcftools](http://www.htslib.org/doc/bcftools.html) in order to flag low quality SNPs using the default filter of `%QUAL<25 || FORMAT/DP<10 || MAX(FORMAT/ADF)<5 || MAX(FORMAT/ADR)<5 || MAX(FORMAT/AD)/SUM(FORMAT/DP)<0.9 || MQ<30 || MQ0F>0.1` 
+**Output directory: `<OUTPUT DIR>/filtered_bcfs`**
+Filtered vcf files will be written here
+## Pseudogenome creation
+A pseudogenome based on the variants called is created where missing positions are encoded as `-` characters and low quality positions as `N`. All other positions either match the reference or are encoded as a SNV of either G,A,T or C. The script [filtered_bcf_to_fasta.py](bin/filtered_bcf_to_fasta.py) is used.
+**Output directory: `<OUTPUT DIR>/pseudogenomes`**
+A pseudogenome for each sample will be written here
+
+## Pseudogenome alignment creation
+The pseudogenomes from the previous step are concatenanted to make a whole genome alignment
+**Output directory: `<OUTPUT DIR>/pseudogenomes`**
+The multi-sample pseudogenome alignment will be written here
+
+## Recombination removal
+Recombination is removed from the alignment using [gubbins](https://github.com/sanger-pathogens/gubbins/)
+
+## Invariant sites
+Invariant sites are removed using [snp-sites](https://github.com/sanger-pathogens/snp-sites)
+
+## Phylogenetic tree creation
+A Maximum likelihood tree is generated using [IQ-TREE](http://www.iqtree.org)
+**Output directory: `<OUTPUT DIR>`**
+The consensus tree `aligned_pseudogenome.variants_only.contree` including bootstrap values will be written here
+
+# Software used within the pipeline
+  - [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic) A flexible read trimming tool for Illumina NGS data.
+  - [mash](https://mash.readthedocs.io/en/latest/) Fast genome and metagenome distance estimation using MinHash.
+  - [seqtk](https://github.com/lh3/seqtk) A fast and lightweight tool for processing sequences in the FASTA or FASTQ format.
+  - [bwa mem](https://github.com/lh3/bwa) Burrow-Wheeler Aligner for short-read alignment
+  - [samtools](http://www.htslib.org/doc/samtools.html) Utilities for the Sequence Alignment/Map (SAM) format
+  - [bcftools](http://www.htslib.org/doc/bcftools.html) Utilities for variant calling and manipulating VCFs and BCFs
+  - [filtered_bcf_to_fasta.py](bin/filtered_bcf_to_fasta.py) Python utility to create a pseudogenome from a bcf file where each position in the reference genome is included
+  - [gubbins](https://github.com/sanger-pathogens/gubbins/) Rapid phylogenetic analysis of large samples of recombinant bacterial whole genome sequences
+  - [snp-sites](https://github.com/sanger-pathogens/snp-sites) Finds SNP sites from a multi-FASTA alignment file 
+  - [IQ-TREE](http://www.iqtree.org) Efficient software for phylogenomic inference
+

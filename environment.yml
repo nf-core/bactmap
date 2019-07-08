@@ -18,3 +18,4 @@ dependencies:
   - snp-sites=2.4.1
   - gubbins=2.3.4
   - fasttree=2.1.10
+  - enabrowsertools=1.5.4

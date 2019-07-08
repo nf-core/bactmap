@@ -1,4 +1,4 @@
-FROM continuumio/miniconda3
+FROM nfcore/base
 LABEL authors="Anthony Underwood" \
       description="Docker image containing all requirements for nf-core/bactmap pipeline"
 
@@ -19,6 +19,5 @@ RUN wget https://download.asperasoft.com/download/sw/connect/3.8.1/ibm-aspera-co
     mv /root/.aspera /.aspera; \
     echo "[aspera]\nASPERA_BIN  = /.aspera/connect/bin/ascp\nASPERA_PRIVATE_KEY = /.aspera/connect/etc/asperaweb_id_dsa.openssh\nASPERA_OPTIONS =\nASPERA_SPEED = 100M" > /aspera.ini
 
-RUN cd /root; git clone https://github.com/enasequence/enaBrowserTools.git; mv enaBrowserTools /enaBrowserTools
 
-ENV PATH /enaBrowserTools/python3:/opt/conda/envs/nf-core-bactmap-1.0dev/bin:$PATH
+ENV PATH /opt/conda/envs/nf-core-bactmap-1.0dev/bin:$PATH
