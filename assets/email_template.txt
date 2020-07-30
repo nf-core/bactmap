@@ -1,13 +1,19 @@
-========================================
- nf-core/bacterialmappingphylogeny v${version}
-========================================
+----------------------------------------------------
+                                        ,--./,-.
+        ___     __   __   __   ___     /,-._.--~\\
+  |\\ | |__  __ /  ` /  \\ |__) |__         }  {
+  | \\| |       \\__, \\__/ |  \\ |___     \\`-._,-`-,
+                                        `._,._,'
+  nf-core/bactmap v${version}
+----------------------------------------------------
+
 Run Name: $runName
 
 <% if (success){
-    out << "## nf-core/bacterialmappingphylogeny execution completed successfully! ##"
+    out << "## nf-core/bactmap execution completed successfully! ##"
 } else {
     out << """####################################################
-## nf-core/bacterialmappingphylogeny execution completed unsuccessfully! ##
+## nf-core/bactmap execution completed unsuccessfully! ##
 ####################################################
 The exit status of the task that caused the workflow execution to fail was: $exitStatus.
 The full error message was:
@@ -15,23 +21,6 @@ The full error message was:
 ${errorReport}
 """
 } %>
-
-
-<% if (!success){
-    out << """####################################################
-## nf-core/bacterialmappingphylogeny execution completed unsuccessfully! ##
-####################################################
-The exit status of the task that caused the workflow execution to fail was: $exitStatus.
-The full error message was:
-
-${errorReport}
-"""
-} else {
-    out << "## nf-core/bacterialmappingphylogeny execution completed successfully! ##"
-}
-%>
-
-
 
 
 The workflow was completed at $dateComplete (duration: $duration)
@@ -47,5 +36,5 @@ Pipeline Configuration:
 <% out << summary.collect{ k,v -> " - $k: $v" }.join("\n") %>
 
 --
-nf-core/bacterialmappingphylogeny
-https://github.com/nf-core/bacterialmappingphylogeny
+nf-core/bactmap
+https://github.com/nf-core/bactmap
