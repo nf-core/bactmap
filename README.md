@@ -68,6 +68,8 @@ nf-core/bactmap was originally written by Anthony Underwood.
 We thank the following people for their extensive assistance in the development
 of this pipeline:
 
+* [Alexandre Gilardet](https://github.com/alexandregilardet)
+
 <!-- TODO nf-core: If applicable, make list of people who have also contributed -->
 
 ## Contributions and Support
