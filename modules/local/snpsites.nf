@@ -32,10 +32,10 @@ process SNPSITES {
     def software = getSoftwareName(task.process)
     """
     snp-sites -c \\
-    $alignment \\
-    -o filtered_alignment.fas
-    -C \\
-    2>&1 constant.sites.txt    
+        $alignment \\
+        -o filtered_alignment.fas
+        -C \\
+        2>&1 constant.sites.txt    
     
     echo \$(snp-sites -V 2>&1) | sed 's/snp-sites //' > ${software}.version.txt
     """
