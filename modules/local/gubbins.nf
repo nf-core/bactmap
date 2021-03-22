@@ -43,6 +43,6 @@ process GUBBINS {
         -t hybrid \\
         $aligned_pseudogenome
     
-    echo \$(run_gubbins.py --version) > ${software}.version.txt
+    echo \$(run_gubbins.py --version 2>&1) > ${software}.version.txt
     """
 }
