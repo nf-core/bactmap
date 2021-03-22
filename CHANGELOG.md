@@ -9,6 +9,8 @@ Initial release of nf-core/bactmap, created with the [nf-core](https://nf-co.re/
 
 ### `Added`
 
+- [#7](https://github.com/nf-core/bactmap/issues/7) - Created mash_sketch DSL2 module to count number of reads and estimate genome size
+
 ### `Fixed`
 
 ### `Dependencies`
