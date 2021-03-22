@@ -25,6 +25,7 @@ process SNPSITES {
     output:
     
     path "*.fas", emit: variant_alignment
+    path "*.sites.txt", emit constant_sites
     path "*.version.txt", emit: version
 
     script:
@@ -32,7 +33,9 @@ process SNPSITES {
     """
     snp-sites -c \\
     $alignment \\
-    -o filtered_alignment.fas    
+    -o filtered_alignment.fas
+    -C \\
+    2>&1 constant.sites.txt    
     
     echo \$(snp-sites -V 2>&1) | sed 's/snp-sites //' > ${software}.version.txt
     """
