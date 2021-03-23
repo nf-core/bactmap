@@ -1,169 +1,118 @@
 #!/usr/bin/env python
 
-# TODO nf-core: Update the script to check the samplesheet
-# This script is based on the example at: https://raw.githubusercontent.com/nf-core/test-datasets/atacseq/design.csv
-
-
 import os
 import sys
 import errno
 import argparse
 
-
 def parse_args(args=None):
-    Description = "Reformat nf-core/bactmap samplesheet file and check its contents."
-    Epilog = "Example usage: python check_samplesheet.py <FILE_IN> <FILE_OUT>"
+    Description = 'Reformat nf-core/bactmap samplesheet file and check its contents.'
+    Epilog = """Example usage: python check_samplesheet.py <FILE_IN> <FILE_OUT>"""
 
     parser = argparse.ArgumentParser(description=Description, epilog=Epilog)
-    parser.add_argument("FILE_IN", help="Input samplesheet file.")
-    parser.add_argument("FILE_OUT", help="Output file.")
+    parser.add_argument('FILE_IN', help="Input samplesheet file.")
+    parser.add_argument('FILE_OUT', help="Output file.")
     return parser.parse_args(args)
 
 
 def make_dir(path):
-    if len(path) > 0:
+    if not len(path) == 0:
         try:
             os.makedirs(path)
         except OSError as exception:
             if exception.errno != errno.EEXIST:
-                raise exception
+                raise
 
 
-def print_error(error, context="Line", context_str=""):
-    error_str = "ERROR: Please check samplesheet -> {}".format(error)
-    if context != "" and context_str != "":
-        error_str = "ERROR: Please check samplesheet -> {}\n{}: '{}'".format(
-            error, context.strip(), context_str.strip()
-        )
-    print(error_str)
+def print_error(error,line):
+    print("ERROR: Please check samplesheet -> {}\nLine: '{}'".format(error,line.strip()))
     sys.exit(1)
 
 
-# TODO nf-core: Update the check_samplesheet function
-def check_samplesheet(file_in, file_out):
-    """
-    This function checks that the samplesheet follows the following structure:
+def check_samplesheet(FileIn,FileOut):
+    ## Check header
+    HEADER = ['sample', 'fastq_1', 'fastq_2']
+    fin = open(FileIn,'r')
+    header = fin.readline().strip().split(',')
+    if header != HEADER:
+        print("ERROR: Please check samplesheet header -> {} != {}".format(','.join(header),','.join(HEADER)))
+        sys.exit(1)
 
-    group,replicate,fastq_1,fastq_2
-    WT,1,WT_LIB1_REP1_1.fastq.gz,WT_LIB1_REP1_2.fastq.gz
-    WT,1,WT_LIB2_REP1_1.fastq.gz,WT_LIB2_REP1_2.fastq.gz
-    WT,2,WT_LIB1_REP2_1.fastq.gz,WT_LIB1_REP2_2.fastq.gz
-    KO,1,KO_LIB1_REP1_1.fastq.gz,KO_LIB1_REP1_2.fastq.gz
-    """
-
-    sample_run_dict = {}
-    with open(file_in, "r") as fin:
-
-        ## Check header
-        MIN_COLS = 3
-        # TODO nf-core: Update the column names for the input samplesheet
-        HEADER = ["group", "replicate", "fastq_1", "fastq_2"]
-        header = [x.strip('"') for x in fin.readline().strip().split(",")]
-        if header[: len(HEADER)] != HEADER:
-            print("ERROR: Please check samplesheet header -> {} != {}".format(",".join(header), ",".join(HEADER)))
-            sys.exit(1)
-
-        ## Check sample entries
-        for line in fin:
-            lspl = [x.strip().strip('"') for x in line.strip().split(",")]
+    sampleRunDict = {}
+    while True:
+        line = fin.readline()
+        if line:
+            lspl = [x.strip() for x in line.strip().split(',')]
 
             ## Check valid number of columns per row
-            if len(lspl) < len(HEADER):
-                print_error(
-                    "Invalid number of columns (minimum = {})!".format(len(HEADER)),
-                    "Line",
-                    line,
-                )
-            num_cols = len([x for x in lspl if x])
-            if num_cols < MIN_COLS:
-                print_error(
-                    "Invalid number of populated columns (minimum = {})!".format(MIN_COLS),
-                    "Line",
-                    line,
-                )
+            if len(lspl) != len(header):
+                print_error("Invalid number of columns (minimum = {})!".format(len(header)),line)
+
+            numCols = len([x for x in lspl if x])
+            if numCols < 2:
+                print_error("Invalid number of populated columns (minimum = 2)!",line)
 
             ## Check sample name entries
-            sample, replicate, fastq_1, fastq_2 = lspl[: len(HEADER)]
+            sample,fastQFiles = lspl[0],lspl[1:]
             if sample:
-                if sample.find(" ") != -1:
-                    print_error("Group entry contains spaces!", "Line", line)
+                if sample.find(' ') != -1:
+                    print_error("Sample entry contains spaces!",line)
             else:
-                print_error("Group entry has not been specified!", "Line", line)
-
-            ## Check replicate entry is integer
-            if not replicate.isdigit():
-                print_error("Replicate id not an integer!", "Line", line)
-            replicate = int(replicate)
+                print_error("Sample entry has not been specified!",line)
 
             ## Check FastQ file extension
-            for fastq in [fastq_1, fastq_2]:
+            for fastq in fastQFiles:
                 if fastq:
-                    if fastq.find(" ") != -1:
-                        print_error("FastQ file contains spaces!", "Line", line)
-                    if not fastq.endswith(".fastq.gz") and not fastq.endswith(".fq.gz"):
-                        print_error(
-                            "FastQ file does not have extension '.fastq.gz' or '.fq.gz'!",
-                            "Line",
-                            line,
-                        )
+                    if fastq.find(' ') != -1:
+                        print_error("FastQ file contains spaces!",line)
+                    if fastq[-9:] != '.fastq.gz' and fastq[-6:] != '.fq.gz':
+                        print_error("FastQ file does not have extension '.fastq.gz' or '.fq.gz'!",line)
 
             ## Auto-detect paired-end/single-end
-            sample_info = []  ## [single_end, fastq_1, fastq_2]
-            if sample and fastq_1 and fastq_2:  ## Paired-end short reads
-                sample_info = ["0", fastq_1, fastq_2]
-            elif sample and fastq_1 and not fastq_2:  ## Single-end short reads
-                sample_info = ["1", fastq_1, fastq_2]
+            sample_info = []                                                ## [single_end, is_sra, is_ftp, fastq_1, fastq_2, md5_1, md5_2]
+            fastq_1,fastq_2 = fastQFiles
+            if sample and fastq_1 and fastq_2:                              ## Paired-end short reads
+                sample_info = ['0', '0', '0', fastq_1, fastq_2, '', '']
+            elif sample and fastq_1 and not fastq_2:                        ## Single-end short reads
+                sample_info = ['1', '0', '0', fastq_1, fastq_2, '', '']
             else:
-                print_error("Invalid combination of columns provided!", "Line", line)
-            ## Create sample mapping dictionary = {sample: {replicate : [ single_end, fastq_1, fastq_2 ]}}
-            if sample not in sample_run_dict:
-                sample_run_dict[sample] = {}
-            if replicate not in sample_run_dict[sample]:
-                sample_run_dict[sample][replicate] = [sample_info]
+                print_error("Invalid combination of columns provided!",line)
+
+            if sample not in sampleRunDict:
+                sampleRunDict[sample] = [sample_info]
             else:
-                if sample_info in sample_run_dict[sample][replicate]:
-                    print_error("Samplesheet contains duplicate rows!", "Line", line)
+                if sample_info in sampleRunDict[sample]:
+                    print_error("Samplesheet contains duplicate rows!",line)
                 else:
-                    sample_run_dict[sample][replicate].append(sample_info)
+                    sampleRunDict[sample].append(sample_info)
+        else:
+            fin.close()
+            break
 
     ## Write validated samplesheet with appropriate columns
-    if len(sample_run_dict) > 0:
-        out_dir = os.path.dirname(file_out)
-        make_dir(out_dir)
-        with open(file_out, "w") as fout:
+    if len(sampleRunDict) > 0:
+        OutDir = os.path.dirname(FileOut)
+        make_dir(OutDir)
+        fout = open(FileOut,'w')
+        fout.write(','.join(['sample_id', 'single_end', 'is_sra', 'is_ftp', 'fastq_1', 'fastq_2', 'md5_1', 'md5_2']) + '\n')
+        for sample in sorted(sampleRunDict.keys()):
 
-            fout.write(",".join(["sample", "single_end", "fastq_1", "fastq_2"]) + "\n")
-            for sample in sorted(sample_run_dict.keys()):
+            ## Check that multiple runs of the same sample are of the same datatype
+            if not all(x[:2] == sampleRunDict[sample][0][:2] for x in sampleRunDict[sample]):
+                print_error("Multiple runs of a sample must be of the same datatype","Sample: {}".format(sample))
 
-                ## Check that replicate ids are in format 1..<NUM_REPS>
-                uniq_rep_ids = set(sample_run_dict[sample].keys())
-                if len(uniq_rep_ids) != max(uniq_rep_ids):
-                    print_error(
-                        "Replicate ids must start with 1..<num_replicates>!",
-                        "Group",
-                        sample,
-                    )
-                for replicate in sorted(sample_run_dict[sample].keys()):
-
-                    ## Check that multiple runs of the same sample are of the same datatype
-                    if not all(
-                        x[0] == sample_run_dict[sample][replicate][0][0] for x in sample_run_dict[sample][replicate]
-                    ):
-                        print_error(
-                            "Multiple runs of a sample must be of the same datatype!",
-                            "Group",
-                            sample,
-                        )
-                    ## Write to file
-                    for idx, sample_info in enumerate(sample_run_dict[sample][replicate]):
-                        sample_id = "{}_R{}_T{}".format(sample, replicate, idx + 1)
-                        fout.write(",".join([sample_id] + sample_info) + "\n")
+            if len(sampleRunDict[sample]) > 1:
+                for idx,val in enumerate(sampleRunDict[sample]):
+                    fout.write(','.join(["{}_T{}".format(sample,idx+1)] + val) + '\n')
+            else:
+                fout.write(','.join(["{}".format(sample)] + sampleRunDict[sample][0]) + '\n')
+        fout.close()
 
 
 def main(args=None):
     args = parse_args(args)
-    check_samplesheet(args.FILE_IN, args.FILE_OUT)
+    check_samplesheet(args.FILE_IN,args.FILE_OUT)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     sys.exit(main())

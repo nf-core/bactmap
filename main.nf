@@ -109,23 +109,10 @@ workflow {
      * SUBWORKFLOW: Read in samplesheet, validate and stage input files
      */
     INPUT_CHECK ( 
-        ch_input,
-        params.platform
+        ch_input
     )
-    .map {
-        meta, fastq ->
-            meta.id = meta.id.split('_')[0..-2].join('_')
-            [ meta, fastq ] 
-    }
-    .groupTuple(by: [0])
-    .branch {
-        meta, fastq ->
-            single  : fastq.size() == 1
-                return [ meta, fastq.flatten() ]
-            multiple: fastq.size() > 1
-                return [ meta, fastq.flatten() ]
-    }
-    .set { ch_fastq }
+
+    
 
     /*
      * MODULE: Run FastQC
