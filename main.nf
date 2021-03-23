@@ -80,6 +80,7 @@ include { GET_SOFTWARE_VERSIONS } from './modules/local/get_software_versions' a
 
 // Local: Sub-workflows
 include { INPUT_CHECK } from './modules/local/subworkflow/input_check' addParams( options: [:] )
+include { BAM_SORT_SAMTOOLS } from './modules/local/subworkflow/bam_sort_samtools' addParams( samtools_sort_options: modules['samtools_sort_options'], samtools_index_options : modules['samtools_index_options'], bam_stats_options: modules['bam_stats_options'])
 ////////////////////////////////////////////////////
 /* --    IMPORT NF-CORE MODULES/SUBWORKFLOWS   -- */
 ////////////////////////////////////////////////////
@@ -90,7 +91,9 @@ if (fastp_options.adapter_fasta){
 } else {
     ch_adapter_fasta = []
 }
-include { FASTP } from './modules/nf-core/software/fastp/main' addParams( options: fastp_options )
+include { FASTP     } from './modules/nf-core/software/fastp/main'     addParams( options: fastp_options )
+include { BWA_INDEX } from './modules/nf-core/software/bwa/index/main' addParams( options: modules['bwa_index'] )
+include { BWA_MEM } from './modules/nf-core/software/bwa/mem/main' addParams( options: modules['bwa_mem'] )
 
 ////////////////////////////////////////////////////
 /* --           RUN MAIN WORKFLOW              -- */
@@ -110,8 +113,12 @@ workflow {
         ch_input
     )
 
-    
-
+    /*
+     * MODULE: Run bwa index
+     */
+    BWA_INDEX (
+        ch_reference
+    )
     /*
      * MODULE: Run fastp
      */
@@ -121,9 +128,23 @@ workflow {
             ch_adapter_fasta
         )
         ch_software_versions = ch_software_versions.mix(FASTP.out.version.first().ifEmpty(null))
-
+        BWA_MEM (
+            FASTP.out.reads,
+            BWA_INDEX.out.index
+        ) 
+    } else {
+        BWA_MEM (
+            INPUT_CHECK.out.sample_info,
+            BWA_INDEX.out.index
+        )
     }
 
+    /*
+     * SUBWORKFLOW: Sort bam files
+     */
+    BAM_SORT_SAMTOOLS ( 
+        BWA_MEM.out.bam
+    )
     
 
     /*
