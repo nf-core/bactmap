@@ -34,8 +34,8 @@ process RASUSA {
     if (meta.single_end) {
         """
         rasusa \\
-            --coverage $depth_cutoff\\
-            --genome-size $genome_size\\
+            --coverage $depth_cutoff \\
+            --genome-size $genome_size \\
             --seed 23032021 \\
             --input $reads \\
             --output ${prefix}.fastq.gz \\
@@ -44,8 +44,8 @@ process RASUSA {
     } else {
         """
         rasusa \\
-            --coverage \\
-            --genome-size \\
+            --coverage $depth_cutoff \\
+            --genome-size $genome_size \\
             --seed 23032021 \\
             --input $reads \\
             --output ${prefix}_1.fastq.gz \\
