@@ -76,7 +76,7 @@ The nf-core/bactmap pipeline comes with documentation about the pipeline: [usage
 
 ## Credits
 
-nf-core/bactmap was originally written by Anthony Underwood.
+nf-core/bactmap was originally written by [Anthony Underwood](https://github.com/aunderwo).
 
 We thank the following people for their extensive assistance in the development
 of this pipeline:
