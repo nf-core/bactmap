@@ -24,8 +24,8 @@ process RAXMLNG {
 
     output:
     path "*.log", emit: raxml_log
-    path "*.rba", emit: binary_variant_alignment
-    path "*.rba", emit: phylogeny
+    path "*.rba", emit: binary_alignment
+    path "*.raxml.consensusTree", emit: phylogeny
     path "*.version.txt", emit: version
 
     script:
@@ -34,19 +34,14 @@ process RAXMLNG {
     raxml-ng --parse \\
         --msa $alignment \\
         --model GTR+G \\
-
-
-
     
-    raxml-ng --all
-    
-    
-    raxml-ng \\
-        --msa $variant_alignment \\
+    raxml-ng --all \\
+        --msa $binary_alignment
         --model GTR+G \\
-        --threads $task.cpus
-        --bs-trees 1000
-
+        --threads $task.cpus \\
+        --bs-trees 1000 \\
+        --prefix raxml-ng
+    
     echo \$(raxml-ng --version 2>&1) | sed 's/^.*RAxML-NG v. //; s/released.*\$//' > ${software}.version.txt
     """
 }

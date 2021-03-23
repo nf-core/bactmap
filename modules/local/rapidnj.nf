@@ -30,7 +30,9 @@ process RAPIDNJ {
     script:
     def software = getSoftwareName(task.process)
     """
-    python3.6 \\
+    //Not sure how we include python3.8 in the container?
+    
+    python3.8 \\
         -c 'from Bio import SeqIO; SeqIO.convert("$variant_alignment", "fasta", "aligned_pseudogenome.variants_only.sth", "stockholm")'
     
     rapidnj \\
