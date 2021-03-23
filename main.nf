@@ -79,11 +79,18 @@ multiqc_options.args += params.multiqc_title ? " --title \"$params.multiqc_title
 include { GET_SOFTWARE_VERSIONS } from './modules/local/get_software_versions' addParams( options: [publish_files : ['csv':'']] )
 
 // Local: Sub-workflows
-include { INPUT_CHECK           } from './modules/local/subworkflow/input_check'       addParams( options: [:]                          )
-
-// nf-core/modules: Modules
-include { FASTQC                } from './modules/nf-core/software/fastqc/main'        addParams( options: modules['fastqc']            )
-include { MULTIQC               } from './modules/nf-core/software/multiqc/main'       addParams( options: multiqc_options              )
+include { INPUT_CHECK } from './modules/local/subworkflow/input_check' addParams( options: [:] )
+////////////////////////////////////////////////////
+/* --    IMPORT NF-CORE MODULES/SUBWORKFLOWS   -- */
+////////////////////////////////////////////////////
+def fastp_options   = modules['fastp']
+if (fastp_options.adapter_fasta){
+    fastp_options.args +=" --adapter_fasta adapter.fasta"
+    ch_adapter_fasta = [ modules['fastp']['adapter_fasta'] ]
+} else {
+    ch_adapter_fasta = []
+}
+include { FASTP } from './modules/nf-core/software/fastp/main' addParams( options: fastp_options )
 
 ////////////////////////////////////////////////////
 /* --           RUN MAIN WORKFLOW              -- */
@@ -106,12 +113,17 @@ workflow {
     
 
     /*
-     * MODULE: Run FastQC
+     * MODULE: Run fastp
      */
-    FASTQC (
-        ch_fastq
-    )
-    ch_software_versions = ch_software_versions.mix(FASTQC.out.version.first().ifEmpty(null))
+    if (!params.no_trim){
+        FASTP (
+            INPUT_CHECK.out.sample_info,
+            ch_adapter_fasta
+        )
+        ch_software_versions = ch_software_versions.mix(FASTP.out.version.first().ifEmpty(null))
+
+    }
+
     
 
     /*
