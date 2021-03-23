@@ -41,6 +41,6 @@ process IQTREE {
     
     // Not sure this is correct!
     
-    echo \$(iqtree -version 2>&1) | sed 's/^.IQ-TREE multicore version //' > ${software}.version.txt
+    echo (iqtree -version 2>&1) | sed 's/^.IQ-TREE multicore version //' > ${software}.version.txt
     """
 }

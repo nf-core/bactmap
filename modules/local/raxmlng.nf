@@ -4,18 +4,18 @@ include { initOptions; saveFiles; getSoftwareName } from './functions'
 params.options = [:]
 options        = initOptions(params.options)
 
-process SNPSITES {
+process RAXMLNG {
     tag "$alignment"
     label 'process_medium'
     publishDir "${params.outdir}",
         mode: params.publish_dir_mode,
         saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:getSoftwareName(task.process), publish_id:'') }
 
-    conda (params.enable_conda ? "bioconda::snp-sites=2.5.1" : null)
+    conda (params.enable_conda ? "bioconda::raxml-ng:1.0.2" : null)
     if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
-        container "https://depot.galaxyproject.org/singularity/snp-sites:2.5.1--hed695b0_0"
+        container "https://depot.galaxyproject.org/singularity/raxml-ng:1.0.2--h7447c1b_0"
     } else {
-        container "quay.io/biocontainers/snp-sites:2.5.1--hed695b0_0"
+        container "quay.io/biocontainers/raxml-ng:1.0.2--h7447c1b_0"
     }
 
     input:
@@ -23,20 +23,30 @@ process SNPSITES {
     path alignment
 
     output:
-    
-    path "*.fas", emit: variant_alignment
-    path "*.sites.txt", emit constant_sites
+    path "*.log", emit: raxml_log
+    path "*.rba", emit: binary_variant_alignment
+    path "*.rba", emit: phylogeny
     path "*.version.txt", emit: version
 
     script:
     def software = getSoftwareName(task.process)
     """
-    snp-sites -c \\
-        $alignment \\
-        -o filtered_alignment.fas
-        -C \\
-        2>&1 constant.sites.txt    
+    raxml-ng --parse \\
+        --msa $alignment \\
+        --model GTR+G \\
+
+
+
     
-    echo (snp-sites -V 2>&1) | sed 's/snp-sites //' > ${software}.version.txt
+    raxml-ng --all
+    
+    
+    raxml-ng \\
+        --msa $variant_alignment \\
+        --model GTR+G \\
+        --threads $task.cpus
+        --bs-trees 1000
+
+    echo \$(raxml-ng --version 2>&1) | sed 's/^.*RAxML-NG v. //; s/released.*\$//' > ${software}.version.txt
     """
 }
