@@ -20,6 +20,7 @@ process FASTP {
 
     input:
     tuple val(meta), path(reads)
+    path "adapter.fasta"
 
     output:
     tuple val(meta), path('*.trim.fastq.gz'), emit: reads
