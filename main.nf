@@ -78,6 +78,7 @@ multiqc_options.args += params.multiqc_title ? " --title \"$params.multiqc_title
 // Local: Modules
 include { GET_SOFTWARE_VERSIONS } from './modules/local/get_software_versions' addParams( options: [publish_files : ['csv':'']] )
 include { VCF2PSEUDOGENOME      } from './modules/local/vcf2pseudogenome'      addParams( options: modules['vcf2pseudogenome'])
+include { ALIGNPSEUDOGENOMES } from './modules/local/alignpseudogenomes'      addParams( options: modules['alignpseudogenomes'])
 
 // Local: Sub-workflows
 include { INPUT_CHECK } from './modules/local/subworkflow/input_check' addParams( options: [:] )
@@ -166,6 +167,13 @@ workflow {
         ch_reference
     )
 
+    /*
+     * MODULE: make pseudogenome alignment
+     */
+    ALIGNPSEUDOGENOMES (
+        VCF2PSEUDOGENOME.out.pseudogenome.map { pseudogenome -> pseudogenome[1] }.collect(),
+        ch_reference
+    )
     /*
      * MODULE: Pipeline reporting
      */
