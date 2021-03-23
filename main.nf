@@ -77,6 +77,7 @@ multiqc_options.args += params.multiqc_title ? " --title \"$params.multiqc_title
 
 // Local: Modules
 include { GET_SOFTWARE_VERSIONS } from './modules/local/get_software_versions' addParams( options: [publish_files : ['csv':'']] )
+include { VCF2PSEUDOGENOME      } from './modules/local/vcf2pseudogenome'      addParams( options: modules['vcf2pseudogenome'])
 
 // Local: Sub-workflows
 include { INPUT_CHECK } from './modules/local/subworkflow/input_check' addParams( options: [:] )
@@ -156,6 +157,14 @@ workflow {
         ch_reference
     )
     
+
+    /*
+     * MODULE: Make pseudogenome from VCF
+     */
+    VCF2PSEUDOGENOME (
+        VARIANTS_BCFTOOLS.out.filtered_vcf,
+        ch_reference
+    )
 
     /*
      * MODULE: Pipeline reporting
