@@ -91,6 +91,7 @@ if (fastp_options.adapter_fasta){
     ch_adapter_fasta = []
 }
 include { FASTP } from './modules/nf-core/software/fastp/main' addParams( options: fastp_options )
+include { BWA_INDEX } from './modules/nf-core/software/bwa/index/main' addParams( options: modules['bwa_index'] )
 
 ////////////////////////////////////////////////////
 /* --           RUN MAIN WORKFLOW              -- */
@@ -110,8 +111,12 @@ workflow {
         ch_input
     )
 
-    
-
+    /*
+     * MODULE: Run bwa index
+     */
+    BWA_INDEX (
+        ch_reference
+    )
     /*
      * MODULE: Run fastp
      */
