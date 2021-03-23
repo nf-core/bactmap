@@ -81,6 +81,8 @@ include { GET_SOFTWARE_VERSIONS } from './modules/local/get_software_versions' a
 // Local: Sub-workflows
 include { INPUT_CHECK } from './modules/local/subworkflow/input_check' addParams( options: [:] )
 include { BAM_SORT_SAMTOOLS } from './modules/local/subworkflow/bam_sort_samtools' addParams( samtools_sort_options: modules['samtools_sort_options'], samtools_index_options : modules['samtools_index_options'], bam_stats_options: modules['bam_stats_options'])
+include { VARIANTS_BCFTOOLS } from './modules/local/subworkflow/variants_bcftools' addParams( bcftools_mpileup_options: modules['bcftools_mpileup_options'])
+
 ////////////////////////////////////////////////////
 /* --    IMPORT NF-CORE MODULES/SUBWORKFLOWS   -- */
 ////////////////////////////////////////////////////
@@ -144,6 +146,14 @@ workflow {
      */
     BAM_SORT_SAMTOOLS ( 
         BWA_MEM.out.bam
+    )
+
+       /*
+     * SUBWORKFLOW: Call variants
+     */
+    VARIANTS_BCFTOOLS ( 
+        BAM_SORT_SAMTOOLS.out.bam,
+        ch_reference
     )
     
 
