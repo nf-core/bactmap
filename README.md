@@ -27,9 +27,22 @@ On release, automated continuous integration tests run the pipeline on a full-si
 ## Pipeline summary
 
 <!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
-
-1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
-2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+1. Index reference fasta file ([`BWA index`](https://github.com/lh3/bwa))
+2. Adapter and read trimming (Optional) ([`fastp`](https://github.com/OpenGene/fastp))
+3. Estimate genome size ([`mash sketch`](https://mash.readthedocs.io/en/latest/index.html))
+4. Downsample fastq files ([`Rasusa`](https://github.com/mbhall88/rasusa))
+5. Variant calling
+    1. Read alignment ([`BWA mem`](https://github.com/lh3/bwa))
+    2. Sort and index alignments ([`SAMtools`](https://sourceforge.net/projects/samtools/files/samtools/))
+    3. Call and filter variants ([`BCFtools`](http://samtools.github.io/bcftools/bcftools.html))
+    4. Convert filtered bcf to pseudogenome fasta ([`filtered_bcf_to_fasta.py`]())
+6. Create alignment from pseudogenome fasta files ([`calculate_fraction_of_non_GATC_bases.py`]())
+7. Remove recombination (Optional) ([`Gubbins`](https://sanger-pathogens.github.io/gubbins/))
+8. Extract variant sites from alignment ([`SNP-sites`](https://github.com/sanger-pathogens/snp-sites))
+9. Construct phylogenetic tree (Optional)
+    1. Fast/less accurate ([`RapidNJ`](https://birc.au.dk/software/rapidnj/)/[`FastTree2`](http://www.microbesonline.org/fasttree/))
+    2. Slow/more accurate ([`IQ-tree`](http://www.iqtree.org/)/[`RAxML-NG`](https://github.com/amkozlov/raxml-ng))
+10. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
 
 ## Quick Start
 
@@ -52,7 +65,7 @@ On release, automated continuous integration tests run the pipeline on a full-si
     <!-- TODO nf-core: Update the example "typical command" below used to run the pipeline -->
 
     ```bash
-    nextflow run nf-core/bactmap -profile <docker/singularity/podman/conda/institute> --input samplesheet.csv --genome GRCh37
+    nextflow run nf-core/bactmap -profile <docker/singularity/podman/conda/institute> --input samplesheet.csv --reference NCTC13799.fna
     ```
 
 See [usage docs](https://nf-co.re/bactmap/usage) for all of the available options when running the pipeline.
@@ -69,6 +82,8 @@ We thank the following people for their extensive assistance in the development
 of this pipeline:
 
 * [Alexandre Gilardet](https://github.com/alexandregilardet)
+* [Andries J van Tonder](https://github.com/avantonder/)
+* [Thanh Le Viet](https://github.com/thanhleviet)
 
 <!-- TODO nf-core: If applicable, make list of people who have also contributed -->
 
