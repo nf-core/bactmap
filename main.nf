@@ -85,6 +85,7 @@ include { GUBBINS } from './modules/local/gubbins'      addParams( options: modu
 include { INPUT_CHECK       } from './modules/local/subworkflow/input_check'       addParams( options: [:] )
 include { BAM_SORT_SAMTOOLS } from './modules/local/subworkflow/bam_sort_samtools' addParams( samtools_sort_options: modules['samtools_sort'], samtools_index_options : modules['samtools_index'], bam_stats_options: modules['bam_stats'])
 include { VARIANTS_BCFTOOLS } from './modules/local/subworkflow/variants_bcftools' addParams( bcftools_mpileup_options: modules['bcftools_mpileup'], bcftools_filter_options: modules['bcftools_filter'])
+include { PHYLOGENIES } from './modules/local/subworkflow/phylogenies' addParams( fasttree_options: modules['fasttree'])
 
 ////////////////////////////////////////////////////
 /* --    IMPORT NF-CORE MODULES/SUBWORKFLOWS   -- */
@@ -184,6 +185,18 @@ workflow {
         )
     }
 
+    /*
+     * SUBWORKFLOW: Create phylogenies
+     */
+    if (params.remove_recombination){
+        PHYLOGENIES (
+            GUBBINS.out.filtered_variant_fasta
+        )
+    } else {
+        PHYLOGENIES (
+            ALIGNPSEUDOGENOMES.out.aligned_pseudogenomes
+        )
+    }
 
     /*
      * MODULE: Pipeline reporting

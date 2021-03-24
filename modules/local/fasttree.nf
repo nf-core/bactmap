@@ -29,17 +29,18 @@ process FASTTREE {
     script:
     def software = getSoftwareName(task.process)
     """
-    //Does the biocontainer come with both fasttree and fasttreeMP?
     
     FastTreeMP \\
         -gtr \\
         -gamma \\
         -fastest \\
         -nt $variant_alignment \\
-        2>&1 fasttree_phylogeny.tre
+        > fasttree_phylogeny.tre 2> fasttree_phylogeny.tre.log
     
-    //This needs to be checked
     
-    echo (iqtree 2>&1) | sed 's/^.Usage for FastTree version //' > ${software}.version.txt
+    echo '2.1.10' > ${software}.version.txt
     """
+    //Couldn't find an elegant way to echo the version
+    //Changed the way to redirect log to a file
+    //Is it really FastTreeMP or FastTree?
 }
