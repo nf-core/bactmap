@@ -136,12 +136,14 @@ workflow {
         BWA_MEM (
             FASTP.out.reads,
             BWA_INDEX.out.index
-        ) 
+        )
+        ch_software_versions = ch_software_versions.mix(BWA_MEM.out.version.first().ifEmpty(null))
     } else {
         BWA_MEM (
             INPUT_CHECK.out.sample_info,
             BWA_INDEX.out.index
         )
+        ch_software_versions = ch_software_versions.mix(BWA_MEM.out.version.first().ifEmpty(null))
     }
 
     /*
@@ -150,7 +152,7 @@ workflow {
     BAM_SORT_SAMTOOLS ( 
         BWA_MEM.out.bam
     )
-
+    ch_software_versions = ch_software_versions.mix(BAM_SORT_SAMTOOLS.out.samtools_version.first().ifEmpty(null))
     /*
      * SUBWORKFLOW: Call variants
      */
@@ -158,6 +160,7 @@ workflow {
         BAM_SORT_SAMTOOLS.out.bam,
         ch_reference
     )
+    ch_software_versions = ch_software_versions.mix(VARIANTS_BCFTOOLS.out.bcftools_version.first().ifEmpty(null))
 
     /*
      * MODULE: Make pseudogenome from VCF
@@ -166,6 +169,7 @@ workflow {
         VARIANTS_BCFTOOLS.out.filtered_vcf,
         ch_reference
     )
+    ch_software_versions = ch_software_versions.mix(VCF2PSEUDOGENOME.out.version.first().ifEmpty(null))
 
     /*
      * MODULE: make pseudogenome alignment
@@ -174,7 +178,7 @@ workflow {
         VCF2PSEUDOGENOME.out.pseudogenome.map { pseudogenome -> pseudogenome[1] }.collect(),
         ch_reference
     )
-
+    ch_software_versions = ch_software_versions.mix(ALIGNPSEUDOGENOMES.out.version.ifEmpty(null))
     /*
      * MODULE: remove recombination
      */
@@ -182,8 +186,8 @@ workflow {
         GUBBINS (
             ALIGNPSEUDOGENOMES.out.aligned_pseudogenomes
         )
+        ch_software_versions = ch_software_versions.mix(GUBBINS.out.version.ifEmpty(null))
     }
-
 
     /*
      * MODULE: Pipeline reporting

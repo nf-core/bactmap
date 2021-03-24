@@ -22,9 +22,9 @@ process ALIGNPSEUDOGENOMES {
     path reference
 
     output:
-    path "aligned_pseudogenomes.fas",      emit: aligned_pseudogenomes
+    path "aligned_pseudogenomes.fas",     emit: aligned_pseudogenomes
     path "low_quality_pseudogenomes.tsv", emit: low_quality_metrics
-    path "*.version.txt",       emit: version
+    path "*.version.txt",                 emit: version
 
     script: // This script is bundled with the pipeline, in nf-core/bactmap/bin/
     def software = getSoftwareName(task.process)
