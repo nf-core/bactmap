@@ -83,8 +83,8 @@ include { GUBBINS } from './modules/local/gubbins'      addParams( options: modu
 
 // Local: Sub-workflows
 include { INPUT_CHECK       } from './modules/local/subworkflow/input_check'       addParams( options: [:] )
-include { BAM_SORT_SAMTOOLS } from './modules/local/subworkflow/bam_sort_samtools' addParams( samtools_sort_options: modules['samtools_sort_options'], samtools_index_options : modules['samtools_index_options'], bam_stats_options: modules['bam_stats_options'])
-include { VARIANTS_BCFTOOLS } from './modules/local/subworkflow/variants_bcftools' addParams( bcftools_mpileup_options: modules['bcftools_mpileup_options'], bcftools_filter_options: modules['bcftools_filter_options'])
+include { BAM_SORT_SAMTOOLS } from './modules/local/subworkflow/bam_sort_samtools' addParams( samtools_sort_options: modules['samtools_sort'], samtools_index_options : modules['samtools_index'], bam_stats_options: modules['bam_stats'])
+include { VARIANTS_BCFTOOLS } from './modules/local/subworkflow/variants_bcftools' addParams( bcftools_mpileup_options: modules['bcftools_mpileup'], bcftools_filter_options: modules['bcftools_filter'])
 
 ////////////////////////////////////////////////////
 /* --    IMPORT NF-CORE MODULES/SUBWORKFLOWS   -- */
