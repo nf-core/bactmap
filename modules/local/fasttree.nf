@@ -5,7 +5,6 @@ params.options = [:]
 options        = initOptions(params.options)
 
 process FASTTREE {
-    tag "$variant_alignment"
     label 'process_medium'
     publishDir "${params.outdir}",
         mode: params.publish_dir_mode,
@@ -19,26 +18,25 @@ process FASTTREE {
     }
 
     input:
-    
-    path variant_alignment
+    path alignment
 
     output:
-    path "*.tre", emit: phylogeny
+    path "*.tre",         emit: phylogeny
     path "*.version.txt", emit: version
 
     script:
     def software = getSoftwareName(task.process)
     """
-    
-    FastTreeMP \\
+    fasttree \\
         -gtr \\
         -gamma \\
         -fastest \\
-        -nt $variant_alignment \\
-        > fasttree_phylogeny.tre 2> fasttree_phylogeny.tre.log
+        -log fasttree_phylogeny.tre.log \\
+        -nt $alignment \\
+        > fasttree_phylogeny.tre 
     
     
-    echo '2.1.10' > ${software}.version.txt
+    fasttree -help 2>&1 | head -1  | sed 's/^FastTree \\([0-9\\.]*\\) .*\$/\\1/' > ${software}.version.txt
     """
     //Couldn't find an elegant way to echo the version
     //Changed the way to redirect log to a file

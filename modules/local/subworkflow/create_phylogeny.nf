@@ -9,7 +9,7 @@ include { FASTTREE } from '../fasttree' addParams( options: params.fasttree_opti
 //include { IQTREE  } from  '../iqtree' addParams( options: params.iqtree_options )
 
 
-workflow PHYLOGENIES {
+workflow CREATE_PHYLOGENY {
     take:
     fasta     // channel: aligned pseudogenomes or filtered version
     
@@ -17,9 +17,9 @@ workflow PHYLOGENIES {
     /*
      * MODULE Fasttree
      */
-if (params.fasttree_options.build){
+    if (params.fasttree_options.build){
         FASTTREE ( fasta )
-}
+    }
     /*
      * MODULE Iqtree
      */
