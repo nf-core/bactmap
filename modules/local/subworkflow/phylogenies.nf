@@ -17,7 +17,9 @@ workflow PHYLOGENIES {
     /*
      * MODULE Fasttree
      */
-    FASTTREE ( fasta )
+if (params.fasttree_options.build){
+        FASTTREE ( fasta )
+}
     /*
      * MODULE Iqtree
      */
