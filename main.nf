@@ -178,9 +178,12 @@ workflow {
     /*
      * MODULE: remove recombination
      */
-    GUBBINS (
-        ALIGNPSEUDOGENOMES.out.aligned_pseudogenomes
-    )
+    if (params.remove_recombination){
+        GUBBINS (
+            ALIGNPSEUDOGENOMES.out.aligned_pseudogenomes
+        )
+    }
+
 
     /*
      * MODULE: Pipeline reporting
