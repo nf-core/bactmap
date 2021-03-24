@@ -5,7 +5,6 @@ params.options = [:]
 options        = initOptions(params.options)
 
 process GUBBINS {
-    tag "$aligned_pseudogenome"
     label 'process_medium'
     publishDir "${params.outdir}",
         mode: params.publish_dir_mode,
@@ -20,7 +19,7 @@ process GUBBINS {
 
     input:
     
-    path aligned_pseudogenome
+    path aligned_pseudogenomes
 
     output:
     path "*.fasta", emit: filtered_variant_fasta
@@ -41,8 +40,8 @@ process GUBBINS {
         --threads $task.cpus \\
         -v \\
         -t hybrid \\
-        $aligned_pseudogenome
+        $aligned_pseudogenomes
     
-    echo (run_gubbins.py --version 2>&1) > ${software}.version.txt
+    echo \$(run_gubbins.py --version 2>&1) > ${software}.version.txt
     """
 }

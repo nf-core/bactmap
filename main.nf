@@ -77,10 +77,15 @@ multiqc_options.args += params.multiqc_title ? " --title \"$params.multiqc_title
 
 // Local: Modules
 include { GET_SOFTWARE_VERSIONS } from './modules/local/get_software_versions' addParams( options: [publish_files : ['csv':'']] )
+include { VCF2PSEUDOGENOME      } from './modules/local/vcf2pseudogenome'      addParams( options: modules['vcf2pseudogenome'])
+include { ALIGNPSEUDOGENOMES } from './modules/local/alignpseudogenomes'      addParams( options: modules['alignpseudogenomes'])
+include { GUBBINS } from './modules/local/gubbins'      addParams( options: modules['gubbins'])
 
 // Local: Sub-workflows
-include { INPUT_CHECK } from './modules/local/subworkflow/input_check' addParams( options: [:] )
+include { INPUT_CHECK       } from './modules/local/subworkflow/input_check'       addParams( options: [:] )
 include { BAM_SORT_SAMTOOLS } from './modules/local/subworkflow/bam_sort_samtools' addParams( samtools_sort_options: modules['samtools_sort_options'], samtools_index_options : modules['samtools_index_options'], bam_stats_options: modules['bam_stats_options'])
+include { VARIANTS_BCFTOOLS } from './modules/local/subworkflow/variants_bcftools' addParams( bcftools_mpileup_options: modules['bcftools_mpileup_options'], bcftools_filter_options: modules['bcftools_filter_options'])
+
 ////////////////////////////////////////////////////
 /* --    IMPORT NF-CORE MODULES/SUBWORKFLOWS   -- */
 ////////////////////////////////////////////////////
@@ -145,7 +150,37 @@ workflow {
     BAM_SORT_SAMTOOLS ( 
         BWA_MEM.out.bam
     )
-    
+
+    /*
+     * SUBWORKFLOW: Call variants
+     */
+    VARIANTS_BCFTOOLS ( 
+        BAM_SORT_SAMTOOLS.out.bam,
+        ch_reference
+    )
+
+    /*
+     * MODULE: Make pseudogenome from VCF
+     */
+    VCF2PSEUDOGENOME (
+        VARIANTS_BCFTOOLS.out.filtered_vcf,
+        ch_reference
+    )
+
+    /*
+     * MODULE: make pseudogenome alignment
+     */
+    ALIGNPSEUDOGENOMES (
+        VCF2PSEUDOGENOME.out.pseudogenome.map { pseudogenome -> pseudogenome[1] }.collect(),
+        ch_reference
+    )
+
+    /*
+     * MODULE: remove recombination
+     */
+    GUBBINS (
+        ALIGNPSEUDOGENOMES.out.aligned_pseudogenomes
+    )
 
     /*
      * MODULE: Pipeline reporting
