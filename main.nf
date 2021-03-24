@@ -189,11 +189,11 @@ workflow {
      * SUBWORKFLOW: Create phylogenies
      */
     if (params.remove_recombination){
-        PHYLOGENIES (
+        CREATE_PHYLOGENY (
             GUBBINS.out.filtered_variant_fasta
         )
     } else {
-        PHYLOGENIES (
+        CREATE_PHYLOGENY (
             ALIGNPSEUDOGENOMES.out.aligned_pseudogenomes
         )
     }
