@@ -48,8 +48,6 @@
 * [samtools](https://www.ncbi.nlm.nih.gov/pubmed/19505943/)
   > Li H, Handsaker B, Wysoker A, Fennell T, Ruan J, Homer N, Marth G, Abecasis G, Durbin R; 1000 Genome Project Data Processing Subgroup. The Sequence Alignment/Map format and SAMtools. Bioinformatics. 2009 Aug 15;25(16):2078-9. doi: 10.1093/bioinformatics/btp352. Epub 2009 Jun 8. PubMed PMID: 19505943; PubMed Central PMCID: PMC2723002.
 
-* [seqtk](https://github.com/lh3/seqtk)
-
 * [SNP-sites](https://pubmed.ncbi.nlm.nih.gov/28348851/)
   > Page AJ, Taylor B, Delaney AJ, Soares J, Seemann T, Keane JA, Harris SR. SNP-sites: rapid efficient extraction of SNPs from multi-FASTA alignments. Microb Genom. 2016 Apr 29;2(4):e000056. doi: 10.1099/mgen.0.000056. PMID: 28348851; PMCID: PMC5320690.
 
