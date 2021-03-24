@@ -23,6 +23,7 @@ process MASH_SKETCH {
 
     output:
     tuple val(meta), path("*.msh"), emit: mash
+    tuple val(meta), path("*.mash_stats"), emit: stats
     path "*.version.txt"          , emit: version
 
     script:
@@ -34,7 +35,8 @@ process MASH_SKETCH {
         $options.args \\
         -p $task.cpus \\
         -o ${prefix} \\
-        -r $read
+        -r $read \\
+        2> ${prefix}.mash_stats
 
     mash --version > ${software}.version.txt
     """
