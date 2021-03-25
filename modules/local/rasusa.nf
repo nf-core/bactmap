@@ -5,7 +5,7 @@ params.options = [:]
 options        = initOptions(params.options)
 
 process RASUSA {
-    tag "$meta.id"
+    tag "$meta.id -> ${params.depth_cutoff}X"
     label 'process_medium'
     publishDir "${params.outdir}",
         mode: params.publish_dir_mode,
@@ -19,12 +19,10 @@ process RASUSA {
     }
 
     input:
-    tuple val(meta), path(reads)
-    val(depth_cutoff)
-    val(genome_size)
+    tuple val(meta), path(reads), val(genome_size)
     
     output:
-    tuple val(meta), path('*.fastq.gz'), emit: reads
+    tuple val(meta), path('*X.fastq.gz'), emit: reads
     path '*.version.txt'               , emit: version
 
     script:
@@ -34,22 +32,23 @@ process RASUSA {
     if (meta.single_end) {
         """
         rasusa \\
-            --coverage $depth_cutoff \\
+            $options.args \\
+            --coverage $params.depth_cutoff \\
             --genome-size $genome_size \\
-            --seed 23032021 \\
             --input $reads \\
-            --output ${prefix}.fastq.gz \\
+            --output ${prefix}.${params.depth_cutoff}X.fastq.gz
+        
         echo \$(rasusa --version 2>&1) | sed -e "s/rasusa //g" > ${software}.version.txt
         """
     } else {
         """
         rasusa \\
-            --coverage $depth_cutoff \\
+            $options.args \\
+            --coverage $params.depth_cutoff \\
             --genome-size $genome_size \\
-            --seed 23032021 \\
             --input $reads \\
-            --output ${prefix}_1.fastq.gz \\
-            --output ${prefix}_2.fastq.gz \\
+            --output ${prefix}_1.${params.depth_cutoff}X.fastq.gz ${prefix}_2.${params.depth_cutoff}X.fastq.gz
+
         echo \$(rasusa --version 2>&1) | sed -e "s/fastp //g" > ${software}.version.txt
         """
     }

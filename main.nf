@@ -83,9 +83,16 @@ include { GUBBINS } from './modules/local/gubbins'      addParams( options: modu
 
 // Local: Sub-workflows
 include { INPUT_CHECK       } from './modules/local/subworkflow/input_check'       addParams( options: [:] )
+
 include { BAM_SORT_SAMTOOLS } from './modules/local/subworkflow/bam_sort_samtools' addParams( samtools_sort_options: modules['samtools_sort'], samtools_index_options : modules['samtools_index'], bam_stats_options: modules['bam_stats'])
+
 include { VARIANTS_BCFTOOLS } from './modules/local/subworkflow/variants_bcftools' addParams( bcftools_mpileup_options: modules['bcftools_mpileup'], bcftools_filter_options: modules['bcftools_filter'])
+
+include { SUB_SAMPLING } from './modules/local/subworkflow/sub_sampling' addParams(mash_sketch_options: modules['mash_sketch'], rasusa_options: modules['rasusa'])
+
 include { CREATE_PHYLOGENY } from './modules/local/subworkflow/create_phylogeny' addParams( fasttree_options: modules['fasttree'])
+
+include { find_genome_size } from './modules/local/functions.nf'
 
 ////////////////////////////////////////////////////
 /* --    IMPORT NF-CORE MODULES/SUBWORKFLOWS   -- */
@@ -134,19 +141,18 @@ workflow {
             ch_adapter_fasta
         )
         ch_software_versions = ch_software_versions.mix(FASTP.out.version.first().ifEmpty(null))
-        BWA_MEM (
-            FASTP.out.reads,
-            BWA_INDEX.out.index
-        )
-        ch_software_versions = ch_software_versions.mix(BWA_MEM.out.version.first().ifEmpty(null))
+        ch_reads = FASTP.out.reads
     } else {
-        BWA_MEM (
-            INPUT_CHECK.out.sample_info,
-            BWA_INDEX.out.index
-        )
-        ch_software_versions = ch_software_versions.mix(BWA_MEM.out.version.first().ifEmpty(null))
+        ch_reads = INPUT_CHECK.out.sample_info
     }
 
+    SUB_SAMPLING(ch_reads)
+
+    BWA_MEM (
+            SUB_SAMPLING.out.reads,
+            BWA_INDEX.out.index
+        )
+        ch_software_versions = ch_software_versions.mix(BWA_MEM.out.version.first().ifEmpty(null))
     /*
      * SUBWORKFLOW: Sort bam files
      */
