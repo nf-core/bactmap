@@ -39,12 +39,12 @@ workflow SUB_SAMPLING {
         //Create a value channel for genome size
         ch_genome_size = Channel.from(params.genome_size)
         
-        joined = MASH_SKETCH.out.stats.combine(ch_genome_size)
+        joined = reads.combine(ch_genome_size)
     }
         //Sub sampling give a depth cutoff and genome size
         RASUSA(joined)
 
     emit:
     reads     = RASUSA.out.reads      // channel: [ reads ]
-    version   = MASH_SKETCH.out.version.mix(RASUSA.out.version.first().ifEmpty(null)) //    path: *.version.txt
+    version   = params.genome_size ? RASUSA.out.version : MASH_SKETCH.out.version.mix(RASUSA.out.version.first().ifEmpty(null)) //    path: *.version.txt
 }
