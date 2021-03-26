@@ -80,6 +80,7 @@ include { GET_SOFTWARE_VERSIONS } from './modules/local/get_software_versions' a
 include { VCF2PSEUDOGENOME      } from './modules/local/vcf2pseudogenome'      addParams( options: modules['vcf2pseudogenome'])
 include { ALIGNPSEUDOGENOMES } from './modules/local/alignpseudogenomes'      addParams( options: modules['alignpseudogenomes'])
 include { GUBBINS } from './modules/local/gubbins'      addParams( options: modules['gubbins'])
+include { SNPSITES } from './modules/local/snpsites'      addParams( options: modules['snpsites'])
 
 // Local: Sub-workflows
 include { INPUT_CHECK       } from './modules/local/subworkflow/input_check'       addParams( options: [:] )
@@ -206,7 +207,7 @@ workflow {
      */
     if (params.remove_recombination){
         GUBBINS (
-            ALIGNPSEUDOGENOMES.out.aligned_pseudogenomes
+            aligned_pseudogenomes
         )
         ch_software_versions = ch_software_versions.mix(GUBBINS.out.version.ifEmpty(null))
     }
@@ -219,8 +220,12 @@ workflow {
             GUBBINS.out.filtered_variant_fasta
         )
     } else {
+        SNPSITES(
+            aligned_pseudogenomes
+        )
+        ch_software_versions = ch_software_versions.mix(SNPSITES.out.version.ifEmpty(null))
         CREATE_PHYLOGENY (
-            ALIGNPSEUDOGENOMES.out.aligned_pseudogenomes
+            SNPSITES.out.variant_only_alignment
         )
     }
     ch_software_versions = ch_software_versions.mix(CREATE_PHYLOGENY.out.fasttree_version.ifEmpty(null))

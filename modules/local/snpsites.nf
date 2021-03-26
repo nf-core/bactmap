@@ -5,7 +5,6 @@ params.options = [:]
 options        = initOptions(params.options)
 
 process SNPSITES {
-    tag "$alignment"
     label 'process_medium'
     publishDir "${params.outdir}",
         mode: params.publish_dir_mode,
@@ -24,19 +23,23 @@ process SNPSITES {
 
     output:
     
-    path "*.fas", emit: variant_alignment
-    path "*.sites.txt", emit constant_sites
+    path "aligned_pseudogenomes.variants_only.fas", emit: variant_only_alignment
+    path "*.sites.txt", emit: constant_sites
     path "*.version.txt", emit: version
 
     script:
     def software = getSoftwareName(task.process)
     """
-    snp-sites -c \\
-        $alignment \\
-        -o filtered_alignment.fas
+    # output alignment with variant sites only
+    snp-sites \\
+        -o aligned_pseudogenomes.variants_only.fas \\
+        $alignment
+    # output constant sites
+    snp-sites \\
         -C \\
-        2>&1 constant.sites.txt    
+        -o constant.sites.txt \\
+        $alignment
     
-    echo (snp-sites -V 2>&1) | sed 's/snp-sites //' > ${software}.version.txt
+    echo \$(snp-sites -V 2>&1) | sed 's/snp-sites //' > ${software}.version.txt
     """
 }
