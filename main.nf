@@ -186,6 +186,21 @@ workflow {
         ch_reference
     )
     ch_software_versions = ch_software_versions.mix(ALIGNPSEUDOGENOMES.out.version.ifEmpty(null))
+    ALIGNPSEUDOGENOMES.out.aligned_pseudogenomes
+        .branch { 
+            aligned_pseudogenomes ->
+            ALIGNMENT_NUM_PASS: aligned_pseudogenomes[0].toInteger() >= 4
+            ALIGNMENT_NUM_FAIL: aligned_pseudogenomes[0].toInteger() < 4
+        }
+        .set { aligned_pseudogenomes_branch }
+    
+    // Don't proceeed further if two few genonmes
+    aligned_pseudogenomes_branch.ALIGNMENT_NUM_FAIL.view { "Insufficient (${it[0]}) genomes after filtering to continue. Check results/pseudogenomes/low_quality_pseudogenomes.tsv for details"}
+
+    aligned_pseudogenomes_branch.ALIGNMENT_NUM_PASS
+        .map{ it[1] }
+        .set { aligned_pseudogenomes }
+    
     /*
      * MODULE: remove recombination
      */
@@ -208,6 +223,7 @@ workflow {
             ALIGNPSEUDOGENOMES.out.aligned_pseudogenomes
         )
     }
+    ch_software_versions = ch_software_versions.mix(CREATE_PHYLOGENY.out.fasttree_version.ifEmpty(null))
 
     /*
      * MODULE: Pipeline reporting

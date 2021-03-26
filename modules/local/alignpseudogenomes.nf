@@ -22,9 +22,9 @@ process ALIGNPSEUDOGENOMES {
     path reference
 
     output:
-    path "aligned_pseudogenomes.fas",     emit: aligned_pseudogenomes
-    path "low_quality_pseudogenomes.tsv", emit: low_quality_metrics
-    path "*.version.txt",                 emit: version
+    tuple env(NUM_ALIGNMENT_GENOMES), path("aligned_pseudogenomes.fas"), emit: aligned_pseudogenomes
+    path "low_quality_pseudogenomes.tsv",                                emit: low_quality_metrics
+    path "*.version.txt",                                                emit: version
 
     script: // This script is bundled with the pipeline, in nf-core/bactmap/bin/
     def software = getSoftwareName(task.process)
@@ -41,6 +41,8 @@ process ALIGNPSEUDOGENOMES {
         fi
     done
     cat ${reference} >> aligned_pseudogenomes.fas
+
+    NUM_ALIGNMENT_GENOMES=\$(grep -c ">" aligned_pseudogenomes.fas)
 
     echo '1.0' > ${software}.version.txt
     """
