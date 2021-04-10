@@ -5,7 +5,7 @@
 params.fasttree_options    = [:]
 //params.iqtree_options    = [:]
 
-include { FASTTREE } from '../fasttree' addParams( options: params.fasttree_options )
+include { FASTTREE } from '../../nf-core/software/fasttree/main' addParams( options: params.fasttree_options )
 //include { IQTREE  } from  '../iqtree' addParams( options: params.iqtree_options )
 
 
