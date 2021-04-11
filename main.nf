@@ -78,20 +78,16 @@ multiqc_options.args += params.multiqc_title ? " --title \"$params.multiqc_title
 // Local: Modules
 include { GET_SOFTWARE_VERSIONS } from './modules/local/get_software_versions' addParams( options: [publish_files : ['csv':'']] )
 include { VCF2PSEUDOGENOME      } from './modules/local/vcf2pseudogenome'      addParams( options: modules['vcf2pseudogenome'])
-include { ALIGNPSEUDOGENOMES } from './modules/local/alignpseudogenomes'      addParams( options: modules['alignpseudogenomes'])
-include { GUBBINS } from './modules/local/gubbins'      addParams( options: modules['gubbins'])
-include { SNPSITES } from './modules/local/snpsites'      addParams( options: modules['snpsites'])
+include { ALIGNPSEUDOGENOMES } from './modules/local/alignpseudogenomes'       addParams( options: modules['alignpseudogenomes'])
+include { GUBBINS } from './modules/local/gubbins'                             addParams( options: modules['gubbins'])
+include { SNPSITES } from './modules/nf-core/software/snpsites/main'           addParams( options: modules['snpsites'])
 
 // Local: Sub-workflows
 include { INPUT_CHECK       } from './modules/local/subworkflow/input_check'       addParams( options: [:] )
-
 include { BAM_SORT_SAMTOOLS } from './modules/local/subworkflow/bam_sort_samtools' addParams( samtools_sort_options: modules['samtools_sort'], samtools_index_options : modules['samtools_index'], bam_stats_options: modules['bam_stats'])
-
 include { VARIANTS_BCFTOOLS } from './modules/local/subworkflow/variants_bcftools' addParams( bcftools_mpileup_options: modules['bcftools_mpileup'], bcftools_filter_options: modules['bcftools_filter'])
-
-include { SUB_SAMPLING } from './modules/local/subworkflow/sub_sampling' addParams(mash_sketch_options: modules['mash_sketch'], rasusa_options: modules['rasusa'])
-
-include { CREATE_PHYLOGENY } from './modules/local/subworkflow/create_phylogeny' addParams( fasttree_options: modules['fasttree'])
+include { SUB_SAMPLING } from './modules/local/subworkflow/sub_sampling'           addParams(mash_sketch_options: modules['mash_sketch'], rasusa_options: modules['rasusa'])
+include { CREATE_PHYLOGENY } from './modules/local/subworkflow/create_phylogeny'   addParams( fasttree_options: modules['fasttree'])
 
 include { find_genome_size } from './modules/local/functions.nf'
 
@@ -223,9 +219,10 @@ workflow {
         SNPSITES(
             aligned_pseudogenomes
         )
+        SNPSITES.out.constant_sites_string.view()
         ch_software_versions = ch_software_versions.mix(SNPSITES.out.version.ifEmpty(null))
         CREATE_PHYLOGENY (
-            SNPSITES.out.variant_only_alignment
+            SNPSITES.out.fasta
         )
     }
     ch_software_versions = ch_software_versions.mix(CREATE_PHYLOGENY.out.fasttree_version.ifEmpty(null))
