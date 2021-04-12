@@ -1,12 +1,11 @@
 /*
- * Phylogenies subworkflow
+ * Sub-sampling subworkflow
  */
+params.mash_sketch_options    = [:]
+params.rasusa_options    = [:]
 
-params.fasttree_options    = [:]
-//params.iqtree_options    = [:]
-
-include { MASH_SKETCH } from '../mash_sketch' addParams( mash_sketch: params.mash_sketch_options )
-include { RASUSA } from '../rasusa' addParams( options: params.rasusa_options)
+include { MASH_SKETCH } from '../../nf-core/software/mash/sketch/main' addParams( mash_sketch: params.mash_sketch_options )
+include { RASUSA } from '../../nf-core/software/rasusa/main'           addParams( options: params.rasusa_options)
 include { find_genome_size } from '../functions'
 
 
@@ -18,31 +17,17 @@ workflow SUB_SAMPLING {
     main:
     
     //If genome size is not defined
-    if (!params.genome_size) {
-         MASH_SKETCH (
+    if (params.genome_size) {
+        reads_and_genome_size = reads.combine([params.genome_size])
+    } else {
+        MASH_SKETCH (
             reads
         )
-
-        ch_genome_size = MASH_SKETCH.out.stats.map { meta, file -> find_genome_size(meta.id, file.text)}
-    
-        // INPUT_CHECK.out.sample_info.view()
-    
-        // ch_genome_size.view()
-        //TO-DO: May need to find neater way 
-        joined = reads
-                      .map{it -> tuple(it[0].id,it[0],it[1])}
-                      .join(ch_genome_size)
-                      .map{it -> tuple(it[1],it[2],it[3])}
-        // joined.view()
-    
-    } else {
-        //Create a value channel for genome size
-        ch_genome_size = Channel.from(params.genome_size)
+        genome_size = MASH_SKETCH.out.stats.map { meta, file -> [meta, find_genome_size(file.text)]}
+        reads_and_genome_size = reads.combine(genome_size, by: 0)
         
-        joined = reads.combine(ch_genome_size)
     }
-        //Sub sampling give a depth cutoff and genome size
-        RASUSA(joined)
+    RASUSA(reads_and_genome_size, params.depth_cutoff)
 
     emit:
     reads     = RASUSA.out.reads      // channel: [ reads ]
