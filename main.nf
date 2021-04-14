@@ -233,8 +233,10 @@ workflow {
             SNPSITES.out.constant_sites_string
         )
     }
+    ch_software_versions = ch_software_versions.mix(CREATE_PHYLOGENY.out.rapidnj_version.ifEmpty(null))
     ch_software_versions = ch_software_versions.mix(CREATE_PHYLOGENY.out.fasttree_version.ifEmpty(null))
     ch_software_versions = ch_software_versions.mix(CREATE_PHYLOGENY.out.iqtree_version.ifEmpty(null))
+    ch_software_versions = ch_software_versions.mix(CREATE_PHYLOGENY.out.raxmlng_version.ifEmpty(null))
 
     /*
      * MODULE: Pipeline reporting
