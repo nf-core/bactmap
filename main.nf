@@ -105,7 +105,7 @@ if (fastp_options.adapter_fasta){
 }
 include { FASTP     } from './modules/nf-core/software/fastp/main'     addParams( options: fastp_options )
 include { BWA_INDEX } from './modules/nf-core/software/bwa/index/main' addParams( options: modules['bwa_index'] )
-include { BWA_MEM } from './modules/nf-core/software/bwa/mem/main'     addParams( options: modules['bwa_mem'] )
+include { BWA_MEM   } from './modules/nf-core/software/bwa/mem/main'   addParams( options: modules['bwa_mem'] )
 
 ////////////////////////////////////////////////////
 /* --           RUN MAIN WORKFLOW              -- */
