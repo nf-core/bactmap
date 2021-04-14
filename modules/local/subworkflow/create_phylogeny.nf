@@ -21,37 +21,52 @@ workflow CREATE_PHYLOGENY {
     /*
     * MODULE rapidnj
     */
+    rapidnj_tree = Channel.empty()
+    rapidnj_version = null
     if (params.rapidnj_options.build){
         RAPIDNJ(fasta)
+        rapidnj_tree = RAPIDNJ.out.phylogeny
+        rapidnj_version = RAPIDNJ.out.version
     }
     /*
      * MODULE fasttree
      */
+    fasttree_tree = Channel.empty()
+    fasttree_version = null
     if (params.fasttree_options.build){
         FASTTREE(fasta)
+        fasttree_tree = FASTTREE.out.phylogeny
+        fasttree_version = FASTTREE.out.version
     }
+
     /*
      * MODULE iqtree
      */
+    iqtree_tree = Channel.empty()
+    iqtree_version = null
     if (params.iqtree_options.build){
         IQTREE(fasta, constant_sites_string)
+        iqtree_tree = IQTREE.out.phylogeny
+        iqtree_version = IQTREE.out.version
     }
     /*
      * MODULE raxmlng
      */
+    raxmlng_tree = Channel.empty()
+    raxmlng_version = null
     if (params.raxmlng_options.build){
         RAXMLNG(fasta)
+        raxmlng_tree = RAXMLNG.out.phylogeny
+        raxmlng_version = RAXMLNG.out.version
     }
 
     emit:
-    rapidnj_tree      = RAPIDNJ.out.phylogeny  // channel: [ phylogeny ]
-    fasttree_tree     = FASTTREE.out.phylogeny // channel: [ phylogeny ]
-    iqtree_tree       = IQTREE.out.phylogeny   // channel: [ phylogeny ]
-    raxmlng_tree      = RAXMLNG.out.phylogeny  // channel: [ phylogeny ]
-    rapidnj_version   = RAPIDNJ.out.version    // path: *.version.txt
-    fasttree_version  = FASTTREE.out.version   // path: *.version.txt
-    iqtree_version    = IQTREE.out.version     // path: *.version.txt
-    raxmlng_version   = RAXMLNG.out.version    // path: *.version.txt
-
-
+    rapidnj_tree      = rapidnj_tree     // channel: [ phylogeny ]
+    fasttree_tree     = fasttree_tree    // channel: [ phylogeny ]
+    iqtree_tree       = iqtree_tree      // channel: [ phylogeny ]
+    raxmlng_tree      = raxmlng_tree     // channel: [ phylogeny ]
+    rapidnj_version   = rapidnj_version  // path: *.version.txt
+    fasttree_version  = fasttree_version // path: *.version.txt
+    iqtree_version    = iqtree_version   // path: *.version.txt
+    raxmlng_version   = raxmlng_version  // path: *.version.txt
 }
