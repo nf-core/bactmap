@@ -34,7 +34,7 @@ process ALIGNPSEUDOGENOMES {
     for pseudogenome in ${pseudogenomes}
     do
         fraction_non_GATC_bases=\$(calculate_fraction_of_non_GATC_bases.py -f \$pseudogenome | tr -d '\\n')
-        if [[ 1 -eq "\$(echo "\$fraction_non_GATC_bases < ${params.options.non_GATC_threshold}" | bc)" ]]; then
+        if awk 'BEGIN { exit !(\$fraction_non_GATC_bases < ${params.options.non_GATC_threshold}) }'; then
             cat \$pseudogenome >> aligned_pseudogenomes.fas
         else
             echo "\$pseudogenome\t\$fraction_non_GATC_bases" >> low_quality_pseudogenomes.tsv
