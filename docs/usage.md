@@ -6,7 +6,7 @@
 
 ## Introduction
 
-<!-- TODO nf-core: Add documentation about anything specific to running your pipeline. For general topics, please point to (and add to) the main nf-core website. -->
+This pipeline maps short reads (usually Illumina) to a bacterial reference (usually of the same species and the closest high quality genome available). For this purpose you will require a set of paired read files (single read file version coming in future version) and a reference genome in fasta format. The read file pairs are specified in a sample sheet  
 
 ## Samplesheet input
 
@@ -81,6 +81,41 @@ results         # Finished results (configurable, see below)
 .nextflow_log   # Log file from Nextflow
 # Other nextflow hidden files, eg. history of pipeline runs and old logs.
 ```
+
+### Optional parameters
+1. Index the reference sequence using [`bwa index`](https://github.com/lh3/bwa)
+2. (Optionally if `params.trim` is set) trim reads using [`fastp`](https://github.com/OpenGene/fastp). The default trimming parameters are
+
+   ```console
+   --cut_front --cut_tail --trim_poly_x --cut_mean_quality 30 --qualified_quality_phred 30 --unqualified_percent_limit 10 --length_required 50
+   ```
+
+3. (Optionally if `params.depth_cutoff` is set) downsample to the reads based on estimated genome size using [`mash sketch`](https://github.com/marbl/Mash) and the required depth of coverage as set by the `depth_cutoff` params using [`rasusa`](https://github.com/mbhall88/rasusa)
+4. Map reads to the indexed reference genome using [`bwa mem`](https://github.com/lh3/bwa) to produce a bam file
+5. Sort the bam file using [`samtools`](http://www.htslib.org/doc/samtools.html)
+6. Call variants using [`bcftools mpileup`](http://samtools.github.io/bcftools/bcftools.html). A minimum base quality of 20 is used for pre-filtering and the following fields are included in the resulting VCF file `FORMAT/AD,FORMAT/ADF,FORMAT/ADR,FORMAT/DP,FORMAT/SP,INFO/AD,INFO/ADF,INFO/ADR`. A haploid and multiallelic model is assumed. These defaults can be overridden using the `modules.bcftools_mpileup` params. The defaults are:
+
+    ```console
+    args  = '--min-BQ 20 --annotate FORMAT/AD,FORMAT/ADF,FORMAT/ADR,FORMAT/DP,FORMAT/SP,INFO/AD,INFO/ADF,INFO/ADR'
+    args2 = '--ploidy 1 --multiallelic-caller'
+    ```
+
+7. Variants are filtered using [`bcftools filter`](http://samtools.github.io/bcftools/bcftools.html). The defaults params in `modules.bcftools_filter` are:
+
+    ```console
+    args = '--soft-filter LowQual --exclude "%QUAL<25 || FORMAT/DP<10 || MAX(FORMAT/ADF)<2 || MAX(FORMAT/ADR)<2 || MAX(FORMAT/AD)/SUM(FORMAT/DP)<0.9 || MQ<30 || MQ0F>0.1" --output-type z'
+    ```
+
+    There will be a row in filtered VCF file for each position in the reference genome. The position will either have value in the FILTER column of either `PASS` or `LowQual`.
+8. Use the filtered VCF to create a pseudogenome based on the reference genome using the [`vcf2pseudogenome.py script`](https://github.com/nf-core/bactmap/blob/dev/bin/vcf2pseudogenome.py). The base in a sample at a position where the VCF file row that has `PASS` in FILTER will be either ref or alt and the appropriate base will be encoded at that position. The base in a sample at a position where the VCF file row that has `LowQual` in FILTER is uncertain will be encoded as a `N` character. Missing data will be encoded as a `-` character.
+9. All samples pseudogenomes and the original reference sequence will concatenated together to produce a flush alignment where all the sequence for all samples at all positions in the original reference sequence will be one of `{G,A,T,C,N,-}`. This alignment can be used for other downstream processes such as phylogeny generation.
+10. Optionally this alignment can be processed to produce a phylogeny as part of this pipeline. The number of constant sites in the alignment will be determined using [`snp-sites`](https://github.com/sanger-pathogens/snp-sites).
+11. (Optionally if `params.remove_recombination` is set) remove regions likely to have been acquired by horizontal transfer and recombination and therefore perturb the true phylogeny using [`gubbins`](https://sanger-pathogens.github.io/gubbins/). This should only be run on sets of samples that are closely related and not for example on a set of samples that have diversity spanning that of the entire species.
+12. Depending on the params set, run 0 - 4 tree building algorithms.
+    * `params.modules.rapidnj.build = true` Build a neighbour-joining pylogeny using [`rapidnj`](https://birc.au.dk/software/rapidnj)
+    * `params.modules.fasttree.build = true` Build an approximately-maximum-likelihood phylogeny using [`FastTree`](http://www.microbesonline.org/fasttree)
+    * `params.modules.iqtree.build = true` Build a maximum-likelihood phylogeny using [`IQ-TREE`](http://www.iqtree.org)
+    * `params.modules.raxmlng.build = true` Build a maximum-likelihood phylogeny using [`RAxML Next Generation`](https://github.com/amkozlov/raxml-ng)
 
 ### Updating the pipeline
 
