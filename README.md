@@ -16,12 +16,10 @@
 
 ## Introduction
 
-<!-- TODO nf-core: Write a 1-2 sentence summary of what data the pipeline is for and what it does -->
-**nf-core/bactmap** is a bioinformatics best-practise analysis pipeline. A mapping-based pipeline for creating a phylogeny from bacterial whole genome sequences
+**nf-core/bactmap** is a bioinformatics best-practise analysis pipeline for mapping short reads from bacterial WGS to a reference sequence, creating filtered VCF files, making pseudogenomes based on high quality positions in the VCF files and optionally reating a phylogeny from an alignment of the pseudogenomes.
 
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker / Singularity containers making installation trivial and results highly reproducible.
 
-<!-- TODO nf-core: Add full-sized test dataset and amend the paragraph below if applicable -->
 On release, automated continuous integration tests run the pipeline on a full-sized dataset on the AWS cloud infrastructure. This ensures that the pipeline runs on AWS, has sensible resource allocation defaults set to run on real-world datasets, and permits the persistent storage of results to benchmark between pipeline releases and other analysis sources. The results obtained from the full-sized test can be viewed on the [nf-core website](https://nf-co.re/bactmap/results).
 
 ## Pipeline summary
@@ -35,14 +33,13 @@ On release, automated continuous integration tests run the pipeline on a full-si
     1. Read alignment ([`BWA mem`](https://github.com/lh3/bwa))
     2. Sort and index alignments ([`SAMtools`](https://sourceforge.net/projects/samtools/files/samtools/))
     3. Call and filter variants ([`BCFtools`](http://samtools.github.io/bcftools/bcftools.html))
-    4. Convert filtered bcf to pseudogenome fasta ([`filtered_bcf_to_fasta.py`]())
-6. Create alignment from pseudogenome fasta files ([`calculate_fraction_of_non_GATC_bases.py`]())
+    4. Convert filtered bcf to pseudogenome fasta ([`vcf2pseudogenome.py`](https://github.com/nf-core/bactmap/blob/dev/bin/vcf2pseudogenome.py))
+6. Create alignment from pseudogenome by concatenating fasta files having first checked that the sample sequences are high quality([`calculate_fraction_of_non_GATC_bases.py`](https://github.com/nf-core/bactmap/blob/dev/bin/))
 7. Remove recombination (Optional) ([`Gubbins`](https://sanger-pathogens.github.io/gubbins/))
 8. Extract variant sites from alignment ([`SNP-sites`](https://github.com/sanger-pathogens/snp-sites))
 9. Construct phylogenetic tree (Optional)
-    1. Fast/less accurate ([`RapidNJ`](https://birc.au.dk/software/rapidnj/)/[`FastTree2`](http://www.microbesonline.org/fasttree/))
-    2. Slow/more accurate ([`IQ-tree`](http://www.iqtree.org/)/[`RAxML-NG`](https://github.com/amkozlov/raxml-ng))
-10. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+    1. Fast/less accurate (neighbour joining [`RapidNJ`](https://birc.au.dk/software/rapidnj/), approximate maximum likelihood [`FastTree2`](http://www.microbesonline.org/fasttree/))
+    2. Slow/more accurate, maximum likelihood ([`IQ-tree`](http://www.iqtree.org/)/[`RAxML-NG`](https://github.com/amkozlov/raxml-ng))
 
 ## Quick Start
 
@@ -65,7 +62,7 @@ On release, automated continuous integration tests run the pipeline on a full-si
     <!-- TODO nf-core: Update the example "typical command" below used to run the pipeline -->
 
     ```bash
-    nextflow run nf-core/bactmap -profile <docker/singularity/podman/conda/institute> --input samplesheet.csv --reference NCTC13799.fna
+    nextflow run nf-core/bactmap -profile <docker/singularity/podman/conda/institute> --input samplesheet.csv --reference chromosome.fasta
     ```
 
 See [usage docs](https://nf-co.re/bactmap/usage) for all of the available options when running the pipeline.
@@ -76,14 +73,13 @@ The nf-core/bactmap pipeline comes with documentation about the pipeline: [usage
 
 ## Credits
 
-nf-core/bactmap was originally written by [Anthony Underwood](https://github.com/aunderwo).
+nf-core/bactmap was originally written by [Anthony Underwood](https://github.com/aunderwo), [Adries Van Tonder](https://github.com/avantonder) and [Thanh Le Viet](https://github.com/thanhleviet).
 
 We thank the following people for their extensive assistance in the development
 of this pipeline:
 
 * [Alexandre Gilardet](https://github.com/alexandregilardet)
-* [Andries J van Tonder](https://github.com/avantonder/)
-* [Thanh Le Viet](https://github.com/thanhleviet)
+* [Harshil Patel](https://github.com/drpatelh)
 
 <!-- TODO nf-core: If applicable, make list of people who have also contributed -->
 

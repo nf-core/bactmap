@@ -5,11 +5,10 @@ params.options = [:]
 options        = initOptions(params.options)
 
 process SNPSITES {
-    tag "$alignment"
     label 'process_medium'
     publishDir "${params.outdir}",
         mode: params.publish_dir_mode,
-        saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:getSoftwareName(task.process), publish_id:'') }
+        saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:getSoftwareName(task.process), meta:[:], publish_by_meta:[]) }
 
     conda (params.enable_conda ? "bioconda::snp-sites=2.5.1" : null)
     if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
@@ -19,24 +18,25 @@ process SNPSITES {
     }
 
     input:
-
     path alignment
 
     output:
-    
-    path "*.fas", emit: variant_alignment
-    path "*.sites.txt", emit constant_sites
+    path "*.fas"        , emit: fasta
+    path "*.sites.txt"  , emit: constant_sites
     path "*.version.txt", emit: version
+    env   CONSTANT_SITES, emit: constant_sites_string
 
     script:
     def software = getSoftwareName(task.process)
     """
     snp-sites -c \\
         $alignment \\
-        -o filtered_alignment.fas
-        -C \\
-        2>&1 constant.sites.txt    
-    
-    echo (snp-sites -V 2>&1) | sed 's/snp-sites //' > ${software}.version.txt
+        > filtered_alignment.fas
+
+    echo \$(snp-sites -C $alignment) > constant.sites.txt
+
+    CONSTANT_SITES=\$(cat constant.sites.txt)
+
+    echo \$(snp-sites -V 2>&1) | sed 's/snp-sites //' > ${software}.version.txt
     """
 }

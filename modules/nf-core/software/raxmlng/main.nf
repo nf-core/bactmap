@@ -5,13 +5,12 @@ params.options = [:]
 options        = initOptions(params.options)
 
 process RAXMLNG {
-    tag "$alignment"
     label 'process_medium'
     publishDir "${params.outdir}",
         mode: params.publish_dir_mode,
-        saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:getSoftwareName(task.process), publish_id:'') }
+        saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:getSoftwareName(task.process), meta:[:], publish_by_meta:[]) }
 
-    conda (params.enable_conda ? "bioconda::raxml-ng:1.0.2" : null)
+    conda (params.enable_conda ? "bioconda::raxml-ng=1.0.2" : null)
     if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
         container "https://depot.galaxyproject.org/singularity/raxml-ng:1.0.2--h7447c1b_0"
     } else {
@@ -19,29 +18,26 @@ process RAXMLNG {
     }
 
     input:
-
     path alignment
 
     output:
-    path "*.log", emit: raxml_log
-    path "*.rba", emit: binary_alignment
-    path "*.raxml.consensusTree", emit: phylogeny
-    path "*.version.txt", emit: version
+    path "*.raxml.bestTree", emit: phylogeny
+    path "*.raxml.support" , optional:true, emit: phylogeny_bootstrapped
+    path "*.version.txt"   , emit: version
 
     script:
     def software = getSoftwareName(task.process)
+
+    if (options.args.contains('--bs-trees')) {
+        options.args = "--all ${options.args}"
+    }
     """
-    raxml-ng --parse \\
+    raxml-ng \\
+        $options.args \\
         --msa $alignment \\
-        --model GTR+G \\
-    
-    raxml-ng --all \\
-        --msa $binary_alignment
-        --model GTR+G \\
         --threads $task.cpus \\
-        --bs-trees 1000 \\
-        --prefix raxml-ng
-    
+        --prefix output
+
     echo \$(raxml-ng --version 2>&1) | sed 's/^.*RAxML-NG v. //; s/released.*\$//' > ${software}.version.txt
     """
 }

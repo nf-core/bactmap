@@ -5,11 +5,10 @@ params.options = [:]
 options        = initOptions(params.options)
 
 process FASTTREE {
-    tag "$variant_alignment"
     label 'process_medium'
     publishDir "${params.outdir}",
         mode: params.publish_dir_mode,
-        saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:getSoftwareName(task.process), publish_id:'') }
+        saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:getSoftwareName(task.process), meta:[:], publish_by_meta:[]) }
 
     conda (params.enable_conda ? "bioconda::fasttree=2.1.10" : null)
     if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
@@ -19,27 +18,21 @@ process FASTTREE {
     }
 
     input:
-    
-    path variant_alignment
+    path alignment
 
     output:
-    path "*.tre", emit: phylogeny
+    path "*.tre",         emit: phylogeny
     path "*.version.txt", emit: version
 
     script:
     def software = getSoftwareName(task.process)
     """
-    //Does the biocontainer come with both fasttree and fasttreeMP?
-    
-    FastTreeMP \\
-        -gtr \\
-        -gamma \\
-        -fastest \\
-        -nt $variant_alignment \\
-        2>&1 fasttree_phylogeny.tre
-    
-    //This needs to be checked
-    
-    echo (iqtree 2>&1) | sed 's/^.Usage for FastTree version //' > ${software}.version.txt
+    fasttree \\
+        $options.args \\
+        -log fasttree_phylogeny.tre.log \\
+        -nt $alignment \\
+        > fasttree_phylogeny.tre
+
+    echo \$(fasttree -help 2>&1) | head -1  | sed 's/^FastTree \\([0-9\\.]*\\) .*\$/\\1/' > ${software}.version.txt
     """
 }
