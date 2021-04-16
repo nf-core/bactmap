@@ -216,10 +216,16 @@
     ],
     "properties": {
         "trim": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": true
+        },
+        "save_trimmed_fail": {
+            "type": "boolean",
+            "default": false
         },
         "remove_recombination": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": false
         },
         "genome_size": {
             "type": "string"
