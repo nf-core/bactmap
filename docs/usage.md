@@ -83,6 +83,7 @@ results         # Finished results (configurable, see below)
 ```
 
 ### Optional parameters
+
 1. Index the reference sequence using [`bwa index`](https://github.com/lh3/bwa)
 2. (Optionally if `params.trim` is set) trim reads using [`fastp`](https://github.com/OpenGene/fastp). The default trimming parameters are
 
