@@ -134,7 +134,7 @@ workflow {
     /*
      * MODULE: Run fastp
      */
-    if (!params.no_trim){
+    if (params.trim){
         FASTP (
             INPUT_CHECK.out.sample_info,
             ch_adapter_fasta
