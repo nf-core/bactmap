@@ -16,20 +16,49 @@
 
 ## Introduction
 
-<!-- TODO nf-core: Write a 1-2 sentence summary of what data the pipeline is for and what it does -->
-**nf-core/bactmap** is a bioinformatics best-practise analysis pipeline. A mapping-based pipeline for creating a phylogeny from bacterial whole genome sequences
+**nf-core/bactmap** is a bioinformatics best-practise analysis pipeline for mapping short reads from bacterial WGS to a reference sequence, creating filtered VCF files, making pseudogenomes based on high quality positions in the VCF files and optionally reating a phylogeny from an alignment of the pseudogenomes.
 
 The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker / Singularity containers making installation trivial and results highly reproducible.
 
-<!-- TODO nf-core: Add full-sized test dataset and amend the paragraph below if applicable -->
 On release, automated continuous integration tests run the pipeline on a full-sized dataset on the AWS cloud infrastructure. This ensures that the pipeline runs on AWS, has sensible resource allocation defaults set to run on real-world datasets, and permits the persistent storage of results to benchmark between pipeline releases and other analysis sources. The results obtained from the full-sized test can be viewed on the [nf-core website](https://nf-co.re/bactmap/results).
 
 ## Pipeline summary
 
 <!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
 
-1. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/))
-2. Present QC for raw reads ([`MultiQC`](http://multiqc.info/))
+1. Index the reference sequence using [`bwa index`](https://github.com/lh3/bwa)
+2. (Optionally if `params.trim` is set) trim reads using [`fastp`](https://github.com/OpenGene/fastp). The default trimming parameters are
+
+   ```console
+   --cut_front --cut_tail --trim_poly_x --cut_mean_quality 30 --qualified_quality_phred 30 --unqualified_percent_limit 10 --length_required 50
+   ```
+
+3. (Optionally if `params.depth_cutoff` is set) downsample to the reads based on estimated genome size using [`mash sketch`](https://github.com/marbl/Mash) and the required depth of coverage as set by the `depth_cutoff` params using [`rasusa`](https://github.com/mbhall88/rasusa)
+4. Map reads to the indexed reference genome using [`bwa mem`](https://github.com/lh3/bwa) to produce a bam file
+5. Sort the bam file using [`samtools`](http://www.htslib.org/doc/samtools.html)
+6. Call variants using [`bcftools mpileup`](http://samtools.github.io/bcftools/bcftools.html). A minimum base quality of 20 is used for pre-filtering and the following fields are included in the resulting VCF file `FORMAT/AD,FORMAT/ADF,FORMAT/ADR,FORMAT/DP,FORMAT/SP,INFO/AD,INFO/ADF,INFO/ADR`. A haploid and multiallelic model is assumed. These defaults can be overridden using the `modules.bcftools_mpileup` params. The defaults are:
+
+    ```console
+    args  = '--min-BQ 20 --annotate FORMAT/AD,FORMAT/ADF,FORMAT/ADR,FORMAT/DP,FORMAT/SP,INFO/AD,INFO/ADF,INFO/ADR'
+    args2 = '--ploidy 1 --multiallelic-caller'
+    ```
+
+7. Variants are filtered using [`bcftools filter`](http://samtools.github.io/bcftools/bcftools.html). The defaults params in `modules.bcftools_filter` are:
+
+    ```console
+    args = '--soft-filter LowQual --exclude "%QUAL<25 || FORMAT/DP<10 || MAX(FORMAT/ADF)<2 || MAX(FORMAT/ADR)<2 || MAX(FORMAT/AD)/SUM(FORMAT/DP)<0.9 || MQ<30 || MQ0F>0.1" --output-type z'
+    ```
+
+    There will be a row in filtered VCF file for each position in the reference genome. The position will either have value in the FILTER column of either `PASS` or `LowQual`.
+8. Use the filtered VCF to create a pseudogenome based on the reference genome using the [`vcf2pseudogenome.py script`](https://github.com/nf-core/bactmap/blob/dev/bin/vcf2pseudogenome.py). The base in a sample at a position where the VCF file row that has `PASS` in FILTER will be either ref or alt and the appropriate base will be encoded at that position. The base in a sample at a position where the VCF file row that has `LowQual` in FILTER is uncertain will be encoded as a `N` character. Missing data will be encoded as a `-` character.
+9. All samples pseudogenomes and the original reference sequence will concatenated together to produce a flush alignment where all the sequence for all samples at all positions in the original reference sequence will be one of `{G,A,T,C,N,-}`. This alignment can be used for other downstream processes such as phylogeny generation.
+10. Optionally this alignment can be processed to produce a phylogeny as part of this pipeline. The number of constant sites in the alignment will be determined using [`snp-sites`](https://github.com/sanger-pathogens/snp-sites).
+11. (Optionally if `params.remove_recombination` is set) remove regions likely to have been acquired by horizontal transfer and recombination and therefore perturb the true phylogeny using [`gubbins`](https://sanger-pathogens.github.io/gubbins/). This should only be run on sets of samples that are closely related and not for example on a set of samples that have diversity spanning that of the entire species.
+12. Depending on the params set, run 0 - 4 tree building algorithms.
+    * `params.modules.rapidnj.build = true` Build a neighbour-joining pylogeny using [`rapidnj`](https://birc.au.dk/software/rapidnj)
+    * `params.modules.fasttree.build = true` Build an approximately-maximum-likelihood phylogeny using [`FastTree`](http://www.microbesonline.org/fasttree)
+    * `params.modules.iqtree.build = true` Build a maximum-likelihood phylogeny using [`IQ-TREE`](http://www.iqtree.org)
+    * `params.modules.raxmlng.build = true` Build a maximum-likelihood phylogeny using [`RAxML Next Generation`](https://github.com/amkozlov/raxml-ng)
 
 ## Quick Start
 
@@ -52,7 +81,7 @@ On release, automated continuous integration tests run the pipeline on a full-si
     <!-- TODO nf-core: Update the example "typical command" below used to run the pipeline -->
 
     ```bash
-    nextflow run nf-core/bactmap -profile <docker/singularity/podman/conda/institute> --input samplesheet.csv --genome GRCh37
+    nextflow run nf-core/bactmap -profile <docker/singularity/podman/conda/institute> --input samplesheet.csv --reference chromosome.fasta
     ```
 
 See [usage docs](https://nf-co.re/bactmap/usage) for all of the available options when running the pipeline.
@@ -63,14 +92,12 @@ The nf-core/bactmap pipeline comes with documentation about the pipeline: [usage
 
 ## Credits
 
-nf-core/bactmap was originally written by Anthony Underwood.
+nf-core/bactmap was originally written by [Anthony Underwood](https://github.com/aunderwo), [Adries Van Tonder](https://github.com/avantonder) and [Thanh Le Viet](https://github.com/thanhleviet).
 
 We thank the following people for their extensive assistance in the development
 of this pipeline:
 
-* [Alexandre Gilardet](https://github.com/alexandregilardet)
-
-<!-- TODO nf-core: If applicable, make list of people who have also contributed -->
+* [Harshil Patel](https://github.com/drpatelh)
 
 ## Contributions and Support
 

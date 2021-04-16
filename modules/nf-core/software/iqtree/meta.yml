@@ -1,5 +1,5 @@
 name: iqtree
-description: Produces a Newick format phylogeny from a multiple sequence alignment using the maxium likelihood algorithm. Capable of bacterial genome size alignments.
+description: Produces a Newick format phylogeny from a multiple sequence alignment using the maximum likelihood algorithm. Capable of bacterial genome size alignments.
 keywords:
   - phylogeny
   - newick
