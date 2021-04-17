@@ -20,6 +20,7 @@
   > Chen S, Zhou Y, Chen Y, Gu J. fastp: an ultra-fast all-in-one FASTQ preprocessor. Bioinformatics. 2018 Sep 1;34(17):i884-i890. doi: 10.1093/bioinformatics/bty560. PubMed PMID: 30423086; PubMed Central PMCID: PMC6129281.
 
 * [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+  > Andrews, S. 2019 Babraham Institute Bioinformatics Group
 
 * [FastTree2](https://pubmed.ncbi.nlm.nih.gov/20224823/)
   > Price MN, Dehal PS, Arkin AP. FastTree 2--approximately maximum-likelihood trees for large alignments. PLoS One. 2010 Mar 10;5(3):e9490. doi: 10.1371/journal.pone.0009490. PMID: 20224823; PMCID: PMC2835736.
