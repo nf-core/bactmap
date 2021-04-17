@@ -24,6 +24,8 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 ## Pipeline summary
 
+![Pipeline summary schematic](docs/images/Bactmap_pipeline.png)
+
 The pipeline in composed of the following steps
 
 1. Index reference fasta file ([`BWA index`](https://github.com/lh3/bwa))
