@@ -24,13 +24,14 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 ## Pipeline summary
 
-<!-- TODO nf-core: Fill in short bullet-pointed list of the default steps in the pipeline -->
+The pipeline in composed of the following steps
+
 1. Index reference fasta file ([`BWA index`](https://github.com/lh3/bwa))
-2. Adapter and read trimming (Optional) ([`fastp`](https://github.com/OpenGene/fastp))
+2. Trim reads for quality and adapter sequence (Optional) ([`fastp`](https://github.com/OpenGene/fastp))
 3. Estimate genome size ([`mash sketch`](https://mash.readthedocs.io/en/latest/index.html))
-4. Downsample fastq files ([`Rasusa`](https://github.com/mbhall88/rasusa))
+4. Downsample fastq files (Optional) ([`Rasusa`](https://github.com/mbhall88/rasusa))
 5. Variant calling
-    1. Read alignment ([`BWA mem`](https://github.com/lh3/bwa))
+    1. Read mapping ([`BWA mem`](https://github.com/lh3/bwa))
     2. Sort and index alignments ([`SAMtools`](https://sourceforge.net/projects/samtools/files/samtools/))
     3. Call and filter variants ([`BCFtools`](http://samtools.github.io/bcftools/bcftools.html))
     4. Convert filtered bcf to pseudogenome fasta ([`vcf2pseudogenome.py`](https://github.com/nf-core/bactmap/blob/dev/bin/vcf2pseudogenome.py))
@@ -38,8 +39,12 @@ On release, automated continuous integration tests run the pipeline on a full-si
 7. Remove recombination (Optional) ([`Gubbins`](https://sanger-pathogens.github.io/gubbins/))
 8. Extract variant sites from alignment ([`SNP-sites`](https://github.com/sanger-pathogens/snp-sites))
 9. Construct phylogenetic tree (Optional)
-    1. Fast/less accurate (neighbour joining [`RapidNJ`](https://birc.au.dk/software/rapidnj/), approximate maximum likelihood [`FastTree2`](http://www.microbesonline.org/fasttree/))
-    2. Slow/more accurate, maximum likelihood ([`IQ-tree`](http://www.iqtree.org/)/[`RAxML-NG`](https://github.com/amkozlov/raxml-ng))
+    1. Fast/less accurate
+        * neighbour joining [`RapidNJ`](https://birc.au.dk/software/rapidnj/)
+        * approximate maximum likelihood [`FastTree2`](http://www.microbesonline.org/fasttree/))
+    2. Slow/more accurate, maximum likelihood
+        * [`IQ-tree`](http://www.iqtree.org/),
+        * [`RAxML-NG`](https://github.com/amkozlov/raxml-ng)
 
 ## Quick Start
 
@@ -58,8 +63,6 @@ On release, automated continuous integration tests run the pipeline on a full-si
     * If you are using `conda`, it is highly recommended to use the [`NXF_CONDA_CACHEDIR` or `conda.cacheDir`](https://www.nextflow.io/docs/latest/conda.html) settings to store the environments in a central location for future pipeline runs.
 
 4. Start running your own analysis!
-
-    <!-- TODO nf-core: Update the example "typical command" below used to run the pipeline -->
 
     ```bash
     nextflow run nf-core/bactmap -profile <docker/singularity/podman/conda/institute> --input samplesheet.csv --reference chromosome.fasta
@@ -81,8 +84,6 @@ of this pipeline:
 * [Alexandre Gilardet](https://github.com/alexandregilardet)
 * [Harshil Patel](https://github.com/drpatelh)
 
-<!-- TODO nf-core: If applicable, make list of people who have also contributed -->
-
 ## Contributions and Support
 
 If you would like to contribute to this pipeline, please see the [contributing guidelines](.github/CONTRIBUTING.md).
@@ -93,8 +94,6 @@ For further information or help, don't hesitate to get in touch on the [Slack `#
 
 <!-- TODO nf-core: Add citation for pipeline after first release. Uncomment lines below, update Zenodo doi and badge at the top of this file. -->
 <!-- If you use  nf-core/bactmap for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
-
-<!-- TODO nf-core: Add bibliography of tools and data used in your pipeline -->
 An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
 
 You can cite the `nf-core` publication as follows:
