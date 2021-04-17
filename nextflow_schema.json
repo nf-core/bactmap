@@ -41,8 +41,8 @@
                 }
             }
         },
-        "process_options": {
-            "title": "Process options",
+        "pipeline_step_switches": {
+            "title": "Pipeline step switches",
             "type": "object",
             "description": "",
             "default": "",
@@ -64,6 +64,26 @@
                 "depth_cutoff": {
                     "type": "integer",
                     "default": 100
+                }
+            }
+        },
+        "pipeline_step_options": {
+            "title": "Pipeline step options",
+            "type": "object",
+            "description": "The params used to define step options. They should be defined as params.STEP_NAME.args",
+            "default": "",
+            "properties": {
+                "fastp": {
+                    "type": "string",
+                    "description": "These should defined using params.modules.fastp.args",
+                    "fa_icon": "fas fa-indent",
+                    "default": "--cut_front --cut_tail --trim_poly_x --cut_mean_quality 30 --qualified_quality_phred 30 --unqualified_percent_limit 10 --length_required 50"
+                },
+                "mash_sketch": {
+                    "type": "string",
+                    "description": "These should defined using params.modules.mash_sketch.args",
+                    "default": "-k 32 -m 3",
+                    "fa_icon": "fas fa-indent"
                 }
             }
         },
@@ -123,6 +143,12 @@
                     "description": "Directory to keep pipeline Nextflow logs and reports.",
                     "default": "${params.outdir}/pipeline_info",
                     "fa_icon": "fas fa-cogs",
+                    "hidden": true
+                },
+                "singularity_pull_docker_container": {
+                    "type": "boolean",
+                    "description": "Instead of directly downloading Singularity images for use with Singularity, force the workflow to pull and convert Docker containers instead.",
+                    "fa_icon": "fab fa-docker",
                     "hidden": true
                 }
             }
@@ -217,7 +243,10 @@
             "$ref": "#/definitions/input_output_options"
         },
         {
-            "$ref": "#/definitions/process_options"
+            "$ref": "#/definitions/pipeline_step_switches"
+        },
+        {
+            "$ref": "#/definitions/pipeline_step_options"
         },
         {
             "$ref": "#/definitions/generic_options"
