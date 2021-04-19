@@ -11,8 +11,7 @@
             "fa_icon": "fas fa-terminal",
             "description": "Define where the pipeline should find input data and save output data.",
             "required": [
-                "input",
-                "reference"
+                "input"
             ],
             "properties": {
                 "input": {
@@ -27,11 +26,6 @@
                     "default": "./results",
                     "fa_icon": "fas fa-folder-open"
                 },
-                "reference": {
-                    "type": "string",
-                    "fa_icon": "fas fa-file",
-                    "description": "Path to a fasta file of the reference sequence"
-                },
                 "email": {
                     "type": "string",
                     "description": "Email address for completion summary.",
@@ -41,8 +35,25 @@
                 }
             }
         },
-        "pipeline_step_switches": {
-            "title": "Pipeline step switches",
+        "compulsory_parameters": {
+            "title": "Compulsory parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "reference": {
+                    "type": "string",
+                    "fa_icon": "fas fa-file",
+                    "description": "Path to a fasta file of the reference sequence"
+                }
+            },
+            "required": [
+                "reference"
+            ]
+        },
+        "optional_pipeline_steps": {
+            "title": "Optional pipeline steps",
             "type": "object",
             "description": "",
             "default": "",
@@ -64,35 +75,6 @@
                 "depth_cutoff": {
                     "type": "integer",
                     "default": 100
-                }
-            }
-        },
-        "pipeline_step_options": {
-            "title": "Pipeline step options",
-            "type": "object",
-            "description": "The params used to override default step options.",
-            "default": "",
-            "properties": {
-                "override_fastp_args": {
-                    "type": "string",
-                    "description": "These should defined using params.modules.fastp.args",
-                    "fa_icon": "fas fa-indent",
-                    "default": "null",
-                    "help_text": "If the default of false in not overwritten with a string with new args then the default args below will be used\n```\n--cut_front --cut_tail --trim_poly_x --cut_mean_quality 30 --qualified_quality_phred 30 --unqualified_percent_limit 10 --length_required 50\n```"
-                },
-                "override_mash_sketch_args": {
-                    "type": "string",
-                    "description": "These should defined using params.modules.mash_sketch.args",
-                    "default": "null",
-                    "fa_icon": "fas fa-indent",
-                    "help_text": "If the default of false in not overwritten with a string with new args then the default args below will be used\n```\n-k 32 -m 3\n```"
-                },
-                "override_vcf_filter_args": {
-                    "type": "string",
-                    "fa_icon": "fas fa-indent",
-                    "description": "Filtering thresholds used when determining if a position should be PASS or LowQual",
-                    "default": "null",
-                    "help_text": "If the default of false in not overwritten with a string with new args then the default args below will be used\n```\n--soft-filter LowQual --exclude '%QUAL<25 || FORMAT/DP<5|| MAX(FORMAT/AD)/SUM(FORMAT/DP)<0.7 || MQ<30 || MQ0F>0.1' --output-type z\n```"
                 }
             }
         },
@@ -172,7 +154,7 @@
                 "max_cpus": {
                     "type": "integer",
                     "description": "Maximum number of CPUs that can be requested    for any single job.",
-                    "default": 16,
+                    "default": 4,
                     "fa_icon": "fas fa-microchip",
                     "hidden": true,
                     "help_text": "Use to set an upper-limit for the CPU requirement for each process. Should be an integer e.g. `--max_cpus 1`"
@@ -180,7 +162,7 @@
                 "max_memory": {
                     "type": "string",
                     "description": "Maximum amount of memory that can be requested for any single job.",
-                    "default": "128.GB",
+                    "default": "16.GB",
                     "fa_icon": "fas fa-memory",
                     "pattern": "^[\\d\\.]+\\s*.(K|M|G|T)?B$",
                     "hidden": true,
@@ -252,10 +234,10 @@
             "$ref": "#/definitions/input_output_options"
         },
         {
-            "$ref": "#/definitions/pipeline_step_switches"
+            "$ref": "#/definitions/compulsory_parameters"
         },
         {
-            "$ref": "#/definitions/pipeline_step_options"
+            "$ref": "#/definitions/optional_pipeline_steps"
         },
         {
             "$ref": "#/definitions/generic_options"
