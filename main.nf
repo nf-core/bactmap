@@ -80,7 +80,6 @@ include { BAM_SORT_SAMTOOLS } from './modules/local/subworkflow/bam_sort_samtool
 
 def bcftools_filter_options = modules['bcftools_filter']
 bcftools_filter_options.args = params.override_vcf_filter ? params.override_vcf_filter : bcftools_filter_options.args
-println("BCF OPTIONS" + bcftools_filter_options)
 include { VARIANTS_BCFTOOLS } from './modules/local/subworkflow/variants_bcftools' addParams( bcftools_mpileup_options: modules['bcftools_mpileup'], bcftools_filter_options: bcftools_filter_options)
 include { SUB_SAMPLING } from './modules/local/subworkflow/sub_sampling'           addParams( mash_sketch_options: modules['mash_sketch'], rasusa_options: modules['rasusa'])
 include { CREATE_PHYLOGENY } from './modules/local/subworkflow/create_phylogeny'   addParams( rapidnj_options: modules['rapidnj'], fasttree_options: modules['fasttree'], iqtree_options: modules['iqtree'], raxmlng_options: modules['raxmlng'])
