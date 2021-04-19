@@ -59,21 +59,11 @@ if (params.input) { ch_input = file(params.input) } else { exit 1, 'Input sample
 if (params.reference) { ch_reference = file(params.reference) } else { exit 1, 'Reference fasta file not specified!' }
 
 ////////////////////////////////////////////////////
-/* --          CONFIG FILES                    -- */
-////////////////////////////////////////////////////
-
-ch_multiqc_config        = file("$projectDir/assets/multiqc_config.yaml", checkIfExists: true)
-ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multiqc_config) : Channel.empty()
-
-////////////////////////////////////////////////////
 /* --       IMPORT MODULES / SUBWORKFLOWS      -- */
 ////////////////////////////////////////////////////
 
 // Don't overwrite global params.modules, create a copy instead and use that within the main script.
 def modules = params.modules.clone()
-
-def multiqc_options   = modules['multiqc']
-multiqc_options.args += params.multiqc_title ? " --title \"$params.multiqc_title\"" : ''
 
 // Local: Modules
 include { GET_SOFTWARE_VERSIONS } from './modules/local/get_software_versions'     addParams( options: [publish_files : ['csv':'']] )
@@ -87,7 +77,11 @@ include { SNPSITES } from './modules/nf-core/software/snpsites/main'            
 // Local: Sub-workflows
 include { INPUT_CHECK       } from './modules/local/subworkflow/input_check'       addParams( options: [:] )
 include { BAM_SORT_SAMTOOLS } from './modules/local/subworkflow/bam_sort_samtools' addParams( samtools_sort_options: modules['samtools_sort'], samtools_index_options : modules['samtools_index'], bam_stats_options: modules['bam_stats'])
-include { VARIANTS_BCFTOOLS } from './modules/local/subworkflow/variants_bcftools' addParams( bcftools_mpileup_options: modules['bcftools_mpileup'], bcftools_filter_options: modules['bcftools_filter'])
+
+def bcftools_filter_options = modules['bcftools_filter']
+bcftools_filter_options.args = params.override_vcf_filter ? params.override_vcf_filter : bcftools_filter_options.args
+println("BCF OPTIONS" + bcftools_filter_options)
+include { VARIANTS_BCFTOOLS } from './modules/local/subworkflow/variants_bcftools' addParams( bcftools_mpileup_options: modules['bcftools_mpileup'], bcftools_filter_options: bcftools_filter_options)
 include { SUB_SAMPLING } from './modules/local/subworkflow/sub_sampling'           addParams( mash_sketch_options: modules['mash_sketch'], rasusa_options: modules['rasusa'])
 include { CREATE_PHYLOGENY } from './modules/local/subworkflow/create_phylogeny'   addParams( rapidnj_options: modules['rapidnj'], fasttree_options: modules['fasttree'], iqtree_options: modules['iqtree'], raxmlng_options: modules['raxmlng'])
 

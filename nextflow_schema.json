@@ -73,17 +73,26 @@
             "description": "The params used to define step options. They should be defined as params.STEP_NAME.args",
             "default": "",
             "properties": {
-                "fastp": {
+                "override_fastp_args": {
                     "type": "string",
                     "description": "These should defined using params.modules.fastp.args",
                     "fa_icon": "fas fa-indent",
-                    "default": "--cut_front --cut_tail --trim_poly_x --cut_mean_quality 30 --qualified_quality_phred 30 --unqualified_percent_limit 10 --length_required 50"
+                    "default": "false",
+                    "help_text": "If the default of false in not overwritten with a string with new args then the default args below will be used\n```\n--cut_front --cut_tail --trim_poly_x --cut_mean_quality 30 --qualified_quality_phred 30 --unqualified_percent_limit 10 --length_required 50\n```"
                 },
-                "mash_sketch": {
+                "override_mash_sketch_args": {
                     "type": "string",
                     "description": "These should defined using params.modules.mash_sketch.args",
-                    "default": "-k 32 -m 3",
-                    "fa_icon": "fas fa-indent"
+                    "default": "false",
+                    "fa_icon": "fas fa-indent",
+                    "help_text": "If the default of false in not overwritten with a string with new args then the default args below will be used\n```\n-k 32 -m 3\n```"
+                },
+                "override_vcf_filter_args": {
+                    "type": "string",
+                    "fa_icon": "fas fa-indent",
+                    "description": "Filtering thresholds used when determining if a position should be PASS or LowQual",
+                    "default": "false",
+                    "help_text": "If the default of false in not overwritten with a string with new args then the default args below will be used\n```\n--soft-filter LowQual --exclude '%QUAL<25 || FORMAT/DP<5|| MAX(FORMAT/AD)/SUM(FORMAT/DP)<0.7 || MQ<30 || MQ0F>0.1' --output-type z\n```"
                 }
             }
         },
