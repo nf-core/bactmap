@@ -76,9 +76,6 @@ If you wish to contribute a new step, please use the following coding standards:
 9. Do local tests that the new code works properly and as expected.
 10. Add a new test command in `.github/workflow/ci.yaml`.
 11. If applicable add a [MultiQC](https://https://multiqc.info/) module.
-12. Update MultiQC config `assets/multiqc_config.yaml` so relevant suffixes, name clean up, General Statistics Table column order, and module figures are in the right order.
-13. Optional: Add any descriptions of MultiQC report sections and output files to `docs/output.md`.
-
 ### Default values
 
 Parameters should be initialised / defined with default values in `nextflow.config` under the `params` scope.
