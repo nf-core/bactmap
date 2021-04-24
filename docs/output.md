@@ -20,7 +20,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 * [`Read mapping`](#read-mapping)
 * [`Sort bam files`](#sort-bam-files)
 * [`Call and filter variants`](#call-and-filter-variants)
-* [`Convert filtered vcf to pseudogenome`](#covert-filtered-vcf-to-pseudogenome)
+* [`Convert filtered vcf to pseudogenome`](#convert-filtered-vcf-to-pseudogenome)
 * [`Create alignment from pseudogenomes`](#create-alignment-from-pseudogenomes)
 * [`Remove recombination (Optional)`](#remove-recombination)
 * [`Remove non-informative positions`](#remove-non-informative-positions)
