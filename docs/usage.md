@@ -45,6 +45,7 @@ results         # Finished results (configurable, see below)
 ```
 
 ### Optional parameters
+
 By default the pipeline does **not** perform the following steps but they can be enabled by adding the appropriate parameter to the command line:
 
 * trim reads `--trim`
