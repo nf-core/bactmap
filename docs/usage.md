@@ -10,56 +10,18 @@ This pipeline maps short reads (usually Illumina) to a bacterial reference (usua
 
 ## Samplesheet input
 
-You will need to create a samplesheet file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 4 columns, and a header row as shown in the examples below.
+You will need to create a samplesheet file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the example below.
 
 ```bash
 --input '[path to samplesheet file]'
 ```
 
-### Multiple replicates
-
-The `group` identifier is the same when you have multiple replicates from the same experimental group, just increment the `replicate` identifier appropriately. The first replicate value for any given experimental group must be 1. Below is an example for a single experimental group in triplicate:
-
 ```bash
-group,replicate,fastq_1,fastq_2
-control,1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-control,2,AEG588A2_S2_L002_R1_001.fastq.gz,AEG588A2_S2_L002_R2_001.fastq.gz
-control,3,AEG588A3_S3_L002_R1_001.fastq.gz,AEG588A3_S3_L002_R2_001.fastq.gz
+sample,fastq_1,fastq_2
+G18582004,fastqs/G18582004_1.fastq.gz,fastqs/G18582004_2.fastq.gz
+G18756254,fastqs/G18756254_1.fastq.gz,fastqs/G18756254_2.fastq.gz
+G18582006,fastqs/G18582006_1.fastq.gz,fastqs/G18582006_2.fastq.gz
 ```
-
-### Multiple runs of the same library
-
-The `group` and `replicate` identifiers are the same when you have re-sequenced the same sample more than once (e.g. to increase sequencing depth). The pipeline will concatenate the raw reads before alignment. Below is an example for two samples sequenced across multiple lanes:
-
-```bash
-group,replicate,fastq_1,fastq_2
-control,1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-control,1,AEG588A1_S1_L003_R1_001.fastq.gz,AEG588A1_S1_L003_R2_001.fastq.gz
-treatment,1,AEG588A4_S4_L003_R1_001.fastq.gz,AEG588A4_S4_L003_R2_001.fastq.gz
-treatment,1,AEG588A4_S4_L004_R1_001.fastq.gz,AEG588A4_S4_L004_R2_001.fastq.gz
-```
-
-### Full design
-
-A final design file consisting of both single- and paired-end data may look something like the one below. This is for two experimental groups in triplicate, where the last replicate of the `treatment` group has been sequenced twice.
-
-```bash
-group,replicate,fastq_1,fastq_2
-control,1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-control,2,AEG588A2_S2_L002_R1_001.fastq.gz,AEG588A2_S2_L002_R2_001.fastq.gz
-control,3,AEG588A3_S3_L002_R1_001.fastq.gz,AEG588A3_S3_L002_R2_001.fastq.gz
-treatment,1,AEG588A4_S4_L003_R1_001.fastq.gz,
-treatment,2,AEG588A5_S5_L003_R1_001.fastq.gz,
-treatment,3,AEG588A6_S6_L003_R1_001.fastq.gz,
-treatment,3,AEG588A6_S6_L004_R1_001.fastq.gz,
-```
-
-| Column         | Description                                                                                                 |
-|----------------|-------------------------------------------------------------------------------------------------------------|
-| `group`        | Group identifier for sample. This will be identical for replicate samples from the same experimental group. |
-| `replicate`    | Integer representing replicate number. Must start from `1..<number of replicates>`.                         |
-| `fastq_1`      | Full path to FastQ file for read 1. File has to be zipped and have the extension ".fastq.gz" or ".fq.gz".   |
-| `fastq_2`      | Full path to FastQ file for read 2. File has to be zipped and have the extension ".fastq.gz" or ".fq.gz".   |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
@@ -68,7 +30,7 @@ An [example samplesheet](../assets/samplesheet.csv) has been provided with the p
 The typical command for running the pipeline is as follows:
 
 ```bash
-nextflow run nf-core/bactmap --input samplesheet.csv -profile docker
+nextflow run nf-core/bactmap --input samplesheet.csv --reference chromosome.fasta -profile docker
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
@@ -83,40 +45,174 @@ results         # Finished results (configurable, see below)
 ```
 
 ### Optional parameters
+By default the pipeline does **not** perform the following steps but they can be enabled by adding the appropriate parameter to the command line:
 
-1. Index the reference sequence using [`bwa index`](https://github.com/lh3/bwa)
-2. (Optionally if `params.trim` is set) trim reads using [`fastp`](https://github.com/OpenGene/fastp). The default trimming parameters are
+* trim reads `--trim`
+* remove recombiination using gubbins `--remove_recombination`
+* build a RapidNJ tree `--rapidnj`
+* build a FastTree tree `--fasttree`
+* build a IQTREE tree `--iqtree`
+* build a RAxML-NG tree `--raxmlng`
 
-   ```console
-   --cut_front --cut_tail --trim_poly_x --cut_mean_quality 30 --qualified_quality_phred 30 --unqualified_percent_limit 10 --length_required 50
-   ```
+By default the pipeline subsamples reads to an estimated depth of 100x.  
+This can be turned off using the `--subsampling_off` parameter.
+The desired coverage depth can be changed using the `subsampling_depth_cutoff` parameter
 
-3. (Optionally if `params.depth_cutoff` is set) downsample to the reads based on estimated genome size using [`mash sketch`](https://github.com/marbl/Mash) and the required depth of coverage as set by the `depth_cutoff` params using [`rasusa`](https://github.com/mbhall88/rasusa)
-4. Map reads to the indexed reference genome using [`bwa mem`](https://github.com/lh3/bwa) to produce a bam file
-5. Sort the bam file using [`samtools`](http://www.htslib.org/doc/samtools.html)
-6. Call variants using [`bcftools mpileup`](http://samtools.github.io/bcftools/bcftools.html). A minimum base quality of 20 is used for pre-filtering and the following fields are included in the resulting VCF file `FORMAT/AD,FORMAT/ADF,FORMAT/ADR,FORMAT/DP,FORMAT/SP,INFO/AD,INFO/ADF,INFO/ADR`. A haploid and multiallelic model is assumed. These defaults can be overridden using the `modules.bcftools_mpileup` params. The defaults are:
+The steps in the pipeline have sensible defaults but complete control of the arguments passed to the software tools can be achieved by overriding the software arguments found in the [`modules.config`](../conf/modules.config) file with a custom config. For example the default args for IQTREE which specify using ModelFinder to find the best fit model could be overridden to specify a specific model. In the  [`modules.config`](../conf/modules.config) file these are specified as:
 
-    ```console
-    args  = '--min-BQ 20 --annotate FORMAT/AD,FORMAT/ADF,FORMAT/ADR,FORMAT/DP,FORMAT/SP,INFO/AD,INFO/ADF,INFO/ADR'
-    args2 = '--ploidy 1 --multiallelic-caller'
+```bash
+  'iqtree' {
+      build = false
+      args = '-alrt 1000 -B 1000 -m MFP -czb'
+      publish_dir = 'iqtree'
+  }
+```
+
+These could be overridden by specifying a config file by adding an argument to the command line such as `-c my_args.config`.  The contents of the file could be:
+
+```bash
+params {
+  modules {
+    'iqtree' {
+      args = '-m GTR+G -czb'
+    }
+  }
+}
+```
+
+This will specify that IQTREE should no longer provide SH-aLRT and the ultrafast bootstrap branch support values and will use the GTR+G model. The other options (`build` and `publish_dir`) will remain the same. Therefore to build an IQTREE this step would either need to be turned on adding the `--iqtree` parameter to the Nextflow command line or by adding `build = true` to the user config file within the iqtree block.
+
+The steps are described in more detail below along with their default parameters
+
+### Comprehensive description the steps
+
+1. **Reference sequence indexing**: reference sequence is indexed using [`bwa index`](https://github.com/lh3/bwa)
+2. **Read trimming** (Optional if `params.trim` is set): reads are trimmed using [`fastp`](https://github.com/OpenGene/fastp). The default process configuration is found in the module.config and can be overridden as described above:
+
+   ```bash
+    'fastp' {
+        args              = '--cut_front --cut_tail --trim_poly_x --cut_mean_quality 30 --qualified_quality_phred 30 --unqualified_percent_limit 10 --length_required 50'
+        adapter_fasta     = "${baseDir}/assets/adapters.fas"
+        publish_files     = ['json':'', 'html':'', 'log': 'log']
+    }
     ```
 
-7. Variants are filtered using [`bcftools filter`](http://samtools.github.io/bcftools/bcftools.html). The defaults params in `modules.bcftools_filter` are:
+    Please note that the default adapters are found in the [`adapters.fas`](../assets/adapters.fas) file. These can be supplemented by specifying the path to a different file and updating the `adapter_fasta` value in a config file specified using `-c` as described above.
 
-    ```console
-    args = '--soft-filter LowQual --exclude "%QUAL<25 || FORMAT/DP<10 || MAX(FORMAT/ADF)<2 || MAX(FORMAT/ADR)<2 || MAX(FORMAT/AD)/SUM(FORMAT/DP)<0.9 || MQ<30 || MQ0F>0.1" --output-type z'
+3. **Subsample reads** (Optionally if `params.subsampling_off` is **not** set): reads are subsampled based on estimated genome size using [`mash sketch`](https://github.com/marbl/Mash) and the required depth of coverage as set by the `--subsampling_depth_cutoff` parameter using [`rasusa`](https://github.com/mbhall88/rasusa). The default process configurations are found in the module.config and can be overridden as described above.
+
+   ```bash
+      'mash_sketch' {
+          args = '-k 32 -m 3'
+      }
+      'rasusa' {
+          args = '--seed 23032021'
+      }
     ```
 
-    There will be a row in filtered VCF file for each position in the reference genome. The position will either have value in the FILTER column of either `PASS` or `LowQual`.
-8. Use the filtered VCF to create a pseudogenome based on the reference genome using the [`vcf2pseudogenome.py script`](https://github.com/nf-core/bactmap/blob/dev/bin/vcf2pseudogenome.py). The base in a sample at a position where the VCF file row that has `PASS` in FILTER will be either ref or alt and the appropriate base will be encoded at that position. The base in a sample at a position where the VCF file row that has `LowQual` in FILTER is uncertain will be encoded as a `N` character. Missing data will be encoded as a `-` character.
-9. All samples pseudogenomes and the original reference sequence will concatenated together to produce a flush alignment where all the sequence for all samples at all positions in the original reference sequence will be one of `{G,A,T,C,N,-}`. This alignment can be used for other downstream processes such as phylogeny generation.
-10. Optionally this alignment can be processed to produce a phylogeny as part of this pipeline. The number of constant sites in the alignment will be determined using [`snp-sites`](https://github.com/sanger-pathogens/snp-sites).
-11. (Optionally if `params.remove_recombination` is set) remove regions likely to have been acquired by horizontal transfer and recombination and therefore perturb the true phylogeny using [`gubbins`](https://sanger-pathogens.github.io/gubbins/). This should only be run on sets of samples that are closely related and not for example on a set of samples that have diversity spanning that of the entire species.
-12. Depending on the params set, run 0 - 4 tree building algorithms.
-    * `params.modules.rapidnj.build = true` Build a neighbour-joining pylogeny using [`rapidnj`](https://birc.au.dk/software/rapidnj)
-    * `params.modules.fasttree.build = true` Build an approximately-maximum-likelihood phylogeny using [`FastTree`](http://www.microbesonline.org/fasttree)
-    * `params.modules.iqtree.build = true` Build a maximum-likelihood phylogeny using [`IQ-TREE`](http://www.iqtree.org)
-    * `params.modules.raxmlng.build = true` Build a maximum-likelihood phylogeny using [`RAxML Next Generation`](https://github.com/amkozlov/raxml-ng)
+4. **Map reads**:  reads are mapped to the indexed reference genome using [`bwa mem`](https://github.com/lh3/bwa) to produce a bam file.
+The default process configuration is found in the module.config and can be overridden as described above:
+
+    ```bash
+      'bwa_mem' {
+          args = ''
+          args2 = '-F 4' // samtools view options discarding unmapped reads
+          publish_files = false
+      }
+    ```
+
+5. **Sort reads**: bam files are sorted using [`samtools`](http://www.htslib.org/doc/samtools.html)
+6. **Call variants**: variants are called using [`bcftools mpileup`](http://samtools.github.io/bcftools/bcftools.html). A minimum base quality of 20 is used for pre-filtering and the following fields are included in the resulting VCF file `FORMAT/AD,FORMAT/ADF,FORMAT/ADR,FORMAT/DP,FORMAT/SP,INFO/AD,INFO/ADF,INFO/ADR`. A haploid and multiallelic model is assumed. These defaults are found in the module.config and can be overridden as described above:
+
+    ```bash
+      'bcftools_mpileup' {
+          args          = '--min-BQ 20 --annotate FORMAT/AD,FORMAT/ADF,FORMAT/ADR,FORMAT/DP,FORMAT/SP,INFO/AD,INFO/ADF,INFO/ADR'
+          args2         = '--ploidy 1 --multiallelic-caller'
+          args3         = ''
+          publish_files = false
+          publish_dir   = 'variants'
+      }
+    ```
+
+7. **Filter variants**: variants in the VCF file are filtered using [`bcftools filter`](http://samtools.github.io/bcftools/bcftools.html). The default process configuration is found in the module.config and can be overridden as described above:
+
+    ```bash
+        'bcftools_filter' {
+            args = '--soft-filter LowQual --exclude "%QUAL<25 || FORMAT/DP<10 || MAX(FORMAT/ADF)<2 || MAX(FORMAT/ADR)<2 || MAX(FORMAT/AD)/SUM(FORMAT/DP)<0.9 || MQ<30 || MQ0F>0.1" --output-type z'
+            suffix = '.filtered'
+            publish_dir   = 'variants'
+        }
+    ```
+
+      After this process a filtered VCF file will be produced that has a row for each position in the reference genome. Each of these will either have a value in the FILTER column of either `PASS` or `LowQual`.
+
+8. **Create pseudogenome**: the filtered VCF is used to create a pseudogenome based on the reference genome using the [`vcf2pseudogenome.py script`](https://github.com/nf-core/bactmap/blob/dev/bin/vcf2pseudogenome.py). The base in a sample at a position where the VCF file row that has `PASS` in FILTER will be either ref or alt and the appropriate base will be encoded at that position. The base in a sample at a position where the VCF file row that has `LowQual` in FILTER is uncertain will be encoded as a `N` character. Missing data will be encoded as a `-` character.
+9. **Align pseudogenomes** All samples pseudogenomes and the original reference sequence are concatenated together to produce a flush alignment where all the sequence for all samples at all positions in the original reference sequence will be one of `{G,A,T,C,N,-}`. Only those sequences that are high quality (based on the number of non GATC bases will be included.
+The threshold for this is set in the default process configuration found in the module.config and can be overridden as described above.
+
+    ```bash
+    'alignpseudogenomes' {
+          non_GATC_threshold = 0.5
+          publish_dir = 'pseudogenomes'
+    }
+    ```
+
+    This alignment can be used for other downstream processes such as phylogeny generation.
+10. **Determine number of constant sites** Optionally this alignment can be processed to produce a phylogeny as part of this pipeline. The number of constant sites in the alignment will be determined using [`snp-sites`](https://github.com/sanger-pathogens/snp-sites).
+11. **Remove recombination** (Optionally if `params.remove_recombination` is set): remove regions likely to have been acquired by horizontal transfer and recombination and therefore perturb the true phylogeny using [`gubbins`](https://sanger-pathogens.github.io/gubbins/). This should only be run on sets of samples that are closely related and not for example on a set of samples that have diversity spanning that of the entire species.
+The default process configuration is found in the module.config and can be overridden as described above.
+
+    ```bash
+    'alignpseudogenomes' {
+        non_GATC_threshold = 0.5
+        publish_dir = 'pseudogenomes'
+    }
+    ```
+
+12. **Build tree(s)**: Depending on the params set, run 0 - 4 tree building algorithms.
+    * `--rapidnj` Build a neighbour-joining pylogeny using [`rapidnj`](https://birc.au.dk/software/rapidnj)  
+    The default process configuration is found in the module.config and can be overridden as described above.
+
+      ```bash
+              'rapidnj' {
+              build = false
+              args = '-t d -b 1000 -n'
+              publish_dir = 'rapidnj'
+          }
+      ```
+
+    * `--fasttree` Build an approximately-maximum-likelihood phylogeny using [`FastTree`](http://www.microbesonline.org/fasttree)  
+    The default process configuration is found in the module.config and can be overridden as described above.
+
+        ```bash
+        'fasttree' {
+            build = false
+            args = '-gtr -gamma -fastest'
+            publish_dir = 'fasttree'
+        }
+        ```
+
+    * `--iqtree.build` Build a maximum-likelihood phylogeny using [`IQ-TREE`](http://www.iqtree.org)  
+    The default process configuration is found in the module.config and can be overridden as described above.
+
+        ```bash
+        'iqtree' {
+            build = false
+            args = '-alrt 1000 -B 1000 -m MFP -czb'
+            publish_dir = 'iqtree'
+        }
+        ```
+  
+    * `--raxmlng` Build a maximum-likelihood phylogeny using [`RAxML Next Generation`](https://github.com/amkozlov/raxml-ng)  
+    The default process configuration is found in the module.config and can be overridden as described above.
+
+        ```bash
+        'raxmlng' {
+            build = false
+            args = '--model GTR+G --bs-trees 1000'
+            publish_dir = 'raxmlng'
+        }
+        ```
 
 ### Updating the pipeline
 
