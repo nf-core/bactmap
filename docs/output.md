@@ -21,9 +21,9 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 * [`Sort bam files`](#sort-bam-files)
 * [`Call and filter variants`](#call-and-filter-variants)
 * [`Convert filtered vcf to pseudogenome`](#covert-filtered-vcf-to-pseudogenome)
+* [`Create alignment from pseudogenomes`](#create-alignment-from-pseudogenomes)
 * [`Remove recombination (Optional)`](#remove-recombination)
 * [`Remove non-informative positions`](#remove-non-informative-positions)
-* [`Create alignment from pseudogenomes`](#create-alignment-from-pseudogenomes)
 * Construct phylogenetic tree (Optional)
     1. Fast/less accurate
         * [`RapidNJ`](#rapidnj)
@@ -90,6 +90,16 @@ Output files
 * `pseudogenomes/`
   * `*.fas` pseudogenome with a base at each position of the reference sequence
 
+### Create Alignment from Pseudogenomes
+
+Only those pseudogenome fasta files that have a non-ACGT fraction less than the threshold specified will be included in the `aligned_pseudogenomes.fas` file. Those failing this will be reported in the `low_quality_pseudogenomes.tsv` file.  
+
+Output files
+
+* `pseudogenomes/`
+  * `aligned_pseudogenomes.fas` alignment of all sample pseudogenomes and the reference sequence
+  * `low_quality_pseudogenomes.tsv` a tab separated file of the samples that failed the non-ACGT base threshold
+
 ### Remove Recombination
 
 The file used for downstream tree building is `aligned_pseudogenomes.filtered_polymorphic_sites.fasta`. The other files are described in the [gubbins documentation](https://github.com/sanger-pathogens/gubbins#output-files)
@@ -114,16 +124,6 @@ Output files
 * `snpsites/`
   * `constant.sites.txt` A file with the number of constant sites for each base
   * `filtered_alignment.fas` Alignment with only informative positions (those positions that have at least one alternative variant base)
-
-### Create Alignment from Pseudogenomes
-
-Only those pseudogenome fasta files that have a non-ACGT fraction less than the threshold specified will be included in the `aligned_pseudogenomes.fas` file. Those failing this will be reported in the `low_quality_pseudogenomes.tsv` file.  
-
-Output files
-
-* `pseudogenomes/`
-  * `aligned_pseudogenomes.fas` alignment of all sample pseudogenomes and the reference sequence
-  * `low_quality_pseudogenomes.tsv` a tab separated file of the samples that failed the non-ACGT base threshold
 
 ### RapidNJ
 
