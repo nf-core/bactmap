@@ -6,7 +6,7 @@
 
 ## Introduction
 
-This document describes the output produced by the pipeline. 
+This document describes the output produced by the pipeline.
 
 The directories listed below will be created in the results directory after the pipeline has finished. All paths are relative to the top-level results directory.
 
@@ -43,6 +43,7 @@ Output files
   * `*.bwt`
   * `*.pac`
   * `*.sa`
+
 > These files are generally not required except for in the mapping step
 
 ### Read Trimming
