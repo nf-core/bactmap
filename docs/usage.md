@@ -51,14 +51,14 @@ By default the pipeline does **not** perform the following steps but they can be
 * remove recombiination using gubbins `--remove_recombination`
 * build a RapidNJ tree `--rapidnj`
 * build a FastTree tree `--fasttree`
-* build a IQTREE tree `--iqtree`
+* build an IQ-TREE tree `--iqtree`
 * build a RAxML-NG tree `--raxmlng`
 
 By default the pipeline subsamples reads to an estimated depth of 100x.  
 This can be turned off using the `--subsampling_off` parameter.
 The desired coverage depth can be changed using the `subsampling_depth_cutoff` parameter
 
-The steps in the pipeline have sensible defaults but complete control of the arguments passed to the software tools can be achieved by overriding the software arguments found in the [`modules.config`](../conf/modules.config) file with a custom config. For example the default args for IQTREE which specify using ModelFinder to find the best fit model could be overridden to specify a specific model. In the  [`modules.config`](../conf/modules.config) file these are specified as:
+The steps in the pipeline have sensible defaults but complete control of the arguments passed to the software tools can be achieved by overriding the software arguments found in the [`modules.config`](../conf/modules.config) file with a custom config. For example the default args for IQ-TREE which specify using ModelFinder to find the best fit model could be overridden to specify a specific model. In the  [`modules.config`](../conf/modules.config) file these are specified as:
 
 ```bash
   'iqtree' {
@@ -80,7 +80,7 @@ params {
 }
 ```
 
-This will specify that IQTREE should no longer provide SH-aLRT and the ultrafast bootstrap branch support values and will use the GTR+G model. The other options (`build` and `publish_dir`) will remain the same. Therefore to build an IQTREE this step would either need to be turned on adding the `--iqtree` parameter to the Nextflow command line or by adding `build = true` to the user config file within the iqtree block.
+This will specify that IQ-TREE should no longer provide SH-aLRT and the ultrafast bootstrap branch support values and will use the GTR+G model. The other options (`build` and `publish_dir`) will remain the same. Therefore to build an IQ-TREE this step would either need to be turned on adding the `--iqtree` parameter to the Nextflow command line or by adding `build = true` to the user config file within the iqtree block.
 
 The steps are described in more detail below along with their default parameters
 

@@ -94,7 +94,7 @@
                 },
                 "iqtree": {
                     "type": "boolean",
-                    "description": "Build a tree using the IQTREE ML algorithm"
+                    "description": "Build a tree using the IQ-TREE ML algorithm"
                 },
                 "raxmlng": {
                     "type": "boolean",

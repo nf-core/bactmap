@@ -45,7 +45,7 @@ The pipeline in composed of the following steps
         * neighbour joining [`RapidNJ`](https://birc.au.dk/software/rapidnj/)
         * approximate maximum likelihood [`FastTree2`](http://www.microbesonline.org/fasttree/))
     2. Slow/more accurate, maximum likelihood
-        * [`IQ-tree`](http://www.iqtree.org/),
+        * [`IQ-TREE`](http://www.iqtree.org/),
         * [`RAxML-NG`](https://github.com/amkozlov/raxml-ng)
 
 ## Quick Start

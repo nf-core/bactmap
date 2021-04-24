@@ -17,7 +17,6 @@ nextflow.enable.dsl = 2
 
 def json_schema = "$projectDir/nextflow_schema.json"
 if (params.help) {
-    // TODO nf-core: Update typical command used to run pipeline
     def command = "nextflow run nf-core/bactmap --input samplesheet.csv --reference ref.fasta -profile docker"
     log.info Schema.params_help(workflow, params, json_schema, command)
     exit 0
@@ -49,8 +48,6 @@ Checks.hostname(workflow, params, log)
 /* --          VALIDATE INPUTS                 -- */
 ////////////////////////////////////////////////////
 
-// TODO nf-core: Add all file path parameters for the pipeline to the list below
-// Check input path parameters to see if they exist
 checkPathParamList = [ params.input, params.reference ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
