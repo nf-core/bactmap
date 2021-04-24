@@ -29,7 +29,7 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
         * [`RapidNJ`](#rapidnj)
         * [`FastTree2`](#fasttree)
     2. Slow/more accurate, maximum likelihood
-        * [`IQ-TREEE`](#iq-tree),
+        * [`IQ-TREE`](#iq-tree),
         * [`RAxML-NG`](#raxml-ng)
 * [Pipeline information](#pipeline-information) - Report metrics generated during the workflow execution
 
@@ -72,16 +72,17 @@ Output files
   * `*.bam.idxstats` bam file metrics
   * `*.bam.stats` bam file metrics
 
-
 ### Call and Filter Variants
 
 Output files
+
 * `variants/`
   * `*.vcf.gz` filtered vcf files containing variants
 
 ### Convert Filtered VCF to Pseudogenome
 
 Output files
+
 * `pseudogenomes/`
   * `*.fas` pseudogenome with a base at each position of the reference sequence
 
@@ -90,6 +91,7 @@ Output files
 The file used for downstream tree building is `aligned_pseudogenomes.filtered_polymorphic_sites.fasta`. The other files are described in the [gubbins documentation](https://github.com/sanger-pathogens/gubbins#output-files)
 
 Output files
+
 * `gubbins/`
   * `aligned_pseudogenomes.branch_base_reconstruction.embl`
   * `aligned_pseudogenomes.filtered_polymorphic_sites.fasta`
@@ -104,6 +106,7 @@ Output files
 ### Remove Non-informative Positions
 
 Output files
+
 * `snpsites/`
   * `constant.sites.txt` A file with the number of constant sites for each base
   * `filtered_alignment.fas` Alignment with only informative positions (those positions that have at least one alternative variant base)
@@ -113,6 +116,7 @@ Output files
 Only those pseudogenome fasta files that have a non-ACGT fraction less than the threshold specified will be included in the `aligned_pseudogenomes.fas` file. Those failing this will be reported in the `low_quality_pseudogenomes.tsv` file.  
 
 Output files
+
 * `pseudogenomes/`
   * `aligned_pseudogenomes.fas` alignment of all sample pseudogenomes and the reference sequence
   * `low_quality_pseudogenomes.tsv` a tab separated file of the samples that failed the non-ACGT base threshold
@@ -120,27 +124,32 @@ Output files
 ### RapidNJ
 
 Output files
+
 * `rapidnj/`
   * `rapidnj_phylogeny.tre` A newick tree built with RapidNJ
 
 ### FastTree
 
 Output files
+
 * `fasttree/`
   * `fasttree_phylogeny.tre` A newick tree built with FastTree
 
 ### IQ-TREE
 
 Output files
+
 * `iqtree/`
   * `*.treefile` A ML tree built with IQ-TREE with support values for branches based on bootstrapping
 
 ### RAxML-NG
 
 Output files
+
 * `iqtree/`
-  * `output.raxml.bestTree` A ML tree built with RAxML-NG selected as the best after running ML 
+  * `output.raxml.bestTree` A ML tree built with RAxML-NG selected as the best after running ML
   * `output.raxml.support` A ML tree built with RAxML-NG with support values for branches based on bootstrapping
+  
 ### Pipeline information
 
 <details markdown="1">
