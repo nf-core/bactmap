@@ -27,7 +27,7 @@ workflow SUB_SAMPLING {
         reads_and_genome_size = reads.combine(genome_size, by: 0)
         
     }
-    RASUSA(reads_and_genome_size, params.depth_cutoff)
+    RASUSA(reads_and_genome_size, params.subsampling_depth_cutoff)
 
     emit:
     reads     = RASUSA.out.reads      // channel: [ reads ]

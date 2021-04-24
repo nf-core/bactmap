@@ -78,11 +78,19 @@ include { SNPSITES } from './modules/nf-core/software/snpsites/main'            
 include { INPUT_CHECK       } from './modules/local/subworkflow/input_check'       addParams( options: [:] )
 include { BAM_SORT_SAMTOOLS } from './modules/local/subworkflow/bam_sort_samtools' addParams( samtools_sort_options: modules['samtools_sort'], samtools_index_options : modules['samtools_index'], bam_stats_options: modules['bam_stats'])
 
-def bcftools_filter_options = modules['bcftools_filter']
-bcftools_filter_options.args = params.override_vcf_filter ? params.override_vcf_filter : bcftools_filter_options.args
-include { VARIANTS_BCFTOOLS } from './modules/local/subworkflow/variants_bcftools' addParams( bcftools_mpileup_options: modules['bcftools_mpileup'], bcftools_filter_options: bcftools_filter_options)
+include { VARIANTS_BCFTOOLS } from './modules/local/subworkflow/variants_bcftools' addParams( bcftools_mpileup_options: modules['bcftools_mpileup'], bcftools_filter_options: modules['bcftools_filter'])
 include { SUB_SAMPLING } from './modules/local/subworkflow/sub_sampling'           addParams( mash_sketch_options: modules['mash_sketch'], rasusa_options: modules['rasusa'])
-include { CREATE_PHYLOGENY } from './modules/local/subworkflow/create_phylogeny'   addParams( rapidnj_options: modules['rapidnj'], fasttree_options: modules['fasttree'], iqtree_options: modules['iqtree'], raxmlng_options: modules['raxmlng'])
+
+// Merge in tree building params
+params.rapidnj ? modules['rapidnj'].build = true : modules['rapidnj']
+params.fasttree ? modules['fasttree'].build = true : modules['fasttree']
+params.iqtree ? modules['iqtree'].build = true : modules['iqtree']
+params.raxmlng ? modules['raxmlng'].build = true : modules['raxmlng']
+include { CREATE_PHYLOGENY } from './modules/local/subworkflow/create_phylogeny'   addParams(   rapidnj_options: modules['rapidnj'],
+                                                                                                fasttree_options: modules['fasttree'], 
+                                                                                                iqtree_options: modules['iqtree'], 
+                                                                                                raxmlng_options: modules['raxmlng']
+                                                                                            )
 
 include { find_genome_size } from './modules/local/functions.nf'
 
@@ -138,7 +146,7 @@ workflow {
         ch_reads = INPUT_CHECK.out.sample_info
     }
 
-    if (params.depth_cutoff) {
+    if (!params.subsampling_off) {
         SUB_SAMPLING(ch_reads)
         ch_reads = SUB_SAMPLING.out.reads
     }

@@ -61,20 +61,44 @@
                 "trim": {
                     "type": "boolean",
                     "default": true,
-                    "help_text": "Trim reads before mapping"
+                    "description": "Trim reads"
                 },
                 "save_trimmed_fail": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "Saved failed read files after trimminng"
                 },
                 "remove_recombination": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "Remove recombination using gubbins"
                 },
                 "genome_size": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Specify genome size for subsampling rather than estimation using mash sketch"
                 },
-                "depth_cutoff": {
+                "subsampling_off": {
+                    "type": "boolean",
+                    "description": "Turn off subsampling"
+                },
+                "subsampling_depth_cutoff": {
                     "type": "integer",
-                    "default": 100
+                    "default": 100,
+                    "description": "Desired coverage depth when subsampling"
+                },
+                "rapidnj": {
+                    "type": "boolean",
+                    "description": "Build a tree using the RapidNJ neighbour-joining algorithm"
+                },
+                "fasttree": {
+                    "type": "boolean",
+                    "description": "Build a tree using the FastTree approximate ML algorithm"
+                },
+                "iqtree": {
+                    "type": "boolean",
+                    "description": "Build a tree using the IQTREE ML algorithm"
+                },
+                "raxmlng": {
+                    "type": "boolean",
+                    "description": "Build a tree using the RAxML-NG ML algorithm"
                 }
             }
         },
@@ -141,6 +165,13 @@
                     "description": "Instead of directly downloading Singularity images for use with Singularity, force the workflow to pull and convert Docker containers instead.",
                     "fa_icon": "fab fa-docker",
                     "hidden": true
+                },
+                "max_multiqc_email_size": {
+                    "type": "string",
+                    "default": "25.MB"
+                },
+                "skip_multiqc": {
+                    "type": "boolean"
                 }
             }
         },
