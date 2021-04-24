@@ -48,6 +48,7 @@ Output files
 ### Read Trimming
 
 Output files
+
 * `fastp/`
   * `*.html` html reports of the trimming process that can be opened in any modern web browser
   * `*.json` trimming report metrics in JSON computer readable formats
@@ -55,6 +56,7 @@ Output files
 ### Read Subsampling
 
 Output files
+
 * `rasusa/`
   * `*.fastq.gz` subsamples fastq files
 
@@ -65,6 +67,7 @@ By default there are no output files since sorted bam files are produced in the 
 ### Sort Bam Files
 
 Output files
+
 * `samtools/`
   * `*.bam` sorted bam files
   * `*.bam.bai` bam file index
@@ -149,7 +152,7 @@ Output files
 * `iqtree/`
   * `output.raxml.bestTree` A ML tree built with RAxML-NG selected as the best after running ML
   * `output.raxml.support` A ML tree built with RAxML-NG with support values for branches based on bootstrapping
-  
+
 ### Pipeline information
 
 <details markdown="1">
