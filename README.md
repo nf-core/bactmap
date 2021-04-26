@@ -78,17 +78,17 @@ The nf-core/bactmap pipeline comes with documentation about the pipeline: [usage
 
 ## Credits
 
-nf-core/bactmap was originally written by [Anthony Underwood](https://github.com/aunderwo), [Adries Van Tonder](https://github.com/avantonder) and [Thanh Le Viet](https://github.com/thanhleviet).
-
-Anthony Underwood's time was funded by the National Institute for Health Research
-(NIHR) Global Health Research Unit for the Surveillance of Antimicrobial Resistance (Grant Reference Number 16/136/111)
-![NIHR funded](assets/nihr_logos_funded_by.jpg)
+nf-core/bactmap was originally written by [Anthony Underwood](https://github.com/aunderwo), [Andries van Tonder](https://github.com/avantonder) and [Thanh Le Viet](https://github.com/thanhleviet).
 
 We thank the following people for their extensive assistance in the development
 of this pipeline:
 
 * [Alexandre Gilardet](https://github.com/alexandregilardet)
 * [Harshil Patel](https://github.com/drpatelh)
+
+Anthony Underwood's time working on the project was funded by the National Institute for Health Research
+(NIHR) Global Health Research Unit for the Surveillance of Antimicrobial Resistance (Grant Reference Number 16/136/111)
+![NIHR funded](assets/nihr_logos_funded_by.jpg)
 
 ## Contributions and Support
 
