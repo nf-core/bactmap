@@ -1,86 +1,111 @@
-# nf-core/bactmap
-**A mapping-based pipeline for creating a phylogeny from bacterial whole genome sequences**
+# ![nf-core/bactmap](docs/images/nf-core-bactmap_logo.png)
 
-[![Build Status](https://travis-ci.org/nf-core/bactmap.svg?branch=master)](https://travis-ci.org/nf-core/bactmap)
-[![Nextflow](https://img.shields.io/badge/nextflow-%E2%89%A519.05.0--edge-brightgreen.svg)](https://www.nextflow.io/)
+[![GitHub Actions CI Status](https://github.com/nf-core/bactmap/workflows/nf-core%20CI/badge.svg)](https://github.com/nf-core/bactmap/actions?query=workflow%3A%22nf-core+CI%22)
+[![GitHub Actions Linting Status](https://github.com/nf-core/bactmap/workflows/nf-core%20linting/badge.svg)](https://github.com/nf-core/bactmap/actions?query=workflow%3A%22nf-core+linting%22)
+[![AWS CI](https://img.shields.io/badge/CI%20tests-full%20size-FF9900?labelColor=000000&logo=Amazon%20AWS)](https://nf-co.re/bactmap/results)
+[![Cite with Zenodo](http://img.shields.io/badge/DOI-10.5281/zenodo.XXXXXXX-1073c8?labelColor=000000)](https://doi.org/10.5281/zenodo.XXXXXXX)
 
-[![install with bioconda](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg)](http://bioconda.github.io/)
-[![Docker](https://img.shields.io/docker/automated/nfcore/bactmap.svg)](https://hub.docker.com/r/bioinformant/bactmap)
-![Singularity Container available](
-https://img.shields.io/badge/singularity-available-7E4C74.svg)
+[![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A521.04.0--edge-23aa62.svg?labelColor=000000)](https://www.nextflow.io/)
+[![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/en/latest/)
+[![run with docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
+[![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)
 
-### Introduction
-The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It comes with docker / singularity containers making installation trivial and results highly reproducible.
+[![Get help on Slack](http://img.shields.io/badge/slack-nf--core%20%23bactmap-4A154B?labelColor=000000&logo=slack)](https://nfcore.slack.com/channels/bactmap)
+[![Follow on Twitter](http://img.shields.io/badge/twitter-%40nf__core-1DA1F2?labelColor=000000&logo=twitter)](https://twitter.com/nf_core)
+[![Watch on YouTube](http://img.shields.io/badge/youtube-nf--core-FF0000?labelColor=000000&logo=youtube)](https://www.youtube.com/c/nf-core)
 
+## Introduction
 
-### Documentation
-The nf-core/bactmap pipeline comes with documentation about the pipeline, found in the `docs/` directory:
+**nf-core/bactmap** is a bioinformatics best-practise analysis pipeline for mapping short reads from bacterial WGS to a reference sequence, creating filtered VCF files, making pseudogenomes based on high quality positions in the VCF files and optionally creating a phylogeny from an alignment of the pseudogenomes.
 
-1. [Installation](docs/installation.md)
-2. Pipeline configuration
-    * [Local installation](docs/configuration/local.md)
-    * [Adding your own system](docs/configuration/adding_your_own.md)
-3. [Running the pipeline](docs/usage.md)
-4. [Output and how to interpret the results](docs/output.md)
-5. [Troubleshooting](docs/troubleshooting.md)
+The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It uses Docker / Singularity containers making installation trivial and results highly reproducible.
 
-### Pipeline description
-This pipeline maps paired end short reads to a bacterial fasta reference sequence, calls qnd filters variants, produces a whole genome alignment from pseudogenomes derived from the variants and finally produces a robust maximum likelihood phylogentic tree.
+On release, automated continuous integration tests run the pipeline on a full-sized dataset on the AWS cloud infrastructure. This ensures that the pipeline runs on AWS, has sensible resource allocation defaults set to run on real-world datasets, and permits the persistent storage of results to benchmark between pipeline releases and other analysis sources. The results obtained from the full-sized test can be viewed on the [nf-core website](https://nf-co.re/bactmap/results).
 
+## Pipeline summary
 
-#### Pipeline steps
-The steps are:
+![Pipeline summary schematic](docs/images/Bactmap_pipeline.png)
 
-1. Index a reference sequnce using bwa (the reference sequence must only contain the chromosome and no additional sequences such as plasmids).
-2. (Optional) Fetch reads from the ENA
-3. Trim reads using trimmomatic (dynamic MIN_LEN based on 33% of the read length)
-4. Count number of reads and estimate genome size using Mash
-5. Downsample reads if the `--depth_cutoff` argument was specified
-6. Map reads to the specified reference genome with bwa mem
-7. Call variants with samtools
-8. Filter variants to flag low quality SNPs
-9. Produce a pseudogenome based on the variants called. Missing positions are encoded as `-` characters and low quality positions as `N`
-10. All pseudogenomes are concatenanted to make a whole genome alignment
-11. (Optional) Recombination is removed from the alignment using gubbins
-12. Invariant sites are removed using snp-sites
-13. (Optional) Maximum likelihood tree generated using IQ-TREE
+The pipeline in composed of the following steps
 
+1. Index reference fasta file ([`BWA index`](https://github.com/lh3/bwa))
+2. Trim reads for quality and adapter sequence (Optional) ([`fastp`](https://github.com/OpenGene/fastp))
+3. Estimate genome size ([`mash sketch`](https://mash.readthedocs.io/en/latest/index.html))
+4. Downsample fastq files (Optional) ([`Rasusa`](https://github.com/mbhall88/rasusa))
+5. Variant calling
+    1. Read mapping ([`BWA mem`](https://github.com/lh3/bwa))
+    2. Sort and index alignments ([`SAMtools`](https://sourceforge.net/projects/samtools/files/samtools/))
+    3. Call and filter variants ([`BCFtools`](http://samtools.github.io/bcftools/bcftools.html))
+    4. Convert filtered bcf to pseudogenome fasta ([`vcf2pseudogenome.py`](https://github.com/nf-core/bactmap/blob/dev/bin/vcf2pseudogenome.py))
+6. Create alignment from pseudogenome by concatenating fasta files having first checked that the sample sequences are high quality([`calculate_fraction_of_non_GATC_bases.py`](https://github.com/nf-core/bactmap/blob/dev/bin/))
+7. Remove recombination (Optional) ([`Gubbins`](https://sanger-pathogens.github.io/gubbins/))
+8. Extract variant sites from alignment ([`SNP-sites`](https://github.com/sanger-pathogens/snp-sites))
+9. Construct phylogenetic tree (Optional)
+    1. Fast/less accurate
+        * neighbour joining [`RapidNJ`](https://birc.au.dk/software/rapidnj/)
+        * approximate maximum likelihood [`FastTree2`](http://www.microbesonline.org/fasttree/))
+    2. Slow/more accurate, maximum likelihood
+        * [`IQ-TREE`](http://www.iqtree.org/),
+        * [`RAxML-NG`](https://github.com/amkozlov/raxml-ng)
 
-A sumary of this process is shown below in the diagram that was generated when running Nextflow using the -with-dag command
+## Quick Start
 
-![workflow diagram](dag.png)
+1. Install [`nextflow`](https://nf-co.re/usage/installation)
 
-#### Pipeline outputs
-These will be found in the directory specified by the `--output_dir` argument
+2. Install any of [`Docker`](https://docs.docker.com/engine/installation/), [`Singularity`](https://www.sylabs.io/guides/3.0/user-guide/) or [`Podman`](https://podman.io/) for full pipeline reproducibility _(please only use [`Conda`](https://conda.io/miniconda.html) as a last resort; see [docs](https://nf-co.re/usage/configuration#basic-configuration-profiles))_
 
-  - (Optional) If accession numbers were used as the input source a directory called `fastqs` will contain the fastq file pairs for each accession number
-  - A directory called `trimmed_fastqs` containing the reads after trimminb with TRIMMOMATIC
-  - A directory called `sorted_bams` containing the alignmed sam files after mapping with bwa mem, conversion to bam and sorting
-  - A directory called `filtered_bcfs` containing binary vcf files after filtering to flag low quality positions with LowQual in the FILTER column
-  - A directory called `pseudogenomes` containing 
-    - the pseudogenome from each sample
-    - a whole genome alignment named `aligned_pseudogenome.fas` containing the concatenated sample pseudogenomes and the refrerence genome
-    - a variant only alignment named `aligned_pseudogenome.variants_only.fas` with the invariant sites removed from `aligned_pseudogenome.fas` using snp-sites. If recombination removal was specified, the file will be named `aligned_pseudogenome.gubbins.variants_only.fas` with gubbins having been applied prior to invariant site removal.
-  - Two newick tree files
-   -  `aligned_pseudogenome.gubbins.variants_only.contree` If tree generation was specified, this file containing the consensus tree from IQ_TREE will be produced. The tree will possess assigned branch supports where branch lengths are optimized on the original alignment. If recombination removal was not specified the file will be named `aligned_pseudogenome.variants_only.contree`
-   -  `aligned_pseudogenome.gubbins.variants_only.treefile` The original IQ-TREE maximum likelihood tree without branch supports. If recombination removal was not specified the file will be named `aligned_pseudogenome.variants_only.treefile`
+3. Download the pipeline and test it on a minimal dataset with a single command:
 
+    ```bash
+    nextflow run nf-core/bactmap -profile test,<docker/singularity/podman/conda/institute>
+    ```
 
+    * Please check [nf-core/configs](https://github.com/nf-core/configs#documentation) to see if a custom config file to run nf-core pipelines already exists for your Institute. If so, you can simply use `-profile <institute>` in your command. This will enable either `docker` or `singularity` and set the appropriate execution settings for your local compute environment.
+    * If you are using `singularity` then the pipeline will auto-detect this and attempt to download the Singularity images directly as opposed to performing a conversion from Docker images. If you are persistently observing issues downloading Singularity images directly due to timeout or network issues then please use the `--singularity_pull_docker_container` parameter to pull and convert the Docker image instead. It is also highly recommended to use the [`NXF_SINGULARITY_CACHEDIR` or `singularity.cacheDir`](https://www.nextflow.io/docs/latest/singularity.html?#singularity-docker-hub) settings to store the images in a central location for future pipeline runs. By default the singularity profile in [`nextflow.config`](nextflow.config#L87) file sets this to a directory named `singularity` in the pipeline's base directory .
+    * If you are using `conda`, it is highly recommended to use the [`NXF_CONDA_CACHEDIR` or `conda.cacheDir`](https://www.nextflow.io/docs/latest/conda.html) settings to store the environments in a central location for future pipeline runs.
 
+4. Start running your own analysis!
 
+    ```bash
+    nextflow run nf-core/bactmap -profile <docker/singularity/podman/conda/institute> --input samplesheet.csv --reference chromosome.fasta
+    ```
 
-### Credits
-nf-core/bactmap was originally written by Anthony Underwood.
+See [usage docs](https://nf-co.re/bactmap/usage) for all of the available options when running the pipeline.
 
-#### Software used within the workflow
-  - [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic) A flexible read trimming tool for Illumina NGS data.
-  - [mash](https://mash.readthedocs.io/en/latest/) Fast genome and metagenome distance estimation using MinHash.
-  - [seqtk](https://github.com/lh3/seqtk) A fast and lightweight tool for processing sequences in the FASTA or FASTQ format.
-  - [bwa mem](https://github.com/lh3/bwa) Burrow-Wheeler Aligner for short-read alignment
-  - [samtools](http://www.htslib.org/doc/samtools.html) Utilities for the Sequence Alignment/Map (SAM) format
-  - [bcftools](http://www.htslib.org/doc/bcftools.html) Utilities for variant calling and manipulating VCFs and BCFs
-  - [filtered_bcf_to_fasta.py](bin/filtered_bcf_to_fasta.py) Python utility to create a pseudogenome from a bcf file where each position in the reference genome is included
-  - [gubbins](https://github.com/sanger-pathogens/gubbins/) Rapid phylogenetic analysis of large samples of recombinant bacterial whole genome sequences
-  - [snp-sites](https://github.com/sanger-pathogens/snp-sites) Finds SNP sites from a multi-FASTA alignment file 
-  - [IQ-TREE](http://www.iqtree.org) Efficient software for phylogenomic inference
+## Documentation
 
+The nf-core/bactmap pipeline comes with documentation about the pipeline: [usage](https://nf-co.re/bactmap/usage) and [output](https://nf-co.re/bactmap/output).
+
+## Credits
+
+nf-core/bactmap was originally written by [Anthony Underwood](https://github.com/aunderwo), [Andries van Tonder](https://github.com/avantonder) and [Thanh Le Viet](https://github.com/thanhleviet).
+
+We thank the following people for their extensive assistance in the development
+of this pipeline:
+
+* [Alexandre Gilardet](https://github.com/alexandregilardet)
+* [Harshil Patel](https://github.com/drpatelh)
+
+Anthony Underwood's time working on the project was funded by the National Institute for Health Research
+(NIHR) Global Health Research Unit for the Surveillance of Antimicrobial Resistance (Grant Reference Number 16/136/111)
+![NIHR funded](assets/nihr_logos_funded_by.jpg)
+
+## Contributions and Support
+
+If you would like to contribute to this pipeline, please see the [contributing guidelines](.github/CONTRIBUTING.md).
+
+For further information or help, don't hesitate to get in touch on the [Slack `#bactmap` channel](https://nfcore.slack.com/channels/bactmap) (you can join with [this invite](https://nf-co.re/join/slack)).
+
+## Citations
+
+<!-- TODO nf-core: Add citation for pipeline after first release. Uncomment lines below, update Zenodo doi and badge at the top of this file. -->
+<!-- If you use  nf-core/bactmap for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
+An extensive list of references for the tools used by the pipeline can be found in the [`CITATIONS.md`](CITATIONS.md) file.
+
+You can cite the `nf-core` publication as follows:
+
+> **The nf-core framework for community-curated bioinformatics pipelines.**
+>
+> Philip Ewels, Alexander Peltzer, Sven Fillinger, Harshil Patel, Johannes Alneberg, Andreas Wilm, Maxime Ulysse Garcia, Paolo Di Tommaso & Sven Nahnsen.
+>
+> _Nat Biotechnol._ 2020 Feb 13. doi: [10.1038/s41587-020-0439-x](https://dx.doi.org/10.1038/s41587-020-0439-x).
