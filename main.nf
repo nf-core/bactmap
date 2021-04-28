@@ -17,17 +17,25 @@ nextflow.enable.dsl = 2
 
 def json_schema = "$projectDir/nextflow_schema.json"
 if (params.help) {
-    def command = "nextflow run nf-core/bactmap --input samplesheet.csv --reference ref.fasta -profile docker"
-    log.info Schema.params_help(workflow, params, json_schema, command)
+    def command = "nextflow run nf-core/bactmap  -profile <docker/singularity/podman/conda/institute> --input samplesheet.csv --reference ref.fasta -profile docker"
+    log.info NfcoreSchema.params_help(workflow, params, json_schema, command)
     exit 0
 }
+
+////////////////////////////////////////////////////
+/* --         VALIDATE PARAMETERS              -- */
+////////////////////////////////////////////////////+
+if (params.validate_params) {
+    NfcoreSchema.validateParameters(params, json_schema, log)
+}
+////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////
 /* --         PRINT PARAMETER SUMMARY          -- */
 ////////////////////////////////////////////////////
 
-def summary_params = Schema.params_summary_map(workflow, params, json_schema)
-log.info Schema.params_summary_log(workflow, params, json_schema)
+def summary_params = NfcoreSchema.params_summary_map(workflow, params, json_schema)
+log.info NfcoreSchema.params_summary_log(workflow, params, json_schema)
 
 ////////////////////////////////////////////////////
 /* --          PARAMETER CHECKS                -- */
@@ -177,7 +185,6 @@ workflow {
         VARIANTS_BCFTOOLS.out.filtered_vcf,
         ch_reference
     )
-    ch_software_versions = ch_software_versions.mix(VCF2PSEUDOGENOME.out.version.first().ifEmpty(null))
 
     /*
      * MODULE: make pseudogenome alignment
@@ -186,7 +193,6 @@ workflow {
         VCF2PSEUDOGENOME.out.pseudogenome.map { pseudogenome -> pseudogenome[1] }.collect(),
         ch_reference
     )
-    ch_software_versions = ch_software_versions.mix(ALIGNPSEUDOGENOMES.out.version.ifEmpty(null))
     ALIGNPSEUDOGENOMES.out.aligned_pseudogenomes
         .branch { 
             aligned_pseudogenomes ->

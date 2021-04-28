@@ -24,13 +24,10 @@ process VCF2PSEUDOGENOME {
 
     output:
     tuple val(meta), path("${meta.id}.fas"), emit: pseudogenome
-    path "*.version.txt",                    emit: version
 
     script: // This script is bundled with the pipeline, in nf-core/bactmap/bin/
     def software = getSoftwareName(task.process)
     """
     vcf2pseudogenome.py  -r ${reference} -b ${vcf} -o ${meta.id}.fas
-
-    echo '1.0' > ${software}.version.txt
     """
 }
