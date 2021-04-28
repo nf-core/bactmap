@@ -5,7 +5,7 @@ params.options = [:]
 options        = initOptions(params.options)
 
 process RAXMLNG {
-    label 'process_medium'
+    label 'process_high'
     label 'process_long'
     publishDir "${params.outdir}",
         mode: params.publish_dir_mode,
