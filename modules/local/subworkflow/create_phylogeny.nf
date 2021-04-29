@@ -23,7 +23,7 @@ workflow CREATE_PHYLOGENY {
     */
     rapidnj_tree = Channel.empty()
     rapidnj_version = null
-    if (params.rapidnj_options.build){
+    if (params.rapidnj){
         RAPIDNJ(fasta)
         rapidnj_tree = RAPIDNJ.out.phylogeny
         rapidnj_version = RAPIDNJ.out.version
@@ -33,7 +33,7 @@ workflow CREATE_PHYLOGENY {
      */
     fasttree_tree = Channel.empty()
     fasttree_version = null
-    if (params.fasttree_options.build){
+    if (params.fasttree){
         FASTTREE(fasta)
         fasttree_tree = FASTTREE.out.phylogeny
         fasttree_version = FASTTREE.out.version
@@ -44,7 +44,7 @@ workflow CREATE_PHYLOGENY {
      */
     iqtree_tree = Channel.empty()
     iqtree_version = null
-    if (params.iqtree_options.build){
+    if (params.iqtree){
         IQTREE(fasta, constant_sites_string)
         iqtree_tree = IQTREE.out.phylogeny
         iqtree_version = IQTREE.out.version
@@ -54,7 +54,7 @@ workflow CREATE_PHYLOGENY {
      */
     raxmlng_tree = Channel.empty()
     raxmlng_version = null
-    if (params.raxmlng_options.build){
+    if (params.raxmlng){
         RAXMLNG(fasta)
         raxmlng_tree = RAXMLNG.out.phylogeny
         raxmlng_version = RAXMLNG.out.version
