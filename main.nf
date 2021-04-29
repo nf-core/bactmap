@@ -86,11 +86,6 @@ include { BAM_SORT_SAMTOOLS } from './modules/local/subworkflow/bam_sort_samtool
 include { VARIANTS_BCFTOOLS } from './modules/local/subworkflow/variants_bcftools' addParams( bcftools_mpileup_options: modules['bcftools_mpileup'], bcftools_filter_options: modules['bcftools_filter'])
 include { SUB_SAMPLING } from './modules/local/subworkflow/sub_sampling'           addParams( mash_sketch_options: modules['mash_sketch'], rasusa_options: modules['rasusa'])
 
-// Merge in tree building params
-params.rapidnj ? modules['rapidnj'].build = true : modules['rapidnj']
-params.fasttree ? modules['fasttree'].build = true : modules['fasttree']
-params.iqtree ? modules['iqtree'].build = true : modules['iqtree']
-params.raxmlng ? modules['raxmlng'].build = true : modules['raxmlng']
 include { CREATE_PHYLOGENY } from './modules/local/subworkflow/create_phylogeny'   addParams(   rapidnj_options: modules['rapidnj'],
                                                                                                 fasttree_options: modules['fasttree'], 
                                                                                                 iqtree_options: modules['iqtree'], 
@@ -103,9 +98,9 @@ include { find_genome_size } from './modules/local/functions.nf'
 /* --    IMPORT NF-CORE MODULES/SUBWORKFLOWS   -- */
 ////////////////////////////////////////////////////
 def fastp_options   = modules['fastp']
-if (fastp_options.adapter_fasta){
+if (params.trim && params.adapter_file){
     fastp_options.args +=" --adapter_fasta adapter.fasta"
-    ch_adapter_fasta = [ modules['fastp']['adapter_fasta'] ]
+    ch_adapter_file = [ params.adapter_file ]
 } else {
     ch_adapter_fasta = []
 }
@@ -139,10 +134,10 @@ workflow {
     /*
      * MODULE: Run fastp
      */
-    if (params.trim){
+    if (params.trim && params.adapter_file){
         FASTP (
             INPUT_CHECK.out.sample_info,
-            ch_adapter_fasta
+            ch_adapter_file
         )
         ch_software_versions = ch_software_versions.mix(FASTP.out.version.first().ifEmpty(null))
         ch_reads = FASTP.out.reads

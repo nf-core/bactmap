@@ -69,6 +69,12 @@
                     "description": "Saved failed read files after trimminng",
                     "fa_icon": "fas fa-cut"
                 },
+                "adapter_file": {
+                    "type": "string",
+                    "default": "${baseDir}/assets/adapters.fas",
+                    "fa_icon": "fas fa-cut",
+                    "description": "path to file containing adapters in fasta format"
+                },
                 "remove_recombination": {
                     "type": "boolean",
                     "description": "Remove recombination using gubbins",
