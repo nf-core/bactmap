@@ -75,16 +75,6 @@
                     "fa_icon": "fas fa-cut",
                     "description": "path to file containing adapters in fasta format"
                 },
-                "remove_recombination": {
-                    "type": "boolean",
-                    "description": "Remove recombination using gubbins",
-                    "fa_icon": "fas fa-exchange-alt"
-                },
-                "genome_size": {
-                    "type": "string",
-                    "description": "Specify genome size for subsampling rather than estimation using mash sketch",
-                    "fa_icon": "fas fa-arrows-alt-h"
-                },
                 "subsampling_off": {
                     "type": "boolean",
                     "description": "Turn off subsampling",
@@ -95,6 +85,22 @@
                     "default": 100,
                     "description": "Desired coverage depth when subsampling",
                     "fa_icon": "fas fa-angle-double-down"
+                },
+                "genome_size": {
+                    "type": "string",
+                    "description": "Specify genome size for subsampling rather than estimation using mash sketch",
+                    "fa_icon": "fas fa-arrows-alt-h"
+                },
+                "remove_recombination": {
+                    "type": "boolean",
+                    "description": "Remove recombination using gubbins",
+                    "fa_icon": "fas fa-exchange-alt"
+                },
+                "non_GATC_threshold": {
+                    "type": "number",
+                    "default": 0.5,
+                    "fa_icon": "fas fa-percent",
+                    "description": "Maximum non GATC bases (i.e - and N) to allow in pseudogenome sequences"
                 },
                 "rapidnj": {
                     "type": "boolean",
