@@ -123,6 +123,7 @@ def multiqc_report = []
 workflow {
 
     println(params['withLabel:process_high'])
+    println(params['with-label:process_high'])
     ch_software_versions = Channel.empty()
 
     /*
