@@ -117,12 +117,12 @@ include { BWA_MEM   } from './modules/nf-core/software/bwa/mem/main'   addParams
 /* --           RUN MAIN WORKFLOW              -- */
 ////////////////////////////////////////////////////
 
-// Info required for completion email and summary
+// Info required for completion email and summary   
 def multiqc_report = []
 
 workflow {
 
-    println(params)
+    println(params['withLabel:process_high'])
     ch_software_versions = Channel.empty()
 
     /*
