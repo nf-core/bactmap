@@ -122,6 +122,7 @@ def multiqc_report = []
 
 workflow {
 
+    println(params)
     ch_software_versions = Channel.empty()
 
     /*
