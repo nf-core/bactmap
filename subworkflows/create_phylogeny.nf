@@ -6,10 +6,10 @@ params.fasttree_options = [:]
 params.iqtree_options   = [:]
 params.raxmlng_options   = [:]
 
-include { RAPIDNJ }  from '../../nf-core/software/rapidnj/main'  addParams( options: params.rapidnj_options )
-include { FASTTREE } from '../../nf-core/software/fasttree/main' addParams( options: params.fasttree_options )
-include { IQTREE  }  from '../../nf-core/software/iqtree/main'   addParams( options: params.iqtree_options )
-include { RAXMLNG  } from '../../nf-core/software/raxmlng/main'  addParams( options: params.raxmlng_options )
+include { RAPIDNJ }  from '../modules/nf-core/software/rapidnj/main'  addParams( options: params.rapidnj_options )
+include { FASTTREE } from '../modules/nf-core/software/fasttree/main' addParams( options: params.fasttree_options )
+include { IQTREE  }  from '../modules/nf-core/software/iqtree/main'   addParams( options: params.iqtree_options )
+include { RAXMLNG  } from '../modules/nf-core/software/raxmlng/main'  addParams( options: params.raxmlng_options )
 
 
 workflow CREATE_PHYLOGENY {
