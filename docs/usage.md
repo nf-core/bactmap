@@ -63,13 +63,13 @@ The steps in the pipeline have sensible defaults but complete control of the arg
 
 ```bash
   'iqtree' {
-      build = false
       args = '-alrt 1000 -B 1000 -m MFP -czb'
       publish_dir = 'iqtree'
   }
 ```
 
-These could be overridden by specifying a config file by adding an argument to the command line such as `-c my_args.config`.  The contents of the file could be:
+These could be overridden by specifying a config file by adding an argument to the command line such as t `-c user.config` ([user.config](../assets/user.config)).  
+Example contents:
 
 ```bash
 params {
@@ -81,7 +81,7 @@ params {
 }
 ```
 
-This will specify that IQ-TREE should no longer provide SH-aLRT and the ultrafast bootstrap branch support values and will use the GTR+G model. The other options (`build` and `publish_dir`) will remain the same. Therefore to build an IQ-TREE this step would either need to be turned on adding the `--iqtree` parameter to the Nextflow command line or by adding `build = true` to the user config file within the iqtree block.
+This will specify that IQ-TREE should no longer provide SH-aLRT and the ultrafast bootstrap branch support values and will use the GTR+G model. The other options (`build` and `publish_dir`) will remain the same. Therefore to build an IQ-TREE, this step would either need to be turned on adding the `--iqtree` parameter to the Nextflow command line or by adding `iqtree = true` to the user config file within the params block.
 
 The steps are described in more detail below along with their default parameters
 
