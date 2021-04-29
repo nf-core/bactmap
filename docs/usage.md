@@ -176,7 +176,6 @@ The default process configuration is found in the module.config and can be overr
 
       ```bash
               'rapidnj' {
-              build = false
               args = '-t d -b 1000 -n'
               publish_dir = 'rapidnj'
           }
@@ -187,18 +186,16 @@ The default process configuration is found in the module.config and can be overr
 
         ```bash
         'fasttree' {
-            build = false
             args = '-gtr -gamma -fastest'
             publish_dir = 'fasttree'
         }
         ```
 
-    * `--iqtree.build` Build a maximum-likelihood phylogeny using [`IQ-TREE`](http://www.iqtree.org)  
+    * `--iqtree` Build a maximum-likelihood phylogeny using [`IQ-TREE`](http://www.iqtree.org)  
     The default process configuration is found in the module.config and can be overridden as described above.
 
         ```bash
         'iqtree' {
-            build = false
             args = '-alrt 1000 -B 1000 -m MFP -czb'
             publish_dir = 'iqtree'
         }
@@ -209,7 +206,6 @@ The default process configuration is found in the module.config and can be overr
 
         ```bash
         'raxmlng' {
-            build = false
             args = '--model GTR+G --bs-trees 1000'
             publish_dir = 'raxmlng'
         }
