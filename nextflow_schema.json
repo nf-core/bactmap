@@ -199,8 +199,14 @@
                     "fa_icon": "fas fa-envelope"
                 },
                 "enable_conda": {
-                    "type": "string",
-                    "fa_icon": "fas fa-laptop-code"
+                    "type": "boolean",
+                    "fa_icon": "fas fa-laptop-code",
+                    "description": "enable conda rather than use containers"
+                },
+                "validate_params": {
+                    "type": "boolean",
+                    "default": true,
+                    "fa_icon": "fas fa-tasks"
                 }
             }
         },
