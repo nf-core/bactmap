@@ -192,11 +192,15 @@
                 "max_multiqc_email_size": {
                     "type": "string",
                     "default": "25.MB",
-                    "fa_icon": "fas fa-envelope"
+                    "fa_icon": "fas fa-envelope",
+                    "description": "NOT USED: File size limit when attaching MultiQC reports to summary emails.",
+                    "hidden": true
                 },
                 "skip_multiqc": {
                     "type": "boolean",
-                    "fa_icon": "fas fa-envelope"
+                    "fa_icon": "fas fa-fast-forward",
+                    "description": "NOT USED: Skip MultiQC",
+                    "hidden": true
                 },
                 "enable_conda": {
                     "type": "boolean",
@@ -206,7 +210,14 @@
                 "validate_params": {
                     "type": "boolean",
                     "default": true,
-                    "fa_icon": "fas fa-tasks"
+                    "fa_icon": "fas fa-tasks",
+                    "description": "Boolean whether to validate parameters against the schema at runtime"
+                },
+                "show_hidden_params": {
+                    "type": "string",
+                    "help_text": "By default, parameters set as _hidden_ in the schema are not shown on the command line when a user runs with `--help`. Specifying this option will tell the pipeline to show all parameters.",
+                    "description": "Show all params when using `--help`",
+                    "fa_icon": "fas fa-eye-slash"
                 }
             }
         },

@@ -36,8 +36,8 @@ if (params.validate_params) {
 /* --         PRINT PARAMETER SUMMARY          -- */
 ////////////////////////////////////////////////////
 
-def summary_params = NfcoreSchema.paramsSummaryMap(workflow, params, json_schema)
-log.info NfcoreSchema.paramsSummaryLog(workflow, params, json_schema)
+def summary_params = NfcoreSchema.params_summary_map(workflow, params, json_schema)
+log.info NfcoreSchema.params_summary_log(workflow, params, json_schema)
 
 ////////////////////////////////////////////////////
 /* --          PARAMETER CHECKS                -- */
