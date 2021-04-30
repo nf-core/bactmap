@@ -15,6 +15,8 @@ nextflow.enable.dsl = 2
 /* --               PRINT HELP                 -- */
 ////////////////////////////////////////////////////
 
+log.info Utils.logo(workflow, params.monochrome_logs)
+
 def json_schema = "$projectDir/nextflow_schema.json"
 if (params.help) {
     def command = "nextflow run nf-core/bactmap  -profile <docker/singularity/podman/conda/institute> --input samplesheet.csv --reference ref.fasta -profile docker"
@@ -34,8 +36,8 @@ if (params.validate_params) {
 /* --         PRINT PARAMETER SUMMARY          -- */
 ////////////////////////////////////////////////////
 
-def summary_params = NfcoreSchema.params_summary_map(workflow, params, json_schema)
-log.info NfcoreSchema.params_summary_log(workflow, params, json_schema)
+def summary_params = NfcoreSchema.paramsSummaryMap(workflow, params, json_schema)
+log.info NfcoreSchema.paramsSummaryLog(workflow, params, json_schema)
 
 ////////////////////////////////////////////////////
 /* --          PARAMETER CHECKS                -- */
@@ -43,14 +45,14 @@ log.info NfcoreSchema.params_summary_log(workflow, params, json_schema)
 
 // Check that conda channels are set-up correctly
 if (params.enable_conda) {
-    Checks.check_conda_channels(log)
+    Checks.checkCondaChannels(log)
 }
 
 // Check AWS batch settings
-Checks.aws_batch(workflow, params)
+Checks.awsBatch(workflow, params)
 
 // Check the hostnames against configured profiles
-Checks.hostname(workflow, params, log)
+Checks.hostName(workflow, params, log)
 
 
 
@@ -62,7 +64,7 @@ Checks.hostname(workflow, params, log)
 def multiqc_report = []
 
 workflow {
-    include { BACTMAP } from './workflows/bactmap'
+    include { BACTMAP } from './workflows/bactmap' addParams( summary_params: summary_params )
     BACTMAP()
 }
 

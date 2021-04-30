@@ -18,7 +18,7 @@ class NfcoreSchema {
     * whether the given paremeters adhere to the specificiations
     */
     /* groovylint-disable-next-line UnusedPrivateMethodParameter */
-    private static void validateParameters(params, jsonSchema, log) {
+    public static void validateParameters(params, jsonSchema, log) {
         def has_error = false
         //=====================================================================//
         // Check for nextflow core params and unexpected params
@@ -148,7 +148,7 @@ class NfcoreSchema {
 
         // Check for unexpected parameters
         if (unexpectedParams.size() > 0) {
-            Map colors = log_colours(params.monochrome_logs)
+            Map colors = Utils.logColours(params.monochrome_logs)
             println ''
             def warn_msg = 'Found unexpected parameters:'
             for (unexpectedParam in unexpectedParams) {
@@ -164,6 +164,155 @@ class NfcoreSchema {
         }
     }
 
+    /*
+     * Beautify parameters for --help
+     */
+    public static String paramsHelp(workflow, params, json_schema, command) {
+        Map colors = Utils.logColours(params.monochrome_logs)
+        Integer num_hidden = 0
+        String output  = ''
+        output        += 'Typical pipeline command:\n\n'
+        output        += "  ${colors.cyan}${command}${colors.reset}\n\n"
+        Map params_map = paramsLoad(json_schema)
+        Integer max_chars  = paramsMaxChars(params_map) + 1
+        Integer desc_indent = max_chars + 14
+        Integer dec_linewidth = 160 - desc_indent
+        for (group in params_map.keySet()) {
+            Integer num_params = 0
+            String group_output = colors.underlined + colors.bold + group + colors.reset + '\n'
+            def group_params = params_map.get(group)  // This gets the parameters of that particular group
+            for (param in group_params.keySet()) {
+                if (group_params.get(param).hidden && !params.show_hidden_params) {
+                    num_hidden += 1
+                    continue;
+                }
+                def type = '[' + group_params.get(param).type + ']'
+                def description = group_params.get(param).description
+                def defaultValue = group_params.get(param).default ? " [default: " + group_params.get(param).default.toString() + "]" : ''
+                def description_default = description + colors.dim + defaultValue + colors.reset
+                // Wrap long description texts
+                // Loosely based on https://dzone.com/articles/groovy-plain-text-word-wrap
+                if (description_default.length() > dec_linewidth){
+                    List olines = []
+                    String oline = "" // " " * indent
+                    description_default.split(" ").each() { wrd ->
+                        if ((oline.size() + wrd.size()) <= dec_linewidth) {
+                            oline += wrd + " "
+                        } else {
+                            olines += oline
+                            oline = wrd + " "
+                        }
+                    }
+                    olines += oline
+                    description_default = olines.join("\n" + " " * desc_indent)
+                }
+                group_output += "  --" +  param.padRight(max_chars) + colors.dim + type.padRight(10) + colors.reset + description_default + '\n'
+                num_params += 1
+            }
+            group_output += '\n'
+            if (num_params > 0){
+                output += group_output
+            }
+        }
+        if (num_hidden > 0){
+            output += colors.dim + "!! Hiding $num_hidden params, use --show_hidden_params to show them !!\n" + colors.reset
+        }
+        output += Utils.dashedLine(params.monochrome_logs)
+        return output
+    }
+
+    /*
+     * Groovy Map summarising parameters/workflow options used by the pipeline
+     */
+    public static LinkedHashMap paramsSummaryMap(workflow, params, json_schema) {
+        // Get a selection of core Nextflow workflow options
+        def Map workflow_summary = [:]
+        if (workflow.revision) {
+            workflow_summary['revision'] = workflow.revision
+        }
+        workflow_summary['runName']      = workflow.runName
+        if (workflow.containerEngine) {
+            workflow_summary['containerEngine'] = workflow.containerEngine
+        }
+        if (workflow.container) {
+            workflow_summary['container'] = workflow.container
+        }
+        workflow_summary['launchDir']    = workflow.launchDir
+        workflow_summary['workDir']      = workflow.workDir
+        workflow_summary['projectDir']   = workflow.projectDir
+        workflow_summary['userName']     = workflow.userName
+        workflow_summary['profile']      = workflow.profile
+        workflow_summary['configFiles']  = workflow.configFiles.join(', ')
+
+        // Get pipeline parameters defined in JSON Schema
+        def Map params_summary = [:]
+        def blacklist  = ['hostnames']
+        def params_map = paramsLoad(json_schema)
+        for (group in params_map.keySet()) {
+            def sub_params = new LinkedHashMap()
+            def group_params = params_map.get(group)  // This gets the parameters of that particular group
+            for (param in group_params.keySet()) {
+                if (params.containsKey(param) && !blacklist.contains(param)) {
+                    def params_value = params.get(param)
+                    def schema_value = group_params.get(param).default
+                    def param_type   = group_params.get(param).type
+                    if (schema_value != null) {
+                        if (param_type == 'string') {
+                            if (schema_value.contains('$projectDir') || schema_value.contains('${projectDir}')) {
+                                def sub_string = schema_value.replace('\$projectDir', '')
+                                sub_string     = sub_string.replace('\${projectDir}', '')
+                                if (params_value.contains(sub_string)) {
+                                    schema_value = params_value
+                                }
+                            }
+                            if (schema_value.contains('$params.outdir') || schema_value.contains('${params.outdir}')) {
+                                def sub_string = schema_value.replace('\$params.outdir', '')
+                                sub_string     = sub_string.replace('\${params.outdir}', '')
+                                if ("${params.outdir}${sub_string}" == params_value) {
+                                    schema_value = params_value
+                                }
+                            }
+                        }
+                    }
+
+                    // We have a default in the schema, and this isn't it
+                    if (schema_value != null && params_value != schema_value) {
+                        sub_params.put(param, params_value)
+                    }
+                    // No default in the schema, and this isn't empty
+                    else if (schema_value == null && params_value != "" && params_value != null && params_value != false) {
+                        sub_params.put(param, params_value)
+                    }
+                }
+            }
+            params_summary.put(group, sub_params)
+        }
+        return [ 'Core Nextflow options' : workflow_summary ] << params_summary
+    }
+
+    /*
+     * Beautify parameters for summary and return as string
+     */
+    public static String paramsSummaryLog(workflow, params, json_schema) {
+        Map colors = Utils.logColours(params.monochrome_logs)
+        String output  = ''
+        def params_map = paramsSummaryMap(workflow, params, json_schema)
+        def max_chars  = paramsMaxChars(params_map)
+        for (group in params_map.keySet()) {
+            def group_params = params_map.get(group)  // This gets the parameters of that particular group
+            if (group_params) {
+                output += colors.bold + group + colors.reset + '\n'
+                for (param in group_params.keySet()) {
+                    output += "  " + colors.blue + param.padRight(max_chars) + ": " + colors.green +  group_params.get(param) + colors.reset + '\n'
+                }
+                output += '\n'
+            }
+        }
+        output += "!! Only displaying parameters that differ from the pipeline defaults !!\n"
+        output += Utils.dashedLine(params.monochrome_logs)
+        return output
+    }
+    
     // Loop over nested exceptions and print the causingException
     private static void printExceptions(exJSON, paramsJSON, log) {
         def causingExceptions = exJSON['causingExceptions']
@@ -190,18 +339,18 @@ class NfcoreSchema {
     }
 
     // Remove an element from a JSONArray
-    private static JSONArray removeElement(jsonArray, element){
-        def list = []  
+    private static JSONArray removeElement(jsonArray, element) {
+        def list = []
         int len = jsonArray.length()
-        for (int i=0;i<len;i++){ 
+        for (int i=0;i<len;i++){
             list.add(jsonArray.get(i).toString())
-        } 
+        }
         list.remove(element)
         JSONArray jsArray = new JSONArray(list)
         return jsArray
     }
 
-    private static JSONObject removeIgnoredParams(rawSchema, params){
+    private static JSONObject removeIgnoredParams(rawSchema, params) {
         // Remove anything that's in params.schema_ignore_params
         params.schema_ignore_params.split(',').each{ ignore_param ->
             if(rawSchema.keySet().contains('definitions')){
@@ -213,7 +362,7 @@ class NfcoreSchema {
                             // If the param was required, change this
                             if (definition[key].has("required")) {
                                 def cleaned_required = removeElement(definition[key].required, ignore_param)
-                                definition[key].put("required", cleaned_required) 
+                                definition[key].put("required", cleaned_required)
                             }
                         }
                     }
@@ -243,7 +392,7 @@ class NfcoreSchema {
             }
             // Cast Duration to String
             if (p['value'].getClass() == nextflow.util.Duration) {
-                new_params.replace(p.key, p['value'].toString())
+                new_params.replace(p.key, p['value'].toString().replaceFirst(/d(?!\S)/, "day"))
             }
             // Cast LinkedHashMap to String
             if (p['value'].getClass() == LinkedHashMap) {
@@ -256,85 +405,15 @@ class NfcoreSchema {
      /*
      * This method tries to read a JSON params file
      */
-    private static LinkedHashMap params_load(String json_schema) {
+    private static LinkedHashMap paramsLoad(String json_schema) {
         def params_map = new LinkedHashMap()
         try {
-            params_map = params_read(json_schema)
+            params_map = paramsRead(json_schema)
         } catch (Exception e) {
             println "Could not read parameters settings from JSON. $e"
             params_map = new LinkedHashMap()
         }
         return params_map
-    }
-
-    private static Map log_colours(Boolean monochrome_logs) {
-        Map colorcodes = [:]
-
-        // Reset / Meta
-        colorcodes['reset']       = monochrome_logs ? '' : "\033[0m"
-        colorcodes['bold']        = monochrome_logs ? '' : "\033[1m"
-        colorcodes['dim']         = monochrome_logs ? '' : "\033[2m"
-        colorcodes['underlined']  = monochrome_logs ? '' : "\033[4m"
-        colorcodes['blink']       = monochrome_logs ? '' : "\033[5m"
-        colorcodes['reverse']     = monochrome_logs ? '' : "\033[7m"
-        colorcodes['hidden']      = monochrome_logs ? '' : "\033[8m"
-
-        // Regular Colors
-        colorcodes['black']       = monochrome_logs ? '' : "\033[0;30m"
-        colorcodes['red']         = monochrome_logs ? '' : "\033[0;31m"
-        colorcodes['green']       = monochrome_logs ? '' : "\033[0;32m"
-        colorcodes['yellow']      = monochrome_logs ? '' : "\033[0;33m"
-        colorcodes['blue']        = monochrome_logs ? '' : "\033[0;34m"
-        colorcodes['purple']      = monochrome_logs ? '' : "\033[0;35m"
-        colorcodes['cyan']        = monochrome_logs ? '' : "\033[0;36m"
-        colorcodes['white']       = monochrome_logs ? '' : "\033[0;37m"
-
-        // Bold
-        colorcodes['bblack']      = monochrome_logs ? '' : "\033[1;30m"
-        colorcodes['bred']        = monochrome_logs ? '' : "\033[1;31m"
-        colorcodes['bgreen']      = monochrome_logs ? '' : "\033[1;32m"
-        colorcodes['byellow']     = monochrome_logs ? '' : "\033[1;33m"
-        colorcodes['bblue']       = monochrome_logs ? '' : "\033[1;34m"
-        colorcodes['bpurple']     = monochrome_logs ? '' : "\033[1;35m"
-        colorcodes['bcyan']       = monochrome_logs ? '' : "\033[1;36m"
-        colorcodes['bwhite']      = monochrome_logs ? '' : "\033[1;37m"
-
-        // Underline
-        colorcodes['ublack']      = monochrome_logs ? '' : "\033[4;30m"
-        colorcodes['ured']        = monochrome_logs ? '' : "\033[4;31m"
-        colorcodes['ugreen']      = monochrome_logs ? '' : "\033[4;32m"
-        colorcodes['uyellow']     = monochrome_logs ? '' : "\033[4;33m"
-        colorcodes['ublue']       = monochrome_logs ? '' : "\033[4;34m"
-        colorcodes['upurple']     = monochrome_logs ? '' : "\033[4;35m"
-        colorcodes['ucyan']       = monochrome_logs ? '' : "\033[4;36m"
-        colorcodes['uwhite']      = monochrome_logs ? '' : "\033[4;37m"
-
-        // High Intensity
-        colorcodes['iblack']      = monochrome_logs ? '' : "\033[0;90m"
-        colorcodes['ired']        = monochrome_logs ? '' : "\033[0;91m"
-        colorcodes['igreen']      = monochrome_logs ? '' : "\033[0;92m"
-        colorcodes['iyellow']     = monochrome_logs ? '' : "\033[0;93m"
-        colorcodes['iblue']       = monochrome_logs ? '' : "\033[0;94m"
-        colorcodes['ipurple']     = monochrome_logs ? '' : "\033[0;95m"
-        colorcodes['icyan']       = monochrome_logs ? '' : "\033[0;96m"
-        colorcodes['iwhite']      = monochrome_logs ? '' : "\033[0;97m"
-
-        // Bold High Intensity
-        colorcodes['biblack']     = monochrome_logs ? '' : "\033[1;90m"
-        colorcodes['bired']       = monochrome_logs ? '' : "\033[1;91m"
-        colorcodes['bigreen']     = monochrome_logs ? '' : "\033[1;92m"
-        colorcodes['biyellow']    = monochrome_logs ? '' : "\033[1;93m"
-        colorcodes['biblue']      = monochrome_logs ? '' : "\033[1;94m"
-        colorcodes['bipurple']    = monochrome_logs ? '' : "\033[1;95m"
-        colorcodes['bicyan']      = monochrome_logs ? '' : "\033[1;96m"
-        colorcodes['biwhite']     = monochrome_logs ? '' : "\033[1;97m"
-
-        return colorcodes
-    }
-
-    static String dashed_line(monochrome_logs) {
-        Map colors = log_colours(monochrome_logs)
-        return "-${colors.dim}----------------------------------------------------${colors.reset}-"
     }
 
     /*
@@ -346,7 +425,7 @@ class NfcoreSchema {
     Group
         -
     */
-    private static LinkedHashMap params_read(String json_schema) throws Exception {
+    private static LinkedHashMap paramsRead(String json_schema) throws Exception {
         def json = new File(json_schema).text
         def Map schema_definitions = (Map) new JsonSlurper().parseText(json).get('definitions')
         def Map schema_properties = (Map) new JsonSlurper().parseText(json).get('properties')
@@ -400,7 +479,7 @@ class NfcoreSchema {
     /*
      * Get maximum number of characters across all parameter names
      */
-    private static Integer params_max_chars(params_map) {
+    private static Integer paramsMaxChars(params_map) {
         Integer max_chars = 0
         for (group in params_map.keySet()) {
             def group_params = params_map.get(group)  // This gets the parameters of that particular group
@@ -412,160 +491,4 @@ class NfcoreSchema {
         }
         return max_chars
     }
-
-    /*
-     * Beautify parameters for --help
-     */
-    private static String params_help(workflow, params, json_schema, command) {
-        Map colors = log_colours(params.monochrome_logs)
-        Integer num_hidden = 0
-        String output  = ''
-        output        += 'Typical pipeline command:\n\n'
-        output        += "  ${colors.cyan}${command}${colors.reset}\n\n"
-        Map params_map = params_load(json_schema)
-        Integer max_chars  = params_max_chars(params_map) + 1
-        Integer desc_indent = max_chars + 14
-        Integer dec_linewidth = 160 - desc_indent
-        for (group in params_map.keySet()) {
-            Integer num_params = 0
-            String group_output = colors.underlined + colors.bold + group + colors.reset + '\n'
-            def group_params = params_map.get(group)  // This gets the parameters of that particular group
-            for (param in group_params.keySet()) {
-                if (group_params.get(param).hidden && !params.show_hidden_params) {
-                    num_hidden += 1
-                    continue;
-                }
-                def type = '[' + group_params.get(param).type + ']'
-                def description = group_params.get(param).description
-                def defaultValue = group_params.get(param).default ? " [default: " + group_params.get(param).default.toString() + "]" : ''
-                def description_default = description + colors.dim + defaultValue + colors.reset
-                // Wrap long description texts
-                // Loosely based on https://dzone.com/articles/groovy-plain-text-word-wrap
-                if (description_default.length() > dec_linewidth){
-                    List olines = []
-                    String oline = "" // " " * indent
-                    description_default.split(" ").each() { wrd ->
-                        if ((oline.size() + wrd.size()) <= dec_linewidth) {
-                            oline += wrd + " "
-                        } else {
-                            olines += oline
-                            oline = wrd + " "
-                        }
-                    }
-                    olines += oline
-                    description_default = olines.join("\n" + " " * desc_indent)
-                }
-                group_output += "  --" +  param.padRight(max_chars) + colors.dim + type.padRight(10) + colors.reset + description_default + '\n'
-                num_params += 1
-            }
-            group_output += '\n'
-            if (num_params > 0){
-                output += group_output
-            }
-        }
-        output += dashed_line(params.monochrome_logs)
-        if (num_hidden > 0){
-            output += colors.dim + "\n Hiding $num_hidden params, use --show_hidden_params to show.\n" + colors.reset
-            output += dashed_line(params.monochrome_logs)
-        }
-        return output
-    }
-
-    /*
-     * Groovy Map summarising parameters/workflow options used by the pipeline
-     */
-    private static LinkedHashMap params_summary_map(workflow, params, json_schema) {
-        // Get a selection of core Nextflow workflow options
-        def Map workflow_summary = [:]
-        if (workflow.revision) {
-            workflow_summary['revision'] = workflow.revision
-        }
-        workflow_summary['runName']      = workflow.runName
-        if (workflow.containerEngine) {
-            workflow_summary['containerEngine'] = "$workflow.containerEngine"
-        }
-        if (workflow.container) {
-            workflow_summary['container']       = "$workflow.container"
-        }
-        workflow_summary['launchDir']    = workflow.launchDir
-        workflow_summary['workDir']      = workflow.workDir
-        workflow_summary['projectDir']   = workflow.projectDir
-        workflow_summary['userName']     = workflow.userName
-        workflow_summary['profile']      = workflow.profile
-        workflow_summary['configFiles']  = workflow.configFiles.join(', ')
-
-        // Get pipeline parameters defined in JSON Schema
-        def Map params_summary = [:]
-        def blacklist  = ['hostnames']
-        def params_map = params_load(json_schema)
-        for (group in params_map.keySet()) {
-            def sub_params = new LinkedHashMap()
-            def group_params = params_map.get(group)  // This gets the parameters of that particular group
-            for (param in group_params.keySet()) {
-                if (params.containsKey(param) && !blacklist.contains(param)) {
-                    def params_value = params.get(param)
-                    def schema_value = group_params.get(param).default
-                    def param_type   = group_params.get(param).type
-                    if (schema_value == null) {
-                        if (param_type == 'boolean') {
-                            schema_value = false
-                        }
-                        if (param_type == 'string') {
-                            schema_value = ''
-                        }
-                        if (param_type == 'integer') {
-                            schema_value = 0
-                        }
-                    } else {
-                        if (param_type == 'string') {
-                            if (schema_value.contains('$projectDir') || schema_value.contains('${projectDir}')) {
-                                def sub_string = schema_value.replace('\$projectDir', '')
-                                sub_string     = sub_string.replace('\${projectDir}', '')
-                                if (params_value.contains(sub_string)) {
-                                    schema_value = params_value
-                                }
-                            }
-                            if (schema_value.contains('$params.outdir') || schema_value.contains('${params.outdir}')) {
-                                def sub_string = schema_value.replace('\$params.outdir', '')
-                                sub_string     = sub_string.replace('\${params.outdir}', '')
-                                if ("${params.outdir}${sub_string}" == params_value) {
-                                    schema_value = params_value
-                                }
-                            }
-                        }
-                    }
-
-                    if (params_value != schema_value) {
-                        sub_params.put("$param", params_value)
-                    }
-                }
-            }
-            params_summary.put(group, sub_params)
-        }
-        return [ 'Core Nextflow options' : workflow_summary ] << params_summary
-    }
-
-    /*
-     * Beautify parameters for summary and return as string
-     */
-    private static String params_summary_log(workflow, params, json_schema) {
-        String output  = ''
-        def params_map = params_summary_map(workflow, params, json_schema)
-        def max_chars  = params_max_chars(params_map)
-        for (group in params_map.keySet()) {
-            def group_params = params_map.get(group)  // This gets the parameters of that particular group
-            if (group_params) {
-                output += group + '\n'
-                for (param in group_params.keySet()) {
-                    output += "    \u001B[1m" +  param.padRight(max_chars) + ": \u001B[1m" + group_params.get(param) + '\n'
-                }
-                output += '\n'
-            }
-        }
-        output += "[Only displaying parameters that differ from pipeline default]\n"
-        output += dashed_line(params.monochrome_logs)
-        output += '\n\n' + dashed_line(params.monochrome_logs)
-        return output
-    }
-
 }

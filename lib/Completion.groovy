@@ -3,10 +3,13 @@
  */
 
 class Completion {
-    static void email(workflow, params, summary_params, projectDir, log, multiqc_report=[]) {
+    public static void email(workflow, params, summary_params, projectDir, log, multiqc_report=[], fail_percent_mapped=[:]) {
 
         // Set up the e-mail variables
         def subject = "[$workflow.manifest.name] Successful: $workflow.runName"
+        if (fail_percent_mapped.size() > 0) {
+            subject = "[$workflow.manifest.name] Partially successful (${fail_percent_mapped.size()} skipped): $workflow.runName"
+        }
         if (!workflow.success) {
             subject = "[$workflow.manifest.name] FAILED: $workflow.runName"
         }
@@ -29,17 +32,17 @@ class Completion {
         misc_fields['Nextflow Compile Timestamp'] = workflow.nextflow.timestamp
 
         def email_fields = [:]
-        email_fields['version']      = workflow.manifest.version
-        email_fields['runName']      = workflow.runName
-        email_fields['success']      = workflow.success
-        email_fields['dateComplete'] = workflow.complete
-        email_fields['duration']     = workflow.duration
-        email_fields['exitStatus']   = workflow.exitStatus
-        email_fields['errorMessage'] = (workflow.errorMessage ?: 'None')
-        email_fields['errorReport']  = (workflow.errorReport ?: 'None')
-        email_fields['commandLine']  = workflow.commandLine
-        email_fields['projectDir']   = workflow.projectDir
-        email_fields['summary']      = summary << misc_fields
+        email_fields['version']             = workflow.manifest.version
+        email_fields['runName']             = workflow.runName
+        email_fields['success']             = workflow.success
+        email_fields['dateComplete']        = workflow.complete
+        email_fields['duration']            = workflow.duration
+        email_fields['exitStatus']          = workflow.exitStatus
+        email_fields['errorMessage']        = (workflow.errorMessage ?: 'None')
+        email_fields['errorReport']         = (workflow.errorReport ?: 'None')
+        email_fields['commandLine']         = workflow.commandLine
+        email_fields['projectDir']          = workflow.projectDir
+        email_fields['summary']             = summary << misc_fields
         
         // On success try attach the multiqc report
         def mqc_report = null
@@ -54,7 +57,9 @@ class Completion {
                 }
             }
         } catch (all) {
-            log.warn "[$workflow.manifest.name] Could not attach MultiQC report to summary email"
+            if (multiqc_report) {
+                log.warn "[$workflow.manifest.name] Could not attach MultiQC report to summary email"
+            }
         }
 
         // Check if we are only sending emails on failure
@@ -82,7 +87,7 @@ class Completion {
         def sendmail_html          = sendmail_template.toString()
 
         // Send the HTML e-mail
-        Map colors = Headers.log_colours(params.monochrome_logs)
+        Map colors = Utils.logColours(params.monochrome_logs)
         if (email_address) {
             try {
                 if (params.plaintext_email) { throw GroovyException('Send plaintext e-mail, not HTML') }
@@ -111,8 +116,31 @@ class Completion {
         output_tf.withWriter { w -> w << email_txt }
     }
 
-    static void summary(workflow, params, log) {
-        Map colors = Headers.log_colours(params.monochrome_logs)
+    public static void summary(workflow, params, log, fail_percent_mapped=[:], pass_percent_mapped=[:]) {
+        Map colors = Utils.logColours(params.monochrome_logs)
+
+        def total_aln_count = pass_percent_mapped.size() + fail_percent_mapped.size()
+        if (pass_percent_mapped.size() > 0) {
+            def idx = 0
+            def samp_aln = ''
+            for (samp in pass_percent_mapped) {
+                samp_aln += "    ${samp.value}%: ${samp.key}\n"
+                idx += 1
+                if (idx > 5) {
+                    samp_aln += "    ..see pipeline reports for full list\n"
+                    break;
+                }
+            }
+            log.info "-${colors.purple}[$workflow.manifest.name]${colors.green} ${pass_percent_mapped.size()}/$total_aln_count samples passed STAR ${params.min_mapped_reads}% mapped threshold:\n${samp_aln}${colors.reset}-"
+        }
+        if (fail_percent_mapped.size() > 0) {
+            def samp_aln = ''
+            for (samp in fail_percent_mapped) {
+                samp_aln += "    ${samp.value}%: ${samp.key}\n"
+            }
+            log.info "-${colors.purple}[$workflow.manifest.name]${colors.red} ${fail_percent_mapped.size()}/$total_aln_count samples skipped since they failed STAR ${params.min_mapped_reads}% mapped threshold:\n${samp_aln}${colors.reset}-"
+        }
+
         if (workflow.success) {
             if (workflow.stats.ignoredCount == 0) {
                 log.info "-${colors.purple}[$workflow.manifest.name]${colors.green} Pipeline completed successfully${colors.reset}-"
@@ -120,7 +148,7 @@ class Completion {
                 log.info "-${colors.purple}[$workflow.manifest.name]${colors.red} Pipeline completed successfully, but with errored process(es) ${colors.reset}-"
             }
         } else {
-            Checks.hostname(workflow, params, log)
+            Checks.hostName(workflow, params, log)
             log.info "-${colors.purple}[$workflow.manifest.name]${colors.red} Pipeline completed with errors${colors.reset}-"
         }
     }
