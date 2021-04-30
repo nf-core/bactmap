@@ -183,3 +183,16 @@ workflow BACTMAP {
     )
 
 }
+
+////////////////////////////////////////////////////
+/* --              COMPLETION EMAIL            -- */
+////////////////////////////////////////////////////
+
+workflow.onComplete {
+    Completion.email(workflow, params, summary_params, projectDir, log, multiqc_report)
+    Completion.summary(workflow, params, log)
+}
+
+////////////////////////////////////////////////////
+/* --                  THE END                 -- */
+////////////////////////////////////////////////////
