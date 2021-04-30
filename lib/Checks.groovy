@@ -6,7 +6,7 @@ import org.yaml.snakeyaml.Yaml
 
 class Checks {
 
-    static void check_conda_channels(log) {
+    public static void checkCondaChannels(log) {
         Yaml parser = new Yaml()
         def channels = []
         try {
@@ -35,7 +35,7 @@ class Checks {
         }
     }
 
-    static void aws_batch(workflow, params) {
+    public static void awsBatch(workflow, params) {
         if (workflow.profile.contains('awsbatch')) {
             assert (params.awsqueue && params.awsregion) : "Specify correct --awsqueue and --awsregion parameters on AWSBatch!"
             // Check outdir paths to be S3 buckets if running on AWSBatch
@@ -46,8 +46,8 @@ class Checks {
         }
     }
 
-    static void hostname(workflow, params, log) {
-        Map colors = Headers.log_colours(params.monochrome_logs)
+    public static void hostName(workflow, params, log) {
+        Map colors = Utils.logColours(params.monochrome_logs)
         if (params.hostnames) {
             def hostname = "hostname".execute().text.trim()
             params.hostnames.each { prof, hnames ->
@@ -62,16 +62,5 @@ class Checks {
                 }
             }
         }
-    }
-
-    // Citation string
-    private static String citation(workflow) {
-        return "If you use ${workflow.manifest.name} for your analysis please cite:\n\n" +
-               "* The pipeline\n" + 
-               "  https://doi.org/10.5281/zenodo.1400710\n\n" +
-               "* The nf-core framework\n" +
-               "  https://dx.doi.org/10.1038/s41587-020-0439-x\n" +
-               "* Software dependencies\n" +
-               "  https://github.com/${workflow.manifest.name}/blob/master/CITATIONS.md"
     }
 }

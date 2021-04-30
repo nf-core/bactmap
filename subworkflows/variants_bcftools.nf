@@ -5,8 +5,8 @@
 params.bcftools_mpileup_options    = [:]
 params.bcftools_filter_options    = [:]
 
-include { BCFTOOLS_MPILEUP } from '../../nf-core/software/bcftools/mpileup/main' addParams( options: params.bcftools_mpileup_options )
-include { BCFTOOLS_FILTER  } from  '../../nf-core/software/bcftools/filter/main' addParams( options: params.bcftools_filter_options )
+include { BCFTOOLS_MPILEUP } from '../modules/nf-core/software/bcftools/mpileup/main' addParams( options: params.bcftools_mpileup_options )
+include { BCFTOOLS_FILTER  } from  '../modules/nf-core/software/bcftools/filter/main' addParams( options: params.bcftools_filter_options )
 
 
 workflow VARIANTS_BCFTOOLS {

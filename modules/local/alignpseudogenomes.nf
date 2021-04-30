@@ -24,7 +24,6 @@ process ALIGNPSEUDOGENOMES {
     output:
     tuple env(NUM_ALIGNMENT_GENOMES), path("aligned_pseudogenomes.fas"), emit: aligned_pseudogenomes
     path "low_quality_pseudogenomes.tsv",                                emit: low_quality_metrics
-    path "*.version.txt",                                                emit: version
 
     script: // This script is bundled with the pipeline, in nf-core/bactmap/bin/
     def software = getSoftwareName(task.process)
@@ -34,7 +33,7 @@ process ALIGNPSEUDOGENOMES {
     for pseudogenome in ${pseudogenomes}
     do
         fraction_non_GATC_bases=\$(calculate_fraction_of_non_GATC_bases.py -f \$pseudogenome | tr -d '\\n')
-        if awk 'BEGIN { exit !(\$fraction_non_GATC_bases < ${params.options.non_GATC_threshold}) }'; then
+        if awk 'BEGIN { exit !(\$fraction_non_GATC_bases < ${params.non_GATC_threshold}) }'; then
             cat \$pseudogenome >> aligned_pseudogenomes.fas
         else
             echo "\$pseudogenome\t\$fraction_non_GATC_bases" >> low_quality_pseudogenomes.tsv
@@ -43,7 +42,5 @@ process ALIGNPSEUDOGENOMES {
     cat ${reference} >> aligned_pseudogenomes.fas
 
     NUM_ALIGNMENT_GENOMES=\$(grep -c ">" aligned_pseudogenomes.fas)
-
-    echo '1.0' > ${software}.version.txt
     """
 }

@@ -5,7 +5,7 @@ params.options = [:]
 options        = initOptions(params.options)
 
 process RAXMLNG {
-    label 'process_medium'
+    label 'process_high'
     label 'process_long'
     publishDir "${params.outdir}",
         mode: params.publish_dir_mode,
@@ -28,10 +28,6 @@ process RAXMLNG {
 
     script:
     def software = getSoftwareName(task.process)
-
-    if (options.args.contains('--bs-trees')) {
-        options.args = "--all ${options.args}"
-    }
     """
     raxml-ng \\
         $options.args \\

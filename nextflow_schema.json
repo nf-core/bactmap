@@ -61,46 +61,69 @@
                 "trim": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Trim reads"
+                    "description": "Trim reads",
+                    "fa_icon": "fas fa-cut"
                 },
                 "save_trimmed_fail": {
                     "type": "boolean",
-                    "description": "Saved failed read files after trimminng"
+                    "description": "Saved failed read files after trimminng",
+                    "fa_icon": "fas fa-cut"
                 },
-                "remove_recombination": {
-                    "type": "boolean",
-                    "description": "Remove recombination using gubbins"
-                },
-                "genome_size": {
+                "adapter_file": {
                     "type": "string",
-                    "description": "Specify genome size for subsampling rather than estimation using mash sketch"
+                    "default": "${baseDir}/assets/adapters.fas",
+                    "fa_icon": "fas fa-cut",
+                    "description": "path to file containing adapters in fasta format"
                 },
                 "subsampling_off": {
                     "type": "boolean",
-                    "description": "Turn off subsampling"
+                    "description": "Turn off subsampling",
+                    "fa_icon": "fas fa-angle-double-down"
                 },
                 "subsampling_depth_cutoff": {
                     "type": "integer",
                     "default": 100,
-                    "description": "Desired coverage depth when subsampling"
+                    "description": "Desired coverage depth when subsampling",
+                    "fa_icon": "fas fa-angle-double-down"
+                },
+                "genome_size": {
+                    "type": "string",
+                    "description": "Specify genome size for subsampling rather than estimation using mash sketch",
+                    "fa_icon": "fas fa-arrows-alt-h"
+                },
+                "remove_recombination": {
+                    "type": "boolean",
+                    "description": "Remove recombination using gubbins",
+                    "fa_icon": "fas fa-exchange-alt"
+                },
+                "non_GATC_threshold": {
+                    "type": "number",
+                    "default": 0.5,
+                    "fa_icon": "fas fa-percent",
+                    "description": "Maximum non GATC bases (i.e - and N) to allow in pseudogenome sequences"
                 },
                 "rapidnj": {
                     "type": "boolean",
-                    "description": "Build a tree using the RapidNJ neighbour-joining algorithm"
+                    "description": "Build a tree using the RapidNJ neighbour-joining algorithm",
+                    "fa_icon": "fas fa-tree"
                 },
                 "fasttree": {
                     "type": "boolean",
-                    "description": "Build a tree using the FastTree approximate ML algorithm"
+                    "description": "Build a tree using the FastTree approximate ML algorithm",
+                    "fa_icon": "fas fa-tree"
                 },
                 "iqtree": {
                     "type": "boolean",
-                    "description": "Build a tree using the IQ-TREE ML algorithm"
+                    "description": "Build a tree using the IQ-TREE ML algorithm",
+                    "fa_icon": "fas fa-tree"
                 },
                 "raxmlng": {
                     "type": "boolean",
-                    "description": "Build a tree using the RAxML-NG ML algorithm"
+                    "description": "Build a tree using the RAxML-NG ML algorithm",
+                    "fa_icon": "fas fa-tree"
                 }
-            }
+            },
+            "fa_icon": "fas fa-project-diagram"
         },
         "generic_options": {
             "title": "Generic options",
@@ -168,10 +191,33 @@
                 },
                 "max_multiqc_email_size": {
                     "type": "string",
-                    "default": "25.MB"
+                    "default": "25.MB",
+                    "fa_icon": "fas fa-envelope",
+                    "description": "NOT USED: File size limit when attaching MultiQC reports to summary emails.",
+                    "hidden": true
                 },
                 "skip_multiqc": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "fa_icon": "fas fa-fast-forward",
+                    "description": "NOT USED: Skip MultiQC",
+                    "hidden": true
+                },
+                "enable_conda": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-laptop-code",
+                    "description": "enable conda rather than use containers"
+                },
+                "validate_params": {
+                    "type": "boolean",
+                    "default": true,
+                    "fa_icon": "fas fa-tasks",
+                    "description": "Boolean whether to validate parameters against the schema at runtime"
+                },
+                "show_hidden_params": {
+                    "type": "string",
+                    "help_text": "By default, parameters set as _hidden_ in the schema are not shown on the command line when a user runs with `--help`. Specifying this option will tell the pipeline to show all parameters.",
+                    "description": "Show all params when using `--help`",
+                    "fa_icon": "fas fa-eye-slash"
                 }
             }
         },
