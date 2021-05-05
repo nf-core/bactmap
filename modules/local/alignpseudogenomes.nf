@@ -39,7 +39,8 @@ process ALIGNPSEUDOGENOMES {
             echo "\$pseudogenome\t\$fraction_non_GATC_bases" >> low_quality_pseudogenomes.tsv
         fi
     done
-    cat ${reference} >> aligned_pseudogenomes.fas
+    reference_to_single_sequence.py -r ${reference} -o final_reference.fas
+    cat final_reference.fas >> aligned_pseudogenomes.fas
 
     NUM_ALIGNMENT_GENOMES=\$(grep -c ">" aligned_pseudogenomes.fas)
     """
