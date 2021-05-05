@@ -18,7 +18,7 @@ module_order:
         name: 'PREPROCESS: fastp (adapter trimming)'
         info: 'This section of the report shows fastp results for reads after adapter and quality trimming.'
     - samtools:
-        name: 'VARIANTS: SAMTools (raw)'
+        name: 'MAPPING: SAMTools (raw)'
         anchor: 'samtools'
         info: 'This section of the report shows SAMTools counts/statistics after mapping with BWA.'
         path_filters:
