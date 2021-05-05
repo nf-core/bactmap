@@ -8,12 +8,19 @@ params.summary_params = [:]
 /* --          VALIDATE INPUTS                 -- */
 ////////////////////////////////////////////////////
 
-checkPathParamList = [ params.input, params.reference ]
+checkPathParamList = [ params.input, params.reference, params.multiqc_config ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
 // Check mandatory parameters
 if (params.input) { ch_input = file(params.input) } else { exit 1, 'Input samplesheet not specified!' }
 if (params.reference) { ch_reference = file(params.reference) } else { exit 1, 'Reference fasta file not specified!' }
+
+////////////////////////////////////////////////////
+/* --          CONFIG FILES                    -- */
+////////////////////////////////////////////////////
+
+ch_multiqc_config        = file("$projectDir/assets/multiqc_config_bactmap.yaml", checkIfExists: true)
+ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multiqc_config) : Channel.empty()
 
 ////////////////////////////////////////////////////
 /* --       IMPORT MODULES / SUBWORKFLOWS      -- */
@@ -22,10 +29,14 @@ if (params.reference) { ch_reference = file(params.reference) } else { exit 1, '
 // Don't overwrite global params.modules, create a copy instead and use that within the main script.
 def modules = params.modules.clone()
 
+def multiqc_options   = modules['bactmap_multiqc']
+multiqc_options.args += params.multiqc_title ? Utils.joinModuleArgs(["--title \"$params.multiqc_title\""]) : ''
+
 // Local: Modules
 include { GET_SOFTWARE_VERSIONS } from '../modules/local/get_software_versions'     addParams( options: [publish_files : ['csv':'']] )
 include { VCF2PSEUDOGENOME      } from '../modules/local/vcf2pseudogenome'          addParams( options: modules['vcf2pseudogenome'])
 include { ALIGNPSEUDOGENOMES } from '../modules/local/alignpseudogenomes'           addParams( options: modules['alignpseudogenomes'])
+include { MULTIQC               } from '../modules/local/multiqc_bactmap'           addParams( options: multiqc_options )
 
 // nf-core: Modules
 include { GUBBINS } from '../modules/nf-core/software/gubbins/main'                 addParams( options: modules['gubbins'])
@@ -59,6 +70,9 @@ if (params.trim && params.adapter_file){
 include { FASTP     } from '../modules/nf-core/software/fastp/main'     addParams( options: fastp_options )
 include { BWA_INDEX } from '../modules/nf-core/software/bwa/index/main' addParams( options: modules['bwa_index'] )
 include { BWA_MEM   } from '../modules/nf-core/software/bwa/mem/main'   addParams( options: modules['bwa_mem'] )
+
+// Info required for completion email and summary
+def multiqc_report = []
 
 workflow BACTMAP {
     ch_software_versions = Channel.empty()
@@ -188,6 +202,22 @@ workflow BACTMAP {
         ch_software_versions.map { it }.collect()
     )
 
+    /*
+     * MODULE: MultiQC
+     */
+    workflow_summary    = Workflow.paramsSummaryMultiqc(workflow, params.summary_params)
+    ch_workflow_summary = Channel.value(workflow_summary)
+
+    MULTIQC (
+            ch_multiqc_config,
+            ch_multiqc_custom_config.collect().ifEmpty([]),
+            GET_SOFTWARE_VERSIONS.out.yaml.collect(),
+            ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'),
+            FASTP.out.json.collect{it[1]}.ifEmpty([]),
+            BAM_SORT_SAMTOOLS.out.stats.collect{it[1]}.ifEmpty([]),
+            VARIANTS_BCFTOOLS.out.stats.collect{it[1]}.ifEmpty([])
+        )
+        multiqc_report = MULTIQC.out.report.toList()
 }
 
 ////////////////////////////////////////////////////
