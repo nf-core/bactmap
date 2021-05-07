@@ -29,14 +29,14 @@ ch_multiqc_custom_config = params.multiqc_config ? Channel.fromPath(params.multi
 // Don't overwrite global params.modules, create a copy instead and use that within the main script.
 def modules = params.modules.clone()
 
-def multiqc_options   = modules['bactmap_multiqc']
+def multiqc_options   = modules['multiqc']
 multiqc_options.args += params.multiqc_title ? Utils.joinModuleArgs(["--title \"$params.multiqc_title\""]) : ''
 
 // Local: Modules
 include { GET_SOFTWARE_VERSIONS } from '../modules/local/get_software_versions'     addParams( options: [publish_files : ['csv':'']] )
 include { VCF2PSEUDOGENOME      } from '../modules/local/vcf2pseudogenome'          addParams( options: modules['vcf2pseudogenome'])
 include { ALIGNPSEUDOGENOMES } from '../modules/local/alignpseudogenomes'           addParams( options: modules['alignpseudogenomes'])
-include { MULTIQC               } from '../modules/local/multiqc_bactmap'           addParams( options: multiqc_options )
+include { MULTIQC               } from '../modules/local/multiqc'                   addParams( options: multiqc_options )
 
 // nf-core: Modules
 include { GUBBINS } from '../modules/nf-core/software/gubbins/main'                 addParams( options: modules['gubbins'])
