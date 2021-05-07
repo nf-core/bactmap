@@ -17,8 +17,7 @@
                 "input": {
                     "type": "string",
                     "fa_icon": "fas fa-file",
-                    "description": "Path to a sample sheet describing paths to input fastq files",
-                    "help_text": "Some help"
+                    "description": "Path to a sample sheet describing paths to input fastq files"
                 },
                 "outdir": {
                     "type": "string",
