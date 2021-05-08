@@ -54,8 +54,6 @@ def filtered_bcf_to_fasta(filtered_bcf_file, reference_lengths):
         previous_positions[chrom] = 0
     with VariantFile(filtered_bcf_file) as vcf_reader:
         for record in vcf_reader.fetch():
-            if record.pos % 10000 == 0:
-                print(record.pos)
             record_chrom = record.chrom
             if record.pos == previous_positions[record_chrom]: # Insertion - remove previous character and add 'N'
                 sequences[record_chrom].pop() # remove last position
@@ -77,8 +75,11 @@ def filtered_bcf_to_fasta(filtered_bcf_file, reference_lengths):
                 else: # if not PASS it's a low qual SNP so add N
                     sequences[record_chrom].append('N')
             previous_positions[record_chrom] = record.pos
-        if previous_positions[record_chrom] != reference_lengths[record_chrom]: # if gap at the end
-            sequences[record_chrom].extend(calculate_gaps_to_add(previous_positions[record_chrom], reference_lengths[record_chrom]))
+
+        # check for gaps at end
+        for chrom in sequences:
+            if len(sequences[chrom]) != reference_lengths[record_chrom]: # if gap at the end
+                sequences[chrom].extend(calculate_gaps_to_add(len(sequences[chrom]), reference_lengths[chrom]))
         return sequences
 
 def write_sequence(filepath, id, sequence):
@@ -90,8 +91,8 @@ if __name__ == '__main__':
     parser = argparser()
     args = parser.parse_args()
 
-    reference_length = calculate_reference_lengths(args.reference_file)
-    pseudogenome_sequence_lists = filtered_bcf_to_fasta(args.filtered_bcf_file, reference_length)
+    reference_lengths = calculate_reference_lengths(args.reference_file)
+    pseudogenome_sequence_lists = filtered_bcf_to_fasta(args.filtered_bcf_file, reference_lengths)
     pseudogenome_sequences = [ ''.join(sequence_list) for sequence_list in pseudogenome_sequence_lists.values()]
     combined_pseudogenome_sequence = ''.join(sequence for sequence in pseudogenome_sequences)
     

@@ -2,6 +2,7 @@
 from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
+import textwrap
 import argparse, sys, os
 
 class ParserWithErrors(argparse.ArgumentParser):
@@ -33,7 +34,9 @@ def argparser():
 def combine_sequences(reference_sequence):
     records = list(SeqIO.parse(reference_sequence, "fasta"))
     new_sequence = ''.join([str(record.seq) for record in records])
-    new_id = '-'.join([record.id for record in records])
+    new_id = '|'.join([record.id for record in records])
+    if len(new_id) > 100:
+        new_id = textwrap.shorten(new_id, width=97, placeholder="...")
     new_record = SeqRecord(Seq(new_sequence), id = new_id, description = '')
     return(new_record)
 
