@@ -154,6 +154,29 @@ Output files
   * `output.raxml.bestTree` A ML tree built with RAxML-NG selected as the best after running ML
   * `output.raxml.support` A ML tree built with RAxML-NG with support values for branches based on bootstrapping
 
+### MultiQC
+Various quality statistics are compiled from the previous outputs using the [MultiQC](https://multiqc.info/) software:
+
+#### Overall Statistics
+A compilation of statistics about read content, mapping and variants
+![General Statistics](images/multiqc_general_stats.png)
+
+#### FastP Statistics
+
+Statistics gathered when trimming reads
+![FastP Statistics](images/multiqc_fastp.png)
+
+#### Mapping Statistics
+
+Statistics gathered when mapping reads
+![Mapping Statistics](images/multiqc_mapping_stats.png)
+
+
+#### Varinat Statistics
+
+Statistics gathered when calling variants after filtering
+![Variant Statistics](images/multiqc_variants_stats.png)
+
 ### Pipeline information
 
 <details markdown="1">
