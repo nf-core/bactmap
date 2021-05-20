@@ -17,8 +17,7 @@
                 "input": {
                     "type": "string",
                     "fa_icon": "fas fa-file",
-                    "description": "Path to a sample sheet describing paths to input fastq files",
-                    "help_text": "Some help"
+                    "description": "Path to a sample sheet describing paths to input fastq files"
                 },
                 "outdir": {
                     "type": "string",
@@ -202,6 +201,18 @@
                     "description": "NOT USED: Skip MultiQC",
                     "hidden": true
                 },
+                "multiqc_config": {
+                    "type": "string",
+                    "description": "Custom config file to supply to MultiQC.",
+                    "fa_icon": "fas fa-cog",
+                    "hidden": true
+                },
+                "multiqc_title": {
+                    "type": "string",
+                    "hidden": true,
+                    "fa_icon": "fas fa-signature",
+                    "description": "Custom title for the MultiQC report."
+                },
                 "enable_conda": {
                     "type": "boolean",
                     "fa_icon": "fas fa-laptop-code",
@@ -214,7 +225,7 @@
                     "description": "Boolean whether to validate parameters against the schema at runtime"
                 },
                 "show_hidden_params": {
-                    "type": "string",
+                    "type": "boolean",
                     "help_text": "By default, parameters set as _hidden_ in the schema are not shown on the command line when a user runs with `--help`. Specifying this option will tell the pipeline to show all parameters.",
                     "description": "Show all params when using `--help`",
                     "fa_icon": "fas fa-eye-slash"

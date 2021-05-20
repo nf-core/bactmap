@@ -6,7 +6,7 @@
 
 ## Introduction
 
-This pipeline maps short reads (usually Illumina) to a bacterial reference (usually of the same species and the closest high quality genome available). For this purpose you will require a set of paired read files (single read file version coming in future version) and a reference genome in fasta format. The read file pairs are specified in a sample sheet  
+This pipeline maps short reads (usually Illumina) to a bacterial reference (usually of the same species and the closest high quality genome available). For this purpose you will require a set of paired read files (single read file version coming in future version) and a reference genome in fasta format. The read file pairs are specified in a sample sheet. Please note although the pipeline can handle multiple contigs within the reference sequence, it is recommended that plasmid records are removed leaving only the chromosomal records (usually one chromosome in most bacteria) since plasmids are often acquired horizontally and are evolving at a different rate to the chromosome.
 
 ## Samplesheet input
 
@@ -32,6 +32,8 @@ The typical command for running the pipeline is as follows:
 ```bash
 nextflow run nf-core/bactmap --input samplesheet.csv --reference chromosome.fasta -profile docker
 ```
+
+Please note that although the reference is named `chromosome.fasta` in this example command it could be named anything BUT it is recommended that the reference only include chromosomal sequence (see note in introduction).
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
 

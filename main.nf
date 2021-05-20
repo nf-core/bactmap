@@ -38,6 +38,8 @@ if (params.validate_params) {
 
 def summary_params = NfcoreSchema.params_summary_map(workflow, params, json_schema)
 log.info NfcoreSchema.params_summary_log(workflow, params, json_schema)
+log.info Workflow.citation(workflow)
+log.info Utils.dashedLine(params.monochrome_logs)
 
 ////////////////////////////////////////////////////
 /* --          PARAMETER CHECKS                -- */
@@ -59,9 +61,6 @@ Checks.hostName(workflow, params, log)
 ////////////////////////////////////////////////////
 /* --           RUN MAIN WORKFLOW              -- */
 ////////////////////////////////////////////////////
-
-// Info required for completion email and summary   
-def multiqc_report = []
 
 workflow {
     include { BACTMAP } from './workflows/bactmap' addParams( summary_params: summary_params )

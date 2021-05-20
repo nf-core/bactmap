@@ -18,7 +18,14 @@ process MULTIQC {
     }
 
     input:
-    path multiqc_files
+    path 'multiqc_config.yaml'
+    path multiqc_custom_config
+    path software_versions
+    path workflow_summary
+    path ('fastp/*')
+    path ('samtools/*')
+    path ('variants/*')
+
 
     output:
     path "*multiqc_report.html", emit: report
@@ -28,8 +35,9 @@ process MULTIQC {
 
     script:
     def software = getSoftwareName(task.process)
+    def custom_config = params.multiqc_config ? "--config $multiqc_custom_config" : ''
     """
-    multiqc -f $options.args .
+    multiqc -f $options.args $custom_config .
     multiqc --version | sed -e "s/multiqc, version //g" > ${software}.version.txt
     """
 }
