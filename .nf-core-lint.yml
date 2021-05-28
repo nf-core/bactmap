@@ -1,5 +1,10 @@
 files_exist:
   - Dockerfile
   - environment.yml
+  - bin/markdown_to_html.py
+files_unchanged:
+  - .github/PULL_REQUEST_TEMPLATE.md
+  - lib/NfcoreSchema.groovy
 nextflow_config:
   - process.container
+actions_awsfulltest: False
