@@ -26,7 +26,7 @@ On release, automated continuous integration tests run the pipeline on a full-si
 
 ![Pipeline summary schematic](docs/images/Bactmap_pipeline.png)
 
-The pipeline in composed of the following steps
+The pipeline is composed of the following steps:
 
 1. Index reference fasta file ([`BWA index`](https://github.com/lh3/bwa))
 2. Trim reads for quality and adapter sequence (Optional) ([`fastp`](https://github.com/OpenGene/fastp))
@@ -47,6 +47,8 @@ The pipeline in composed of the following steps
     2. Slow/more accurate, maximum likelihood
         * [`IQ-TREE`](http://www.iqtree.org/),
         * [`RAxML-NG`](https://github.com/amkozlov/raxml-ng)
+
+## Quick Start
 
 1. Install [`Nextflow`](https://nf-co.re/usage/installation) (`>=21.04.0`)
 
