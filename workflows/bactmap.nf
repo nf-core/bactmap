@@ -4,7 +4,7 @@
 
 def summary_params = NfcoreSchema.paramsSummaryMap(workflow, params)
 
-Validate input parameters
+// Validate input parameters
 WorkflowBactmap.initialise(params, log)
 
 checkPathParamList = [ params.input, params.reference, params.multiqc_config ]
