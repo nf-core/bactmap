@@ -1,12 +1,11 @@
 ////////////////////////////////////////////////////
-/* --         LOCAL PARAMETER VALUES           -- */
-////////////////////////////////////////////////////
-
-params.summary_params = [:]
-
-////////////////////////////////////////////////////
 /* --          VALIDATE INPUTS                 -- */
 ////////////////////////////////////////////////////
+
+def summary_params = NfcoreSchema.paramsSummaryMap(workflow, params)
+
+Validate input parameters
+WorkflowBactmap.initialise(params, log)
 
 checkPathParamList = [ params.input, params.reference, params.multiqc_config ]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
@@ -33,34 +32,35 @@ def multiqc_options   = modules['multiqc']
 multiqc_options.args += params.multiqc_title ? Utils.joinModuleArgs(["--title \"$params.multiqc_title\""]) : ''
 
 // Local: Modules
-include { GET_SOFTWARE_VERSIONS } from '../modules/local/get_software_versions'     addParams( options: [publish_files : ['csv':'']] )
-include { VCF2PSEUDOGENOME      } from '../modules/local/vcf2pseudogenome'          addParams( options: modules['vcf2pseudogenome'])
-include { ALIGNPSEUDOGENOMES } from '../modules/local/alignpseudogenomes'           addParams( options: modules['alignpseudogenomes'])
-include { MULTIQC               } from '../modules/local/multiqc'                   addParams( options: multiqc_options )
+include { GET_SOFTWARE_VERSIONS } from '../modules/local/get_software_versions' addParams( options: [publish_files : ['csv':'']] )
+include { VCF2PSEUDOGENOME      } from '../modules/local/vcf2pseudogenome'      addParams( options: modules['vcf2pseudogenome'])
+include { ALIGNPSEUDOGENOMES    } from '../modules/local/alignpseudogenomes'    addParams( options: modules['alignpseudogenomes'])
+include { MULTIQC               } from '../modules/local/multiqc'               addParams( options: multiqc_options )
 
 // nf-core: Modules
-include { GUBBINS } from '../modules/nf-core/software/gubbins/main'                 addParams( options: modules['gubbins'])
-include { SNPSITES } from '../modules/nf-core/software/snpsites/main'               addParams( options: modules['snpsites'])
+include { GUBBINS } from '../modules/nf-core/software/gubbins/main'    addParams( options: modules['gubbins'])
+include { SNPSITES } from '../modules/nf-core/software/snpsites/main'  addParams( options: modules['snpsites'])
 
 // Local: Sub-workflows
 include { INPUT_CHECK       } from '../subworkflows/input_check'       addParams( options: [:] )
 include { BAM_SORT_SAMTOOLS } from '../subworkflows/bam_sort_samtools' addParams( samtools_sort_options: modules['samtools_sort'], samtools_index_options : modules['samtools_index'], bam_stats_options: modules['bam_stats'])
 
 include { VARIANTS_BCFTOOLS } from '../subworkflows/variants_bcftools' addParams( bcftools_mpileup_options: modules['bcftools_mpileup'], bcftools_filter_options: modules['bcftools_filter'])
-include { SUB_SAMPLING } from '../subworkflows/sub_sampling'           addParams( mash_sketch_options: modules['mash_sketch'], rasusa_options: modules['rasusa'])
+include { SUB_SAMPLING      } from '../subworkflows/sub_sampling'      addParams( mash_sketch_options: modules['mash_sketch'], rasusa_options: modules['rasusa'])
 
-include { CREATE_PHYLOGENY } from '../subworkflows/create_phylogeny'   addParams(   rapidnj_options: modules['rapidnj'],
-                                                                                                fasttree_options: modules['fasttree'], 
-                                                                                                iqtree_options: modules['iqtree'], 
-                                                                                                raxmlng_options: modules['raxmlng']
-                                                                                            )
+include { CREATE_PHYLOGENY } from '../subworkflows/create_phylogeny'   addParams( rapidnj_options: modules['rapidnj'],
+                                                                                  fasttree_options: modules['fasttree'], 
+                                                                                  iqtree_options: modules['iqtree'], 
+                                                                                  raxmlng_options: modules['raxmlng']
+                                                                                )
 
 include { find_genome_size } from '../modules/local/functions.nf'
 
 ////////////////////////////////////////////////////
 /* --    IMPORT NF-CORE MODULES/SUBWORKFLOWS   -- */
 ////////////////////////////////////////////////////
-def fastp_options   = modules['fastp']
+
+def fastp_options = modules['fastp']
 if (params.trim && params.adapter_file){
     fastp_options.args +=" --adapter_fasta adapter.fasta"
     ch_adapter_file = [ params.adapter_file ]
@@ -90,6 +90,7 @@ workflow BACTMAP {
     BWA_INDEX (
         ch_reference
     )
+
     /*
      * MODULE: Run fastp
      */
@@ -105,16 +106,21 @@ workflow BACTMAP {
     }
 
     if (!params.subsampling_off) {
-        SUB_SAMPLING(ch_reads)
+        SUB_SAMPLING(
+            ch_reads
+        )
         ch_reads = SUB_SAMPLING.out.reads
     }
     
-
+    /*
+     * MODULE: Map reads
+     */
     BWA_MEM (
-            ch_reads,
-            BWA_INDEX.out.index
-        )
-        ch_software_versions = ch_software_versions.mix(BWA_MEM.out.version.first().ifEmpty(null))
+        ch_reads,
+        BWA_INDEX.out.index
+    )
+    ch_software_versions = ch_software_versions.mix(BWA_MEM.out.version.first().ifEmpty(null))
+    
     /*
      * SUBWORKFLOW: Sort bam files
      */
@@ -122,6 +128,7 @@ workflow BACTMAP {
         BWA_MEM.out.bam
     )
     ch_software_versions = ch_software_versions.mix(BAM_SORT_SAMTOOLS.out.samtools_version.first().ifEmpty(null))
+
     /*
      * SUBWORKFLOW: Call variants
      */
@@ -174,17 +181,18 @@ workflow BACTMAP {
             aligned_pseudogenomes
         )
         ch_software_versions = ch_software_versions.mix(GUBBINS.out.version.ifEmpty(null))
+
         /*
-        * SUBWORKFLOW: Create phylogenies
-        */
+         * SUBWORKFLOW: Create phylogenies
+         */
         CREATE_PHYLOGENY (
             GUBBINS.out.fasta,
             SNPSITES.out.constant_sites_string
         )
     } else {
         /*
-        * SUBWORKFLOW: Create phylogenies
-        */
+         * SUBWORKFLOW: Create phylogenies
+         */
         CREATE_PHYLOGENY (
             SNPSITES.out.fasta,
             SNPSITES.out.constant_sites_string
@@ -205,7 +213,7 @@ workflow BACTMAP {
     /*
      * MODULE: MultiQC
      */
-    workflow_summary    = Workflow.paramsSummaryMultiqc(workflow, params.summary_params)
+    workflow_summary    = WorkflowBactmap.paramsSummaryMultiqc(workflow, summary_params)
     ch_workflow_summary = Channel.value(workflow_summary)
 
     MULTIQC (
@@ -225,8 +233,8 @@ workflow BACTMAP {
 ////////////////////////////////////////////////////
 
 workflow.onComplete {
-    Completion.email(workflow, params, params.summary_params, projectDir, log, multiqc_report)
-    Completion.summary(workflow, params, log)
+    NfcoreTemplate.email(workflow, params, summary_params, projectDir, log, multiqc_report)
+    NfcoreTemplate.summary(workflow, params, log)
 }
 
 ////////////////////////////////////////////////////
