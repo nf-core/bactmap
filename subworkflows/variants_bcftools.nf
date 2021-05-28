@@ -8,7 +8,6 @@ params.bcftools_filter_options    = [:]
 include { BCFTOOLS_MPILEUP } from '../modules/nf-core/software/bcftools/mpileup/main' addParams( options: params.bcftools_mpileup_options )
 include { BCFTOOLS_FILTER  } from  '../modules/nf-core/software/bcftools/filter/main' addParams( options: params.bcftools_filter_options )
 
-
 workflow VARIANTS_BCFTOOLS {
     take:
     bam       // channel: [ val(meta), [ bam ] ]
@@ -19,6 +18,7 @@ workflow VARIANTS_BCFTOOLS {
      * MODULE Call variants
      */
     BCFTOOLS_MPILEUP ( bam, fasta )
+
     /*
      * MODULE Filter variants
      */
@@ -30,5 +30,4 @@ workflow VARIANTS_BCFTOOLS {
     tbi              = BCFTOOLS_MPILEUP.out.tbi     // channel: [ val(meta), [ tbi ] ]
     stats            = BCFTOOLS_MPILEUP.out.stats   // channel: [ val(meta), [ txt ] ]
     bcftools_version = BCFTOOLS_MPILEUP.out.version //    path: *.version.txt
-
 }

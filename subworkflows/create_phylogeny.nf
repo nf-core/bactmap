@@ -4,12 +4,12 @@
 params.rapidnj_options  = [:]
 params.fasttree_options = [:]
 params.iqtree_options   = [:]
-params.raxmlng_options   = [:]
+params.raxmlng_options  = [:]
 
-include { RAPIDNJ }  from '../modules/nf-core/software/rapidnj/main'  addParams( options: params.rapidnj_options )
+include { RAPIDNJ  } from '../modules/nf-core/software/rapidnj/main'  addParams( options: params.rapidnj_options  )
 include { FASTTREE } from '../modules/nf-core/software/fasttree/main' addParams( options: params.fasttree_options )
-include { IQTREE  }  from '../modules/nf-core/software/iqtree/main'   addParams( options: params.iqtree_options )
-include { RAXMLNG  } from '../modules/nf-core/software/raxmlng/main'  addParams( options: params.raxmlng_options )
+include { IQTREE   } from '../modules/nf-core/software/iqtree/main'   addParams( options: params.iqtree_options   )
+include { RAXMLNG  } from '../modules/nf-core/software/raxmlng/main'  addParams( options: params.raxmlng_options  )
 
 
 workflow CREATE_PHYLOGENY {
@@ -19,21 +19,22 @@ workflow CREATE_PHYLOGENY {
     
     main:
     /*
-    * MODULE rapidnj
-    */
+     * MODULE rapidnj
+     */
     rapidnj_tree = Channel.empty()
     rapidnj_version = null
-    if (params.rapidnj){
+    if (params.rapidnj) {
         RAPIDNJ(fasta)
         rapidnj_tree = RAPIDNJ.out.phylogeny
         rapidnj_version = RAPIDNJ.out.version
     }
+
     /*
      * MODULE fasttree
      */
     fasttree_tree = Channel.empty()
     fasttree_version = null
-    if (params.fasttree){
+    if (params.fasttree) {
         FASTTREE(fasta)
         fasttree_tree = FASTTREE.out.phylogeny
         fasttree_version = FASTTREE.out.version
@@ -44,17 +45,18 @@ workflow CREATE_PHYLOGENY {
      */
     iqtree_tree = Channel.empty()
     iqtree_version = null
-    if (params.iqtree){
+    if (params.iqtree) {
         IQTREE(fasta, constant_sites_string)
         iqtree_tree = IQTREE.out.phylogeny
         iqtree_version = IQTREE.out.version
     }
+
     /*
      * MODULE raxmlng
      */
     raxmlng_tree = Channel.empty()
     raxmlng_version = null
-    if (params.raxmlng){
+    if (params.raxmlng) {
         RAXMLNG(fasta)
         raxmlng_tree = RAXMLNG.out.phylogeny
         raxmlng_version = RAXMLNG.out.version
