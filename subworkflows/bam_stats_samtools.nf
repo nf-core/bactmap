@@ -1,7 +1,7 @@
-/*
- * Run SAMtools stats, flagstat and idxstats
- * From https://github.com/nf-core/viralrecon/blob/dev/subworkflows/nf-core/bam_stats_samtools.nf
- */
+//
+// Run SAMtools stats, flagstat and idxstats
+// From https://github.com/nf-core/viralrecon/blob/dev/subworkflows/nf-core/bam_stats_samtools.nf
+//
 
 params.options = [:]
 

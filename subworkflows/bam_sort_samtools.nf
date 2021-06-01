@@ -1,7 +1,7 @@
-/*
- * Sort, index BAM file and run samtools stats, flagstat and idxstats
- * from https://github.com/nf-core/viralrecon/blob/dev/subworkflows/nf-core/bam_sort_samtools.nf
- */
+//
+// Sort, index BAM file and run samtools stats, flagstat and idxstats
+// from https://github.com/nf-core/viralrecon/blob/dev/subworkflows/nf-core/bam_sort_samtools.nf
+//
 
 params.samtools_sort_options  = [:]
 params.samtools_index_options = [:]

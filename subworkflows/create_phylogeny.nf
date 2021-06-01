@@ -1,6 +1,6 @@
-/*
- * Phylogenies subworkflow
- */
+//
+// Phylogenies subworkflow
+//
 params.rapidnj_options  = [:]
 params.fasttree_options = [:]
 params.iqtree_options   = [:]
@@ -11,16 +11,15 @@ include { FASTTREE } from '../modules/nf-core/software/fasttree/main' addParams(
 include { IQTREE   } from '../modules/nf-core/software/iqtree/main'   addParams( options: params.iqtree_options   )
 include { RAXMLNG  } from '../modules/nf-core/software/raxmlng/main'  addParams( options: params.raxmlng_options  )
 
-
 workflow CREATE_PHYLOGENY {
     take:
     fasta                 // channel: aligned pseudogenomes or filtered version
     constant_sites_string // val: string of constant sites A,C,G,T 
     
     main:
-    /*
-     * MODULE rapidnj
-     */
+    //
+    // MODULE: rapidnj
+    //
     rapidnj_tree = Channel.empty()
     rapidnj_version = null
     if (params.rapidnj) {
@@ -29,9 +28,9 @@ workflow CREATE_PHYLOGENY {
         rapidnj_version = RAPIDNJ.out.version
     }
 
-    /*
-     * MODULE fasttree
-     */
+    //
+    // MODULE: fasttree
+    //
     fasttree_tree = Channel.empty()
     fasttree_version = null
     if (params.fasttree) {
@@ -40,9 +39,9 @@ workflow CREATE_PHYLOGENY {
         fasttree_version = FASTTREE.out.version
     }
 
-    /*
-     * MODULE iqtree
-     */
+    //
+    // MODULE: iqtree
+    //
     iqtree_tree = Channel.empty()
     iqtree_version = null
     if (params.iqtree) {
@@ -51,9 +50,9 @@ workflow CREATE_PHYLOGENY {
         iqtree_version = IQTREE.out.version
     }
 
-    /*
-     * MODULE raxmlng
-     */
+    //
+    // MODULE: raxmlng
+    //
     raxmlng_tree = Channel.empty()
     raxmlng_version = null
     if (params.raxmlng) {

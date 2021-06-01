@@ -1,6 +1,6 @@
-/*
- * Sub-sampling subworkflow
- */
+//
+// Sub-sampling subworkflow
+//
 params.mash_sketch_options = [:]
 params.rasusa_options      = [:]
 
@@ -10,7 +10,7 @@ include { find_genome_size } from '../modules/local/functions'
 
 workflow SUB_SAMPLING {
     take:
-    reads     // channel: INPUT_CHECK or FASTP
+    reads // channel: INPUT_CHECK or FASTP
     
     main:
     //If genome size is not defined
@@ -22,10 +22,9 @@ workflow SUB_SAMPLING {
         )
         genome_size = MASH_SKETCH.out.stats.map { meta, file -> [meta, find_genome_size(file.text)]}
         reads_and_genome_size = reads.combine(genome_size, by: 0)
-        
     }
 
-    RASUSA(
+    RASUSA (
         reads_and_genome_size, 
         params.subsampling_depth_cutoff
     )

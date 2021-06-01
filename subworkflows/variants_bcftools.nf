@@ -1,6 +1,6 @@
-/*
- * Variant calling and downstream processing for BCFTools
- */
+//
+// Variant calling and downstream processing for BCFTools
+//
 
 params.bcftools_mpileup_options    = [:]
 params.bcftools_filter_options    = [:]
@@ -10,18 +10,18 @@ include { BCFTOOLS_FILTER  } from  '../modules/nf-core/software/bcftools/filter/
 
 workflow VARIANTS_BCFTOOLS {
     take:
-    bam       // channel: [ val(meta), [ bam ] ]
-    fasta     // channel: /path/to/genome.fasta
+    bam   // channel: [ val(meta), [ bam ] ]
+    fasta // channel: /path/to/genome.fasta
     
     main:
-    /*
-     * MODULE Call variants
-     */
+    //
+    // MODULE: Call variants
+    //
     BCFTOOLS_MPILEUP ( bam, fasta )
 
-    /*
-     * MODULE Filter variants
-     */
+    //
+    // MODULE: Filter variants
+    //
     BCFTOOLS_FILTER ( BCFTOOLS_MPILEUP.out.vcf  )
 
     emit:
