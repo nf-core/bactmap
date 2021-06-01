@@ -11,7 +11,7 @@ include { find_genome_size } from '../modules/local/functions'
 workflow SUB_SAMPLING {
     take:
     reads // channel: INPUT_CHECK or FASTP
-    
+
     main:
     //If genome size is not defined
     if (params.genome_size) {
@@ -25,7 +25,7 @@ workflow SUB_SAMPLING {
     }
 
     RASUSA (
-        reads_and_genome_size, 
+        reads_and_genome_size,
         params.subsampling_depth_cutoff
     )
 

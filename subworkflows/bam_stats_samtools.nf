@@ -12,7 +12,7 @@ include { SAMTOOLS_FLAGSTAT } from '../modules/nf-core/software/samtools/flagsta
 workflow BAM_STATS_SAMTOOLS {
     take:
     bam_bai // channel: [ val(meta), [ bam ], [bai] ]
-    
+
     main:
     SAMTOOLS_STATS    ( bam_bai )
     SAMTOOLS_FLAGSTAT ( bam_bai )

@@ -20,10 +20,10 @@ class ParserWithErrors(argparse.ArgumentParser):
 
 def argparser():
     description = """
-    A script to parse a filtered VCF and 
+    A script to parse a filtered VCF and
     """
     parser = ParserWithErrors(description = description)
-    parser.add_argument("-r", "--reference_file", required=True, 
+    parser.add_argument("-r", "--reference_file", required=True,
                         help="reference fasta file path",
                         type=lambda x: parser.is_valid_file(parser, x))
     parser.add_argument("-o", "--output_fasta_file", required=True,

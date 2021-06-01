@@ -21,10 +21,10 @@ class ParserWithErrors(argparse.ArgumentParser):
 
 def argparser():
     description = """
-    A script to parse a filtered VCF and 
+    A script to parse a filtered VCF and
     """
     parser = ParserWithErrors(description = description)
-    parser.add_argument("-r", "--reference_file", required=True, 
+    parser.add_argument("-r", "--reference_file", required=True,
                         help="reference fasta file path",
                         type=lambda x: parser.is_valid_file(parser, x))
     parser.add_argument("-b", "--filtered_bcf_file", required=True,
@@ -95,7 +95,6 @@ if __name__ == '__main__':
     pseudogenome_sequence_lists = filtered_bcf_to_fasta(args.filtered_bcf_file, reference_lengths)
     pseudogenome_sequences = [ ''.join(sequence_list) for sequence_list in pseudogenome_sequence_lists.values()]
     combined_pseudogenome_sequence = ''.join(sequence for sequence in pseudogenome_sequences)
-    
+
     id = os.path.basename(args.filtered_bcf_file).split('.')[0]
     write_sequence(args.output_fasta_file, id, combined_pseudogenome_sequence)
-

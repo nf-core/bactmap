@@ -20,7 +20,7 @@ def argparser():
     A script to find the fraction of non-GATC bases in a fasta file
     """
     parser = ParserWithErrors(description = description)
-    parser.add_argument("-f", "--fasta_file", required=True, 
+    parser.add_argument("-f", "--fasta_file", required=True,
                         help="fasta file path",
                         type=lambda x: parser.is_valid_file(parser, x))
 

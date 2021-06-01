@@ -39,7 +39,7 @@
 
 * [RapidNJ](https://birc.au.dk/software/rapidnj/)
   > Simonsen M, Mailund T, Pedersen CNS. Rapid Neighbour Joining. Proceedings of the 8th Workshop in Algorithms in Bioinformatics (WABI), LNBI 5251, 113-122, Springer Verlag, October 2008. doi:10.1007/978-3-540-87361-7_10
-  
+
 * [RAxML-NG](https://pubmed.ncbi.nlm.nih.gov/31070718/)
   > Kozlov AM, Darriba D, Flouri T, Morel B, Stamatakis A. RAxML-NG: a fast, scalable and user-friendly tool for maximum likelihood phylogenetic inference. Bioinformatics. 2019 Nov 1;35(21):4453-4455. doi: 10.1093/bioinformatics/btz305. PMID: 31070718; PMCID: PMC6821337.
 

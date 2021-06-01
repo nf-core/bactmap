@@ -12,7 +12,7 @@ workflow VARIANTS_BCFTOOLS {
     take:
     bam   // channel: [ val(meta), [ bam ] ]
     fasta // channel: /path/to/genome.fasta
-    
+
     main:
     //
     // MODULE: Call variants

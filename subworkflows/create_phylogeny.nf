@@ -14,8 +14,8 @@ include { RAXMLNG  } from '../modules/nf-core/software/raxmlng/main'  addParams(
 workflow CREATE_PHYLOGENY {
     take:
     fasta                 // channel: aligned pseudogenomes or filtered version
-    constant_sites_string // val: string of constant sites A,C,G,T 
-    
+    constant_sites_string // val: string of constant sites A,C,G,T
+
     main:
     //
     // MODULE: rapidnj

@@ -17,7 +17,7 @@ process SAMPLESHEET_CHECK {
 
     input:
     path samplesheet
-    
+
     output:
     path '*.csv'
 

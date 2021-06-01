@@ -50,13 +50,9 @@ include { BAM_SORT_SAMTOOLS } from '../subworkflows/bam_sort_samtools' addParams
 include { VARIANTS_BCFTOOLS } from '../subworkflows/variants_bcftools' addParams( bcftools_mpileup_options: modules['bcftools_mpileup'], bcftools_filter_options: modules['bcftools_filter'])
 include { SUB_SAMPLING      } from '../subworkflows/sub_sampling'      addParams( mash_sketch_options: modules['mash_sketch'], rasusa_options: modules['rasusa'])
 
-include { CREATE_PHYLOGENY } from '../subworkflows/create_phylogeny'   addParams( rapidnj_options: modules['rapidnj'],
-                                                                                  fasttree_options: modules['fasttree'], 
-                                                                                  iqtree_options: modules['iqtree'], 
-                                                                                  raxmlng_options: modules['raxmlng']
-                                                                                )
+include { CREATE_PHYLOGENY  } from '../subworkflows/create_phylogeny'   addParams( rapidnj_options: modules['rapidnj'], fasttree_options: modules['fasttree'], iqtree_options: modules['iqtree'], raxmlng_options: modules['raxmlng'] )
 
-include { find_genome_size } from '../modules/local/functions.nf'
+include { find_genome_size  } from '../modules/local/functions.nf'
 
 /*
 ========================================================================================
@@ -92,7 +88,7 @@ workflow BACTMAP {
     //
     // SUBWORKFLOW: Read in samplesheet, validate and stage input files
     //
-    INPUT_CHECK ( 
+    INPUT_CHECK (
         ch_input
     )
 
@@ -123,7 +119,7 @@ workflow BACTMAP {
         )
         ch_reads = SUB_SAMPLING.out.reads
     }
-    
+
     //
     // MODULE: Map reads
     //
@@ -132,11 +128,11 @@ workflow BACTMAP {
         BWA_INDEX.out.index
     )
     ch_software_versions = ch_software_versions.mix(BWA_MEM.out.version.first().ifEmpty(null))
-    
+
     //
     // SUBWORKFLOW: Sort bam files
     //
-    BAM_SORT_SAMTOOLS ( 
+    BAM_SORT_SAMTOOLS (
         BWA_MEM.out.bam
     )
     ch_software_versions = ch_software_versions.mix(BAM_SORT_SAMTOOLS.out.samtools_version.first().ifEmpty(null))
@@ -144,7 +140,7 @@ workflow BACTMAP {
     //
     // SUBWORKFLOW: Call variants
     //
-    VARIANTS_BCFTOOLS ( 
+    VARIANTS_BCFTOOLS (
         BAM_SORT_SAMTOOLS.out.bam,
         ch_reference
     )
@@ -166,13 +162,13 @@ workflow BACTMAP {
         ch_reference
     )
     ALIGNPSEUDOGENOMES.out.aligned_pseudogenomes
-        .branch { 
+        .branch {
             aligned_pseudogenomes ->
             ALIGNMENT_NUM_PASS: aligned_pseudogenomes[0].toInteger() >= 4
             ALIGNMENT_NUM_FAIL: aligned_pseudogenomes[0].toInteger() < 4
         }
         .set { aligned_pseudogenomes_branch }
-    
+
     // Don't proceeed further if two few genonmes
     aligned_pseudogenomes_branch.ALIGNMENT_NUM_FAIL.view { "Insufficient (${it[0]}) genomes after filtering to continue. Check results/pseudogenomes/low_quality_pseudogenomes.tsv for details"}
 
@@ -184,7 +180,7 @@ workflow BACTMAP {
         aligned_pseudogenomes
     )
     ch_software_versions = ch_software_versions.mix(SNPSITES.out.version.ifEmpty(null))
-    
+
     //
     // MODULE: remove recombination
     //
@@ -218,7 +214,7 @@ workflow BACTMAP {
     //
     // MODULE: Pipeline reporting
     //
-    GET_SOFTWARE_VERSIONS ( 
+    GET_SOFTWARE_VERSIONS (
         ch_software_versions.map { it }.collect()
     )
 

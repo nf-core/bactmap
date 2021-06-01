@@ -69,8 +69,8 @@ def saveFiles(Map args) {
 
 // Function to extract genome size from mash stat file
 def find_genome_size(mash_output) {
-  m = mash_output =~ /Estimated genome size: (.+)/
-  genome_size = Float.parseFloat(m[0][1]).toInteger().toString() + 'b'
-  return genome_size
+    m = mash_output =~ /Estimated genome size: (.+)/
+    genome_size = Float.parseFloat(m[0][1]).toInteger().toString() + 'b'
+    return genome_size
 }
 

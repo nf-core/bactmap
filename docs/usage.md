@@ -57,29 +57,29 @@ By default the pipeline does **not** perform the following steps but they can be
 * build an IQ-TREE tree `--iqtree`
 * build a RAxML-NG tree `--raxmlng`
 
-By default the pipeline subsamples reads to an estimated depth of 100x.  
+By default the pipeline subsamples reads to an estimated depth of 100x.
 This can be turned off using the `--subsampling_off` parameter.
 The desired coverage depth can be changed using the `subsampling_depth_cutoff` parameter
 
 The steps in the pipeline have sensible defaults but complete control of the arguments passed to the software tools can be achieved by overriding the software arguments found in the [`modules.config`](../conf/modules.config) file with a custom config. For example the default args for IQ-TREE which specify using ModelFinder to find the best fit model could be overridden to specify a specific model. In the  [`modules.config`](../conf/modules.config) file these are specified as:
 
 ```bash
-  'iqtree' {
-      args = '-alrt 1000 -B 1000 -m MFP -czb'
-      publish_dir = 'iqtree'
-  }
+    'iqtree' {
+        args = '-alrt 1000 -B 1000 -m MFP -czb'
+        publish_dir = 'iqtree'
+    }
 ```
 
-These could be overridden by specifying a config file by adding an argument to the command line such as t `-c user.config` ([user.config](../assets/user.config)).  
+These could be overridden by specifying a config file by adding an argument to the command line such as t `-c user.config` ([user.config](../assets/user.config)).
 Example contents:
 
 ```bash
 params {
-  modules {
-    'iqtree' {
-      args = '-m GTR+G -czb'
+    modules {
+        'iqtree' {
+            args = '-m GTR+G -czb'
+        }
     }
-  }
 }
 ```
 
@@ -92,7 +92,7 @@ The steps are described in more detail below along with their default parameters
 1. **Reference sequence indexing**: reference sequence is indexed using [`bwa index`](https://github.com/lh3/bwa)
 2. **Read trimming** (Optional if `params.trim` is set): reads are trimmed using [`fastp`](https://github.com/OpenGene/fastp). The default process configuration is found in the module.config and can be overridden as described above:
 
-   ```bash
+    ```bash
     'fastp' {
         args              = '--cut_front --cut_tail --trim_poly_x --cut_mean_quality 30 --qualified_quality_phred 30 --unqualified_percent_limit 10 --length_required 50'
         adapter_fasta     = "${baseDir}/assets/adapters.fas"
@@ -104,37 +104,37 @@ The steps are described in more detail below along with their default parameters
 
 3. **Subsample reads** (Optionally if `params.subsampling_off` is **not** set): reads are subsampled based on estimated genome size using [`mash sketch`](https://github.com/marbl/Mash) and the required depth of coverage as set by the `--subsampling_depth_cutoff` parameter using [`rasusa`](https://github.com/mbhall88/rasusa). The default process configurations are found in the module.config and can be overridden as described above.
 
-   ```bash
-      'mash_sketch' {
-          args = '-k 32 -m 3'
-      }
-      'rasusa' {
-          args = '--seed 23032021'
-      }
+    ```bash
+        'mash_sketch' {
+            args = '-k 32 -m 3'
+        }
+        'rasusa' {
+            args = '--seed 23032021'
+        }
     ```
 
 4. **Map reads**:  reads are mapped to the indexed reference genome using [`bwa mem`](https://github.com/lh3/bwa) to produce a bam file.
 The default process configuration is found in the module.config and can be overridden as described above:
 
     ```bash
-      'bwa_mem' {
-          args = ''
-          args2 = '-F 4' // samtools view options discarding unmapped reads
-          publish_files = false
-      }
+        'bwa_mem' {
+            args = ''
+            args2 = '-F 4' // samtools view options discarding unmapped reads
+            publish_files = false
+        }
     ```
 
 5. **Sort reads**: bam files are sorted using [`samtools`](http://www.htslib.org/doc/samtools.html)
 6. **Call variants**: variants are called using [`bcftools mpileup`](http://samtools.github.io/bcftools/bcftools.html). A minimum base quality of 20 is used for pre-filtering and the following fields are included in the resulting VCF file `FORMAT/AD,FORMAT/ADF,FORMAT/ADR,FORMAT/DP,FORMAT/SP,INFO/AD,INFO/ADF,INFO/ADR`. A haploid and multiallelic model is assumed. These defaults are found in the module.config and can be overridden as described above:
 
     ```bash
-      'bcftools_mpileup' {
-          args          = '--min-BQ 20 --annotate FORMAT/AD,FORMAT/ADF,FORMAT/ADR,FORMAT/DP,FORMAT/SP,INFO/AD,INFO/ADF,INFO/ADR'
-          args2         = '--ploidy 1 --multiallelic-caller'
-          args3         = ''
-          publish_files = false
-          publish_dir   = 'variants'
-      }
+        'bcftools_mpileup' {
+            args          = '--min-BQ 20 --annotate FORMAT/AD,FORMAT/ADF,FORMAT/ADR,FORMAT/DP,FORMAT/SP,INFO/AD,INFO/ADF,INFO/ADR'
+            args2         = '--ploidy 1 --multiallelic-caller'
+            args3         = ''
+            publish_files = false
+            publish_dir   = 'variants'
+        }
     ```
 
 7. **Filter variants**: variants in the VCF file are filtered using [`bcftools filter`](http://samtools.github.io/bcftools/bcftools.html). The default process configuration is found in the module.config and can be overridden as described above:
@@ -147,7 +147,7 @@ The default process configuration is found in the module.config and can be overr
         }
     ```
 
-      After this process a filtered VCF file will be produced that has a row for each position in the reference genome. Each of these will either have a value in the FILTER column of either `PASS` or `LowQual`.
+    After this process a filtered VCF file will be produced that has a row for each position in the reference genome. Each of these will either have a value in the FILTER column of either `PASS` or `LowQual`.
 
 8. **Create pseudogenome**: the filtered VCF is used to create a pseudogenome based on the reference genome using the [`vcf2pseudogenome.py script`](https://github.com/nf-core/bactmap/blob/dev/bin/vcf2pseudogenome.py). The base in a sample at a position where the VCF file row that has `PASS` in FILTER will be either ref or alt and the appropriate base will be encoded at that position. The base in a sample at a position where the VCF file row that has `LowQual` in FILTER is uncertain will be encoded as a `N` character. Missing data will be encoded as a `-` character.
 9. **Align pseudogenomes** All samples pseudogenomes and the original reference sequence are concatenated together to produce a flush alignment where all the sequence for all samples at all positions in the original reference sequence will be one of `{G,A,T,C,N,-}`. Only those sequences that are high quality (based on the number of non GATC bases will be included.
@@ -155,8 +155,8 @@ The threshold for this is set in the default process configuration found in the 
 
     ```bash
     'alignpseudogenomes' {
-          non_GATC_threshold = 0.5
-          publish_dir = 'pseudogenomes'
+        non_GATC_threshold = 0.5
+        publish_dir = 'pseudogenomes'
     }
     ```
 
@@ -173,17 +173,17 @@ The default process configuration is found in the module.config and can be overr
     ```
 
 12. **Build tree(s)**: Depending on the params set, run 0 - 4 tree building algorithms.
-    * `--rapidnj` Build a neighbour-joining pylogeny using [`rapidnj`](https://birc.au.dk/software/rapidnj)  
+    * `--rapidnj` Build a neighbour-joining pylogeny using [`rapidnj`](https://birc.au.dk/software/rapidnj)
     The default process configuration is found in the module.config and can be overridden as described above.
 
-      ```bash
-              'rapidnj' {
-              args = '-t d -b 1000 -n'
-              publish_dir = 'rapidnj'
-          }
-      ```
+    ```bash
+        'rapidnj' {
+            args = '-t d -b 1000 -n'
+            publish_dir = 'rapidnj'
+        }
+    ```
 
-    * `--fasttree` Build an approximately-maximum-likelihood phylogeny using [`FastTree`](http://www.microbesonline.org/fasttree)  
+    * `--fasttree` Build an approximately-maximum-likelihood phylogeny using [`FastTree`](http://www.microbesonline.org/fasttree)
     The default process configuration is found in the module.config and can be overridden as described above.
 
         ```bash
@@ -193,7 +193,7 @@ The default process configuration is found in the module.config and can be overr
         }
         ```
 
-    * `--iqtree` Build a maximum-likelihood phylogeny using [`IQ-TREE`](http://www.iqtree.org)  
+    * `--iqtree` Build a maximum-likelihood phylogeny using [`IQ-TREE`](http://www.iqtree.org)
     The default process configuration is found in the module.config and can be overridden as described above.
 
         ```bash
@@ -202,8 +202,8 @@ The default process configuration is found in the module.config and can be overr
             publish_dir = 'iqtree'
         }
         ```
-  
-    * `--raxmlng` Build a maximum-likelihood phylogeny using [`RAxML Next Generation`](https://github.com/amkozlov/raxml-ng)  
+
+    * `--raxmlng` Build a maximum-likelihood phylogeny using [`RAxML Next Generation`](https://github.com/amkozlov/raxml-ng)
     The default process configuration is found in the module.config and can be overridden as described above.
 
         ```bash
