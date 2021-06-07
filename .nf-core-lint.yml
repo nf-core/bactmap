@@ -1,5 +1,10 @@
+files_unchanged:
+  - .github/PULL_REQUEST_TEMPLATE.md
+  - .github/workflows/linting.yml
+  - assets/sendmail_template.txt
+  - lib/NfcoreSchema.groovy
+  - docs/README.md
 files_exist:
-  - Dockerfile
-  - environment.yml
-nextflow_config:
-  - process.container
+  - .github/markdownlint.yml
+  - bin/markdown_to_html.py
+actions_awsfulltest: False

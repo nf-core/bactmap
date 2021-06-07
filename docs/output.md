@@ -38,11 +38,11 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 Output files
 
 * `bwa/index.`
-  * `*.amb`
-  * `*.ann`
-  * `*.bwt`
-  * `*.pac`
-  * `*.sa`
+    * `*.amb`
+    * `*.ann`
+    * `*.bwt`
+    * `*.pac`
+    * `*.sa`
 
 > These files are generally not required except for in the mapping step
 
@@ -51,15 +51,15 @@ Output files
 Output files
 
 * `fastp/`
-  * `*.html` html reports of the trimming process that can be opened in any modern web browser
-  * `*.json` trimming report metrics in JSON computer readable formats
+    * `*.html` html reports of the trimming process that can be opened in any modern web browser
+    * `*.json` trimming report metrics in JSON computer readable formats
 
 ### Read Subsampling
 
 Output files
 
 * `rasusa/`
-  * `*.fastq.gz` subsamples fastq files
+    * `*.fastq.gz` subsamples fastq files
 
 ### Read Mapping
 
@@ -70,35 +70,35 @@ By default there are no output files since sorted bam files are produced in the 
 Output files
 
 * `samtools/`
-  * `*.bam` sorted bam files
-  * `*.bam.bai` bam file index
-  * `*.bam.flagstat` bam file metrics
-  * `*.bam.idxstats` bam file metrics
-  * `*.bam.stats` bam file metrics
+    * `*.bam` sorted bam files
+    * `*.bam.bai` bam file index
+    * `*.bam.flagstat` bam file metrics
+    * `*.bam.idxstats` bam file metrics
+    * `*.bam.stats` bam file metrics
 
 ### Call and Filter Variants
 
 Output files
 
 * `variants/`
-  * `*.vcf.gz` filtered vcf files containing variants
+    * `*.vcf.gz` filtered vcf files containing variants
 
 ### Convert Filtered VCF to Pseudogenome
 
 Output files
 
 * `pseudogenomes/`
-  * `*.fas` pseudogenome with a base at each position of the reference sequence
+    * `*.fas` pseudogenome with a base at each position of the reference sequence
 
 ### Create Alignment from Pseudogenomes
 
-Only those pseudogenome fasta files that have a non-ACGT fraction less than the threshold specified will be included in the `aligned_pseudogenomes.fas` file. Those failing this will be reported in the `low_quality_pseudogenomes.tsv` file.  
+Only those pseudogenome fasta files that have a non-ACGT fraction less than the threshold specified will be included in the `aligned_pseudogenomes.fas` file. Those failing this will be reported in the `low_quality_pseudogenomes.tsv` file.
 
 Output files
 
 * `pseudogenomes/`
-  * `aligned_pseudogenomes.fas` alignment of all sample pseudogenomes and the reference sequence
-  * `low_quality_pseudogenomes.tsv` a tab separated file of the samples that failed the non-ACGT base threshold
+    * `aligned_pseudogenomes.fas` alignment of all sample pseudogenomes and the reference sequence
+    * `low_quality_pseudogenomes.tsv` a tab separated file of the samples that failed the non-ACGT base threshold
 
 ### Remove Recombination
 
@@ -107,52 +107,52 @@ The file used for downstream tree building is `aligned_pseudogenomes.filtered_po
 Output files
 
 * `gubbins/`
-  * `aligned_pseudogenomes.branch_base_reconstruction.embl`
-  * `aligned_pseudogenomes.filtered_polymorphic_sites.fasta`
-  * `aligned_pseudogenomes.filtered_polymorphic_sites.phylip`
-  * `aligned_pseudogenomes.final_tree.tre`
-  * `aligned_pseudogenomes.node_labelled.final_tree.tre`
-  * `aligned_pseudogenomes.per_branch_statistics.csv`
-  * `aligned_pseudogenomes.recombination_predictions.embl`
-  * `aligned_pseudogenomes.recombination_predictions.gff`
-  * `aligned_pseudogenomes.summary_of_snp_distribution.vcf`
+    * `aligned_pseudogenomes.branch_base_reconstruction.embl`
+    * `aligned_pseudogenomes.filtered_polymorphic_sites.fasta`
+    * `aligned_pseudogenomes.filtered_polymorphic_sites.phylip`
+    * `aligned_pseudogenomes.final_tree.tre`
+    * `aligned_pseudogenomes.node_labelled.final_tree.tre`
+    * `aligned_pseudogenomes.per_branch_statistics.csv`
+    * `aligned_pseudogenomes.recombination_predictions.embl`
+    * `aligned_pseudogenomes.recombination_predictions.gff`
+    * `aligned_pseudogenomes.summary_of_snp_distribution.vcf`
 
 ### Remove Non-informative Positions
 
 Output files
 
 * `snpsites/`
-  * `constant.sites.txt` A file with the number of constant sites for each base
-  * `filtered_alignment.fas` Alignment with only informative positions (those positions that have at least one alternative variant base)
+    * `constant.sites.txt` A file with the number of constant sites for each base
+    * `filtered_alignment.fas` Alignment with only informative positions (those positions that have at least one alternative variant base)
 
 ### RapidNJ
 
 Output files
 
 * `rapidnj/`
-  * `rapidnj_phylogeny.tre` A newick tree built with RapidNJ
+    * `rapidnj_phylogeny.tre` A newick tree built with RapidNJ
 
 ### FastTree
 
 Output files
 
 * `fasttree/`
-  * `fasttree_phylogeny.tre` A newick tree built with FastTree
+    * `fasttree_phylogeny.tre` A newick tree built with FastTree
 
 ### IQ-TREE
 
 Output files
 
 * `iqtree/`
-  * `*.treefile` A ML tree built with IQ-TREE with support values for branches based on bootstrapping
+    * `*.treefile` A ML tree built with IQ-TREE with support values for branches based on bootstrapping
 
 ### RAxML-NG
 
 Output files
 
 * `iqtree/`
-  * `output.raxml.bestTree` A ML tree built with RAxML-NG selected as the best after running ML
-  * `output.raxml.support` A ML tree built with RAxML-NG with support values for branches based on bootstrapping
+    * `output.raxml.bestTree` A ML tree built with RAxML-NG selected as the best after running ML
+    * `output.raxml.support` A ML tree built with RAxML-NG with support values for branches based on bootstrapping
 
 ### MultiQC
 
@@ -184,9 +184,9 @@ Statistics gathered when calling variants after filtering
 <summary>Output files</summary>
 
 * `pipeline_info/`
-  * Reports generated by Nextflow: `execution_report.html`, `execution_timeline.html`, `execution_trace.txt` and `pipeline_dag.dot`/`pipeline_dag.svg`.
-  * Reports generated by the pipeline: `pipeline_report.html`, `pipeline_report.txt` and `software_versions.csv`.
-  * Reformatted samplesheet files used as input to the pipeline: `samplesheet.valid.csv`.
+    * Reports generated by Nextflow: `execution_report.html`, `execution_timeline.html`, `execution_trace.txt` and `pipeline_dag.dot`/`pipeline_dag.svg`.
+    * Reports generated by the pipeline: `pipeline_report.html`, `pipeline_report.txt` and `software_versions.csv`.
+    * Reformatted samplesheet files used as input to the pipeline: `samplesheet.valid.csv`.
 
 </details>
 

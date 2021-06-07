@@ -1,7 +1,7 @@
-/*
- * Run SAMtools stats, flagstat and idxstats
- * From https://github.com/nf-core/viralrecon/blob/dev/subworkflows/nf-core/bam_stats_samtools.nf
- */
+//
+// Run SAMtools stats, flagstat and idxstats
+// From https://github.com/nf-core/viralrecon/blob/dev/subworkflows/nf-core/bam_stats_samtools.nf
+//
 
 params.options = [:]
 
@@ -12,7 +12,7 @@ include { SAMTOOLS_FLAGSTAT } from '../modules/nf-core/software/samtools/flagsta
 workflow BAM_STATS_SAMTOOLS {
     take:
     bam_bai // channel: [ val(meta), [ bam ], [bai] ]
-    
+
     main:
     SAMTOOLS_STATS    ( bam_bai )
     SAMTOOLS_FLAGSTAT ( bam_bai )

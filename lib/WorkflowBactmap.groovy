@@ -1,25 +1,22 @@
-/*
- * This file holds several functions specific to the pipeline.
- */
+//
+// This file holds several functions specific to the workflow/bactmap.nf in the nf-core/bactmap pipeline
+//
 
-import groovy.json.JsonSlurper
+class WorkflowBactmap {
 
-class Workflow {
-
-    // Citation string
-    public static String citation(workflow) {
-        return "If you use ${workflow.manifest.name} for your analysis please cite:\n\n" +
-               "* The pipeline\n" + 
-               "  https://doi.org/10.5281/zenodo.3901628\n\n" +
-               "* The nf-core framework\n" +
-               "  https://doi.org/10.1038/s41587-020-0439-x\n\n" +
-               "* Software dependencies\n" +
-               "  https://github.com/${workflow.manifest.name}/blob/master/CITATIONS.md"
+    //
+    // Check and validate parameters
+    //
+    public static void initialise(params, log) {
+        if (!params.reference) {
+            log.error "Reference fasta file not specified!"
+            System.exit(1)
+        }
     }
 
-    /*
-     * Get workflow summary for MultiQC
-     */
+    //
+    // Get workflow summary for MultiQC
+    //
     public static String paramsSummaryMultiqc(workflow, summary) {
         String summary_section = ''
         for (group in summary.keySet()) {
