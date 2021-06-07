@@ -1,3 +1,5 @@
+# Fixing resource errors
+
 A pipeline , `nf-core/rnaseq` is failing after multiple re-submissions of the `STAR_ALIGN` process due to an exit code of `137` this would indicate that there is an out of memory issue.
 
 See below for an example of such an error:

@@ -1,3 +1,5 @@
+# Tool-specific option configuration
+
 The example below uses the `STAR_ALIGN` module from the `nf-core/rnaseq` pipeline to explain how to configure the modules in this pipeline.
 
 The command-line arguments passed to STAR in the `STAR_ALIGN` module are a combination of:
