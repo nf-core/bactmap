@@ -65,7 +65,7 @@ if (params.trim && params.adapter_file){
     fastp_options.args +=" --adapter_fasta adapter.fasta"
     ch_adapter_file = [ params.adapter_file ]
 } else {
-    ch_adapter_fasta = []
+    ch_adapter_file = []
 }
 include { FASTP     } from '../modules/nf-core/software/fastp/main'     addParams( options: fastp_options )
 include { BWA_INDEX } from '../modules/nf-core/software/bwa/index/main' addParams( options: modules['bwa_index'] )
