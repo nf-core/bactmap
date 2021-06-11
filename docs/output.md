@@ -52,6 +52,7 @@ In order to map the reads to the reference sequence it indexed.
 > These files are generally not required except for in the mapping step
 
 ### Read Trimming
+
 The `fastp` software is used to trim the fastq input files.
 
 <details markdown="1">
@@ -60,6 +61,7 @@ The `fastp` software is used to trim the fastq input files.
 * `fastp/`
     * `*.html` html reports of the trimming process that can be opened in any modern web browser. See [here](http://opengene.org/fastp/fastp.html) for an example
     * `*.json` trimming report metrics in JSON computer readable formats. See [here](http://opengene.org/fastp/fastp.json) for an example
+
 </details>
 
 ### Read Subsampling
