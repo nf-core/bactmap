@@ -63,7 +63,7 @@ The `fastp` software is used to trim the fastq input files.
 </details>
 
 ### Read Subsampling
-The `rasusa` software is used to subsample reads to a depth cutoff of a default of 100 (unless the `--subsampling_off` flag is set) 
+The `rasusa` software is used to subsample reads to a depth cutoff of a default of 100 (unless the `--subsampling_off` flag is set)
 
 <details markdown="1">
 <summary>Output files</summary>
