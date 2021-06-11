@@ -52,8 +52,6 @@ include { SUB_SAMPLING      } from '../subworkflows/sub_sampling'      addParams
 
 include { CREATE_PHYLOGENY  } from '../subworkflows/create_phylogeny'   addParams( rapidnj_options: modules['rapidnj'], fasttree_options: modules['fasttree'], iqtree_options: modules['iqtree'], raxmlng_options: modules['raxmlng'] )
 
-include { find_genome_size  } from '../modules/local/functions.nf'
-
 /*
 ========================================================================================
     IMPORT NF-CORE MODULES/SUBWORKFLOWS
