@@ -1,7 +1,7 @@
 //
 // This file holds several functions specific to the workflow/bactmap.nf in the nf-core/bactmap pipeline
 //
-
+import java.util.regex.Matcher
 class WorkflowBactmap {
 
     //
@@ -39,5 +39,12 @@ class WorkflowBactmap {
         yaml_file_text        += "data: |\n"
         yaml_file_text        += "${summary_section}"
         return yaml_file_text
+    }
+
+    // Function to extract genome size from mash stat file
+    public static String find_genome_size(mash_output) {
+        Matcher m = mash_output =~ /Estimated genome size: (.+)/
+        String genome_size = Float.parseFloat(m[0][1]).toInteger().toString() + 'b'
+        return genome_size
     }
 }

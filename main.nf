@@ -25,12 +25,12 @@ WorkflowMain.initialise(workflow, params, log)
 ========================================================================================
 */
 
-workflow NFCORE_BACTMAP {
+include { BACTMAP } from './workflows/bactmap'
 
-    //
-    // WORKFLOW: Run main nf-core/bactmap analysis pipeline
-    //
-    include { BACTMAP } from './workflows/bactmap'
+//
+// WORKFLOW: Run main nf-core/bactmap analysis pipeline
+//
+workflow NFCORE_BACTMAP {
     BACTMAP ()
 }
 

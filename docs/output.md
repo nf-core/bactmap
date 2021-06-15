@@ -35,7 +35,10 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 
 ### Reference Indexing
 
-Output files
+In order to map the reads to the reference sequence it indexed.
+
+<details markdown="1">
+<summary>Output files</summary>
 
 * `bwa/index.`
     * `*.amb`
@@ -44,30 +47,45 @@ Output files
     * `*.pac`
     * `*.sa`
 
+</details>
+
 > These files are generally not required except for in the mapping step
 
 ### Read Trimming
 
-Output files
+The `fastp` software is used to trim the fastq input files.
+
+<details markdown="1">
+<summary>Output files</summary>
 
 * `fastp/`
-    * `*.html` html reports of the trimming process that can be opened in any modern web browser
-    * `*.json` trimming report metrics in JSON computer readable formats
+    * `*.html` html reports of the trimming process that can be opened in any modern web browser. See [here](http://opengene.org/fastp/fastp.html) for an example
+    * `*.json` trimming report metrics in JSON computer readable formats. See [here](http://opengene.org/fastp/fastp.json) for an example
+
+</details>
 
 ### Read Subsampling
 
-Output files
+The `rasusa` software is used to subsample reads to a depth cutoff of a default of 100 (unless the `--subsampling_off` flag is set)
+
+<details markdown="1">
+<summary>Output files</summary>
 
 * `rasusa/`
     * `*.fastq.gz` subsamples fastq files
 
+</details>
+
 ### Read Mapping
 
-By default there are no output files since sorted bam files are produced in the next step
+By default there are the bam files created are not saved since sorted bam files are produced in the next step
 
 ### Sort Bam Files
 
-Output files
+After mapping the bam files are sorted and statistics calculated.
+
+<details markdown="1">
+<summary>Output files</summary>
 
 * `samtools/`
     * `*.bam` sorted bam files
@@ -76,35 +94,51 @@ Output files
     * `*.bam.idxstats` bam file metrics
     * `*.bam.stats` bam file metrics
 
+</details>
+
 ### Call and Filter Variants
 
-Output files
+The `bcftools` software is used to call and filter variants found within the bam files.
+
+<details markdown="1">
+<summary>Output files</summary>
 
 * `variants/`
     * `*.vcf.gz` filtered vcf files containing variants
 
+</details>
+
 ### Convert Filtered VCF to Pseudogenome
 
-Output files
+The filtered vcf files are converted to a pseudogenome.
+
+<details markdown="1">
+<summary>Output files</summary>
 
 * `pseudogenomes/`
     * `*.fas` pseudogenome with a base at each position of the reference sequence
+
+</details>
 
 ### Create Alignment from Pseudogenomes
 
 Only those pseudogenome fasta files that have a non-ACGT fraction less than the threshold specified will be included in the `aligned_pseudogenomes.fas` file. Those failing this will be reported in the `low_quality_pseudogenomes.tsv` file.
 
-Output files
+<details markdown="1">
+<summary>Output files</summary>
 
 * `pseudogenomes/`
     * `aligned_pseudogenomes.fas` alignment of all sample pseudogenomes and the reference sequence
     * `low_quality_pseudogenomes.tsv` a tab separated file of the samples that failed the non-ACGT base threshold
 
+</details>
+
 ### Remove Recombination
 
 The file used for downstream tree building is `aligned_pseudogenomes.filtered_polymorphic_sites.fasta`. The other files are described in the [gubbins documentation](https://github.com/sanger-pathogens/gubbins#output-files)
 
-Output files
+<details markdown="1">
+<summary>Output files</summary>
 
 * `gubbins/`
     * `aligned_pseudogenomes.branch_base_reconstruction.embl`
@@ -117,13 +151,20 @@ Output files
     * `aligned_pseudogenomes.recombination_predictions.gff`
     * `aligned_pseudogenomes.summary_of_snp_distribution.vcf`
 
+</details>
+
 ### Remove Non-informative Positions
 
-Output files
+Before building trees, non-informative constant sites are removed from the alignment using `snp-sites`
+
+<details markdown="1">
+<summary>Output files</summary>
 
 * `snpsites/`
     * `constant.sites.txt` A file with the number of constant sites for each base
     * `filtered_alignment.fas` Alignment with only informative positions (those positions that have at least one alternative variant base)
+
+</details>
 
 ### RapidNJ
 
@@ -134,21 +175,21 @@ Output files
 
 ### FastTree
 
-Output files
+A newick tree is produced in
 
 * `fasttree/`
     * `fasttree_phylogeny.tre` A newick tree built with FastTree
 
 ### IQ-TREE
 
-Output files
+A newick tree is produced in
 
 * `iqtree/`
     * `*.treefile` A ML tree built with IQ-TREE with support values for branches based on bootstrapping
 
 ### RAxML-NG
 
-Output files
+A newick tree is produced in
 
 * `iqtree/`
     * `output.raxml.bestTree` A ML tree built with RAxML-NG selected as the best after running ML
@@ -156,7 +197,7 @@ Output files
 
 ### MultiQC
 
-Various quality statistics are compiled from the previous outputs using the [MultiQC](https://multiqc.info/) software:
+Quality statistics from the fastq files post trimmimg with `fastp`, bam files after mapping with `bwa`, and vcf files after variants are called using `bcftools` are compiled from the previous outputs using the [MultiQC](https://multiqc.info/) software:
 
 #### Overall Statistics
 
@@ -173,7 +214,7 @@ Statistics gathered when trimming reads
 Statistics gathered when mapping reads
 ![Mapping Statistics](images/multiqc_mapping_stats.png)
 
-#### Varinat Statistics
+#### Variant Statistics
 
 Statistics gathered when calling variants after filtering
 ![Variant Statistics](images/multiqc_variants_stats.png)
