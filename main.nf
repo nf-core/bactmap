@@ -30,7 +30,7 @@ include { BACTMAP } from './workflows/bactmap'
 //
 // WORKFLOW: Run main nf-core/bactmap analysis pipeline
 //
-workflow NFCORE_BACTMAP {    
+workflow NFCORE_BACTMAP {
     BACTMAP ()
 }
 
