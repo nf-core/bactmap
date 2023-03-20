@@ -222,7 +222,8 @@ workflow BACTMAP {
     workflow_summary    = WorkflowBactmap.paramsSummaryMultiqc(workflow, summary_params)
     ch_workflow_summary = Channel.value(workflow_summary)
 
-    MULTIQC (
+    if (params.trim){ 
+        MULTIQC (
             ch_multiqc_config,
             ch_multiqc_custom_config.collect().ifEmpty([]),
             GET_SOFTWARE_VERSIONS.out.yaml.collect(),
@@ -232,6 +233,7 @@ workflow BACTMAP {
             VARIANTS_BCFTOOLS.out.stats.collect{it[1]}.ifEmpty([])
         )
         multiqc_report = MULTIQC.out.report.toList()
+    }
 }
 
 /*
