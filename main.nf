@@ -4,7 +4,6 @@
     nf-core/bactmap
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     Github : https://github.com/nf-core/bactmap
-
     Website: https://nf-co.re/bactmap
     Slack  : https://nfcore.slack.com/channels/bactmap
 ----------------------------------------------------------------------------------------
