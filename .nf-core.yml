@@ -1,0 +1,16 @@
+repository_type: pipeline
+
+nf_core_version: 3.2.0
+
+lint: {}
+
+template:
+  org: nf-core
+  name: bactmap
+  description: A mapping-based pipeline for bacterial whole genome sequences
+  author: Andries J. van Tonder
+  version: 2.0.0dev
+  force: true
+  outdir: .
+  skip_features: []
+  is_nfcore: true
