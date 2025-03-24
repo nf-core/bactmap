@@ -13,6 +13,19 @@
                 "errorMessage": "Sample name must be provided and cannot contain spaces",
                 "meta": ["id"]
             },
+            "run_accession": {
+                "type": ["string", "integer"],
+                "pattern": "^[^\\s]+$",
+                "errorMessage": "Run accession must be provided and cannot contain spaces.",
+                "meta": ["run_accession"]
+            },
+            "instrument_platform": {
+                "type": "string",
+                "enum": ["ILLUMINA", "OXFORD_NANOPORE"],
+                "errorMessage": "One of ILLUMINA or OXFORD_NANOPORE must be provided.",
+                "meta": ["instrument_platform"]
+
+            },
             "fastq_1": {
                 "type": "string",
                 "format": "file-path",
@@ -27,6 +40,7 @@
                 "pattern": "^\\S+\\.f(ast)?q\\.gz$",
                 "errorMessage": "FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
             }
+           
         },
         "required": ["sample", "fastq_1"]
     }
