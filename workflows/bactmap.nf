@@ -3,12 +3,60 @@
     IMPORT MODULES / SUBWORKFLOWS / FUNCTIONS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-include { FASTQC                 } from '../modules/nf-core/fastqc/main'
-include { MULTIQC                } from '../modules/nf-core/multiqc/main'
 include { paramsSummaryMap       } from 'plugin/nf-schema'
 include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_bactmap_pipeline'
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    IMPORT LOCAL MODULES/SUBWORKFLOWS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+//
+// SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
+//
+
+include { FASTQSCANPARSE as FASTQSCANPARSE_TRIM      } from '../modules/local/fastqscanparse/main'
+include { FASTQSCANPARSE as FASTQSCANPARSE_SUBSAMPLE } from '../modules/local/fastqscanparse/main'
+include { SEQTK_COMP                                 } from '../modules/local/seqtk_comp/main'
+include { SEQTK_PARSE                                } from '../modules/local/seqtk_parse/main'
+include { ALIGNPSEUDOGENOMES                         } from '../modules/local/alignpseudogenomes/main'
+
+include { SHORTREAD_PREPROCESSING                    } from '../subworkflows/local/shortread_preprocessing'
+include { LONGREAD_PREPROCESSING                     } from '../subworkflows/local/longread_preprocessing'
+
+/*
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    IMPORT NF-CORE MODULES/SUBWORKFLOWS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+
+//
+// NF-CORE MODULES/PLUGINS
+//
+include { BWAMEM2_INDEX                          } from '../modules/nf-core/bwamem2/index/main'
+include { FASTQC                                 } from '../modules/nf-core/fastqc/main'
+include { CAT_FASTQ as MERGE_RUNS                } from '../modules/nf-core/cat/fastq/main'
+include { FASTQSCAN as FASTQSCAN_TRIM            } from '../modules/nf-core/modules/fastqscan/main'
+include { RASUSA                                 } from '../modules/nf-core/rasusa/main'
+include { FASTQSCAN as FASTQSCAN_SUBSAMPLE       } from '../modules/nf-core/modules/fastqscan/main'
+include { MINIMAP2_ALIGN as MINIMAP2_ALIGN_SHORT } from '../modules/nf-core/minimap2/align/main'
+include { MINIMAP2_ALIGN as MINIMAP2_ALIGN_LONG  } from '../modules/nf-core/minimap2/align/main'
+include { SAMTOOLS_INDEX                         } from '../modules/nf-core/samtools/index/main'
+include { SAMTOOLS_FAIDX                         } from '../modules/nf-core/samtools/faidx/main'
+include { BCFTOOLS_FILTER                        } from '../modules/nf-core/bcftools/filter/main'
+include { BCFTOOLS_CONSENSUS                     } from '../modules/nf-core/bcftools/consensus/main'
+include { SNPSITES                               } from '../modules/nf-core/snpsites/main'
+include { MULTIQC                                } from '../modules/nf-core/multiqc/main'
+
+//
+// NF-CORE SUBWORKFLOWS
+//
+
+include { BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS } from '../subworkflows/nf-core/bam_variant_calling_sort_freebayes_bcftools/main'
+include { BAM_STATS_SAMTOOLS } from '../subworkflows/nf-core/bam_variant_calling_sort_freebayes_bcftools/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
