@@ -38,6 +38,7 @@ include { LONGREAD_PREPROCESSING                     } from '../subworkflows/loc
 //
 include { BWAMEM2_INDEX                          } from '../modules/nf-core/bwamem2/index/main'
 include { FASTQC                                 } from '../modules/nf-core/fastqc/main'
+include { FASTP                                  } from '../modules/nf-core/fastp/main'
 include { CAT_FASTQ as MERGE_RUNS                } from '../modules/nf-core/cat/fastq/main'
 include { FASTQSCAN as FASTQSCAN_TRIM            } from '../modules/nf-core/modules/fastqscan/main'
 include { RASUSA                                 } from '../modules/nf-core/rasusa/main'
@@ -57,6 +58,7 @@ include { MULTIQC                                } from '../modules/nf-core/mult
 
 include { BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS } from '../subworkflows/nf-core/bam_variant_calling_sort_freebayes_bcftools/main'
 include { BAM_STATS_SAMTOOLS } from '../subworkflows/nf-core/bam_variant_calling_sort_freebayes_bcftools/main'
+include { FASTQC_FASTP           } from '../subworkflows/local/fastqc_fastp'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -80,6 +82,19 @@ workflow BACTMAP {
     )
     ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]})
     ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+
+    //
+    // SUBWORKFLOW: FASTQC_FASTP
+    //
+    ch_fastp_adapters = Channel.fromPath(params.adapter_file)
+    FASTQC_FASTP (
+        ch_samplesheet,
+        ch_fastp_adapters,
+        false,
+        false,
+        false
+    )
+    ch_versions = ch_versions.mix(FASTQC_FASTP.out.versions)
 
     //
     // Collate and save software versions
