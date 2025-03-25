@@ -9,7 +9,7 @@ include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pi
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_bactmap_pipeline'
 
 // Check input path parameters to see if they exist
-def checkPathParamList = [ params.input, params.reference, params.multiqc_config,
+def checkPathParamList = [ params.input, params.fasta, params.multiqc_config,
                            params.shortread_qc_adapterlist, params.multiqc_logo, 
                            params.multiqc_methods_description ]
                             
@@ -22,14 +22,14 @@ if ( params.input ) {
     error("Input samplesheet not specified")
 }
 
-if (params.reference) { ch_reference =  Channel.fromPath(params.reference) } else { exit 1, 'Reference sequence FASTA not specified!' }
+//if (params.reference) { ch_reference =  Channel.fromPath(params.reference) } else { exit 1, 'Reference sequence FASTA not specified!' }
 
 // Modify reference channel to include meta data
-ch_reference_meta = ch_reference.map{ it -> [[id:it[0].baseName], it] }.collect()
+//ch_reference_meta = ch_reference.map{ it -> [[id:it[0].baseName], it] }.collect()
 
 // Get genome size from reference
 //TO DO!!
-genome_size = ""
+//genome_size = ""
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -43,14 +43,14 @@ genome_size = ""
 
 include { FASTQSCANPARSE as FASTQSCANPARSE_TRIM      } from '../modules/local/fastqscanparse/main'
 include { FASTQSCANPARSE as FASTQSCANPARSE_SUBSAMPLE } from '../modules/local/fastqscanparse/main'
-include { SEQTK_COMP                                 } from '../modules/local/seqtk_comp/main'
-include { SEQTK_PARSE                                } from '../modules/local/seqtk_parse/main'
-include { ALIGNPSEUDOGENOMES                         } from '../modules/local/alignpseudogenomes/main'
+//include { SEQTK_COMP                                 } from '../modules/local/seqtk_comp/main'
+//include { SEQTK_PARSE                                } from '../modules/local/seqtk_parse/main'
+//include { ALIGNPSEUDOGENOMES                         } from '../modules/local/alignpseudogenomes/main'
 
 include { SHORTREAD_PREPROCESSING                    } from '../subworkflows/local/shortread_preprocessing'
-include { LONGREAD_PREPROCESSING                     } from '../subworkflows/local/longread_preprocessing'
-include { SHORTREAD_MAPPING                          } from '../subworkflows/local/shortread_mapping/main'
-include { LONGREAD_MAPPING                           } from '../subworkflows/local/longread_mapping/main'
+include { LONGREAD_PREPROCESSING                     } from '../subworkflows/local/longread_processing'
+//include { SHORTREAD_MAPPING                          } from '../subworkflows/local/shortread_mapping/main'
+//include { LONGREAD_MAPPING                           } from '../subworkflows/local/longread_mapping/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -66,24 +66,24 @@ include { BWAMEM2_INDEX                          } from '../modules/nf-core/bwam
 include { FASTQC                                 } from '../modules/nf-core/fastqc/main'
 include { FALCO                                  } from '../modules/nf-core/falco/main'
 include { CAT_FASTQ as MERGE_RUNS                } from '../modules/nf-core/cat/fastq/main'
-include { FASTQSCAN as FASTQSCAN_TRIM            } from '../modules/nf-core/modules/fastqscan/main'
-include { RASUSA                                 } from '../modules/nf-core/rasusa/main'
-include { FASTQSCAN as FASTQSCAN_SUBSAMPLE       } from '../modules/nf-core/modules/fastqscan/main'
-include { MINIMAP2_ALIGN as MINIMAP2_ALIGN_SHORT } from '../modules/nf-core/minimap2/align/main'
-include { MINIMAP2_ALIGN as MINIMAP2_ALIGN_LONG  } from '../modules/nf-core/minimap2/align/main'
-include { SAMTOOLS_INDEX                         } from '../modules/nf-core/samtools/index/main'
-include { SAMTOOLS_FAIDX                         } from '../modules/nf-core/samtools/faidx/main'
-include { BCFTOOLS_FILTER                        } from '../modules/nf-core/bcftools/filter/main'
-include { BCFTOOLS_CONSENSUS                     } from '../modules/nf-core/bcftools/consensus/main'
-include { SNPSITES                               } from '../modules/nf-core/snpsites/main'
+include { FASTQSCAN as FASTQSCAN_TRIM            } from '../modules/nf-core/fastqscan/main'
+//include { RASUSA                                 } from '../modules/nf-core/rasusa/main'
+//include { FASTQSCAN as FASTQSCAN_SUBSAMPLE       } from '../modules/nf-core/fastqscan/main'
+//include { MINIMAP2_ALIGN as MINIMAP2_ALIGN_SHORT } from '../modules/nf-core/minimap2/align/main'
+//include { MINIMAP2_ALIGN as MINIMAP2_ALIGN_LONG  } from '../modules/nf-core/minimap2/align/main'
+//include { SAMTOOLS_INDEX                         } from '../modules/nf-core/samtools/index/main'
+//include { SAMTOOLS_FAIDX                         } from '../modules/nf-core/samtools/faidx/main'
+//include { BCFTOOLS_FILTER                        } from '../modules/nf-core/bcftools/filter/main'
+//include { BCFTOOLS_CONSENSUS                     } from '../modules/nf-core/bcftools/consensus/main'
+//include { SNPSITES                               } from '../modules/nf-core/snpsites/main'
 include { MULTIQC                                } from '../modules/nf-core/multiqc/main'
 
 //
 // NF-CORE SUBWORKFLOWS
 //
 
-include { BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS } from '../subworkflows/nf-core/bam_variant_calling_sort_freebayes_bcftools/main'
-include { BAM_STATS_SAMTOOLS } from '../subworkflows/nf-core/bam_variant_calling_sort_freebayes_bcftools/main'
+//include { BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS } from '../subworkflows/nf-core/bam_variant_calling_sort_freebayes_bcftools/main'
+//include { BAM_STATS_SAMTOOLS } from '../subworkflows/nf-core/bam_variant_calling_sort_freebayes_bcftools/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -93,9 +93,16 @@ include { BAM_STATS_SAMTOOLS } from '../subworkflows/nf-core/bam_variant_calling
 
 workflow BACTMAP {
 
+    adapterlist = params.shortread_qc_adapterlist ? file(params.shortread_qc_adapterlist) : []
+
+    if ( params.shortread_qc_adapterlist ) {
+        if ( params.shortread_qc_tool == 'adapterremoval' && !(adapterlist.extension == 'txt') ) error "[nf-core/taxprofiler] ERROR: AdapterRemoval2 adapter list requires a `.txt` format and extension. Check input: --shortread_qc_adapterlist ${params.shortread_qc_adapterlist}"
+        if ( params.shortread_qc_tool == 'fastp' && !adapterlist.extension.matches(".*(fa|fasta|fna|fas)") ) error "[nf-core/taxprofiler] ERROR: fastp adapter list requires a `.fasta` format and extension (or fa, fas, fna). Check input: --shortread_qc_adapterlist ${params.shortread_qc_adapterlist}"
+    }
+    
     take:
     samplesheet  // channel: samplesheet read in from --input
-    ch_reference // channel: path(reference.fasta)
+    ch_fasta // channel: path(reference.fasta)
     
     main:
 
@@ -103,7 +110,8 @@ workflow BACTMAP {
     ch_multiqc_files = Channel.empty()
     
     // Validate input files and create separate channels for FASTQ, FASTA, and Nanopore data
-    ch_input = samplesheet
+    ch_input = samplesheet .view { samplesheet ->
+        samplesheet}
         .map { meta, fastq_1, fastq_2 ->
         
             // Define single_end based on the conditions
@@ -129,10 +137,10 @@ workflow BACTMAP {
         Reference indexing
     */
     if (params.shortread_mapping_tool == 'bowtie2') {
-        ch_index = BOWTIE_BUILD ( ch_reference ).index
-        ch_versions = ch_versions.mix(BOWTIE_BUILD.out.versions.first())
+        ch_index = BOWTIE2_BUILD ( ch_fasta ).index
+        ch_versions = ch_versions.mix(BOWTIE2_BUILD.out.versions.first())
     } else {
-        ch_index = BWAMEM2_INDEX ( ch_reference ).index
+        ch_index = BWAMEM2_INDEX ( ch_fasta ).index
         ch_versions = ch_versions.mix(BWAMEM2_INDEX.out.versions.first())
     }
     
@@ -200,7 +208,6 @@ workflow BACTMAP {
                 meta, reads ->
                 [ meta, [ reads ].flatten() ]
             }
-            .mix( ch_input.fasta_short, ch_input.fasta_long)
 
         ch_versions = ch_versions.mix(MERGE_RUNS.out.versions)
 
@@ -215,8 +222,8 @@ workflow BACTMAP {
     FASTQSCAN_TRIM (
         ch_reads_runmerged
     )
-    ch_fastqscantrim_fastqscanparse = FASTQSCAN_RAW.out.json
-    ch_fastqscantrim_readstats      = FASTQSCAN_RAW.out.json
+    ch_fastqscantrim_fastqscanparse = FASTQSCAN_TRIM.out.json
+    ch_fastqscantrim_readstats      = FASTQSCAN_TRIM.out.json
     ch_versions                     = ch_versions.mix(FASTQSCAN_TRIM.out.versions.first())
     
     /*
@@ -231,30 +238,30 @@ workflow BACTMAP {
         MODULE: Perform subsampling
     */
      
-    if ( params.perform_subsampling ) {
-        ch_reads_subsampled = RASUSA( ch_reads_runmerged, genome_size, subsampling_depth_cutoff ).reads
-        ch_versions = ch_versions.mix( RASUSA.out.versions )
-    } else {
-        ch_reads_subsampled = ch_reads_runmerged
-    }
+    //if ( params.perform_subsampling ) {
+    //    ch_reads_subsampled = RASUSA( ch_reads_runmerged, genome_size, subsampling_depth_cutoff ).reads
+    //    ch_versions = ch_versions.mix( RASUSA.out.versions )
+    //} else {
+    //    ch_reads_subsampled = ch_reads_runmerged
+    //}
     
     /*
         MODULE: Run fastq-scan
     */
-    FASTQSCAN_SUBSAMPLE (
-        ch_reads_subsampled
-    )
-    ch_fastqscansubsample_fastqscanparse = FASTQSCAN_SUBSAMPLE.out.json
-    ch_fastqscansubsample_readstats      = FASTQSCAN_SUBSAMPLE.out.json
-    ch_versions                          = ch_versions.mix(FASTQSCAN_SUBSAMPLE.out.versions.first())
+    //FASTQSCAN_SUBSAMPLE (
+    //    ch_reads_subsampled
+    //)
+    //ch_fastqscansubsample_fastqscanparse = FASTQSCAN_SUBSAMPLE.out.json
+    //ch_fastqscansubsample_readstats      = FASTQSCAN_SUBSAMPLE.out.json
+    //ch_versions                          = ch_versions.mix(FASTQSCAN_SUBSAMPLE.out.versions.first())
     
     /*
         MODULE: Run fastqscanparse
     */
-    FASTQSCANPARSE_SUBSAMPLE (
-        ch_fastqscansubsample_fastqscanparse.collect{it[1]}.ifEmpty([])
-    )
-    ch_versions = ch_versions.mix(FASTQSCANPARSE_SUBSAMPLE.out.versions.first())
+    //FASTQSCANPARSE_SUBSAMPLE (
+    //    ch_fastqscansubsample_fastqscanparse.collect{it[1]}.ifEmpty([])
+    //)
+    //ch_versions = ch_versions.mix(FASTQSCANPARSE_SUBSAMPLE.out.versions.first())
     
     /*
         MODULE: Map reads
@@ -303,6 +310,18 @@ workflow BACTMAP {
             sort: true
         )
     )
+
+    if ( !params.skip_preprocessing_qc ) {
+        ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]})
+    }
+
+    if (params.perform_shortread_qc) {
+        ch_multiqc_files = ch_multiqc_files.mix( SHORTREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
+    }
+
+    if (params.perform_longread_qc) {
+        ch_multiqc_files = ch_multiqc_files.mix( LONGREAD_PREPROCESSING.out.mqc.collect{it[1]}.ifEmpty([]) )
+    }
 
     MULTIQC (
         ch_multiqc_files.collect(),

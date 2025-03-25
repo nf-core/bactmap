@@ -53,14 +53,14 @@
             "default": "",
             "fa_icon": "fas fa-exclamation-circle",
             "properties": {
-                "reference": {
+                "fasta": {
                     "type": "string",
                     "fa_icon": "fas fa-file",
                     "description": "Path to a fasta file of the reference sequence"
                 }
             },
             "required": [
-                "reference"
+                "fasta"
             ]
         },
         "reference_genome_options": {
