@@ -1,20 +1,32 @@
+//
+// MAIN PRODUCTION DEVCONTAINER CONFIG
+// Uses image that is pre-built and pushed to GitHub
+// See .github/.devcontainer/devcontainer.json for build
+//
 {
-    "name": "nfcore",
-    "image": "nfcore/gitpod:latest",
-    "remoteUser": "gitpod",
-    "runArgs": ["--privileged"],
-
-    // Configure tool-specific properties.
+    "name": "nextflow-training",
+    "image": "ghcr.io/nextflow-io/training:latest",
+    "workspaceFolder": "/workspaces/training",
+    "remoteUser": "root",
+    "remoteEnv": {
+        // Nextflow installation version
+        "NXF_HOME": "/workspaces/.nextflow",
+        "NXF_EDGE": "0",
+        "NXF_VER": "24.10.4",
+        // Other env vars
+        "HOST_PROJECT_PATH": "/workspaces",
+        "SHELL": "/bin/bash" // Ush bash
+    },
+    //"onCreateCommand": "bash .devcontainer/setup.sh",
     "customizations": {
-        // Configure properties specific to VS Code.
         "vscode": {
-            // Set *default* container specific settings.json values on container create.
+            "extensions": ["nf-core.nf-core-extensionpack"],
+            // Use Python from conda
             "settings": {
                 "python.defaultInterpreterPath": "/opt/conda/bin/python"
             },
-
-            // Add the IDs of extensions you want installed when the container is created.
-            "extensions": ["ms-python.python", "ms-python.vscode-pylance", "nf-core.nf-core-extensionpack"]
+            // Use bash
+            "terminal.integrated.defaultProfile.linux": "bash"
         }
     }
 }
