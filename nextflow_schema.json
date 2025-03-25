@@ -43,6 +43,23 @@
                 }
             }
         },
+        "compulsory_parameters": {
+            "title": "Compulsory parameters",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "fa_icon": "fas fa-exclamation-circle",
+            "properties": {
+                "reference": {
+                    "type": "string",
+                    "fa_icon": "fas fa-file",
+                    "description": "Path to a fasta file of the reference sequence"
+                }
+            },
+            "required": [
+                "reference"
+            ]
+        },
         "reference_genome_options": {
             "title": "Reference genome options",
             "type": "object",
@@ -234,6 +251,9 @@
         },
         {
             "$ref": "#/$defs/reference_genome_options"
+        },
+        {
+            "$ref": "#/$defs/compulsory_parameters"
         },
         {
             "$ref": "#/$defs/institutional_config_options"
