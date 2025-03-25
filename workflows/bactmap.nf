@@ -116,22 +116,14 @@ workflow BACTMAP {
           error("Error: Please check input samplesheet: for Oxford Nanopore reads entry `fastq_2` should be empty!")
      
         }
-        .branch { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
-            fastq: meta.single_end || fastq_2
-                return [ meta + [ type: "short" ], fastq_2 ? [ fastq_1, fastq_2 ] : [ fastq_1 ] ]
-            nanopore: instrument_platform == 'OXFORD_NANOPORE' && !meta.is_fasta
-                meta.single_end = true
-                return [ meta + [ type: "long" ], [ fastq_1 ] ]
-            fasta_short: meta.is_fasta && instrument_platform == 'ILLUMINA'
-                meta.single_end = true
-                return [ meta + [ type: "short" ], [ fasta ] ]
-            fasta_long: meta.is_fasta && instrument_platform == 'OXFORD_NANOPORE'
-                meta.single_end = true
-                return [ meta + [ type: "long" ], [ fasta ] ]
+        .branch { meta, fastq_1, fastq_2 ->
+           nanopore : meta.instrument_platform == 'OXFORD_NANOPORE'
+                return [ meta + [type: "long"], [fastq_1, fastq_2]
+           fastq : meta.instrument_platform != 'OXFORD_NANOPORE'
+               return [ meta + [ type: "short" ], fastq_2 ? [ fastq_1, fastq_2 ] : [ fastq_1 ] ]
+           }
         }
-
-    // Merge ch_input.fastq and ch_input.nanopore into a single channel
-    ch_input_for_fastqc = ch_input.fastq.mix( ch_input.nanopore )
+    ch_input_for_fastqc = ch_input.fastq.mix( ch_input.fastq )
     
     /*
         Reference indexing
