@@ -29,7 +29,7 @@ ch_reference_meta = ch_reference.map{ it -> [[id:it[0].baseName], it] }.collect(
 
 // Get genome size from reference
 //TO DO!!
-genome_size = 
+genome_size = ""
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -104,25 +104,25 @@ workflow BACTMAP {
     
     // Validate input files and create separate channels for FASTQ, FASTA, and Nanopore data
     ch_input = samplesheet
-        .map { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
-            meta.run_accession = run_accession
-            meta.instrument_platform = instrument_platform
-
+        .map { meta, fastq_1, fastq_2 ->
+        
             // Define single_end based on the conditions
-     if ( !fastq_1 ) {
-            error("ERROR: Please check input samplesheet: entry `fastq_1` doesn't exist!")
-     meta.single_end = !fastq_2
-     if (meta.single_end && meta.instrument_platform == 'OXFORD_NANOPORE') {
-          error("Error: Please check input samplesheet: for Oxford Nanopore reads entry `fastq_2` should be empty!")
-     
+            if ( !fastq_1 ) {
+                error("ERROR: Please check input samplesheet: entry `fastq_1` doesn't exist!")
+            }
+            meta.single_end = !fastq_2
+
+            if (meta.single_end && meta.instrument_platform == 'OXFORD_NANOPORE') {
+                error("Error: Please check input samplesheet: for Oxford Nanopore reads entry `fastq_2` should be empty!")
+            }
         }
         .branch { meta, fastq_1, fastq_2 ->
-           nanopore : meta.instrument_platform == 'OXFORD_NANOPORE'
-                return [ meta + [type: "long"], [fastq_1, fastq_2]
-           fastq : meta.instrument_platform != 'OXFORD_NANOPORE'
-               return [ meta + [ type: "short" ], fastq_2 ? [ fastq_1, fastq_2 ] : [ fastq_1 ] ]
-           }
+            nanopore : meta.instrument_platform == 'OXFORD_NANOPORE'
+                return [ meta + [type: "long"], [fastq_1, fastq_2]]
+            fastq : meta.instrument_platform != 'OXFORD_NANOPORE'
+                return [ meta + [ type: "short" ], fastq_2 ? [ fastq_1, fastq_2 ] : [ fastq_1 ] ]
         }
+    
     ch_input_for_fastqc = ch_input.fastq.mix( ch_input.fastq )
     
     /*
