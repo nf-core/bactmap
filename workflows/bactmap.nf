@@ -8,6 +8,29 @@ include { paramsSummaryMultiqc   } from '../subworkflows/nf-core/utils_nfcore_pi
 include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pipeline'
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_bactmap_pipeline'
 
+// Check input path parameters to see if they exist
+def checkPathParamList = [ params.input, params.reference, params.multiqc_config,
+                           params.shortread_qc_adapterlist, params.multiqc_logo, 
+                           params.multiqc_methods_description ]
+                            
+for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
+
+// Check mandatory parameters
+if ( params.input ) {
+    ch_input = file(params.input, checkIfExists: true)
+} else {
+    error("Input samplesheet not specified")
+}
+
+if (params.reference) { ch_reference =  Channel.fromPath(params.reference) } else { exit 1, 'Reference sequence FASTA not specified!' }
+
+// Modify reference channel to include meta data
+ch_reference_meta = ch_reference.map{ it -> [[id:it[0].baseName], it] }.collect()
+
+// Get genome size from reference
+//TO DO!!
+genome_size = 
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT LOCAL MODULES/SUBWORKFLOWS
@@ -26,6 +49,8 @@ include { ALIGNPSEUDOGENOMES                         } from '../modules/local/al
 
 include { SHORTREAD_PREPROCESSING                    } from '../subworkflows/local/shortread_preprocessing'
 include { LONGREAD_PREPROCESSING                     } from '../subworkflows/local/longread_preprocessing'
+include { SHORTREAD_MAPPING                          } from '../subworkflows/local/shortread_mapping/main'
+include { LONGREAD_MAPPING                           } from '../subworkflows/local/longread_mapping/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -36,8 +61,10 @@ include { LONGREAD_PREPROCESSING                     } from '../subworkflows/loc
 //
 // NF-CORE MODULES/PLUGINS
 //
+include { BOWTIE2_BUILD                          } from '../modules/nf-core/bowtie2/build/main'
 include { BWAMEM2_INDEX                          } from '../modules/nf-core/bwamem2/index/main'
 include { FASTQC                                 } from '../modules/nf-core/fastqc/main'
+include { FALCO                                  } from '../modules/nf-core/falco/main'
 include { CAT_FASTQ as MERGE_RUNS                } from '../modules/nf-core/cat/fastq/main'
 include { FASTQSCAN as FASTQSCAN_TRIM            } from '../modules/nf-core/modules/fastqscan/main'
 include { RASUSA                                 } from '../modules/nf-core/rasusa/main'
@@ -67,19 +94,172 @@ include { BAM_STATS_SAMTOOLS } from '../subworkflows/nf-core/bam_variant_calling
 workflow BACTMAP {
 
     take:
-    ch_samplesheet // channel: samplesheet read in from --input
+    samplesheet  // channel: samplesheet read in from --input
+    ch_reference // channel: path(reference.fasta)
+    
     main:
 
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
-    //
-    // MODULE: Run FastQC
-    //
-    FASTQC (
-        ch_samplesheet
+    
+    // Validate input files and create separate channels for FASTQ, FASTA, and Nanopore data
+    ch_input = samplesheet
+        .map { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
+            meta.run_accession = run_accession
+            meta.instrument_platform = instrument_platform
+
+            // Define single_end based on the conditions
+     if ( !fastq_1 ) {
+            error("ERROR: Please check input samplesheet: entry `fastq_1` doesn't exist!")
+     meta.single_end = !fastq_2
+     if (meta.single_end && meta.instrument_platform == 'OXFORD_NANOPORE') {
+          error("Error: Please check input samplesheet: for Oxford Nanopore reads entry `fastq_2` should be empty!")
+     
+        }
+        .branch { meta, fastq_1, fastq_2 ->
+           nanopore : meta.instrument_platform == 'OXFORD_NANOPORE'
+                return [ meta + [type: "long"], [fastq_1, fastq_2]
+           fastq : meta.instrument_platform != 'OXFORD_NANOPORE'
+               return [ meta + [ type: "short" ], fastq_2 ? [ fastq_1, fastq_2 ] : [ fastq_1 ] ]
+           }
+        }
+    ch_input_for_fastqc = ch_input.fastq.mix( ch_input.fastq )
+    
+    /*
+        Reference indexing
+    */
+    if (params.shortread_mapping_tool == 'bowtie2') {
+        ch_index = BOWTIE_BUILD ( ch_reference ).index
+        ch_versions = ch_versions.mix(BOWTIE_BUILD.out.versions.first())
+    } else {
+        ch_index = BWAMEM2_INDEX ( ch_reference ).index
+        ch_versions = ch_versions.mix(BWAMEM2_INDEX.out.versions.first())
+    }
+    
+    /*
+        MODULE: Run FastQC
+    */
+
+    if ( !params.skip_preprocessing_qc ) {
+        if ( params.preprocessing_qc_tool == 'falco' ) {
+            FALCO ( ch_input_for_fastqc )
+            ch_versions = ch_versions.mix(FALCO.out.versions.first())
+        } else {
+            FASTQC ( ch_input_for_fastqc )
+            ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+        }
+    }
+
+    /*
+        SUBWORKFLOW: PERFORM PREPROCESSING
+    */
+
+    if ( params.perform_shortread_qc ) {
+        ch_shortreads_preprocessed = SHORTREAD_PREPROCESSING ( ch_input.fastq, adapterlist ).reads
+        ch_versions = ch_versions.mix( SHORTREAD_PREPROCESSING.out.versions )
+    } else {
+        ch_shortreads_preprocessed = ch_input.fastq
+    }
+
+    if ( params.perform_longread_qc ) {
+        ch_longreads_preprocessed = LONGREAD_PREPROCESSING ( ch_input.nanopore ).reads
+                                        .map { it -> [ it[0], [it[1]] ] }
+        ch_versions = ch_versions.mix( LONGREAD_PREPROCESSING.out.versions )
+    } else {
+        ch_longreads_preprocessed = ch_input.nanopore
+    }
+
+    /*
+        Run indexing
+    */
+    if ( params.perform_runmerging ) {
+
+        ch_reads_for_cat_branch = ch_shortreads_preprocessed
+            .mix( ch_longreads_preprocessed )
+            .map {
+                meta, reads ->
+                    def meta_new = meta - meta.subMap('run_accession')
+                    [ meta_new, reads ]
+            }
+            .groupTuple()
+            .map {
+                meta, reads ->
+                    [ meta, reads.flatten() ]
+            }
+            .branch {
+                meta, reads ->
+                // we can't concatenate files if there is not a second run, we branch
+                // here to separate them out, and mix back in after for efficiency
+                cat: ( meta.single_end && reads.size() > 1 ) || ( !meta.single_end && reads.size() > 2 )
+                skip: true
+            }
+
+        ch_reads_runmerged = MERGE_RUNS ( ch_reads_for_cat_branch.cat ).reads
+            .mix( ch_reads_for_cat_branch.skip )
+            .map {
+                meta, reads ->
+                [ meta, [ reads ].flatten() ]
+            }
+            .mix( ch_input.fasta_short, ch_input.fasta_long)
+
+        ch_versions = ch_versions.mix(MERGE_RUNS.out.versions)
+
+    } else {
+        ch_reads_runmerged = ch_shortreads_preprocessed
+            .mix( ch_longreads_preprocessed, ch_input.fasta_short, ch_input.fasta_long )
+    }
+    
+    /*
+        MODULE: Run fastq-scan
+    */
+    FASTQSCAN_TRIM (
+        ch_reads_runmerged
     )
-    ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]})
-    ch_versions = ch_versions.mix(FASTQC.out.versions.first())
+    ch_fastqscantrim_fastqscanparse = FASTQSCAN_RAW.out.json
+    ch_fastqscantrim_readstats      = FASTQSCAN_RAW.out.json
+    ch_versions                     = ch_versions.mix(FASTQSCAN_TRIM.out.versions.first())
+    
+    /*
+        MODULE: Run fastqscanparse
+    */
+    FASTQSCANPARSE_TRIM (
+        ch_fastqscantrim_fastqscanparse.collect{it[1]}.ifEmpty([])
+    )
+    ch_versions = ch_versions.mix(FASTQSCANPARSE_TRIM.out.versions.first())
+    
+    /*
+        MODULE: Perform subsampling
+    */
+     
+    if ( params.perform_subsampling ) {
+        ch_reads_subsampled = RASUSA( ch_reads_runmerged, genome_size, subsampling_depth_cutoff ).reads
+        ch_versions = ch_versions.mix( RASUSA.out.versions )
+    } else {
+        ch_reads_subsampled = ch_reads_runmerged
+    }
+    
+    /*
+        MODULE: Run fastq-scan
+    */
+    FASTQSCAN_SUBSAMPLE (
+        ch_reads_subsampled
+    )
+    ch_fastqscansubsample_fastqscanparse = FASTQSCAN_SUBSAMPLE.out.json
+    ch_fastqscansubsample_readstats      = FASTQSCAN_SUBSAMPLE.out.json
+    ch_versions                          = ch_versions.mix(FASTQSCAN_SUBSAMPLE.out.versions.first())
+    
+    /*
+        MODULE: Run fastqscanparse
+    */
+    FASTQSCANPARSE_SUBSAMPLE (
+        ch_fastqscansubsample_fastqscanparse.collect{it[1]}.ifEmpty([])
+    )
+    ch_versions = ch_versions.mix(FASTQSCANPARSE_SUBSAMPLE.out.versions.first())
+    
+    /*
+        MODULE: Map reads
+    */
+
 
     //
     // Collate and save software versions
