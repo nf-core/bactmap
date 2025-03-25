@@ -47,11 +47,19 @@ workflow NFCORE_BACTMAP {
 
     main:
 
+    if(params.fasta){
+        ch_fasta = Channel.fromPath(params.fasta, checkIfExists: true).collect()
+            .map{ it -> [[id:it[0].getSimpleName()], it[0]]}
+    } else {
+        exit 1, 'Either a valid configured `genome` or a `fasta` file must be specified.'
+    }
+
     //
     // WORKFLOW: Run pipeline
     //
     BACTMAP (
-        samplesheet
+        samplesheet,
+        ch_fasta
     )
     emit:
     multiqc_report = BACTMAP.out.multiqc_report // channel: /path/to/multiqc_report.html
