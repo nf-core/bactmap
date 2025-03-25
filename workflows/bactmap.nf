@@ -109,21 +109,12 @@ workflow BACTMAP {
             meta.instrument_platform = instrument_platform
 
             // Define single_end based on the conditions
-            meta.single_end = ( fastq_1 && !fastq_2 && instrument_platform != 'OXFORD_NANOPORE' )
-
-            // Define is_fasta based on the presence of fasta
-            meta.is_fasta = fasta ? true : false
-
-            if ( !meta.is_fasta && !fastq_1 ) {
-                error("ERROR: Please check input samplesheet: entry `fastq_1` doesn't exist!")
-            }
-            if ( meta.instrument_platform == 'OXFORD_NANOPORE' && fastq_2 ) {
-                error("Error: Please check input samplesheet: for Oxford Nanopore reads entry `fastq_2` should be empty!")
-            }
-            if ( meta.single_end && fastq_2 ) {
-                error("Error: Please check input samplesheet: for single-end reads entry `fastq_2` should be empty")
-            }
-            return [ meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ]
+     if ( !fastq_1 ) {
+            error("ERROR: Please check input samplesheet: entry `fastq_1` doesn't exist!")
+     meta.single_end = !fastq_2
+     if (meta.single_end && meta.instrument_platform == 'OXFORD_NANOPORE') {
+          error("Error: Please check input samplesheet: for Oxford Nanopore reads entry `fastq_2` should be empty!")
+     
         }
         .branch { meta, run_accession, instrument_platform, fastq_1, fastq_2, fasta ->
             fastq: meta.single_end || fastq_2
