@@ -20,6 +20,11 @@
                         "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
                         "installed_by": ["bam_variant_calling_sort_freebayes_bcftools"]
                     },
+                    "cat/cat": {
+                        "branch": "master",
+                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "installed_by": ["modules"]
+                    },
                     "clair3": {
                         "branch": "master",
                         "git_sha": "11d3c7bca567e8d18afd812d43e248326666d114",
