@@ -25,6 +25,11 @@
                         "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
                         "installed_by": ["modules"]
                     },
+                    "clair3": {
+                        "branch": "master",
+                        "git_sha": "11d3c7bca567e8d18afd812d43e248326666d114",
+                        "installed_by": ["modules"]
+                    },
                     "fastqc": {
                         "branch": "master",
                         "git_sha": "08108058ea36a63f141c25c4e75f9f872a5b2296",
