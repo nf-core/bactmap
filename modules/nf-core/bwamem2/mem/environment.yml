@@ -3,5 +3,8 @@
 channels:
   - conda-forge
   - bioconda
+
 dependencies:
-  - conda-forge::pigz=2.3.4
+  - bwa-mem2=2.2.1
+  - htslib=1.19.1
+  - samtools=1.19.2
