@@ -41,8 +41,8 @@ if ( params.input ) {
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
 
-include { FASTQSCANPARSE as FASTQSCANPARSE_TRIM      } from '../modules/local/fastqscanparse/main'
-include { FASTQSCANPARSE as FASTQSCANPARSE_SUBSAMPLE } from '../modules/local/fastqscanparse/main'
+//include { FASTQSCANPARSE as FASTQSCANPARSE_TRIM      } from '../modules/local/fastqscanparse/main'
+//include { FASTQSCANPARSE as FASTQSCANPARSE_SUBSAMPLE } from '../modules/local/fastqscanparse/main'
 //include { SEQTK_COMP                                 } from '../modules/local/seqtk_comp/main'
 //include { SEQTK_PARSE                                } from '../modules/local/seqtk_parse/main'
 //include { ALIGNPSEUDOGENOMES                         } from '../modules/local/alignpseudogenomes/main'
@@ -101,8 +101,8 @@ workflow BACTMAP {
     }
     
     take:
-    samplesheet  // channel: samplesheet read in from --input
-    ch_fasta // channel: path(reference.fasta)
+    samplesheet // channel: samplesheet read in from --input
+    ch_fasta    // channel: path(reference.fasta)
     
     main:
 
@@ -110,8 +110,7 @@ workflow BACTMAP {
     ch_multiqc_files = Channel.empty()
     
     // Validate input files and create separate channels for FASTQ, FASTA, and Nanopore data
-    ch_input = samplesheet .view { samplesheet ->
-        samplesheet}
+    ch_input = samplesheet
         .map { meta, fastq_1, fastq_2 ->
         
             // Define single_end based on the conditions
@@ -123,15 +122,16 @@ workflow BACTMAP {
             if (meta.instrument_platform == 'OXFORD_NANOPORE' && !meta.single_end) {
                 error("Error: Please check input samplesheet: for Oxford Nanopore reads entry `fastq_2` should be empty!")
             }
+            return [ meta, fastq_1, fastq_2 ]
         }
         .branch { meta, fastq_1, fastq_2 ->
             nanopore : meta.instrument_platform == 'OXFORD_NANOPORE'
-                return [ meta + [type: "long"], [fastq_1, fastq_2]]
+                return [ meta + [type: "long"], [fastq_1]]
             fastq : meta.instrument_platform != 'OXFORD_NANOPORE'
                 return [ meta + [ type: "short" ], fastq_2 ? [ fastq_1, fastq_2 ] : [ fastq_1 ] ]
         }
     
-    ch_input_for_fastqc = ch_input.fastq.mix( ch_input.fastq )
+    ch_input_for_fastqc = ch_input.nanopore.mix( ch_input.fastq ) .view{val -> val}
     
     /*
         Reference indexing
@@ -213,7 +213,7 @@ workflow BACTMAP {
 
     } else {
         ch_reads_runmerged = ch_shortreads_preprocessed
-            .mix( ch_longreads_preprocessed, ch_input.fasta_short, ch_input.fasta_long )
+            .mix( ch_longreads_preprocessed )
     }
     
     /*
@@ -229,10 +229,10 @@ workflow BACTMAP {
     /*
         MODULE: Run fastqscanparse
     */
-    FASTQSCANPARSE_TRIM (
-        ch_fastqscantrim_fastqscanparse.collect{it[1]}.ifEmpty([])
-    )
-    ch_versions = ch_versions.mix(FASTQSCANPARSE_TRIM.out.versions.first())
+    //FASTQSCANPARSE_TRIM (
+    //    ch_fastqscantrim_fastqscanparse.collect{it[1]}.ifEmpty([])
+    //)
+    //ch_versions = ch_versions.mix(FASTQSCANPARSE_TRIM.out.versions.first())
     
     /*
         MODULE: Perform subsampling
@@ -312,7 +312,16 @@ workflow BACTMAP {
     )
 
     if ( !params.skip_preprocessing_qc ) {
-        ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]})
+        if ( params.preprocessing_qc_tool == 'falco' ) {
+            // only mix in files actually used by MultiQC
+            ch_multiqc_files = ch_multiqc_files.mix(FALCO.out.txt
+                                .map { meta, reports -> reports }
+                                .flatten()
+                                .filter { path -> path.name.endsWith('_data.txt')}
+                                .ifEmpty([]))
+        } else {
+            ch_multiqc_files = ch_multiqc_files.mix(FASTQC.out.zip.collect{it[1]}.ifEmpty([]))
+        }
     }
 
     if (params.perform_shortread_qc) {

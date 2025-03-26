@@ -156,6 +156,7 @@ def validateInputSamplesheet(input) {
 
     return [ metas[0], fastqs ]
 }
+
 //
 // Get attribute from genome config file e.g. fasta
 //
