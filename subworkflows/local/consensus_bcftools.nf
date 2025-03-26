@@ -14,8 +14,6 @@ workflow CONSENSUS_BCFTOOLS {
     vcf          // channel: [ val(meta), [ vcf ] ]
     tbi          // channel: [ val(meta), [ tbi ] ]
     fasta        // channel: /path/to/genome.fasta
-    //gff          // channel: /path/to/genome.gff
-    //nextclade_db // channel: /path/to/nextclade_db/
 
     main:
 
@@ -24,23 +22,23 @@ workflow CONSENSUS_BCFTOOLS {
     //
     // Filter variants by allele frequency, zip and index
     //
-    query_channel = vcf.join(tbi)
+    ch_query = vcf.join(tbi)
 
     BCFTOOLS_QUERY  (
-        query_channel,
+        ch_query,
         [],
         [],
         []
     )
     ch_versions = ch_versions.mix(BCFTOOLS_QUERY.out.versions.first())
 
-    genomecov_channel = bam.map { meta, bam ->
+    ch_genomecov = bam.map { meta, bam ->
         [meta, bam, [] ]
         }
 
 
     BEDTOOLS_GENOMECOV (
-        genomecov_channel
+        ch_genomecov
     )
     ch_versions = ch_versions.mix(BEDTOOLS_GENOMECOV.out.versions.first())
 
@@ -55,10 +53,10 @@ workflow CONSENSUS_BCFTOOLS {
     //
     // Build consensus
     //
-    consensus_channel = vcf.join(tbi, fasta, BEDTOOLS_SUBTRACT.out.bed)
+    ch_consensus = vcf.join(tbi, fasta, BEDTOOLS_SUBTRACT.out.bed)
 
     BCFTOOLS_CONSENSUS (
-        consensus_channel
+        ch_consensus
     )
     ch_versions = ch_versions.mix(BCFTOOLS_CONSENSUS.out.versions.first())
 
