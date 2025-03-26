@@ -120,7 +120,7 @@ workflow BACTMAP {
             }
             meta.single_end = !fastq_2
 
-            if (meta.single_end && meta.instrument_platform == 'OXFORD_NANOPORE') {
+            if (meta.instrument_platform == 'OXFORD_NANOPORE' && !meta.single_end) {
                 error("Error: Please check input samplesheet: for Oxford Nanopore reads entry `fastq_2` should be empty!")
             }
         }
