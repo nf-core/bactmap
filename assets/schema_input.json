@@ -24,13 +24,13 @@
                 "enum": ["ILLUMINA", "OXFORD_NANOPORE"],
                 "errorMessage": "One of ILLUMINA or OXFORD_NANOPORE must be provided.",
                 "meta": ["instrument_platform"]
-
             },
             "fastq_1": {
                 "type": "string",
                 "format": "file-path",
                 "exists": true,
                 "pattern": "^\\S+\\.f(ast)?q\\.gz$",
+                "default": null,
                 "errorMessage": "FastQ file for reads 1 must be provided, cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
             },
             "fastq_2": {
@@ -38,10 +38,10 @@
                 "format": "file-path",
                 "exists": true,
                 "pattern": "^\\S+\\.f(ast)?q\\.gz$",
+                "default": null,
                 "errorMessage": "FastQ file for reads 2 cannot contain spaces and must have extension '.fq.gz' or '.fastq.gz'"
             }
-           
         },
-        "required": ["sample","run_accession", "instrument_platform", "fastq_1"]
+        "required": ["sample", "run_accession", "instrument_platform", "fastq_1"]
     }
 }
