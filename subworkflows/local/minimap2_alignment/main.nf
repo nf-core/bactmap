@@ -17,7 +17,7 @@ workflow MINIMAP2_ALIGNMENT {
     MINIMAP2_INDEX ( ch_ref )
     ch_versions = ch_versions.mix(MINIMAP2_INDEX.out.versions.first())
 
-    MINIMAP2_ALIGN ( ch_fasta, MINIMAP2_INDEX.out.index, params.bam_format, params.cigar_paf_format, params.cigar_bam )
+    MINIMAP2_ALIGN ( ch_fasta, MINIMAP2_INDEX.out.index, params.bam_format, params.bam_index_extension, params.cigar_paf_format, params.cigar_bam )
     ch_versions = ch_versions.mix(MINIMAP2_ALIGN.out.versions.first())
 
     if (params.bam_format) {
@@ -25,9 +25,16 @@ workflow MINIMAP2_ALIGNMENT {
     } else {
         minimap_out = MINIMAP2_ALIGN.out.paf
     }
+
+    if (params.bam_index_extension) {
+        minimap_index = MINIMAP2_ALIGN.out.index
+    } else {
+        minimap_index = []
+    }
     emit:
     // TODO nf-core: edit emitted channels
     minimap_align = minimap_out       // channel: [ val(meta), [ bam ] ]
+    minimap_index = minimap_index
     versions      = ch_versions       // channel: [ versions.yml ]
 }
 
