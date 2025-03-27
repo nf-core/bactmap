@@ -43,21 +43,6 @@
                 }
             }
         },
-        "compulsory_parameters": {
-            "title": "Compulsory parameters",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "fa_icon": "fas fa-exclamation-circle",
-            "properties": {
-                "reference": {
-                    "type": "string",
-                    "fa_icon": "fas fa-file",
-                    "description": "Path to a fasta file of the reference sequence"
-                }
-            },
-            "required": ["reference"]
-        },
         "reference_genome_options": {
             "title": "Reference genome options",
             "type": "object",
@@ -94,28 +79,6 @@
                     "fa_icon": "fas fa-ban",
                     "hidden": true,
                     "default": "s3://ngi-igenomes/igenomes/"
-                }
-            }
-        },
-        "minimap2_options": {
-            "title": "Minimap2 options",
-            "type": "object",
-            "description": "",
-            "default": "",
-            "properties": {
-                "bam_format": {
-                    "type": "string",
-                    "default": true
-                },
-                "bam_index_extension": {
-                    "type": "string",
-                    "default": "bai"
-                },
-                "cigar_bam": {
-                    "type": "string"
-                },
-                "cigar_paf_format": {
-                    "type": "string"
                 }
             }
         },
@@ -400,13 +363,7 @@
             "$ref": "#/$defs/input_output_options"
         },
         {
-            "$ref": "#/$defs/compulsory_parameters"
-        },
-        {
             "$ref": "#/$defs/reference_genome_options"
-        },
-        {
-            "$ref": "#/$defs/minimap2_options"
         },
         {
             "$ref": "#/$defs/institutional_config_options"
@@ -414,11 +371,110 @@
         {
             "$ref": "#/$defs/generic_options"
         },
-        {
-            "$ref": "#/$defs/clair3_options"
+    ],
+    "properties": {
+        "reference": {
+            "type": "string"
         },
-        {
-            "$ref": "#/$defs/fastq_preprocessing"
+        "skip_preprocessing_qc": {
+            "type": "boolean"
+        },
+        "preprocessing_qc_tool": {
+            "type": "string",
+            "default": "fastqc"
+        },
+        "perform_shortread_qc": {
+            "type": "boolean",
+            "default": true
+        },
+        "shortread_qc_tool": {
+            "type": "string",
+            "default": "fastp"
+        },
+        "shortread_qc_skipadaptertrim": {
+            "type": "boolean"
+        },
+        "shortread_qc_mergepairs": {
+            "type": "boolean"
+        },
+        "shortread_qc_includeunmerged": {
+            "type": "boolean"
+        },
+        "shortread_qc_adapter1": {
+            "type": "string"
+        },
+        "shortread_qc_adapter2": {
+            "type": "string"
+        },
+        "shortread_qc_adapterlist": {
+            "type": "string"
+        },
+        "shortread_qc_minlength": {
+            "type": "integer",
+            "default": 15
+        },
+        "shortread_qc_dedup": {
+            "type": "boolean"
+        },
+        "perform_longread_qc": {
+            "type": "boolean",
+            "default": true
+        },
+        "longread_adapterremoval_tool": {
+            "type": "string",
+            "default": "porechop_abi"
+        },
+        "longread_qc_skipadaptertrim": {
+            "type": "boolean"
+        },
+        "longread_qc_skipqualityfilter": {
+            "type": "boolean"
+        },
+        "longread_filter_tool": {
+            "type": "string",
+            "default": "nanoq"
+        },
+        "longread_qc_qualityfilter_minlength": {
+            "type": "integer",
+            "default": 1000
+        },
+        "longread_qc_qualityfilter_keeppercent": {
+            "type": "integer",
+            "default": 90
+        },
+        "longread_qc_qualityfilter_minquality": {
+            "type": "integer",
+            "default": 7
+        },
+        "longread_qc_qualityfilter_targetbases": {
+            "type": "integer",
+            "default": 500000000
+        },
+        "save_preprocessed_reads": {
+            "type": "boolean"
+        },
+        "perform_runmerging": {
+            "type": "boolean",
+            "default": true
+        },
+        "save_runmerged_reads": {
+            "type": "boolean",
+            "default": true
+        },
+        "save_analysis_ready_fastqs": {
+            "type": "boolean"
+        },
+        "perform_subsampling": {
+            "type": "boolean",
+            "default": true
+        },
+        "subsampling_depth_cutoff": {
+            "type": "integer",
+            "default": 100
+        },
+        "shortread_mapping_tool": {
+            "type": "string",
+            "default": "bowtie2"
         }
-    ]
+    }
 }
