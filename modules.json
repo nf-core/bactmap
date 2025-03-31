@@ -82,7 +82,7 @@
                     },
                     "bwamem2/mem": {
                         "branch": "master",
-                        "git_sha": "05954dab2ff481bcb999f24455da29a5828af08d",
+                        "git_sha": "15a93581f7f81d05c04b828954004a089360ea9b",
                         "installed_by": ["modules"]
                     },
                     "cat/fastq": {
@@ -124,6 +124,11 @@
                         "branch": "master",
                         "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
                         "installed_by": ["bam_variant_calling_sort_freebayes_bcftools"]
+                    },
+                    "gunzip": {
+                        "branch": "master",
+                        "git_sha": "81880787133db07d9b4c1febd152c090eb8325dc",
+                        "installed_by": ["modules"]
                     },
                     "minimap2/align": {
                         "branch": "master",

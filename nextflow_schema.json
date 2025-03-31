@@ -370,7 +370,7 @@
         },
         {
             "$ref": "#/$defs/generic_options"
-        },
+        }
     ],
     "properties": {
         "reference": {
