@@ -47,6 +47,7 @@ if ( params.input ) {
 //include { SEQTK_PARSE                                } from '../modules/local/seqtk_parse/main'
 //include { ALIGNPSEUDOGENOMES                         } from '../modules/local/alignpseudogenomes/main'
 
+include { MAPPING_STATISTICS                         } from '../subworkflows/local/mapping_statistics'
 include { SHORTREAD_PREPROCESSING                    } from '../subworkflows/local/shortread_preprocessing'
 include { LONGREAD_PREPROCESSING                     } from '../subworkflows/local/longread_processing'
 //include { SHORTREAD_MAPPING                          } from '../subworkflows/local/shortread_mapping/main'
@@ -341,7 +342,8 @@ workflow BACTMAP {
         []
     )
 
-    emit:multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
+    emit:
+    multiqc_report = MULTIQC.out.report.toList() // channel: /path/to/multiqc_report.html
     versions       = ch_versions                 // channel: [ path(versions.yml) ]
 
 }
