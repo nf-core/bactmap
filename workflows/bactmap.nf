@@ -41,6 +41,7 @@ if ( params.input ) {
 // SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
 //
 
+include { GET_GENOME_SIZE } from '../modules/local/get_genome_size/main'
 //include { FASTQSCANPARSE as FASTQSCANPARSE_TRIM      } from '../modules/local/fastqscanparse/main'
 //include { FASTQSCANPARSE as FASTQSCANPARSE_SUBSAMPLE } from '../modules/local/fastqscanparse/main'
 //include { SEQTK_COMP                                 } from '../modules/local/seqtk_comp/main'
@@ -64,11 +65,13 @@ include { LONGREAD_PREPROCESSING                     } from '../subworkflows/loc
 //
 include { BOWTIE2_BUILD                          } from '../modules/nf-core/bowtie2/build/main'
 include { BWAMEM2_INDEX                          } from '../modules/nf-core/bwamem2/index/main'
+include { SAMTOOLS_FAIDX                    } from '../modules/nf-core/samtools/faidx/main'
+include { GUNZIP                           } from '../modules/nf-core/gunzip/main'
 include { FASTQC                                 } from '../modules/nf-core/fastqc/main'
 include { FALCO                                  } from '../modules/nf-core/falco/main'
 include { CAT_FASTQ as MERGE_RUNS                } from '../modules/nf-core/cat/fastq/main'
 include { FASTQSCAN as FASTQSCAN_TRIM            } from '../modules/nf-core/fastqscan/main'
-//include { RASUSA                                 } from '../modules/nf-core/rasusa/main'
+include { RASUSA                                 } from '../modules/nf-core/rasusa/main'
 //include { FASTQSCAN as FASTQSCAN_SUBSAMPLE       } from '../modules/nf-core/fastqscan/main'
 //include { MINIMAP2_ALIGN as MINIMAP2_ALIGN_SHORT } from '../modules/nf-core/minimap2/align/main'
 //include { MINIMAP2_ALIGN as MINIMAP2_ALIGN_LONG  } from '../modules/nf-core/minimap2/align/main'
@@ -132,7 +135,7 @@ workflow BACTMAP {
                 return [ meta + [ type: "short" ], fastq_2 ? [ fastq_1, fastq_2 ] : [ fastq_1 ] ]
         }
     
-    ch_input_for_fastqc = ch_input.nanopore.mix( ch_input.fastq ) .view{val -> val}
+    ch_input_for_fastqc = ch_input.nanopore.mix( ch_input.fastq )
     
     /*
         Reference indexing
@@ -145,6 +148,25 @@ workflow BACTMAP {
         ch_versions = ch_versions.mix(BWAMEM2_INDEX.out.versions.first())
     }
     
+    /*
+        MODULE: Index reference file with Samtools faidx
+    */
+    
+    SAMTOOLS_FAIDX (
+        GUNZIP ( ch_fasta ).gunzip,
+        [ [ id:'no_fai' ],[] ],
+        true
+    )
+    ch_versions = ch_versions.mix(SAMTOOLS_FAIDX.out.versions.first())
+    
+    /*
+        MODULE: Get genome size
+    */
+    
+    sizes = SAMTOOLS_FAIDX.out.sizes.first() 
+    genome_size = GET_GENOME_SIZE(sizes).ch_genome_size
+    ch_versions = ch_versions.mix(GET_GENOME_SIZE.out.versions.first())
+
     /*
         MODULE: Run FastQC
     */
@@ -239,12 +261,15 @@ workflow BACTMAP {
         MODULE: Perform subsampling
     */
      
-    //if ( params.perform_subsampling ) {
-    //    ch_reads_subsampled = RASUSA( ch_reads_runmerged, genome_size, subsampling_depth_cutoff ).reads
-    //    ch_versions = ch_versions.mix( RASUSA.out.versions )
-    //} else {
-    //    ch_reads_subsampled = ch_reads_runmerged
-    //}
+    ch_reads_rasusa = ch_reads_runmerged
+        .join( genome_size )
+    
+    if ( params.perform_subsampling ) {
+        ch_reads_subsampled = RASUSA( ch_reads_rasusa, params.subsampling_depth_cutoff ).reads
+        ch_versions = ch_versions.mix( RASUSA.out.versions )
+    } else {
+        ch_reads_subsampled = ch_reads_runmerged
+    }
     
     /*
         MODULE: Run fastq-scan

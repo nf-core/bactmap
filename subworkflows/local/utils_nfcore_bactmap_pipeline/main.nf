@@ -170,6 +170,36 @@ def getGenomeAttribute(attribute) {
 }
 
 //
+// Get genome size from samtools faidx size file
+//
+def getGenomeSize(String samtoolsFaidxSizeFile) {
+    try {
+        def file = new File(samtoolsFaidxSizeFile)
+        // Check if file exists and isn't empty
+        if (!file.exists()) {
+            println "Error: File not found: $samtoolsFaidxSizeFile"
+            return null
+        }
+        if (file.size() == 0) {
+            println "Error: File is empty"
+            return 0
+        }
+
+        def sum = 0L
+        file.eachLine { line ->
+            def columns = line.split('\t')
+            if (columns.size() >= 2) {
+                sum += columns[1].toLong()
+            }
+        }
+        return sum
+    } catch (Exception e) {
+        println "Error processing file: ${e.message}"
+        return null
+    }
+}
+
+//
 // Exit pipeline if incorrect --genome key provided
 //
 def genomeExistsError() {
