@@ -1,10 +1,10 @@
 process RENAME_FASTA_HEADER {
     tag "$meta.id"
     label 'process_single'
-    conda "conda-forge::sed=4.7"
+    conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/ubuntu:20.04' :
-        'ubuntu:20.04' }"
+        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/cc/cc3ac7724b5e4552836cb5363b60980cc1953db2aac251f07c90b76309360c41/data' :
+        'community.wave.seqera.io/library/sed:4.8--b1981d5118363f62' }"
 
     input:
     tuple val(meta), path(fasta)
