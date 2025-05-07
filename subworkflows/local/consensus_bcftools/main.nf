@@ -84,6 +84,6 @@ workflow CONSENSUS_BCFTOOLS {
 
 
     emit:
-    consensus        = CONCATENATE_FASTA.out.fasta     // channel: [ val(meta), [ fasta ] ]
-    versions         = ch_versions                       // channel: [ versions.yml ]
+    consensus = CONCATENATE_FASTA.out.fasta // channel: [ val(meta), [ fasta ] ]
+    versions  = ch_versions                 // channel: [ versions.yml ]
 }
