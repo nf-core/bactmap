@@ -64,7 +64,7 @@ sample,run_accession,instrument_platform,fastq_1,fastq_2
 
 Each row represents a fastq file (single-end) or a pair of fastq files (paired end), either Illumina (short reads) or Oxford Nanopore (long reads).
 
-Additionally, if you are analysing Oxford Nanopore data, you will need to provide the path to a model to use with `Clair3` (specified with `--clair3_model`).  Models for older chemistries and basecallers (e.g. r9.4.1) can be downloaded from [here](https://www.bio8.cs.hku.hk/clair3/clair3_models/). For newer chemistries and basecallers, ONT provides models through [Rerio](https://github.com/nanoporetech/rerio). To download the models for Clair3 from the ONT github, you can use the following commands (Each model will be downloaded to the folder `clair3_models/<clair3_model_name>`):
+Additionally, if you are analysing Oxford Nanopore data, you will need to provide the path to a model to use with `Clair3` (specified with `--clair3_model`).  Models for older chemistries and basecallers (e.g. r9.4.1) can be downloaded from [here](https://www.bio8.cs.hku.hk/clair3/clair3_models/). For newer chemistries and basecallers, ONT provides models through [Rerio](https://github.com/nanoporetech/rerio). To download the models for Clair3 from the ONT github, you can use the following commands (each model will be downloaded to the folder `clair3_models/<clair3_model_name>`):
 
 ```bash
 # Clone the rerio repository
