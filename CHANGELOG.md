@@ -5,7 +5,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v2.0.0dev - [date]
 
-Initial release of nf-core/bactmap v2.0.0, created with the [nf-core](https://nf-co.re/) template. The pipeline has been completely rewritten using a fresh template created with [nf-core](https://nf-co.re/).
+nf-core/bactmap release v2.0.0. The pipeline has been completely rewritten using a fresh template created with [nf-core](https://nf-co.re/).
 
 The pipeline is composed of the following steps:
 
