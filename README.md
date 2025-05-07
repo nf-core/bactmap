@@ -43,7 +43,7 @@
   - Summarise variant statistics ([`BCFtools stats`](http://samtools.github.io/bcftools/bcftools.html))
   - Convert filtered bcf to pseudogenome fasta ([`BCFtools consensus`](http://samtools.github.io/bcftools/bcftools.html) and [`BEDtools`](https://bedtools.readthedocs.io/en/latest/content/tools/genomecov.html))
   - Summarise mapping statistics ([`seqtk`](https://github.com/lh3/seqtk))
-6. Create alignment from pseudogenomes by concatenating fasta files having first checked that the sample sequences are high quality([`alignpseudogenomes`](https://github.com/nf-core/bactmap/blob/master/modules/local/alignpseudogenomes/main.nf))
+6. Create alignment from pseudogenomes by concatenating fasta files having first checked that the sample sequences are high quality ([`alignpseudogenomes`](https://github.com/nf-core/bactmap/blob/master/modules/local/alignpseudogenomes/main.nf))
 7. Extract variant sites from alignment ([`SNP-sites`](https://github.com/sanger-pathogens/snp-sites))
 8. Present QC for raw and processed reads, alignment statistics and variant statistics ([`MultiQC`](http://multiqc.info/))
 
