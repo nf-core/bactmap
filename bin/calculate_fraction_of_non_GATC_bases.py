@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+
+## Originally written by Andries van Tonder and released under the MIT license.
+## See git repository (https://github.com/nf-core/bactmap) for full license text.
+
 from Bio import SeqIO
 import argparse, sys, os
 
