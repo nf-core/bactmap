@@ -1,30 +1,59 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
 name: "fastq_align_bwamem2"
-## TODO nf-core: Add a description of the subworkflow and list keywords
-description: Sort SAM/BAM/CRAM file
+description: Map reads to a reference genome using BWA-MEM2 and sort with samtools.
 keywords:
-  - sort
-  - bam
-  - sam
-  - cram
-## TODO nf-core: Add a list of the modules and/or subworkflows used in the subworkflow
+  - align
+  - fasta
+  - genome
+  - reference
 components:
+  - bwamem2/mem
   - samtools/sort
   - samtools/index
-## TODO nf-core: List all of the channels used as input with a description and their structure
+  - samtools/stats
+  - samtools/idxstats
+  - samtools/flagstat
+  - bam_sort_stats_samtools
 input:
-  - ch_bam:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - ch_reads:
       type: file
       description: |
-        The input channel containing the BAM/CRAM/SAM files
-        Structure: [ val(meta), path(bam) ]
-      pattern: "*.{bam/cram/sam}"
-## TODO nf-core: List all of the channels used as output with a descriptions and their structure
+        List of input FastQ files of size 1 and 2 for single-end and paired-end data,
+        respectively.
+  - ch_index:
+      type: file
+      description: BWA-MEM2 genome index files
+      pattern: "*.{0123,amb,ann,bwt.2bit.64,pac}"
+  - ch_fasta:
+      type: file
+      description: Reference fasta file
+      pattern: "*.{fasta,fa}"
+  - sort_bam:
+      type: boolean
+      description: |
+        Use samtools sort (true) or samtools view (false)
+      default: false
 output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - bam_orig:
+      type: file
+      description: |
+        Channel containing unsorted BAM files
+        Structure: [ val(meta), path(bam_orig) ]
+      pattern: "*.bam"
   - bam:
       type: file
       description: |
-        Channel containing BAM files
+        Channel containing sorted BAM files
         Structure: [ val(meta), path(bam) ]
       pattern: "*.bam"
   - bai:
@@ -39,10 +68,28 @@ output:
         Channel containing CSI files
         Structure: [ val(meta), path(csi) ]
       pattern: "*.csi"
+  - stats:
+      type: file
+      description: |
+        Channel containing samtools stats output
+        Structure: [ val(meta), path(stats) ]
+      pattern: "*.{stats}"
+  - flagstat:
+      type: file
+      description: |
+        Channel containing samtools flagstat output
+        Structure: [ val(meta), path(flagstat) ]
+      pattern: "*.{flagstat}"
+  - idxstats:
+      type: file
+      description: |
+        Channel containing samtools idxstats output
+        Structure: [ val(meta), path(idxstats) ]
+      pattern: "*.{idxstats}"
   - versions:
       type: file
       description: |
-        File containing software versions
+        Channel containing software versions
         Structure: [ path(versions.yml) ]
       pattern: "versions.yml"
 authors:

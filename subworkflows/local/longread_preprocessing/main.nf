@@ -2,10 +2,10 @@
 // Perform read trimming and filtering
 //
 
-include { FASTQC as FASTQC_PROCESSED       } from '../../modules/nf-core/fastqc/main'
+include { FASTQC as FASTQC_PROCESSED       } from '../../../modules/nf-core/fastqc/main'
 
-include { LONGREAD_ADAPTERREMOVAL          } from './longread_adapterremoval.nf'
-include { LONGREAD_FILTERING               } from './longread_filtering.nf'
+include { LONGREAD_ADAPTERREMOVAL          } from '../longread_adapterremoval/main'
+include { LONGREAD_FILTERING               } from '../longread_filtering/main'
 
 workflow LONGREAD_PREPROCESSING {
     take:

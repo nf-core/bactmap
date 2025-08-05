@@ -40,8 +40,8 @@ include { READSTATS_PARSE                            } from '../modules/local/re
 include { SEQTK_PARSE                                } from '../modules/local/seqtk_parse'
 include { ALIGNPSEUDOGENOMES                         } from '../modules/local/alignpseudogenomes/main'
 
-include { SHORTREAD_PREPROCESSING                    } from '../subworkflows/local/shortread_preprocessing'
-include { LONGREAD_PREPROCESSING                     } from '../subworkflows/local/longread_processing'
+include { SHORTREAD_PREPROCESSING                    } from '../subworkflows/local/shortread_preprocessing/main'
+include { LONGREAD_PREPROCESSING                     } from '../subworkflows/local/longread_preprocessing/main'
 include { SHORTREAD_MAPPING                          } from '../subworkflows/local/shortread_mapping/main'
 include { LONGREAD_MAPPING                           } from '../subworkflows/local/longread_mapping/main'
 

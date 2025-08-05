@@ -14,11 +14,6 @@ components:
   - concatenate_fasta
   - rename_fasta_header
 input:
-  - meta:
-      type: map
-      description: |
-        Groovy Map containing sample information
-        e.g. [ id:'test', single_end:false ]
   - ch_bam:
       type: file
       description: |
@@ -43,11 +38,6 @@ input:
         Reference genome fasta file
         Structure: [ path(fasta) ]
 output:
-  - meta:
-      type: map
-      description: |
-        Groovy Map containing sample information
-        e.g. [ id:'test', single_end:false ]
   - consensus:
       type: file
       description: |

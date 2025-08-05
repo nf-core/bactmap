@@ -1,0 +1,46 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: "longread_adapterremoval"
+description: Long read adapter removal using Porechop
+keywords:
+  - adapters
+  - removal
+  - fastq
+components:
+  - porechop/porechop
+  - porechop/abi
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - reads:
+      type: file
+      description: |
+        List of input FastQ files of size 1 and 2 for single-end and paired-end data,
+        respectively.
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - reads:
+      type: file
+      description: |
+        Channel containing adapter removed FASTQ files
+        Structure: [ val(meta), path(reads) ]
+      pattern: "*.fastq.gz"
+  - versions:
+      type: file
+      description: |
+        File containing software versions
+        Structure: [ path(versions.yml) ]
+      pattern: "versions.yml"
+authors:
+  - "@jfy133"
+  - "@sofstam"
+  - "@Midnighter"
+  - "@LilyAnderssonLee"
+maintainers:
+  - "@avantonder"
