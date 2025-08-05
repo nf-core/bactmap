@@ -1,44 +1,49 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
 name: "consensus_bcftools"
-## TODO nf-core: Add a description of the subworkflow and list keywords
-description: Sort SAM/BAM/CRAM file
+description: Create consensus FASTA from a VCF file
 keywords:
-  - sort
-  - bam
-  - sam
-  - cram
-## TODO nf-core: Add a list of the modules and/or subworkflows used in the subworkflow
+  - vcf
+  - fasta
+  - pseudogenome
+  - consensus
 components:
-  - samtools/sort
-  - samtools/index
-## TODO nf-core: List all of the channels used as input with a description and their structure
+  - bcftools/consensus
+  - bcftools/query
+  - bedtools/genomecov
+  - bedtools/subtract
+  - concatenate_fasta
+  - rename_fasta_header
 input:
   - ch_bam:
       type: file
       description: |
-        The input channel containing the BAM/CRAM/SAM files
+        The input channel containing the BAM files
         Structure: [ val(meta), path(bam) ]
-      pattern: "*.{bam/cram/sam}"
-## TODO nf-core: List all of the channels used as output with a descriptions and their structure
+      pattern: "*.{bam}"
+  - ch_vcf:
+      type: file
+      description: |
+        The input channel containing the VCF files
+        Structure: [ val(meta), path(vcf) ]
+      pattern: "*.{vcf,vcf.gz}"
+  - ch_tbi:
+      type: file
+      description: |
+        The input channel containing the VCF index files
+        Structure: [ val(meta), path(tbi) ]
+      pattern: "*.{tbi}"
+  - ch_fasta:
+      type: file
+      description: |
+        Reference genome fasta file
+        Structure: [ path(fasta) ]
 output:
-  - bam:
+  - consensus:
       type: file
       description: |
-        Channel containing BAM files
-        Structure: [ val(meta), path(bam) ]
-      pattern: "*.bam"
-  - bai:
-      type: file
-      description: |
-        Channel containing indexed BAM (BAI) files
-        Structure: [ val(meta), path(bai) ]
-      pattern: "*.bai"
-  - csi:
-      type: file
-      description: |
-        Channel containing CSI files
-        Structure: [ val(meta), path(csi) ]
-      pattern: "*.csi"
+        Channel containing consensus FASTA files
+        Structure: [ val(meta), path(fasta) ]
+      pattern: "*.fa"
   - versions:
       type: file
       description: |
@@ -47,5 +52,7 @@ output:
       pattern: "versions.yml"
 authors:
   - "@MareikeJaniak"
+  - "@sgsutcliffe"
+  - "@avantonder"
 maintainers:
-  - "@MareikeJaniak"
+  - "@avantonder"

@@ -7,29 +7,36 @@ nextflow_workflow {
     workflow "CONSENSUS_BCFTOOLS"
 
     tag "subworkflows"
-    tag "subworkflows_"
+    tag "subworkflows_local"
     tag "subworkflows/consensus_bcftools"
-    // TODO nf-core: Add tags for all modules used within this subworkflow. Example:
-    tag "samtools"
-    tag "samtools/sort"
-    tag "samtools/index"
+    tag "bcftools/consensus"
+    tag "bcftools/query"
+    tag "bedtools/genomecov"
+    tag "bedtools/subtract"
+    tag "concatenate_fasta"
+    tag "rename_fasta_header"
 
-
-    // TODO nf-core: Change the test name preferably indicating the test-data and file-format used
-    test("sarscov2 - bam - single_end") {
+    test("test_consensus_bcftools_vcf") {
 
         when {
             workflow {
                 """
-                // TODO nf-core: define inputs of the workflow here. Example:
-                input[0] = [
+                input[0] = Channel.of([
                     [ id:'test', single_end:false ], // meta map
-                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/bam/test.paired_end.sorted.bam', checkIfExists: true),
-                ]
-                input[1] = [
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/bam/test.paired_end.sorted.bam', checkIfExists: true)
+                ])
+                input[1] = Channel.of([
+                    [ id:'test', single_end:false ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz', checkIfExists: true),
+                ])
+                input[2] = Channel.of([
+                    [ id:'test', single_end:false ], // meta map
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/vcf/test.vcf.gz.tbi', checkIfExists: true),
+                ])
+                input[3] = Channel.of([
                     [ id:'genome' ],
-                    file(params.modules_testdata_base_path + 'genomics/sarscov2/illumina/bam/test.paired_end.sorted.bam', checkIfExists: true),
-                ]
+                    file(params.modules_testdata_base_path + 'genomics/sarscov2/genome/genome.fasta', checkIfExists: true)
+                ])
                 """
             }
         }
@@ -37,8 +44,9 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success},
-                { assert snapshot(workflow.out).match()}
-                //TODO nf-core: Add all required assertions to verify the test output.
+                { assert snapshot(
+                    workflow.out.fasta,
+                    workflow.out.versions).match() }
             )
         }
     }

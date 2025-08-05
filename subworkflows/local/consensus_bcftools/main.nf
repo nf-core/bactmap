@@ -34,7 +34,7 @@ workflow CONSENSUS_BCFTOOLS {
         [],
         []
     )
-    //ch_versions = ch_versions.mix(BCFTOOLS_QUERY.out.versions.first())
+    // ch_versions = ch_versions.mix(BCFTOOLS_QUERY.out.versions.first())
     
     ch_genomecov = ch_bam
         .multiMap { 
