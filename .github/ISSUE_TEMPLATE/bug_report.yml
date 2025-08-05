@@ -9,7 +9,6 @@ body:
 
         - [nf-core website: troubleshooting](https://nf-co.re/usage/troubleshooting)
         - [nf-core/bactmap pipeline documentation](https://nf-co.re/bactmap/usage)
-
   - type: textarea
     id: description
     attributes:
