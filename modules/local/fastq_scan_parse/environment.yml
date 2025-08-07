@@ -1,5 +1,6 @@
 channels:
-  - conda-forge
+- conda-forge
+- bioconda
 dependencies:
-  - conda-forge::pandas=2.23.4
+- conda-forge::pandas=2.3.1
 
