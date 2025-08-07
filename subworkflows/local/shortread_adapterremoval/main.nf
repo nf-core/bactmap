@@ -13,8 +13,8 @@ workflow SHORTREAD_ADAPTERREMOVAL {
     adapterlist // file
 
     main:
-    ch_versions = Channel.empty()
-    ch_multiqc_files      = Channel.empty()
+    ch_versions      = Channel.empty()
+    ch_multiqc_files = Channel.empty()
 
     ch_input_for_adapterremoval = reads
                                     .branch{
@@ -81,6 +81,7 @@ workflow SHORTREAD_ADAPTERREMOVAL {
 
     ch_versions = ch_versions.mix( ADAPTERREMOVAL_SINGLE.out.versions.first() )
     ch_versions = ch_versions.mix( ADAPTERREMOVAL_PAIRED.out.versions.first() )
+    ch_versions = ch_versions.mix( CAT_FASTQ.out.versions.first() )
 
     ch_multiqc_files = ch_multiqc_files.mix(
         ADAPTERREMOVAL_PAIRED.out.settings,

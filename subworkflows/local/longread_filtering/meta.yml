@@ -3,6 +3,7 @@ name: "longread_filtering"
 description: Perform filtering of long read FASTQ files
 keywords:
   - filtering
+  - cleaning
   - fastq
 components:
   - filtlong
