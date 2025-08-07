@@ -3,8 +3,8 @@ process SEQTK_PARSE {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/92/92491bcdc9430c8a9feed2e23772ab75d9ff0671853f4eaaab30befdacf33d54/data' :
-        'community.wave.seqera.io/library/pip_pandas:8dba217693f72600' }"
+        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/c0/c03d8fbb44376692e10bb9e56be2577fc35446c193637735de9fed182e6b58df/data' :
+        'community.wave.seqera.io/library/pandas:2.3.1--139e2fa6c1f18206' }"
 
     input:
     path tsv
