@@ -72,6 +72,12 @@ output:
         Channel containing bcftools stats files
         Structure: [ val(meta), path(tbi) ]
       pattern: "*.txt"
+  - seqtk_stats:
+      type: file
+      description: |
+        Channel containing seqtk stats files
+        Structure: [ val(meta), path(consensus) ]
+      pattern: "*.tsv"
   - consensus:
       type: file
       description: |

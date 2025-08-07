@@ -1,49 +1,40 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
-name: "consensus_bcftools"
-description: Create consensus FASTA from a VCF file
+name: "shortread_fastp"
+description: Perform filtering of short read FASTQ files
 keywords:
-  - vcf
-  - fasta
-  - pseudogenome
-  - consensus
+  - filtering
+  - fastq
 components:
-  - bcftools/consensus
-  - bcftools/query
-  - bedtools/genomecov
-  - bedtools/subtract
-  - concatenate_fasta
-  - rename_fasta_header
+  - fastp
 input:
-  - ch_bam:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - reads:
       type: file
       description: |
-        The input channel containing the BAM files
-        Structure: [ val(meta), path(bam) ]
-      pattern: "*.{bam}"
-  - ch_vcf:
+        List of input FastQ files of size 1 and 2 for single-end and paired-end data,
+        respectively.
+  - adapterlist:
       type: file
       description: |
-        The input channel containing the VCF files
-        Structure: [ val(meta), path(vcf) ]
-      pattern: "*.{vcf,vcf.gz}"
-  - ch_tbi:
-      type: file
-      description: |
-        The input channel containing the VCF index files
-        Structure: [ val(meta), path(tbi) ]
-      pattern: "*.{tbi}"
-  - ch_fasta:
-      type: file
-      description: |
-        Reference genome fasta file
-        Structure: [ path(fasta) ]
+        List of adapters to remove from the reads.
+        Structure: [ path(adapterlist) ]
+      pattern: "*.txt"
 output:
-  - consensus:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - reads:
       type: file
       description: |
-        Channel containing consensus FASTA files
-        Structure: [ val(meta), path(fasta) ]
-      pattern: "*.fa"
+        Channel containing filtered FASTQ files
+        Structure: [ val(meta), path(reads) ]
+      pattern: "*.fastq.gz"
   - versions:
       type: file
       description: |
@@ -51,8 +42,9 @@ output:
         Structure: [ path(versions.yml) ]
       pattern: "versions.yml"
 authors:
-  - "@MareikeJaniak"
-  - "@sgsutcliffe"
-  - "@avantonder"
+  - "@jfy133"
+  - "@sofstam"
+  - "@Midnighter"
+  - "@LilyAnderssonLee"
 maintainers:
   - "@avantonder"
