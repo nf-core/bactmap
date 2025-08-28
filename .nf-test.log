@@ -1,3 +1,58 @@
-Aug-28 16:40:07.294 [main] INFO  com.askimed.nf.test.App - nf-test 0.9.2
-Aug-28 16:40:07.302 [main] INFO  com.askimed.nf.test.App - Arguments: [version]
-Aug-28 16:40:07.793 [main] INFO  com.askimed.nf.test.App - Nextflow Version: 25.04.6
+Aug-28 18:23:36.238 [main] INFO  com.askimed.nf.test.App - nf-test 0.9.2
+Aug-28 18:23:36.245 [main] INFO  com.askimed.nf.test.App - Arguments: [test, subworkflows/local/consensus_bcftools/tests/main.nf.test]
+Aug-28 18:23:36.666 [main] INFO  com.askimed.nf.test.App - Nextflow Version: 25.04.6
+Aug-28 18:23:36.667 [main] INFO  com.askimed.nf.test.commands.RunTestsCommand - Load config from file /Users/ajv37/Documents/Pipelines/bactmap/nf-test.config...
+Aug-28 18:23:36.922 [main] INFO  com.askimed.nf.test.lang.dependencies.DependencyResolver - Loaded 78 files from directory /Users/ajv37/Documents/Pipelines/bactmap in 0.079 sec
+Aug-28 18:23:36.923 [main] INFO  com.askimed.nf.test.lang.dependencies.DependencyResolver - Found 1 files containing tests.
+Aug-28 18:23:36.923 [main] DEBUG com.askimed.nf.test.lang.dependencies.DependencyResolver - Found files: [/Users/ajv37/Documents/Pipelines/bactmap/subworkflows/local/consensus_bcftools/tests/main.nf.test]
+Aug-28 18:23:36.975 [main] INFO  com.askimed.nf.test.commands.RunTestsCommand - Found 1 tests to execute.
+Aug-28 18:23:36.975 [main] INFO  com.askimed.nf.test.core.TestExecutionEngine - Started test plan
+Aug-28 18:23:36.975 [main] INFO  com.askimed.nf.test.core.TestExecutionEngine - Running testsuite 'Test Subworkflow CONSENSUS_BCFTOOLS' from file '/Users/ajv37/Documents/Pipelines/bactmap/subworkflows/local/consensus_bcftools/tests/main.nf.test'.
+Aug-28 18:23:36.975 [main] INFO  com.askimed.nf.test.core.TestExecutionEngine - Run test '479fa39f: test_consensus_bcftools_vcf'. type: com.askimed.nf.test.lang.workflow.WorkflowTest
+Aug-28 18:23:45.147 [main] DEBUG com.askimed.nf.test.lang.extensions.SnapshotFile - Init new snapshot file '/Users/ajv37/Documents/Pipelines/bactmap/subworkflows/local/consensus_bcftools/tests/main.nf.test.snap'
+Aug-28 18:23:45.148 [main] DEBUG com.askimed.nf.test.lang.extensions.Snapshot - Snapshot 'test_consensus_bcftools_vcf' not found.
+Aug-28 18:23:45.148 [main] DEBUG com.askimed.nf.test.lang.extensions.SnapshotFile - Created snapshot 'test_consensus_bcftools_vcf'
+Aug-28 18:23:45.152 [main] DEBUG com.askimed.nf.test.lang.extensions.SnapshotFile - Wrote snapshots to file '/Users/ajv37/Documents/Pipelines/bactmap/subworkflows/local/consensus_bcftools/tests/main.nf.test.snap'
+Aug-28 18:23:45.153 [main] INFO  com.askimed.nf.test.core.TestExecutionEngine - Test '479fa39f: test_consensus_bcftools_vcf' finished. status: FAILED
+org.codehaus.groovy.runtime.powerassert.PowerAssertionError: 1 of 2 assertions failed
+	at com.askimed.nf.test.lang.extensions.GlobalMethods.assertAll(GlobalMethods.java:48)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+	at org.codehaus.groovy.runtime.callsite.StaticMetaMethodSite.invoke(StaticMetaMethodSite.java:44)
+	at org.codehaus.groovy.runtime.callsite.StaticMetaMethodSite.callStatic(StaticMetaMethodSite.java:100)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallStatic(CallSiteArray.java:55)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callStatic(AbstractCallSite.java:217)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callStatic(AbstractCallSite.java:240)
+	at main_nf$_run_closure1$_closure2$_closure4.doCall(main.nf.test:43)
+	at main_nf$_run_closure1$_closure2$_closure4.doCall(main.nf.test)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+	at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:274)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1030)
+	at groovy.lang.Closure.call(Closure.java:427)
+	at groovy.lang.Closure.call(Closure.java:406)
+	at com.askimed.nf.test.lang.TestCode.execute(TestCode.java:16)
+	at com.askimed.nf.test.lang.workflow.WorkflowTest.execute(WorkflowTest.java:178)
+	at com.askimed.nf.test.core.TestExecutionEngine.execute(TestExecutionEngine.java:165)
+	at com.askimed.nf.test.commands.RunTestsCommand.execute(RunTestsCommand.java:298)
+	at com.askimed.nf.test.commands.AbstractCommand.call(AbstractCommand.java:43)
+	at com.askimed.nf.test.commands.AbstractCommand.call(AbstractCommand.java:18)
+	at picocli.CommandLine.executeUserObject(CommandLine.java:1953)
+	at picocli.CommandLine.access$1300(CommandLine.java:145)
+	at picocli.CommandLine$RunLast.executeUserObjectOfLastSubcommandWithSameParent(CommandLine.java:2352)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:2346)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:2311)
+	at picocli.CommandLine$AbstractParseResultHandler.execute(CommandLine.java:2179)
+	at picocli.CommandLine.execute(CommandLine.java:2078)
+	at com.askimed.nf.test.App.run(App.java:39)
+	at com.askimed.nf.test.App.main(App.java:46)
+Aug-28 18:23:45.155 [main] INFO  com.askimed.nf.test.core.TestExecutionEngine - Testsuite 'Test Subworkflow CONSENSUS_BCFTOOLS' finished. snapshot file: true, skipped tests: false, failed tests: true
+Aug-28 18:23:45.156 [main] INFO  com.askimed.nf.test.core.TestExecutionEngine - Executed 1 tests. 1 tests failed. Done!

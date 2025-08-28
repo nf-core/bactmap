@@ -1,0 +1,169 @@
+Aug-28 18:23:39.534 [main] DEBUG nextflow.cli.Launcher - $> nextflow -quiet -log /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/479fa39f0b65a13547eef18fffcd3755/meta/nextflow.log run /Users/ajv37/Documents/Pipelines/bactmap/.nf-test-479fa39f0b65a13547eef18fffcd3755.nf -c /Users/ajv37/Documents/Pipelines/bactmap/nextflow.config -c /Users/ajv37/Documents/Pipelines/bactmap/tests/nextflow.config -params-file /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/479fa39f0b65a13547eef18fffcd3755/meta/params.json -ansi-log false -profile test -with-trace /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/479fa39f0b65a13547eef18fffcd3755/meta/trace.csv -w /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/479fa39f0b65a13547eef18fffcd3755/work
+Aug-28 18:23:39.562 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 25.04.6
+Aug-28 18:23:39.571 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/Users/ajv37/.nextflow/plugins; core-plugins: nf-amazon@2.15.0,nf-azure@1.16.0,nf-cloudcache@0.4.3,nf-codecommit@0.2.3,nf-console@1.2.1,nf-google@1.21.1,nf-k8s@1.0.0,nf-tower@1.11.4,nf-wave@1.12.1
+Aug-28 18:23:39.580 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Aug-28 18:23:39.581 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Aug-28 18:23:39.582 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.12.0 in 'deployment' mode
+Aug-28 18:23:39.587 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Aug-28 18:23:39.596 [main] DEBUG nextflow.config.ConfigBuilder - Found config base: /Users/ajv37/Documents/Pipelines/bactmap/nextflow.config
+Aug-28 18:23:39.599 [main] DEBUG nextflow.config.ConfigBuilder - User config file: /Users/ajv37/Documents/Pipelines/bactmap/nextflow.config
+Aug-28 18:23:39.599 [main] DEBUG nextflow.config.ConfigBuilder - User config file: /Users/ajv37/Documents/Pipelines/bactmap/tests/nextflow.config
+Aug-28 18:23:39.600 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /Users/ajv37/Documents/Pipelines/bactmap/nextflow.config
+Aug-28 18:23:39.600 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /Users/ajv37/Documents/Pipelines/bactmap/nextflow.config
+Aug-28 18:23:39.600 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /Users/ajv37/Documents/Pipelines/bactmap/tests/nextflow.config
+Aug-28 18:23:39.613 [main] DEBUG n.secret.LocalSecretsProvider - Secrets store: /Users/ajv37/.nextflow/secrets/store.json
+Aug-28 18:23:39.614 [main] DEBUG nextflow.secret.SecretsLoader - Discovered secrets providers: [nextflow.secret.LocalSecretsProvider@3c5a54b7] - activable => nextflow.secret.LocalSecretsProvider@3c5a54b7
+Aug-28 18:23:39.623 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `test`
+Aug-28 18:23:41.218 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `test`
+Aug-28 18:23:41.468 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `test`
+Aug-28 18:23:41.476 [main] DEBUG nextflow.config.ConfigBuilder - Available config profiles: [bih, cfc_dev, uzl_omics, ifb_core, embl_hd, denbi_qbic, alice, mjolnir_globe, uppmax, giga, incliva, ilifu, ki_luria, uge, icr_alma, rosalind_uge, lugh, mccleary, unibe_ibu, vai, czbiohub_aws, jax, roslin, tes, scw, unc_longleaf, tigem, tubingen_apg, apollo, ipop_up, vsc_calcua, pdc_kth, ceci_nic5, ccga_cau, humantechnopole, stjude, daisybio, eddie, medair, biowulf, apptainer, bi, bigpurple, adcra, cedars, pawsey_setonix, vsc_kul_uhasselt, pawsey_nimbus, ucl_myriad, utd_ganymede, charliecloud, fred_hutch, seattlechildrens, icr_davros, ceres, arm, munin, rosalind, hasta, cfc, uzh, shu_bmrc, ebi_codon_slurm, ebc, ccga_dx, crick, ku_sund_danhead, marvin, shifter, biohpc_gen, mana, mamba, york_viking, unc_lccc, wehi, awsbatch, wustl_htcf, arcc, ceci_dragon2, imperial, maestro, software_license, cannon, genotoul, nci_gadi, abims, eva_grace, janelia, nu_genomics, googlebatch, oist, sahmri, kaust, alliance_canada, mpcdf, leicester, vsc_ugent, create, sage, cambridge, jex, podman, ebi_codon, cheaha, xanadu, nyu_hpc, test, marjorie, computerome, ucd_sonic, seg_globe, mssm, sanger, dkfz, bluebear, pasteur, einstein, ethz_euler, m3c, test_full, imb, ucl_cscluster, tuos_stanage, azurebatch, hki, seadragon, crukmi, csiro_petrichor, qmul_apocrita, wave, docker, engaging, gis, hypatia, psmn, eva, unity, cropdiversityhpc, nygc, fgcz, conda, crg, singularity, mpcdf_viper, pe2, dirac, self_hosted_runner, tufts, uw_hyak_pedslabs, binac2, debug, genouest, cbe, unsw_katana, utd_juno, gitpod, phoenix, seawulf, uod_hpc, fub_curta, lovelace, uct_hpc, aws_tower, binac, fsu_draco]
+Aug-28 18:23:41.504 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 from script declaration
+Aug-28 18:23:41.512 [main] INFO  nextflow.cli.CmdRun - Launching `/Users/ajv37/Documents/Pipelines/bactmap/.nf-test-479fa39f0b65a13547eef18fffcd3755.nf` [gloomy_ekeblad] DSL2 - revision: 7d1108d6c1
+Aug-28 18:23:41.512 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins declared=[nf-schema@2.3.0]
+Aug-28 18:23:41.512 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Aug-28 18:23:41.512 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins resolved requirement=[nf-schema@2.3.0]
+Aug-28 18:23:41.513 [main] DEBUG nextflow.plugin.PluginUpdater - Installing plugin nf-schema version: 2.3.0
+Aug-28 18:23:41.518 [main] INFO  org.pf4j.AbstractPluginManager - Plugin 'nf-schema@2.3.0' resolved
+Aug-28 18:23:41.519 [main] INFO  org.pf4j.AbstractPluginManager - Start plugin 'nf-schema@2.3.0'
+Aug-28 18:23:41.522 [main] DEBUG nextflow.plugin.BasePlugin - Plugin started nf-schema@2.3.0
+Aug-28 18:23:41.552 [main] DEBUG nextflow.Session - Session UUID: b862f569-4303-4b12-b146-c05985749eb7
+Aug-28 18:23:41.553 [main] DEBUG nextflow.Session - Run name: gloomy_ekeblad
+Aug-28 18:23:41.553 [main] DEBUG nextflow.Session - Executor pool size: 10
+Aug-28 18:23:41.556 [main] DEBUG nextflow.file.FilePorter - File porter settings maxRetries=3; maxTransfers=50; pollTimeout=null
+Aug-28 18:23:41.558 [main] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'FileTransfer' minSize=10; maxSize=30; workQueue=LinkedBlockingQueue[-1]; allowCoreThreadTimeout=false
+Aug-28 18:23:41.572 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 25.04.6 build 5954
+  Created: 01-07-2025 11:27 UTC (12:27 BST)
+  System: Mac OS X 15.6
+  Runtime: Groovy 4.0.26 on OpenJDK 64-Bit Server VM 17.0.15+6-LTS
+  Encoding: UTF-8 (UTF-8)
+  Process: 53234@dhcp-10-249-8-242.eduroam.wireless.private.cam.ac.uk [10.249.8.242]
+  CPUs: 10 - Mem: 16 GB (147.4 MB) - Swap: 12 GB (602.1 MB)
+Aug-28 18:23:41.578 [main] DEBUG nextflow.Session - Work-dir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/479fa39f0b65a13547eef18fffcd3755/work [Mac OS X]
+Aug-28 18:23:41.593 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Aug-28 18:23:41.597 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Aug-28 18:23:41.604 [main] DEBUG nextflow.Session - Observer factory: ValidationObserverFactory
+Aug-28 18:23:41.616 [main] DEBUG nextflow.Session - Observer factory (v2): LinObserverFactory
+Aug-28 18:23:41.625 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Aug-28 18:23:41.630 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 11; maxThreads: 1000
+Aug-28 18:23:41.655 [main] DEBUG nextflow.Session - Session start
+Aug-28 18:23:41.656 [main] DEBUG nextflow.trace.TraceFileObserver - Workflow started -- trace file: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/479fa39f0b65a13547eef18fffcd3755/meta/trace.csv
+Aug-28 18:23:41.768 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Aug-28 18:23:43.298 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name CONSENSUS_BCFTOOLS:BCFTOOLS_QUERY
+Aug-28 18:23:43.299 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:BCFTOOLS_QUERY` matches process CONSENSUS_BCFTOOLS:BCFTOOLS_QUERY
+Aug-28 18:23:43.305 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-28 18:23:43.305 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-28 18:23:43.307 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
+Aug-28 18:23:43.309 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=10; memory=16 GB; capacity=10; pollInterval=100ms; dumpInterval=5m
+Aug-28 18:23:43.310 [main] DEBUG n.processor.TaskPollingMonitor - >>> barrier register (monitor: local)
+Aug-28 18:23:43.318 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'CONSENSUS_BCFTOOLS:BCFTOOLS_QUERY': maxForks=0; fair=false; array=0
+Aug-28 18:23:43.330 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name CONSENSUS_BCFTOOLS:BEDTOOLS_GENOMECOV
+Aug-28 18:23:43.332 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:BEDTOOLS_GENOMECOV` matches process CONSENSUS_BCFTOOLS:BEDTOOLS_GENOMECOV
+Aug-28 18:23:43.333 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-28 18:23:43.333 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-28 18:23:43.334 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'CONSENSUS_BCFTOOLS:BEDTOOLS_GENOMECOV': maxForks=0; fair=false; array=0
+Aug-28 18:23:43.339 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name CONSENSUS_BCFTOOLS:BEDTOOLS_SUBTRACT
+Aug-28 18:23:43.340 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:BEDTOOLS_SUBTRACT` matches process CONSENSUS_BCFTOOLS:BEDTOOLS_SUBTRACT
+Aug-28 18:23:43.341 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-28 18:23:43.341 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-28 18:23:43.341 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'CONSENSUS_BCFTOOLS:BEDTOOLS_SUBTRACT': maxForks=0; fair=false; array=0
+Aug-28 18:23:43.346 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name CONSENSUS_BCFTOOLS:BCFTOOLS_CONSENSUS
+Aug-28 18:23:43.347 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:BCFTOOLS_CONSENSUS` matches process CONSENSUS_BCFTOOLS:BCFTOOLS_CONSENSUS
+Aug-28 18:23:43.353 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-28 18:23:43.353 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-28 18:23:43.353 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'CONSENSUS_BCFTOOLS:BCFTOOLS_CONSENSUS': maxForks=0; fair=false; array=0
+Aug-28 18:23:43.357 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name CONSENSUS_BCFTOOLS:RENAME_FASTA_HEADER
+Aug-28 18:23:43.357 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:RENAME_FASTA_HEADER` matches process CONSENSUS_BCFTOOLS:RENAME_FASTA_HEADER
+Aug-28 18:23:43.358 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-28 18:23:43.359 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-28 18:23:43.359 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'CONSENSUS_BCFTOOLS:RENAME_FASTA_HEADER': maxForks=0; fair=false; array=0
+Aug-28 18:23:43.361 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name CONSENSUS_BCFTOOLS:CONCATENATE_FASTA
+Aug-28 18:23:43.362 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:CONCATENATE_FASTA` matches process CONSENSUS_BCFTOOLS:CONCATENATE_FASTA
+Aug-28 18:23:43.363 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-28 18:23:43.363 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-28 18:23:43.363 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'CONSENSUS_BCFTOOLS:CONCATENATE_FASTA': maxForks=0; fair=false; array=0
+Aug-28 18:23:43.367 [main] DEBUG nextflow.Session - Config process names validation disabled as requested
+Aug-28 18:23:43.368 [main] DEBUG nextflow.Session - Igniting dataflow network (11)
+Aug-28 18:23:43.368 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > CONSENSUS_BCFTOOLS:BCFTOOLS_QUERY
+Aug-28 18:23:43.368 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > CONSENSUS_BCFTOOLS:BEDTOOLS_GENOMECOV
+Aug-28 18:23:43.368 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > CONSENSUS_BCFTOOLS:BEDTOOLS_SUBTRACT
+Aug-28 18:23:43.369 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > CONSENSUS_BCFTOOLS:BCFTOOLS_CONSENSUS
+Aug-28 18:23:43.369 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > CONSENSUS_BCFTOOLS:RENAME_FASTA_HEADER
+Aug-28 18:23:43.369 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > CONSENSUS_BCFTOOLS:CONCATENATE_FASTA
+Aug-28 18:23:43.369 [main] DEBUG nextflow.script.ScriptRunner - Parsed script files:
+  Script_de1cc44d6cf6fa4d: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/bedtools/subtract/main.nf
+  Script_099d2d2ae6a0aac4: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test-479fa39f0b65a13547eef18fffcd3755.nf
+  Script_36e54ea032572d98: /Users/ajv37/Documents/Pipelines/bactmap/subworkflows/local/consensus_bcftools/main.nf
+  Script_6453ad072dacd43e: /Users/ajv37/Documents/Pipelines/bactmap/modules/local/fasta_rename/main.nf
+  Script_25fd6aaeb95a2a19: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/bcftools/query/main.nf
+  Script_251c50b6e8c00a91: /Users/ajv37/Documents/Pipelines/bactmap/modules/local/bcftools/consensus/main.nf
+  Script_0d0551c87cf447dd: /Users/ajv37/Documents/Pipelines/bactmap/modules/local/bedtools/genomecov/main.nf
+  Script_161178750fee57e8: /Users/ajv37/Documents/Pipelines/bactmap/modules/local/concatenate_fasta/main.nf
+Aug-28 18:23:43.369 [main] DEBUG nextflow.script.ScriptRunner - > Awaiting termination 
+Aug-28 18:23:43.369 [main] DEBUG nextflow.Session - Session await
+Aug-28 18:23:44.260 [FileTransfer-1] DEBUG nextflow.file.FilePorter - Copying foreign file https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/sarscov2/illumina/bam/test.paired_end.sorted.bam to work dir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/479fa39f0b65a13547eef18fffcd3755/work/stage-b862f569-4303-4b12-b146-c05985749eb7/9c/b58c3a0344fa0c241216ed34728354/test.paired_end.sorted.bam
+Aug-28 18:23:44.263 [FileTransfer-2] DEBUG nextflow.file.FilePorter - Copying foreign file https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/sarscov2/illumina/vcf/test.vcf.gz to work dir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/479fa39f0b65a13547eef18fffcd3755/work/stage-b862f569-4303-4b12-b146-c05985749eb7/7b/9ad26ff817e346fe2cafe24e15d9f6/test.vcf.gz
+Aug-28 18:23:44.263 [FileTransfer-3] DEBUG nextflow.file.FilePorter - Copying foreign file https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/sarscov2/illumina/vcf/test.vcf.gz.tbi to work dir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/479fa39f0b65a13547eef18fffcd3755/work/stage-b862f569-4303-4b12-b146-c05985749eb7/42/d2c97281734303fb7240bee59d8056/test.vcf.gz.tbi
+Aug-28 18:23:44.470 [Task submitter] WARN  n.executor.BashWrapperBuilder - Task runtime metrics are not reported when using macOS without a container engine
+Aug-28 18:23:44.474 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-28 18:23:44.475 [Task submitter] INFO  nextflow.Session - [cb/406ae4] Submitted process > CONSENSUS_BCFTOOLS:BCFTOOLS_QUERY (test)
+Aug-28 18:23:44.480 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-28 18:23:44.480 [Task submitter] INFO  nextflow.Session - [24/a77d3e] Submitted process > CONSENSUS_BCFTOOLS:BEDTOOLS_GENOMECOV (test)
+Aug-28 18:23:44.527 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 2; name: CONSENSUS_BCFTOOLS:BCFTOOLS_QUERY (test); status: COMPLETED; exit: 127; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/479fa39f0b65a13547eef18fffcd3755/work/cb/406ae4c2137128f60cfb6e4b8a78bd]
+Aug-28 18:23:44.527 [Task monitor] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'TaskFinalizer' minSize=10; maxSize=30; workQueue=LinkedBlockingQueue[-1]; allowCoreThreadTimeout=false
+Aug-28 18:23:44.529 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 1; name: CONSENSUS_BCFTOOLS:BEDTOOLS_GENOMECOV (test); status: COMPLETED; exit: 127; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/479fa39f0b65a13547eef18fffcd3755/work/24/a77d3ecb341efef8fd72442f0edd42]
+Aug-28 18:23:44.531 [TaskFinalizer-2] DEBUG nextflow.processor.TaskProcessor - Handling unexpected condition for
+  task: name=CONSENSUS_BCFTOOLS:BEDTOOLS_GENOMECOV (test); work-dir=/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/479fa39f0b65a13547eef18fffcd3755/work/24/a77d3ecb341efef8fd72442f0edd42
+  error [nextflow.exception.ProcessFailedException]: Process `CONSENSUS_BCFTOOLS:BEDTOOLS_GENOMECOV (test)` terminated with an error exit status (127)
+Aug-28 18:23:44.531 [TaskFinalizer-1] DEBUG nextflow.processor.TaskProcessor - Handling unexpected condition for
+  task: name=CONSENSUS_BCFTOOLS:BCFTOOLS_QUERY (test); work-dir=/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/479fa39f0b65a13547eef18fffcd3755/work/cb/406ae4c2137128f60cfb6e4b8a78bd
+  error [nextflow.exception.ProcessFailedException]: Process `CONSENSUS_BCFTOOLS:BCFTOOLS_QUERY (test)` terminated with an error exit status (127)
+Aug-28 18:23:44.539 [TaskFinalizer-1] ERROR nextflow.processor.TaskProcessor - Error executing process > 'CONSENSUS_BCFTOOLS:BCFTOOLS_QUERY (test)'
+
+Caused by:
+  Process `CONSENSUS_BCFTOOLS:BCFTOOLS_QUERY (test)` terminated with an error exit status (127)
+
+
+Command executed:
+
+  bcftools query \
+           \
+           \
+           \
+          -f'%CHROM	%POS0	%END
+  ' \
+          test.vcf.gz \
+          > test.txt
+  
+      cat <<-END_VERSIONS > versions.yml
+      "CONSENSUS_BCFTOOLS:BCFTOOLS_QUERY":
+          bcftools: $(bcftools --version 2>&1 | head -n1 | sed 's/^.*bcftools //; s/ .*$//')
+      END_VERSIONS
+
+Command exit status:
+  127
+
+Command output:
+  (empty)
+
+Command error:
+  .command.sh: line 2: bcftools: command not found
+
+Work dir:
+  /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/479fa39f0b65a13547eef18fffcd3755/work/cb/406ae4c2137128f60cfb6e4b8a78bd
+
+Tip: when you have fixed the problem you can continue the execution adding the option `-resume` to the run command line
+Aug-28 18:23:44.543 [main] DEBUG nextflow.Session - Session await > all processes finished
+Aug-28 18:23:44.543 [TaskFinalizer-1] INFO  nextflow.Session - Execution cancelled -- Finishing pending tasks before exit
+Aug-28 18:23:44.547 [Task monitor] DEBUG n.processor.TaskPollingMonitor - <<< barrier arrives (monitor: local) - terminating tasks monitor poll loop
+Aug-28 18:23:44.547 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Aug-28 18:23:44.549 [main] DEBUG nextflow.util.ThreadPoolManager - Thread pool 'TaskFinalizer' shutdown completed (hard=false)
+Aug-28 18:23:44.553 [main] DEBUG n.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=0; failedCount=2; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=0ms; failedDuration=12ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=2; peakCpus=2; peakMemory=12 GB; ]
+Aug-28 18:23:44.553 [main] DEBUG nextflow.trace.TraceFileObserver - Workflow completed -- saving trace file
+Aug-28 18:23:44.554 [main] DEBUG nextflow.trace.ReportObserver - Workflow completed -- rendering execution report
+Aug-28 18:23:45.055 [main] DEBUG nextflow.trace.TimelineObserver - Workflow completed -- rendering execution timeline
+Aug-28 18:23:45.116 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
+Aug-28 18:23:45.125 [main] INFO  org.pf4j.AbstractPluginManager - Stop plugin 'nf-schema@2.3.0'
+Aug-28 18:23:45.125 [main] DEBUG nextflow.plugin.BasePlugin - Plugin stopped nf-schema
+Aug-28 18:23:45.126 [main] DEBUG nextflow.util.ThreadPoolManager - Thread pool 'FileTransfer' shutdown completed (hard=false)
+Aug-28 18:23:45.126 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye

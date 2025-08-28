@@ -1,0 +1,103 @@
+Aug-28 18:17:23.107 [main] DEBUG nextflow.cli.Launcher - $> nextflow -quiet -log /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/2b80f6576b4f1cbcc0c9ad9776cfd544/meta/nextflow.log run /Users/ajv37/Documents/Pipelines/bactmap/.nf-test-2b80f6576b4f1cbcc0c9ad9776cfd544.nf -c /Users/ajv37/Documents/Pipelines/bactmap/nextflow.config -c /Users/ajv37/Documents/Pipelines/bactmap/tests/nextflow.config -params-file /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/2b80f6576b4f1cbcc0c9ad9776cfd544/meta/params.json -ansi-log false -profile test -with-trace /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/2b80f6576b4f1cbcc0c9ad9776cfd544/meta/trace.csv -w /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/2b80f6576b4f1cbcc0c9ad9776cfd544/work -stub
+Aug-28 18:17:23.138 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 25.04.6
+Aug-28 18:17:23.147 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/Users/ajv37/.nextflow/plugins; core-plugins: nf-amazon@2.15.0,nf-azure@1.16.0,nf-cloudcache@0.4.3,nf-codecommit@0.2.3,nf-console@1.2.1,nf-google@1.21.1,nf-k8s@1.0.0,nf-tower@1.11.4,nf-wave@1.12.1
+Aug-28 18:17:23.157 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Aug-28 18:17:23.157 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Aug-28 18:17:23.158 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.12.0 in 'deployment' mode
+Aug-28 18:17:23.163 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Aug-28 18:17:23.173 [main] DEBUG nextflow.config.ConfigBuilder - Found config base: /Users/ajv37/Documents/Pipelines/bactmap/nextflow.config
+Aug-28 18:17:23.175 [main] DEBUG nextflow.config.ConfigBuilder - User config file: /Users/ajv37/Documents/Pipelines/bactmap/nextflow.config
+Aug-28 18:17:23.175 [main] DEBUG nextflow.config.ConfigBuilder - User config file: /Users/ajv37/Documents/Pipelines/bactmap/tests/nextflow.config
+Aug-28 18:17:23.175 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /Users/ajv37/Documents/Pipelines/bactmap/nextflow.config
+Aug-28 18:17:23.176 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /Users/ajv37/Documents/Pipelines/bactmap/nextflow.config
+Aug-28 18:17:23.176 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /Users/ajv37/Documents/Pipelines/bactmap/tests/nextflow.config
+Aug-28 18:17:23.189 [main] DEBUG n.secret.LocalSecretsProvider - Secrets store: /Users/ajv37/.nextflow/secrets/store.json
+Aug-28 18:17:23.191 [main] DEBUG nextflow.secret.SecretsLoader - Discovered secrets providers: [nextflow.secret.LocalSecretsProvider@61f2c3f0] - activable => nextflow.secret.LocalSecretsProvider@61f2c3f0
+Aug-28 18:17:23.206 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `test`
+Aug-28 18:17:24.124 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `test`
+Aug-28 18:17:24.387 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `test`
+Aug-28 18:17:24.394 [main] DEBUG nextflow.config.ConfigBuilder - Available config profiles: [bih, cfc_dev, uzl_omics, ifb_core, embl_hd, denbi_qbic, alice, mjolnir_globe, uppmax, giga, incliva, ilifu, ki_luria, uge, icr_alma, rosalind_uge, lugh, mccleary, unibe_ibu, vai, czbiohub_aws, jax, roslin, tes, scw, unc_longleaf, tigem, tubingen_apg, apollo, ipop_up, vsc_calcua, pdc_kth, ceci_nic5, ccga_cau, humantechnopole, stjude, daisybio, eddie, medair, biowulf, apptainer, bi, bigpurple, adcra, cedars, pawsey_setonix, vsc_kul_uhasselt, pawsey_nimbus, ucl_myriad, utd_ganymede, charliecloud, fred_hutch, seattlechildrens, icr_davros, ceres, arm, munin, rosalind, hasta, cfc, uzh, shu_bmrc, ebi_codon_slurm, ebc, ccga_dx, crick, ku_sund_danhead, marvin, shifter, biohpc_gen, mana, mamba, york_viking, unc_lccc, wehi, awsbatch, wustl_htcf, arcc, ceci_dragon2, imperial, maestro, software_license, cannon, genotoul, nci_gadi, abims, eva_grace, janelia, nu_genomics, googlebatch, oist, sahmri, kaust, alliance_canada, mpcdf, leicester, vsc_ugent, create, sage, cambridge, jex, podman, ebi_codon, cheaha, xanadu, nyu_hpc, test, marjorie, computerome, ucd_sonic, seg_globe, mssm, sanger, dkfz, bluebear, pasteur, einstein, ethz_euler, m3c, test_full, imb, ucl_cscluster, tuos_stanage, azurebatch, hki, seadragon, crukmi, csiro_petrichor, qmul_apocrita, wave, docker, engaging, gis, hypatia, psmn, eva, unity, cropdiversityhpc, nygc, fgcz, conda, crg, singularity, mpcdf_viper, pe2, dirac, self_hosted_runner, tufts, uw_hyak_pedslabs, binac2, debug, genouest, cbe, unsw_katana, utd_juno, gitpod, phoenix, seawulf, uod_hpc, fub_curta, lovelace, uct_hpc, aws_tower, binac, fsu_draco]
+Aug-28 18:17:24.424 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 from script declaration
+Aug-28 18:17:24.430 [main] INFO  nextflow.cli.CmdRun - Launching `/Users/ajv37/Documents/Pipelines/bactmap/.nf-test-2b80f6576b4f1cbcc0c9ad9776cfd544.nf` [trusting_planck] DSL2 - revision: 2d6b07eebc
+Aug-28 18:17:24.430 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins declared=[nf-schema@2.3.0]
+Aug-28 18:17:24.431 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Aug-28 18:17:24.431 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins resolved requirement=[nf-schema@2.3.0]
+Aug-28 18:17:24.431 [main] DEBUG nextflow.plugin.PluginUpdater - Installing plugin nf-schema version: 2.3.0
+Aug-28 18:17:24.435 [main] INFO  org.pf4j.AbstractPluginManager - Plugin 'nf-schema@2.3.0' resolved
+Aug-28 18:17:24.435 [main] INFO  org.pf4j.AbstractPluginManager - Start plugin 'nf-schema@2.3.0'
+Aug-28 18:17:24.438 [main] DEBUG nextflow.plugin.BasePlugin - Plugin started nf-schema@2.3.0
+Aug-28 18:17:24.457 [main] DEBUG nextflow.Session - Session UUID: 019635da-7893-4b22-8a9a-edd3ad888b23
+Aug-28 18:17:24.457 [main] DEBUG nextflow.Session - Run name: trusting_planck
+Aug-28 18:17:24.457 [main] DEBUG nextflow.Session - Executor pool size: 10
+Aug-28 18:17:24.460 [main] DEBUG nextflow.file.FilePorter - File porter settings maxRetries=3; maxTransfers=50; pollTimeout=null
+Aug-28 18:17:24.461 [main] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'FileTransfer' minSize=10; maxSize=30; workQueue=LinkedBlockingQueue[-1]; allowCoreThreadTimeout=false
+Aug-28 18:17:24.468 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 25.04.6 build 5954
+  Created: 01-07-2025 11:27 UTC (12:27 BST)
+  System: Mac OS X 15.6
+  Runtime: Groovy 4.0.26 on OpenJDK 64-Bit Server VM 17.0.15+6-LTS
+  Encoding: UTF-8 (UTF-8)
+  Process: 43439@dhcp-10-249-8-242.eduroam.wireless.private.cam.ac.uk [10.249.8.242]
+  CPUs: 10 - Mem: 16 GB (114.5 MB) - Swap: 12 GB (970.9 MB)
+Aug-28 18:17:24.474 [main] DEBUG nextflow.Session - Work-dir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/2b80f6576b4f1cbcc0c9ad9776cfd544/work [Mac OS X]
+Aug-28 18:17:24.488 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Aug-28 18:17:24.493 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Aug-28 18:17:24.500 [main] DEBUG nextflow.Session - Observer factory: ValidationObserverFactory
+Aug-28 18:17:24.512 [main] DEBUG nextflow.Session - Observer factory (v2): LinObserverFactory
+Aug-28 18:17:24.521 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Aug-28 18:17:24.525 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 11; maxThreads: 1000
+Aug-28 18:17:24.548 [main] DEBUG nextflow.Session - Session start
+Aug-28 18:17:24.549 [main] DEBUG nextflow.trace.TraceFileObserver - Workflow started -- trace file: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/2b80f6576b4f1cbcc0c9ad9776cfd544/meta/trace.csv
+Aug-28 18:17:24.650 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Aug-28 18:17:25.287 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_low` matches labels `process_low` for process with name MINIMAP2_ALIGNMENT:MINIMAP2_INDEX
+Aug-28 18:17:25.288 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:MINIMAP2_INDEX` matches process MINIMAP2_ALIGNMENT:MINIMAP2_INDEX
+Aug-28 18:17:25.298 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-28 18:17:25.298 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-28 18:17:25.301 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
+Aug-28 18:17:25.303 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=10; memory=16 GB; capacity=10; pollInterval=100ms; dumpInterval=5m
+Aug-28 18:17:25.304 [main] DEBUG n.processor.TaskPollingMonitor - >>> barrier register (monitor: local)
+Aug-28 18:17:25.311 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'MINIMAP2_ALIGNMENT:MINIMAP2_INDEX': maxForks=0; fair=false; array=0
+Aug-28 18:17:25.335 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_high` matches labels `process_high` for process with name MINIMAP2_ALIGNMENT:MINIMAP2_ALIGN
+Aug-28 18:17:25.336 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:MINIMAP2_ALIGN` matches process MINIMAP2_ALIGNMENT:MINIMAP2_ALIGN
+Aug-28 18:17:25.339 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Aug-28 18:17:25.339 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Aug-28 18:17:25.339 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'MINIMAP2_ALIGNMENT:MINIMAP2_ALIGN': maxForks=0; fair=false; array=0
+Aug-28 18:17:25.346 [main] DEBUG nextflow.Session - Config process names validation disabled as requested
+Aug-28 18:17:25.349 [main] DEBUG nextflow.Session - Igniting dataflow network (3)
+Aug-28 18:17:25.350 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > MINIMAP2_ALIGNMENT:MINIMAP2_INDEX
+Aug-28 18:17:25.350 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > MINIMAP2_ALIGNMENT:MINIMAP2_ALIGN
+Aug-28 18:17:25.350 [main] DEBUG nextflow.script.ScriptRunner - Parsed script files:
+  Script_8c6cd303ae812c8b: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/minimap2/align/main.nf
+  Script_e0353e86c5791859: /Users/ajv37/Documents/Pipelines/bactmap/subworkflows/local/minimap2_alignment/main.nf
+  Script_40116f323c6ad0c6: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/minimap2/index/main.nf
+  Script_dce9172fb9bac05a: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test-2b80f6576b4f1cbcc0c9ad9776cfd544.nf
+Aug-28 18:17:25.350 [main] DEBUG nextflow.script.ScriptRunner - > Awaiting termination 
+Aug-28 18:17:25.350 [main] DEBUG nextflow.Session - Session await
+Aug-28 18:17:25.409 [FileTransfer-1] DEBUG nextflow.file.FilePorter - Copying foreign file https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/sarscov2/nanopore/fastq/test.fastq.gz to work dir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/2b80f6576b4f1cbcc0c9ad9776cfd544/work/stage-019635da-7893-4b22-8a9a-edd3ad888b23/d2/33fae00dbc99833a2396402e2bd77c/test.fastq.gz
+Aug-28 18:17:25.504 [Task submitter] WARN  n.executor.BashWrapperBuilder - Task runtime metrics are not reported when using macOS without a container engine
+Aug-28 18:17:25.510 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-28 18:17:25.511 [Task submitter] INFO  nextflow.Session - [9a/96cda6] Submitted process > MINIMAP2_ALIGNMENT:MINIMAP2_INDEX
+Aug-28 18:17:25.555 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 1; name: MINIMAP2_ALIGNMENT:MINIMAP2_INDEX; status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/2b80f6576b4f1cbcc0c9ad9776cfd544/work/9a/96cda6bc327a502d1ee70eb1c2a209]
+Aug-28 18:17:25.555 [Task monitor] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'TaskFinalizer' minSize=10; maxSize=30; workQueue=LinkedBlockingQueue[-1]; allowCoreThreadTimeout=false
+Aug-28 18:17:25.568 [TaskFinalizer-1] WARN  nextflow.processor.PublishDir - Process `MINIMAP2_ALIGNMENT:MINIMAP2_INDEX` publishDir path contains a variable with a null value
+Aug-28 18:17:25.570 [TaskFinalizer-1] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'PublishDir' minSize=10; maxSize=30; workQueue=LinkedBlockingQueue[-1]; allowCoreThreadTimeout=false
+Aug-28 18:17:25.578 [FileTransfer-2] DEBUG nextflow.file.FilePorter - Copying foreign file https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/sarscov2/genome/genome.fasta to work dir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/2b80f6576b4f1cbcc0c9ad9776cfd544/work/stage-019635da-7893-4b22-8a9a-edd3ad888b23/44/9b694f0293f23f6deecdb8129671b9/genome.fasta
+Aug-28 18:17:25.644 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Aug-28 18:17:25.645 [Task submitter] INFO  nextflow.Session - [31/04cfc0] Submitted process > MINIMAP2_ALIGNMENT:MINIMAP2_ALIGN (genome)
+Aug-28 18:17:25.690 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 2; name: MINIMAP2_ALIGNMENT:MINIMAP2_ALIGN (genome); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/2b80f6576b4f1cbcc0c9ad9776cfd544/work/31/04cfc0997f9c7f2995d49cf3784fd9]
+Aug-28 18:17:25.725 [TaskFinalizer-2] DEBUG nextflow.processor.TaskProcessor - Process MINIMAP2_ALIGNMENT:MINIMAP2_ALIGN > Skipping output binding because one or more optional files are missing: fileoutparam<0:1>
+Aug-28 18:17:25.727 [TaskFinalizer-2] WARN  nextflow.processor.PublishDir - Process `MINIMAP2_ALIGNMENT:MINIMAP2_ALIGN` publishDir path contains a variable with a null value
+Aug-28 18:17:25.729 [main] DEBUG nextflow.Session - Session await > all processes finished
+Aug-28 18:17:25.796 [Task monitor] DEBUG n.processor.TaskPollingMonitor - <<< barrier arrives (monitor: local) - terminating tasks monitor poll loop
+Aug-28 18:17:25.796 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Aug-28 18:17:25.797 [main] DEBUG nextflow.util.ThreadPoolManager - Thread pool 'TaskFinalizer' shutdown completed (hard=false)
+Aug-28 18:17:25.797 [main] DEBUG nextflow.util.ThreadPoolManager - Thread pool 'PublishDir' shutdown completed (hard=false)
+Aug-28 18:17:25.801 [main] DEBUG n.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=2; failedCount=0; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=78ms; failedDuration=0ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=1; peakCpus=4; peakMemory=8 GB; ]
+Aug-28 18:17:25.801 [main] DEBUG nextflow.trace.TraceFileObserver - Workflow completed -- saving trace file
+Aug-28 18:17:25.802 [main] DEBUG nextflow.trace.ReportObserver - Workflow completed -- rendering execution report
+Aug-28 18:17:26.263 [main] DEBUG nextflow.trace.TimelineObserver - Workflow completed -- rendering execution timeline
+Aug-28 18:17:26.329 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
+Aug-28 18:17:26.335 [main] INFO  org.pf4j.AbstractPluginManager - Stop plugin 'nf-schema@2.3.0'
+Aug-28 18:17:26.335 [main] DEBUG nextflow.plugin.BasePlugin - Plugin stopped nf-schema
+Aug-28 18:17:26.336 [main] DEBUG nextflow.util.ThreadPoolManager - Thread pool 'FileTransfer' shutdown completed (hard=false)
+Aug-28 18:17:26.336 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye

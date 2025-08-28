@@ -1,51 +1,53 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
 name: "minimap2_alignment"
-## TODO nf-core: Add a description of the subworkflow and list keywords
-description: Sort SAM/BAM/CRAM file
+description: Map reads to a reference genome using BWA-MEM2 and sort with samtools.
 keywords:
-  - sort
-  - bam
-  - sam
-  - cram
-## TODO nf-core: Add a list of the modules and/or subworkflows used in the subworkflow
+  - align
+  - fasta
+  - genome
+  - reference
 components:
-  - samtools/sort
-  - samtools/index
-## TODO nf-core: List all of the channels used as input with a description and their structure
+  - minimap2/index
+  - minimap2/align
 input:
-  - ch_bam:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - ch_ref:
+      type: file
+      description: Reference fasta file
+      pattern: "*.{fasta,fa}"
+  - ch_fasta:
       type: file
       description: |
-        The input channel containing the BAM/CRAM/SAM files
-        Structure: [ val(meta), path(bam) ]
-      pattern: "*.{bam/cram/sam}"
-## TODO nf-core: List all of the channels used as output with a descriptions and their structure
+        List of input FastQ files
 output:
-  - bam:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - minimap_align:
       type: file
       description: |
-        Channel containing BAM files
-        Structure: [ val(meta), path(bam) ]
+        Channel containing unsorted BAM files
+        Structure: [ val(meta), path(bam_orig) ]
       pattern: "*.bam"
-  - bai:
+  - minimap_index:
       type: file
       description: |
         Channel containing indexed BAM (BAI) files
         Structure: [ val(meta), path(bai) ]
       pattern: "*.bai"
-  - csi:
-      type: file
-      description: |
-        Channel containing CSI files
-        Structure: [ val(meta), path(csi) ]
-      pattern: "*.csi"
   - versions:
       type: file
       description: |
-        File containing software versions
+        Channel containing software versions
         Structure: [ path(versions.yml) ]
       pattern: "versions.yml"
 authors:
   - "@opetryk"
 maintainers:
-  - "@opetryk"
+  - "@avantonder"

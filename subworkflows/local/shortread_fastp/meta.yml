@@ -4,6 +4,7 @@ description: Perform filtering of short read FASTQ files
 keywords:
   - filtering
   - fastq
+  - trimming
 components:
   - fastp
 input:

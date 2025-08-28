@@ -5,14 +5,12 @@ workflow MINIMAP2_ALIGNMENT {
 
     take:
 
-    ch_ref // channel: [meta, ref]
+    ch_ref   // channel: [meta, ref]
     ch_fasta // channel: [meta2, fasta/fastq]
 
     main:
 
     ch_versions = Channel.empty()
-
-    // TODO nf-core: substitute modules here for the modules of your subworkflow
 
     MINIMAP2_INDEX ( ch_ref )
     ch_versions = ch_versions.mix(MINIMAP2_INDEX.out.versions)
@@ -32,7 +30,6 @@ workflow MINIMAP2_ALIGNMENT {
         minimap_index = []
     }
     emit:
-    // TODO nf-core: edit emitted channels
     minimap_align = minimap_out       // channel: [ val(meta), [ bam ] ]
     minimap_index = minimap_index     // channel: [ val(meta), [ index ] ]
     versions      = ch_versions       // channel: [ versions.yml ]
