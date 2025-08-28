@@ -1,3 +1,3 @@
-Aug-05 12:47:36.374 [main] INFO  com.askimed.nf.test.App - nf-test 0.9.2
-Aug-05 12:47:36.381 [main] INFO  com.askimed.nf.test.App - Arguments: [init]
-Aug-05 12:47:36.809 [main] INFO  com.askimed.nf.test.App - Nextflow Version: 25.04.6
+Aug-28 16:40:07.294 [main] INFO  com.askimed.nf.test.App - nf-test 0.9.2
+Aug-28 16:40:07.302 [main] INFO  com.askimed.nf.test.App - Arguments: [version]
+Aug-28 16:40:07.793 [main] INFO  com.askimed.nf.test.App - Nextflow Version: 25.04.6
