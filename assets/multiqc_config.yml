@@ -27,10 +27,12 @@ report_section_order:
     order: 500
   nanoq:
     order: 400
-  samtools:
+  fastqc-1:
     order: 300
-  bcftools:
+  samtools:
     order: 200
+  bcftools:
+    order: 100
 
 # Enable plot export
 export_plots: true
@@ -125,14 +127,6 @@ top_modules:
       extra: |
         ℹ️: If you get the error message 'Error - was not able to plot data.'
         this means that nanoq did not generate any results for the reads, and no statistics are available.
-  - samtools:
-      name: "SAMTools Stats"
-      anchor: "samtools"
-      target: "SAMTools"
-      doi: "10.1093/bioinformatics/btp352"
-      info: "This section of the report shows SAMTools counts/statistics after mapping with Bowtie 2/BWA 2 mem."
-      path_filters:
-        - "*.stats"
   - samtools:
       name: "SAMTools Stats"
       anchor: "samtools"
