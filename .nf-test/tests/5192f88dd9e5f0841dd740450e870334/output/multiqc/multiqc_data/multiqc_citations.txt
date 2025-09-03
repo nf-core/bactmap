@@ -1,0 +1,4 @@
+10.1093/bioinformatics/btw354                      # MultiQC
+10.1093/bioinformatics/bty560                      # fastp
+10.1093/bioinformatics/btp352                      # samtools
+

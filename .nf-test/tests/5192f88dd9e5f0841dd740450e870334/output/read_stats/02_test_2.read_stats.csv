@@ -1,0 +1,2 @@
+Sample,raw_total_bp,raw_coverage,num_raw_reads,processed_total_bp,processed_coverage,num_processed_reads,%reads_after_processed
+02_test_2,7547886,0.0,49986,6051017,0.0,40276,80.57456087704557

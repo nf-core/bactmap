@@ -1,0 +1,3 @@
+sample	total_bp	coverage	read_total	read_min	read_mean	read_std	read_median	read_max	read_25th	read_75th	qual_min	qual_mean	qual_std	qual_max	qual_median	qual_25th	qual_75th
+01_test_1.processed	10507426	0.0	83950	50	125.163	2.06123	126	126	126	126	34	35.3514	0.489543	36	35	35	36
+02_test_2.processed	6051017	0.0	40276	57	150.239	2.32685	151	151	151	151	34	35.3914	0.593769	37	35	35	36

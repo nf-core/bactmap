@@ -1,0 +1,71 @@
+ALIGNPSEUDOGENOMES:
+  multi2single_sequence.py: 1.0
+BCFTOOLS_CONSENSUS:
+  bcftools: 1.2
+BCFTOOLS_FILTER:
+  bcftools: 1.21
+BCFTOOLS_INDEX:
+  bcftools: 1.21
+BCFTOOLS_SORT:
+  bcftools: 1.21
+BCFTOOLS_STATS:
+  bcftools: 1.21
+BEDTOOLS_GENOMECOV:
+  bedtools: 2.31.1
+BEDTOOLS_SUBTRACT:
+  bedtools: 2.31.1
+BOWTIE2_ALIGN:
+  bowtie2: 2.5.4
+  samtools: 1.21
+  pigz: 2.8
+BOWTIE2_BUILD:
+  bowtie2: 2.5.4
+FASTP_PAIRED:
+  fastp: 0.24.0
+FASTQC:
+  fastqc: 0.12.1
+FASTQC_PROCESSED:
+  fastqc: 0.12.1
+FASTQSCANPARSE_PROCESSED:
+  fastqscan_parser.py: 1.0
+FASTQSCANPARSE_RAW:
+  fastqscan_parser.py: 1.0
+FASTQSCAN_PROCESSED:
+  fastqscan: 0.4.4
+FASTQSCAN_RAW:
+  fastqscan: 0.4.4
+FREEBAYES:
+  freebayes: 1.3.10
+GET_GENOME_SIZE:
+  gawk: 5.3.0
+GUNZIP:
+  gunzip: 1.13
+MINIMAP2_INDEX:
+  minimap2: 2.29-r1283
+RASUSA:
+  rasusa: 0.3.0
+READSTATS_PARSE:
+  read_stats_parser.py: 1.0
+READ_STATS:
+  read_stats.py: 1.0
+RENAME_FASTA_HEADER:
+  sed: 4.9
+SAMTOOLS_FAIDX:
+  samtools: 1.21
+SAMTOOLS_FLAGSTAT:
+  samtools: 1.21
+SAMTOOLS_IDXSTATS:
+  samtools: 1.21
+SAMTOOLS_INDEX:
+  samtools: 1.21
+SAMTOOLS_SORT:
+  samtools: 1.21
+SAMTOOLS_STATS:
+  samtools: 1.21
+SEQTK_COMP:
+  seqtk: 1.4-r122
+SEQTK_PARSE:
+  seqtk_parser.py: 1.0
+Workflow:
+    nf-core/bactmap: v2.0.0dev
+    Nextflow: 25.04.6

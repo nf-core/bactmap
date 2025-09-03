@@ -1,0 +1,49 @@
+Detecting adapter sequence for read1...
+No adapter detected for read1
+
+Detecting adapter sequence for read2...
+No adapter detected for read2
+
+Read1 before filtering:
+total reads: 50000
+total bases: 6300000
+Q20 bases: 6054456(96.1025%)
+Q30 bases: 5814382(92.2918%)
+
+Read2 before filtering:
+total reads: 50000
+total bases: 6300000
+Q20 bases: 5974343(94.8308%)
+Q30 bases: 5688358(90.2914%)
+
+Read1 after filtering:
+total reads: 41975
+total bases: 5254479
+Q20 bases: 5141220(97.8445%)
+Q30 bases: 4997972(95.1183%)
+
+Read2 after filtering:
+total reads: 41975
+total bases: 5252947
+Q20 bases: 5137291(97.7983%)
+Q30 bases: 4992789(95.0474%)
+
+Filtering result:
+reads passed filter: 83950
+reads failed due to low quality: 15998
+reads failed due to too many N: 0
+reads failed due to too short: 52
+reads with adapter trimmed: 12
+bases trimmed due to adapters: 598
+reads with polyX in 3' end: 130
+bases trimmed in polyX tail: 1226
+
+Duplication rate: 0.002%
+
+Insert size peak (evaluated by paired-end reads): 143
+
+JSON report: 01_test_1.fastp.json
+HTML report: 01_test_1.fastp.html
+
+fastp --in1 01_test_1_1.fastq.gz --in2 01_test_1_2.fastq.gz --out1 01_test_1_1.fastp.fastq.gz --out2 01_test_1_2.fastp.fastq.gz --json 01_test_1.fastp.json --html 01_test_1.fastp.html --thread 4 --detect_adapter_for_pe --detect_adapter_for_pe --length_required 50 --cut_front --cut_tail --trim_poly_x --cut_mean_quality 30 --qualified_quality_phred 30 --unqualified_percent_limit 10 
+fastp v0.24.0, time used: 2 seconds

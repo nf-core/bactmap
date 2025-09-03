@@ -1,0 +1,808 @@
+Sept-03 16:06:17.832 [main] DEBUG nextflow.cli.Launcher - $> nextflow -quiet -log /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/meta/nextflow.log run /Users/ajv37/Documents/Pipelines/bactmap/tests/../main.nf -c /Users/ajv37/Documents/Pipelines/bactmap/nextflow.config -c /Users/ajv37/Documents/Pipelines/bactmap/tests/nextflow.config -params-file /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/meta/params.json -ansi-log false -profile test,docker -with-trace /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/meta/trace.csv -w /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work
+Sept-03 16:06:17.865 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 25.04.6
+Sept-03 16:06:17.881 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/Users/ajv37/.nextflow/plugins; core-plugins: nf-amazon@2.15.0,nf-azure@1.16.0,nf-cloudcache@0.4.3,nf-codecommit@0.2.3,nf-console@1.2.1,nf-google@1.21.1,nf-k8s@1.0.0,nf-tower@1.11.4,nf-wave@1.12.1
+Sept-03 16:06:17.893 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Sept-03 16:06:17.894 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Sept-03 16:06:17.895 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.12.0 in 'deployment' mode
+Sept-03 16:06:17.902 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Sept-03 16:06:17.913 [main] DEBUG nextflow.config.ConfigBuilder - Found config base: /Users/ajv37/Documents/Pipelines/bactmap/nextflow.config
+Sept-03 16:06:17.915 [main] DEBUG nextflow.config.ConfigBuilder - User config file: /Users/ajv37/Documents/Pipelines/bactmap/nextflow.config
+Sept-03 16:06:17.916 [main] DEBUG nextflow.config.ConfigBuilder - User config file: /Users/ajv37/Documents/Pipelines/bactmap/tests/nextflow.config
+Sept-03 16:06:17.916 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /Users/ajv37/Documents/Pipelines/bactmap/nextflow.config
+Sept-03 16:06:17.916 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /Users/ajv37/Documents/Pipelines/bactmap/nextflow.config
+Sept-03 16:06:17.916 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /Users/ajv37/Documents/Pipelines/bactmap/tests/nextflow.config
+Sept-03 16:06:17.929 [main] DEBUG n.secret.LocalSecretsProvider - Secrets store: /Users/ajv37/.nextflow/secrets/store.json
+Sept-03 16:06:17.931 [main] DEBUG nextflow.secret.SecretsLoader - Discovered secrets providers: [nextflow.secret.LocalSecretsProvider@3c5a54b7] - activable => nextflow.secret.LocalSecretsProvider@3c5a54b7
+Sept-03 16:06:17.940 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `test,docker`
+Sept-03 16:06:18.862 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `test,docker`
+Sept-03 16:06:19.124 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `test,docker`
+Sept-03 16:06:19.132 [main] DEBUG nextflow.config.ConfigBuilder - Available config profiles: [bih, cfc_dev, uzl_omics, ifb_core, embl_hd, denbi_qbic, alice, mjolnir_globe, uppmax, giga, incliva, ilifu, ki_luria, uge, icr_alma, rosalind_uge, lugh, mccleary, unibe_ibu, vai, czbiohub_aws, jax, roslin, tes, scw, unc_longleaf, tigem, tubingen_apg, apollo, ipop_up, vsc_calcua, pdc_kth, ceci_nic5, ccga_cau, humantechnopole, stjude, daisybio, eddie, medair, biowulf, apptainer, bi, bigpurple, adcra, cedars, pawsey_setonix, vsc_kul_uhasselt, pawsey_nimbus, ucl_myriad, utd_ganymede, charliecloud, fred_hutch, seattlechildrens, icr_davros, ceres, arm, munin, rosalind, hasta, cfc, uzh, shu_bmrc, ebi_codon_slurm, ebc, ccga_dx, crick, ku_sund_danhead, marvin, shifter, biohpc_gen, mana, mamba, york_viking, unc_lccc, wehi, awsbatch, wustl_htcf, arcc, ceci_dragon2, imperial, maestro, software_license, cannon, genotoul, nci_gadi, abims, eva_grace, janelia, nu_genomics, googlebatch, oist, sahmri, kaust, alliance_canada, mpcdf, leicester, vsc_ugent, create, sage, cambridge, jex, podman, ebi_codon, cheaha, xanadu, nyu_hpc, test, marjorie, computerome, ucd_sonic, seg_globe, mssm, sanger, dkfz, bluebear, pasteur, einstein, ethz_euler, m3c, test_full, imb, ucl_cscluster, tuos_stanage, azurebatch, hki, seadragon, crukmi, csiro_petrichor, qmul_apocrita, wave, docker, engaging, gis, hypatia, psmn, eva, unity, cropdiversityhpc, nygc, fgcz, conda, crg, singularity, mpcdf_viper, pe2, dirac, self_hosted_runner, tufts, uw_hyak_pedslabs, binac2, debug, genouest, cbe, unsw_katana, utd_juno, gitpod, phoenix, seawulf, uod_hpc, fub_curta, lovelace, uct_hpc, aws_tower, binac, fsu_draco]
+Sept-03 16:06:19.161 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 by global default
+Sept-03 16:06:19.169 [main] INFO  nextflow.cli.CmdRun - Launching `/Users/ajv37/Documents/Pipelines/bactmap/tests/../main.nf` [irreverent_lumiere] DSL2 - revision: 02c797efe1
+Sept-03 16:06:19.169 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins declared=[nf-schema@2.3.0]
+Sept-03 16:06:19.169 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Sept-03 16:06:19.169 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins resolved requirement=[nf-schema@2.3.0]
+Sept-03 16:06:19.170 [main] DEBUG nextflow.plugin.PluginUpdater - Installing plugin nf-schema version: 2.3.0
+Sept-03 16:06:19.176 [main] INFO  org.pf4j.AbstractPluginManager - Plugin 'nf-schema@2.3.0' resolved
+Sept-03 16:06:19.176 [main] INFO  org.pf4j.AbstractPluginManager - Start plugin 'nf-schema@2.3.0'
+Sept-03 16:06:19.180 [main] DEBUG nextflow.plugin.BasePlugin - Plugin started nf-schema@2.3.0
+Sept-03 16:06:19.209 [main] DEBUG nextflow.Session - Session UUID: 81118e3b-5b63-470e-b2af-0a5087b62ff4
+Sept-03 16:06:19.210 [main] DEBUG nextflow.Session - Run name: irreverent_lumiere
+Sept-03 16:06:19.210 [main] DEBUG nextflow.Session - Executor pool size: 10
+Sept-03 16:06:19.214 [main] DEBUG nextflow.file.FilePorter - File porter settings maxRetries=3; maxTransfers=50; pollTimeout=null
+Sept-03 16:06:19.216 [main] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'FileTransfer' minSize=10; maxSize=30; workQueue=LinkedBlockingQueue[-1]; allowCoreThreadTimeout=false
+Sept-03 16:06:19.229 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 25.04.6 build 5954
+  Created: 01-07-2025 11:27 UTC (12:27 BST)
+  System: Mac OS X 15.6.1
+  Runtime: Groovy 4.0.26 on OpenJDK 64-Bit Server VM 17.0.15+6-LTS
+  Encoding: UTF-8 (UTF-8)
+  Process: 34723@shgb2monitor.vet.private.cam.ac.uk [172.24.234.190]
+  CPUs: 10 - Mem: 16 GB (119.2 MB) - Swap: 14 GB (1.2 GB)
+Sept-03 16:06:19.235 [main] DEBUG nextflow.Session - Work-dir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work [Mac OS X]
+Sept-03 16:06:19.250 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Sept-03 16:06:19.255 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Sept-03 16:06:19.262 [main] DEBUG nextflow.Session - Observer factory: ValidationObserverFactory
+Sept-03 16:06:19.274 [main] DEBUG nextflow.Session - Observer factory (v2): LinObserverFactory
+Sept-03 16:06:19.283 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Sept-03 16:06:19.288 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 11; maxThreads: 1000
+Sept-03 16:06:19.315 [main] DEBUG nextflow.Session - Session start
+Sept-03 16:06:19.316 [main] DEBUG nextflow.trace.TraceFileObserver - Workflow started -- trace file: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/meta/trace.csv
+Sept-03 16:06:19.401 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Sept-03 16:06:19.670 [main] DEBUG nextflow.script.IncludeDef - Loading included plugin extensions with names: [paramsSummaryMap:paramsSummaryMap]; plugin Id: nf-schema
+Sept-03 16:06:19.837 [main] DEBUG nextflow.script.IncludeDef - Loading included plugin extensions with names: [paramsSummaryLog:paramsSummaryLog]; plugin Id: nf-schema
+Sept-03 16:06:19.838 [main] DEBUG nextflow.script.IncludeDef - Loading included plugin extensions with names: [validateParameters:validateParameters]; plugin Id: nf-schema
+Sept-03 16:06:19.839 [main] DEBUG nextflow.script.IncludeDef - Loading included plugin extensions with names: [paramsSummaryMap:paramsSummaryMap]; plugin Id: nf-schema
+Sept-03 16:06:19.839 [main] DEBUG nextflow.script.IncludeDef - Loading included plugin extensions with names: [samplesheetToList:samplesheetToList]; plugin Id: nf-schema
+Sept-03 16:06:22.273 [main] DEBUG nextflow.script.IncludeDef - Loading included plugin extensions with names: [paramsSummaryLog:paramsSummaryLog]; plugin Id: nf-schema
+Sept-03 16:06:22.273 [main] DEBUG nextflow.script.IncludeDef - Loading included plugin extensions with names: [validateParameters:validateParameters]; plugin Id: nf-schema
+Sept-03 16:06:22.274 [main] DEBUG nextflow.script.IncludeDef - Loading included plugin extensions with names: [paramsSummaryMap:paramsSummaryMap]; plugin Id: nf-schema
+Sept-03 16:06:22.274 [main] DEBUG nextflow.script.IncludeDef - Loading included plugin extensions with names: [samplesheetToList:samplesheetToList]; plugin Id: nf-schema
+Sept-03 16:06:22.374 [main] INFO  nextflow.Nextflow - 
+-[2m----------------------------------------------------[0m-
+                                        [0;32m,--.[0;30m/[0;32m,-.[0m
+[0;34m        ___     __   __   __   ___     [0;32m/,-._.--~'[0m
+[0;34m  |\ | |__  __ /  ` /  \ |__) |__         [0;33m}  {[0m
+[0;34m  | \| |       \__, \__/ |  \ |___     [0;32m\`-._,-`-,[0m
+                                        [0;32m`._,._,'[0m
+[0;35m  nf-core/bactmap 2.0.0dev[0m
+-[2m----------------------------------------------------[0m-
+[1mInput/output options[0m
+  [0;34minput                       : [0;32mhttps://raw.githubusercontent.com/nf-core/test-datasets/bactmap/samplesheet.csv[0m
+  [0;34moutdir                      : [0;32m/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/output[0m
+
+[1mReference genome options[0m
+  [0;34mfasta                       : [0;32mhttps://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz[0m
+
+[1mInstitutional config options[0m
+  [0;34mconfig_profile_name         : [0;32mTest profile[0m
+  [0;34mconfig_profile_description  : [0;32mMinimal test dataset to check pipeline function[0m
+
+[1mGeneric options[0m
+  [0;34mpipelines_testdata_base_path: [0;32mhttps://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/bactmap[0m
+  [0;34mtrace_report_suffix         : [0;32m2025-09-03_16-06-18[0m
+
+[1mCore Nextflow options[0m
+  [0;34mrunName                     : [0;32mirreverent_lumiere[0m
+  [0;34mcontainerEngine             : [0;32mdocker[0m
+  [0;34mlaunchDir                   : [0;32m/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334[0m
+  [0;34mworkDir                     : [0;32m/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work[0m
+  [0;34mprojectDir                  : [0;32m/Users/ajv37/Documents/Pipelines/bactmap[0m
+  [0;34muserName                    : [0;32majv37[0m
+  [0;34mprofile                     : [0;32mtest,docker[0m
+  [0;34mconfigFiles                 : [0;32m/Users/ajv37/Documents/Pipelines/bactmap/nextflow.config, /Users/ajv37/Documents/Pipelines/bactmap/nextflow.config, /Users/ajv37/Documents/Pipelines/bactmap/tests/nextflow.config[0m
+
+!! Only displaying parameters that differ from the pipeline defaults !!
+-[2m----------------------------------------------------[0m-
+* The nf-core framework
+    https://doi.org/10.1038/s41587-020-0439-x
+
+* Software dependencies
+    https://github.com/nf-core/bactmap/blob/master/CITATIONS.md
+
+Sept-03 16:06:22.374 [main] DEBUG n.validation.ValidationExtension - Starting parameters validation
+Sept-03 16:06:22.387 [main] WARN  n.validation.ValidationExtension - The following invalid input values have been detected:
+
+* --modules_testdata_base_path: https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/
+
+
+Sept-03 16:06:22.470 [main] DEBUG nextflow.validation.SchemaEvaluator - Started validating /nf-core/test-datasets/bactmap/samplesheet.csv
+Sept-03 16:06:22.871 [main] DEBUG nextflow.validation.SchemaEvaluator - Validation of file 'https://raw.githubusercontent.com/nf-core/test-datasets/bactmap/samplesheet.csv' passed!
+Sept-03 16:06:23.035 [main] DEBUG n.v.FormatDirectoryPathEvaluator - Cloud blob storage paths are not supported by 'FormatDirectoryPathEvaluator': 's3://ngi-igenomes/igenomes/'
+Sept-03 16:06:23.036 [main] DEBUG n.validation.ValidationExtension - Finishing parameters validation
+Sept-03 16:06:23.764 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_high` matches labels `process_high` for process with name NFCORE_BACTMAP:BACTMAP:BOWTIE2_BUILD
+Sept-03 16:06:23.765 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:BOWTIE2_BUILD` matches process NFCORE_BACTMAP:BACTMAP:BOWTIE2_BUILD
+Sept-03 16:06:23.769 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.769 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.772 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
+Sept-03 16:06:23.774 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=10; memory=16 GB; capacity=10; pollInterval=100ms; dumpInterval=5m
+Sept-03 16:06:23.775 [main] DEBUG n.processor.TaskPollingMonitor - >>> barrier register (monitor: local)
+Sept-03 16:06:23.783 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:BOWTIE2_BUILD': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.797 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name NFCORE_BACTMAP:BACTMAP:GUNZIP
+Sept-03 16:06:23.800 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.800 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.801 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:GUNZIP': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.806 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name NFCORE_BACTMAP:BACTMAP:SAMTOOLS_FAIDX
+Sept-03 16:06:23.806 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:SAMTOOLS_FAIDX` matches process NFCORE_BACTMAP:BACTMAP:SAMTOOLS_FAIDX
+Sept-03 16:06:23.808 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.808 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.809 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:SAMTOOLS_FAIDX': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.813 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name NFCORE_BACTMAP:BACTMAP:GET_GENOME_SIZE
+Sept-03 16:06:23.815 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.815 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.816 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:GET_GENOME_SIZE': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.819 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_low` matches labels `process_low` for process with name NFCORE_BACTMAP:BACTMAP:FASTQSCAN_RAW
+Sept-03 16:06:23.819 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:FASTQSCAN_RAW` matches process NFCORE_BACTMAP:BACTMAP:FASTQSCAN_RAW
+Sept-03 16:06:23.821 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.821 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.822 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:FASTQSCAN_RAW': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.825 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_low` matches labels `process_low` for process with name NFCORE_BACTMAP:BACTMAP:FASTQSCANPARSE_RAW
+Sept-03 16:06:23.826 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:FASTQSCANPARSE_RAW` matches process NFCORE_BACTMAP:BACTMAP:FASTQSCANPARSE_RAW
+Sept-03 16:06:23.827 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.827 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.827 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:FASTQSCANPARSE_RAW': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.831 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name NFCORE_BACTMAP:BACTMAP:FASTQC
+Sept-03 16:06:23.831 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:FASTQC` matches process NFCORE_BACTMAP:BACTMAP:FASTQC
+Sept-03 16:06:23.832 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.832 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.833 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:FASTQC': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.840 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:SHORTREAD_FASTP:FASTP_SINGLE
+Sept-03 16:06:23.840 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:FASTP_SINGLE` matches process NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:SHORTREAD_FASTP:FASTP_SINGLE
+Sept-03 16:06:23.842 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.842 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.842 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:SHORTREAD_FASTP:FASTP_SINGLE': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.846 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:SHORTREAD_FASTP:FASTP_PAIRED
+Sept-03 16:06:23.846 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:FASTP_PAIRED` matches process NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:SHORTREAD_FASTP:FASTP_PAIRED
+Sept-03 16:06:23.848 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.848 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.848 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:SHORTREAD_FASTP:FASTP_PAIRED': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.856 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:FASTQC_PROCESSED
+Sept-03 16:06:23.856 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:FASTQC` matches process NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:FASTQC_PROCESSED
+Sept-03 16:06:23.857 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:FASTQC_PROCESSED` matches process NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:FASTQC_PROCESSED
+Sept-03 16:06:23.858 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.858 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.858 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:FASTQC_PROCESSED': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.863 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name NFCORE_BACTMAP:BACTMAP:LONGREAD_PREPROCESSING:LONGREAD_ADAPTERREMOVAL:PORECHOP_PORECHOP
+Sept-03 16:06:23.863 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:PORECHOP_PORECHOP` matches process NFCORE_BACTMAP:BACTMAP:LONGREAD_PREPROCESSING:LONGREAD_ADAPTERREMOVAL:PORECHOP_PORECHOP
+Sept-03 16:06:23.864 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.864 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.864 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:LONGREAD_PREPROCESSING:LONGREAD_ADAPTERREMOVAL:PORECHOP_PORECHOP': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.870 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_low` matches labels `process_low` for process with name NFCORE_BACTMAP:BACTMAP:LONGREAD_PREPROCESSING:LONGREAD_FILTERING:NANOQ
+Sept-03 16:06:23.871 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:NANOQ` matches process NFCORE_BACTMAP:BACTMAP:LONGREAD_PREPROCESSING:LONGREAD_FILTERING:NANOQ
+Sept-03 16:06:23.872 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.872 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.872 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:LONGREAD_PREPROCESSING:LONGREAD_FILTERING:NANOQ': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.880 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name NFCORE_BACTMAP:BACTMAP:LONGREAD_PREPROCESSING:FASTQC_PROCESSED
+Sept-03 16:06:23.881 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:FASTQC` matches process NFCORE_BACTMAP:BACTMAP:LONGREAD_PREPROCESSING:FASTQC_PROCESSED
+Sept-03 16:06:23.881 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:FASTQC_PROCESSED` matches process NFCORE_BACTMAP:BACTMAP:LONGREAD_PREPROCESSING:FASTQC_PROCESSED
+Sept-03 16:06:23.882 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.882 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.882 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:LONGREAD_PREPROCESSING:FASTQC_PROCESSED': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.886 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_low` matches labels `process_low` for process with name NFCORE_BACTMAP:BACTMAP:FASTQSCAN_PROCESSED
+Sept-03 16:06:23.886 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:FASTQSCAN_PROCESSED` matches process NFCORE_BACTMAP:BACTMAP:FASTQSCAN_PROCESSED
+Sept-03 16:06:23.887 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.887 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.888 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:FASTQSCAN_PROCESSED': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.891 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_low` matches labels `process_low` for process with name NFCORE_BACTMAP:BACTMAP:FASTQSCANPARSE_PROCESSED
+Sept-03 16:06:23.891 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:FASTQSCANPARSE_PROCESSED` matches process NFCORE_BACTMAP:BACTMAP:FASTQSCANPARSE_PROCESSED
+Sept-03 16:06:23.892 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.892 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.892 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:FASTQSCANPARSE_PROCESSED': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.897 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_low` matches labels `process_low` for process with name NFCORE_BACTMAP:BACTMAP:READ_STATS
+Sept-03 16:06:23.898 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:READ_STATS` matches process NFCORE_BACTMAP:BACTMAP:READ_STATS
+Sept-03 16:06:23.899 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.899 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.900 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:READ_STATS': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.903 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_low` matches labels `process_low` for process with name NFCORE_BACTMAP:BACTMAP:READSTATS_PARSE
+Sept-03 16:06:23.903 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:READSTATS_PARSE` matches process NFCORE_BACTMAP:BACTMAP:READSTATS_PARSE
+Sept-03 16:06:23.904 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.904 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.904 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:READSTATS_PARSE': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.911 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name NFCORE_BACTMAP:BACTMAP:MERGE_RUNS
+Sept-03 16:06:23.912 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:CAT_FASTQ` matches process NFCORE_BACTMAP:BACTMAP:MERGE_RUNS
+Sept-03 16:06:23.913 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.913 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.913 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:MERGE_RUNS': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.917 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_low` matches labels `process_low` for process with name NFCORE_BACTMAP:BACTMAP:RASUSA
+Sept-03 16:06:23.917 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:RASUSA` matches process NFCORE_BACTMAP:BACTMAP:RASUSA
+Sept-03 16:06:23.919 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.919 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.919 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:RASUSA': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.926 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_high` matches labels `process_high` for process with name NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BOWTIE2_ALIGN
+Sept-03 16:06:23.926 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:BOWTIE2_ALIGN` matches process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BOWTIE2_ALIGN
+Sept-03 16:06:23.928 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.928 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.928 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BOWTIE2_ALIGN': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.935 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT
+Sept-03 16:06:23.936 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:SAMTOOLS_SORT` matches process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT
+Sept-03 16:06:23.937 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.937 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.937 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.942 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_low` matches labels `process_low` for process with name NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX
+Sept-03 16:06:23.942 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:SAMTOOLS_INDEX` matches process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX
+Sept-03 16:06:23.943 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.943 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.943 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.949 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS
+Sept-03 16:06:23.950 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:SAMTOOLS_STATS` matches process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS
+Sept-03 16:06:23.951 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.951 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.951 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.954 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT
+Sept-03 16:06:23.954 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:SAMTOOLS_FLAGSTAT` matches process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT
+Sept-03 16:06:23.955 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.955 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.956 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.959 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS
+Sept-03 16:06:23.959 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:SAMTOOLS_IDXSTATS` matches process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS
+Sept-03 16:06:23.960 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.960 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.960 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.972 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:FREEBAYES
+Sept-03 16:06:23.972 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:FREEBAYES` matches process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:FREEBAYES
+Sept-03 16:06:23.973 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.974 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.974 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:FREEBAYES': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.978 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:BCFTOOLS_SORT
+Sept-03 16:06:23.979 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:BCFTOOLS_SORT` matches process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:BCFTOOLS_SORT
+Sept-03 16:06:23.980 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.980 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.980 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:BCFTOOLS_SORT': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.984 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_low` matches labels `process_low` for process with name NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:BCFTOOLS_INDEX
+Sept-03 16:06:23.985 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:BCFTOOLS_INDEX` matches process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:BCFTOOLS_INDEX
+Sept-03 16:06:23.986 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.986 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.986 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:BCFTOOLS_INDEX': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.992 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BCFTOOLS_FILTER
+Sept-03 16:06:23.992 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:BCFTOOLS_FILTER` matches process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BCFTOOLS_FILTER
+Sept-03 16:06:23.993 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:23.993 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:23.993 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BCFTOOLS_FILTER': maxForks=0; fair=false; array=0
+Sept-03 16:06:23.999 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BCFTOOLS_STATS
+Sept-03 16:06:23.999 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:BCFTOOLS_STATS` matches process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BCFTOOLS_STATS
+Sept-03 16:06:24.000 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.000 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.000 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BCFTOOLS_STATS': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.008 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BCFTOOLS_QUERY
+Sept-03 16:06:24.009 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:BCFTOOLS_QUERY` matches process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BCFTOOLS_QUERY
+Sept-03 16:06:24.010 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.010 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.010 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BCFTOOLS_QUERY': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.014 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BEDTOOLS_GENOMECOV
+Sept-03 16:06:24.014 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:BEDTOOLS_GENOMECOV` matches process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BEDTOOLS_GENOMECOV
+Sept-03 16:06:24.015 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.015 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.016 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BEDTOOLS_GENOMECOV': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.021 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BEDTOOLS_SUBTRACT
+Sept-03 16:06:24.021 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:BEDTOOLS_SUBTRACT` matches process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BEDTOOLS_SUBTRACT
+Sept-03 16:06:24.022 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.022 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.023 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BEDTOOLS_SUBTRACT': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.028 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BCFTOOLS_CONSENSUS
+Sept-03 16:06:24.029 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:BCFTOOLS_CONSENSUS` matches process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BCFTOOLS_CONSENSUS
+Sept-03 16:06:24.030 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.030 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.030 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BCFTOOLS_CONSENSUS': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.033 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:RENAME_FASTA_HEADER
+Sept-03 16:06:24.034 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:RENAME_FASTA_HEADER` matches process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:RENAME_FASTA_HEADER
+Sept-03 16:06:24.035 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.035 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.035 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:RENAME_FASTA_HEADER': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.038 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:CONCATENATE_FASTA
+Sept-03 16:06:24.039 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:CONCATENATE_FASTA` matches process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:CONCATENATE_FASTA
+Sept-03 16:06:24.039 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.040 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.040 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:CONCATENATE_FASTA': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.045 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_low` matches labels `process_low` for process with name NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:SEQTK_COMP
+Sept-03 16:06:24.045 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:SEQTK_COMP` matches process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:SEQTK_COMP
+Sept-03 16:06:24.046 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.046 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.046 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:SEQTK_COMP': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.051 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_low` matches labels `process_low` for process with name NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:MINIMAP2_ALIGNMENT:MINIMAP2_INDEX
+Sept-03 16:06:24.052 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:MINIMAP2_INDEX` matches process NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:MINIMAP2_ALIGNMENT:MINIMAP2_INDEX
+Sept-03 16:06:24.052 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.052 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.053 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:MINIMAP2_ALIGNMENT:MINIMAP2_INDEX': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.057 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_high` matches labels `process_high` for process with name NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:MINIMAP2_ALIGNMENT:MINIMAP2_ALIGN
+Sept-03 16:06:24.057 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:MINIMAP2_ALIGN` matches process NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:MINIMAP2_ALIGNMENT:MINIMAP2_ALIGN
+Sept-03 16:06:24.058 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.058 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.059 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:MINIMAP2_ALIGNMENT:MINIMAP2_ALIGN': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.066 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT
+Sept-03 16:06:24.067 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:SAMTOOLS_SORT` matches process NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT
+Sept-03 16:06:24.068 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.068 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.068 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.074 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_low` matches labels `process_low` for process with name NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX
+Sept-03 16:06:24.074 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:SAMTOOLS_INDEX` matches process NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX
+Sept-03 16:06:24.075 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.075 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.075 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.083 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS
+Sept-03 16:06:24.083 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:SAMTOOLS_STATS` matches process NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS
+Sept-03 16:06:24.085 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.085 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.085 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.089 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT
+Sept-03 16:06:24.089 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:SAMTOOLS_FLAGSTAT` matches process NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT
+Sept-03 16:06:24.090 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.090 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.090 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.094 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS
+Sept-03 16:06:24.094 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:SAMTOOLS_IDXSTATS` matches process NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS
+Sept-03 16:06:24.095 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.095 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.095 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.103 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_high` matches labels `process_high` for process with name NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CLAIR3
+Sept-03 16:06:24.104 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:CLAIR3` matches process NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CLAIR3
+Sept-03 16:06:24.105 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.105 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.105 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CLAIR3': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.110 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BCFTOOLS_SORT
+Sept-03 16:06:24.110 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:BCFTOOLS_SORT` matches process NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BCFTOOLS_SORT
+Sept-03 16:06:24.111 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.111 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.112 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BCFTOOLS_SORT': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.116 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_low` matches labels `process_low` for process with name NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BCFTOOLS_INDEX
+Sept-03 16:06:24.117 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:BCFTOOLS_INDEX` matches process NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BCFTOOLS_INDEX
+Sept-03 16:06:24.117 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.117 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.118 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BCFTOOLS_INDEX': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.123 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BCFTOOLS_FILTER
+Sept-03 16:06:24.123 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:BCFTOOLS_FILTER` matches process NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BCFTOOLS_FILTER
+Sept-03 16:06:24.124 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.124 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.124 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BCFTOOLS_FILTER': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.140 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BCFTOOLS_STATS
+Sept-03 16:06:24.141 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:BCFTOOLS_STATS` matches process NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BCFTOOLS_STATS
+Sept-03 16:06:24.142 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.142 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.142 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BCFTOOLS_STATS': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.151 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CONSENSUS_BCFTOOLS:BCFTOOLS_QUERY
+Sept-03 16:06:24.152 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:BCFTOOLS_QUERY` matches process NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CONSENSUS_BCFTOOLS:BCFTOOLS_QUERY
+Sept-03 16:06:24.153 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.153 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.153 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CONSENSUS_BCFTOOLS:BCFTOOLS_QUERY': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.157 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CONSENSUS_BCFTOOLS:BEDTOOLS_GENOMECOV
+Sept-03 16:06:24.158 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:BEDTOOLS_GENOMECOV` matches process NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CONSENSUS_BCFTOOLS:BEDTOOLS_GENOMECOV
+Sept-03 16:06:24.159 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.159 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.159 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CONSENSUS_BCFTOOLS:BEDTOOLS_GENOMECOV': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.166 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CONSENSUS_BCFTOOLS:BEDTOOLS_SUBTRACT
+Sept-03 16:06:24.167 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:BEDTOOLS_SUBTRACT` matches process NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CONSENSUS_BCFTOOLS:BEDTOOLS_SUBTRACT
+Sept-03 16:06:24.168 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.168 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.169 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CONSENSUS_BCFTOOLS:BEDTOOLS_SUBTRACT': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.179 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CONSENSUS_BCFTOOLS:BCFTOOLS_CONSENSUS
+Sept-03 16:06:24.180 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:BCFTOOLS_CONSENSUS` matches process NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CONSENSUS_BCFTOOLS:BCFTOOLS_CONSENSUS
+Sept-03 16:06:24.181 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.181 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.181 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CONSENSUS_BCFTOOLS:BCFTOOLS_CONSENSUS': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.185 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CONSENSUS_BCFTOOLS:RENAME_FASTA_HEADER
+Sept-03 16:06:24.186 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:RENAME_FASTA_HEADER` matches process NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CONSENSUS_BCFTOOLS:RENAME_FASTA_HEADER
+Sept-03 16:06:24.187 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.187 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.187 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CONSENSUS_BCFTOOLS:RENAME_FASTA_HEADER': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.191 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CONSENSUS_BCFTOOLS:CONCATENATE_FASTA
+Sept-03 16:06:24.192 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:CONCATENATE_FASTA` matches process NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CONSENSUS_BCFTOOLS:CONCATENATE_FASTA
+Sept-03 16:06:24.193 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.193 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.193 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CONSENSUS_BCFTOOLS:CONCATENATE_FASTA': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.198 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_low` matches labels `process_low` for process with name NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:SEQTK_COMP
+Sept-03 16:06:24.198 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:SEQTK_COMP` matches process NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:SEQTK_COMP
+Sept-03 16:06:24.199 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.199 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.199 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:SEQTK_COMP': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.205 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_low` matches labels `process_low` for process with name NFCORE_BACTMAP:BACTMAP:SEQTK_PARSE
+Sept-03 16:06:24.206 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:SEQTK_PARSE` matches process NFCORE_BACTMAP:BACTMAP:SEQTK_PARSE
+Sept-03 16:06:24.207 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.207 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.207 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:SEQTK_PARSE': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.213 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_low` matches labels `process_low` for process with name NFCORE_BACTMAP:BACTMAP:ALIGNPSEUDOGENOMES
+Sept-03 16:06:24.214 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:ALIGNPSEUDOGENOMES` matches process NFCORE_BACTMAP:BACTMAP:ALIGNPSEUDOGENOMES
+Sept-03 16:06:24.215 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.215 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.215 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:ALIGNPSEUDOGENOMES': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.222 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_medium` matches labels `process_medium` for process with name NFCORE_BACTMAP:BACTMAP:SNPSITES
+Sept-03 16:06:24.223 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:SNPSITES` matches process NFCORE_BACTMAP:BACTMAP:SNPSITES
+Sept-03 16:06:24.223 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.223 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.224 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:SNPSITES': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.277 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:process_single` matches labels `process_single` for process with name NFCORE_BACTMAP:BACTMAP:MULTIQC
+Sept-03 16:06:24.278 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:MULTIQC` matches process NFCORE_BACTMAP:BACTMAP:MULTIQC
+Sept-03 16:06:24.279 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-03 16:06:24.279 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-03 16:06:24.279 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'NFCORE_BACTMAP:BACTMAP:MULTIQC': maxForks=0; fair=false; array=0
+Sept-03 16:06:24.285 [main] DEBUG nextflow.Session - Config process names validation disabled as requested
+Sept-03 16:06:24.286 [main] DEBUG nextflow.Session - Igniting dataflow network (94)
+Sept-03 16:06:24.289 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:BOWTIE2_BUILD
+Sept-03 16:06:24.289 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:GUNZIP
+Sept-03 16:06:24.289 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:SAMTOOLS_FAIDX
+Sept-03 16:06:24.289 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:GET_GENOME_SIZE
+Sept-03 16:06:24.289 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:FASTQSCAN_RAW
+Sept-03 16:06:24.289 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:FASTQSCANPARSE_RAW
+Sept-03 16:06:24.289 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:FASTQC
+Sept-03 16:06:24.289 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:SHORTREAD_FASTP:FASTP_SINGLE
+Sept-03 16:06:24.289 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:SHORTREAD_FASTP:FASTP_PAIRED
+Sept-03 16:06:24.289 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:FASTQC_PROCESSED
+Sept-03 16:06:24.290 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:LONGREAD_PREPROCESSING:LONGREAD_ADAPTERREMOVAL:PORECHOP_PORECHOP
+Sept-03 16:06:24.290 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:LONGREAD_PREPROCESSING:LONGREAD_FILTERING:NANOQ
+Sept-03 16:06:24.290 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:LONGREAD_PREPROCESSING:FASTQC_PROCESSED
+Sept-03 16:06:24.290 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:FASTQSCAN_PROCESSED
+Sept-03 16:06:24.290 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:FASTQSCANPARSE_PROCESSED
+Sept-03 16:06:24.290 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:READ_STATS
+Sept-03 16:06:24.290 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:READSTATS_PARSE
+Sept-03 16:06:24.290 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:MERGE_RUNS
+Sept-03 16:06:24.290 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:RASUSA
+Sept-03 16:06:24.290 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BOWTIE2_ALIGN
+Sept-03 16:06:24.290 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT
+Sept-03 16:06:24.290 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX
+Sept-03 16:06:24.290 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS
+Sept-03 16:06:24.290 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT
+Sept-03 16:06:24.290 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS
+Sept-03 16:06:24.290 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:FREEBAYES
+Sept-03 16:06:24.290 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:BCFTOOLS_SORT
+Sept-03 16:06:24.290 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:BCFTOOLS_INDEX
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BCFTOOLS_FILTER
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BCFTOOLS_STATS
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BCFTOOLS_QUERY
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BEDTOOLS_GENOMECOV
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BEDTOOLS_SUBTRACT
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BCFTOOLS_CONSENSUS
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:RENAME_FASTA_HEADER
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:CONCATENATE_FASTA
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:SEQTK_COMP
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:MINIMAP2_ALIGNMENT:MINIMAP2_INDEX
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:MINIMAP2_ALIGNMENT:MINIMAP2_ALIGN
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CLAIR3
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BCFTOOLS_SORT
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BCFTOOLS_INDEX
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BCFTOOLS_FILTER
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:BCFTOOLS_STATS
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CONSENSUS_BCFTOOLS:BCFTOOLS_QUERY
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CONSENSUS_BCFTOOLS:BEDTOOLS_GENOMECOV
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CONSENSUS_BCFTOOLS:BEDTOOLS_SUBTRACT
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CONSENSUS_BCFTOOLS:BCFTOOLS_CONSENSUS
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CONSENSUS_BCFTOOLS:RENAME_FASTA_HEADER
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:CONSENSUS_BCFTOOLS:CONCATENATE_FASTA
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:SEQTK_COMP
+Sept-03 16:06:24.291 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:SEQTK_PARSE
+Sept-03 16:06:24.292 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:ALIGNPSEUDOGENOMES
+Sept-03 16:06:24.292 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:SNPSITES
+Sept-03 16:06:24.292 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NFCORE_BACTMAP:BACTMAP:MULTIQC
+Sept-03 16:06:24.293 [main] DEBUG nextflow.script.ScriptRunner - Parsed script files:
+  Script_d3865926248d0c08: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/samtools/stats/main.nf
+  Script_d4a17ef68c8f3355: /Users/ajv37/Documents/Pipelines/bactmap/subworkflows/local/bam_variant_calling_sort_freebayes_bcftools/main.nf
+  Script_cdbce3e23a8f89e8: /Users/ajv37/Documents/Pipelines/bactmap/subworkflows/nf-core/bam_stats_samtools/main.nf
+  Script_9e61b79b569950a4: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/fastqc/main.nf
+  Script_4ed8e0a6286e9528: /Users/ajv37/Documents/Pipelines/bactmap/modules/local/get_genome_size/main.nf
+  Script_dedbba5968c49a0d: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/samtools/faidx/main.nf
+  Script_a997aea8fbecd2b5: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/multiqc/main.nf
+  Script_161178750fee57e8: /Users/ajv37/Documents/Pipelines/bactmap/modules/local/concatenate_fasta/main.nf
+  Script_a780234b47eb3af3: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/gunzip/main.nf
+  Script_e1be835428ea039c: /Users/ajv37/Documents/Pipelines/bactmap/subworkflows/nf-core/bam_sort_stats_samtools/main.nf
+  Script_a489afecae712e39: /Users/ajv37/Documents/Pipelines/bactmap/subworkflows/local/longread_mapping/main.nf
+  Script_6453ad072dacd43e: /Users/ajv37/Documents/Pipelines/bactmap/modules/local/fasta_rename/main.nf
+  Script_251c50b6e8c00a91: /Users/ajv37/Documents/Pipelines/bactmap/modules/local/bcftools/consensus/main.nf
+  Script_9bbc867ee99a49da: /Users/ajv37/Documents/Pipelines/bactmap/modules/local/rasusa/main.nf
+  Script_1148c0034a9f88a4: /Users/ajv37/Documents/Pipelines/bactmap/modules/local/alignpseudogenomes/main.nf
+  Script_d11d34fb18ce33b8: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/samtools/idxstats/main.nf
+  Script_3638011c9808828b: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/falco/main.nf
+  Script_67de2c5985457b11: /Users/ajv37/Documents/Pipelines/bactmap/modules/local/seqtk_parse/main.nf
+  Script_6ed1022377270d41: /Users/ajv37/Documents/Pipelines/bactmap/subworkflows/local/longread_filtering/main.nf
+  Script_0d0551c87cf447dd: /Users/ajv37/Documents/Pipelines/bactmap/modules/local/bedtools/genomecov/main.nf
+  Script_c1d8d98529efafbb: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/bowtie2/align/main.nf
+  Script_30e32cd69156d11b: /Users/ajv37/Documents/Pipelines/bactmap/modules/local/read_stats/main.nf
+  Script_70edd165b968b7ea: /Users/ajv37/Documents/Pipelines/bactmap/subworkflows/local/shortread_fastp/main.nf
+  Script_9444c9672b28643d: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/bcftools/sort/main.nf
+  Script_8c6cd303ae812c8b: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/minimap2/align/main.nf
+  Script_13990282948b5904: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/samtools/index/main.nf
+  Script_4c9abcf2f2994546: /Users/ajv37/Documents/Pipelines/bactmap/subworkflows/local/longread_adapterremoval/main.nf
+  Script_335f36ea7317a7f4: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/bwamem2/mem/main.nf
+  Script_e15808f0e873ca5a: /Users/ajv37/Documents/Pipelines/bactmap/modules/local/read_stats_parse/main.nf
+  Script_de1cc44d6cf6fa4d: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/bedtools/subtract/main.nf
+  Script_215a636da7ab24a2: /Users/ajv37/Documents/Pipelines/bactmap/subworkflows/nf-core/utils_nfschema_plugin/main.nf
+  Script_6410fd0eca0904d6: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/porechop/abi/main.nf
+  Script_85cd2029801f7885: /Users/ajv37/Documents/Pipelines/bactmap/workflows/bactmap.nf
+  Script_78b07364b36fd883: /Users/ajv37/Documents/Pipelines/bactmap/modules/local/clair3/main.nf
+  Script_5c4e8d4051efa81e: /Users/ajv37/Documents/Pipelines/bactmap/subworkflows/nf-core/utils_nfcore_pipeline/main.nf
+  Script_d079de7fa31aa957: /Users/ajv37/Documents/Pipelines/bactmap/subworkflows/local/longread_preprocessing/main.nf
+  Script_d9cc106d82f9195a: /Users/ajv37/Documents/Pipelines/bactmap/subworkflows/local/shortread_preprocessing/main.nf
+  Script_f93ae1b28ada1448: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/adapterremoval/main.nf
+  Script_e00b2074c6cf3992: /Users/ajv37/Documents/Pipelines/bactmap/subworkflows/local/shortread_mapping/main.nf
+  Script_8fcceaf1a058d96a: /Users/ajv37/Documents/Pipelines/bactmap/subworkflows/local/fastq_align_bwamem2/main.nf
+  Script_feee852ed0d1d41c: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/seqtk/comp/main.nf
+  Script_36e54ea032572d98: /Users/ajv37/Documents/Pipelines/bactmap/subworkflows/local/consensus_bcftools/main.nf
+  Script_e078475de8c29373: /Users/ajv37/Documents/Pipelines/bactmap/subworkflows/local/shortread_adapterremoval/main.nf
+  Script_40116f323c6ad0c6: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/minimap2/index/main.nf
+  Script_c89d9bd0374ca6c7: /Users/ajv37/Documents/Pipelines/bactmap/modules/local/fastq_scan_parse/main.nf
+  Script_95404045d65c203b: /Users/ajv37/Documents/Pipelines/bactmap/main.nf
+  Script_db8f24f568a8fc0c: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/samtools/sort/main.nf
+  Script_94903505569de6f7: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/bcftools/stats/main.nf
+  Script_a9e8a9a24ceb5487: /Users/ajv37/Documents/Pipelines/bactmap/subworkflows/local/utils_nfcore_bactmap_pipeline/main.nf
+  Script_498db87a6d4f03d8: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/samtools/flagstat/main.nf
+  Script_6f90d0592ec5b4c4: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/bwamem2/index/main.nf
+  Script_4f612cfd8c52e8cd: /Users/ajv37/Documents/Pipelines/bactmap/subworkflows/nf-core/utils_nextflow_pipeline/main.nf
+  Script_25fd6aaeb95a2a19: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/bcftools/query/main.nf
+  Script_029dc9a3afba34cb: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/filtlong/main.nf
+  Script_d0934f31ad677997: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/snpsites/main.nf
+  Script_b355087dc9d365d0: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/fastp/main.nf
+  Script_63fed2b39877680f: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/bcftools/index/main.nf
+  Script_ec1daa6037d5f73e: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/nanoq/main.nf
+  Script_c96b557bd75d8dda: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/bcftools/filter/main.nf
+  Script_4779b6382e5427ab: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/cat/fastq/main.nf
+  Script_2b62527c40aaa906: /Users/ajv37/Documents/Pipelines/bactmap/subworkflows/nf-core/fastq_align_bowtie2/main.nf
+  Script_053a4f981e60653f: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/bowtie2/build/main.nf
+  Script_f526ea333b3ea25e: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/freebayes/main.nf
+  Script_78ebdf7517875797: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/porechop/porechop/main.nf
+  Script_e0353e86c5791859: /Users/ajv37/Documents/Pipelines/bactmap/subworkflows/local/minimap2_alignment/main.nf
+  Script_15926ff6660c7103: /Users/ajv37/Documents/Pipelines/bactmap/modules/nf-core/fastqscan/main.nf
+Sept-03 16:06:24.293 [main] DEBUG nextflow.script.ScriptRunner - > Awaiting termination 
+Sept-03 16:06:24.293 [main] DEBUG nextflow.Session - Session await
+Sept-03 16:06:24.327 [Actor Thread 13] DEBUG nextflow.sort.BigSort - Sort completed -- entries: 1; slices: 1; internal sort time: 0.001 s; external sort time: 0.004 s; total time: 0.005 s
+Sept-03 16:06:24.327 [Actor Thread 20] DEBUG nextflow.sort.BigSort - Sort completed -- entries: 1; slices: 1; internal sort time: 0.001 s; external sort time: 0.004 s; total time: 0.005 s
+Sept-03 16:06:24.329 [Actor Thread 20] DEBUG nextflow.file.FileCollector - Saved collect-files list to: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/collect-file/c827a821a7d8db39f44430cf8043796b
+Sept-03 16:06:24.329 [Actor Thread 13] DEBUG nextflow.file.FileCollector - Saved collect-files list to: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/collect-file/b70ea99a33f39f61575882c795e03ad0
+Sept-03 16:06:24.333 [Actor Thread 20] DEBUG nextflow.file.FileCollector - Deleting file collector temp dir: /var/folders/wr/gthxkvgs07745m5wjpkr6h5h0000gp/T/nxf-5972163899035219879
+Sept-03 16:06:24.333 [Actor Thread 13] DEBUG nextflow.file.FileCollector - Deleting file collector temp dir: /var/folders/wr/gthxkvgs07745m5wjpkr6h5h0000gp/T/nxf-4768001149384881451
+Sept-03 16:06:24.532 [FileTransfer-1] DEBUG nextflow.file.FilePorter - Copying foreign file https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/prokaryotes/bacteroides_fragilis/genome/genome.fna.gz to work dir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/stage-81118e3b-5b63-470e-b2af-0a5087b62ff4/fc/c02e63252a1692838cf38284c0c37c/genome.fna.gz
+Sept-03 16:06:24.637 [FileTransfer-2] DEBUG nextflow.file.FilePorter - Copying foreign file https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test2_1.fastq.gz to work dir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/stage-81118e3b-5b63-470e-b2af-0a5087b62ff4/f1/aecb3a36823361ab8152910bac2263/test2_1.fastq.gz
+Sept-03 16:06:24.638 [FileTransfer-3] DEBUG nextflow.file.FilePorter - Copying foreign file https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test2_2.fastq.gz to work dir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/stage-81118e3b-5b63-470e-b2af-0a5087b62ff4/fd/bb7f0a9f120fd76a9290900e6befa1/test2_2.fastq.gz
+Sept-03 16:06:24.638 [FileTransfer-4] DEBUG nextflow.file.FilePorter - Copying foreign file https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_1.fastq.gz to work dir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/stage-81118e3b-5b63-470e-b2af-0a5087b62ff4/47/11f7d2a4c284ac28dfe5353f679407/test1_1.fastq.gz
+Sept-03 16:06:24.638 [FileTransfer-5] DEBUG nextflow.file.FilePorter - Copying foreign file https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/prokaryotes/bacteroides_fragilis/illumina/fastq/test1_2.fastq.gz to work dir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/stage-81118e3b-5b63-470e-b2af-0a5087b62ff4/28/0d42cccc5bb2e6c95edd32f713577d/test1_2.fastq.gz
+Sept-03 16:06:24.708 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:24.709 [Task submitter] INFO  nextflow.Session - [9e/1f708f] Submitted process > NFCORE_BACTMAP:BACTMAP:BOWTIE2_BUILD (genome.fna.gz)
+Sept-03 16:06:24.719 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:24.720 [Task submitter] INFO  nextflow.Session - [1c/26dac0] Submitted process > NFCORE_BACTMAP:BACTMAP:GUNZIP (genome.fna.gz)
+Sept-03 16:06:26.301 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 8; name: NFCORE_BACTMAP:BACTMAP:GUNZIP (genome.fna.gz); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/1c/26dac0d71676a77909ec0642a6c94b]
+Sept-03 16:06:26.302 [Task monitor] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'TaskFinalizer' minSize=10; maxSize=30; workQueue=LinkedBlockingQueue[-1]; allowCoreThreadTimeout=false
+Sept-03 16:06:26.312 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:26.313 [Task submitter] INFO  nextflow.Session - [ca/55e42d] Submitted process > NFCORE_BACTMAP:BACTMAP:FASTQC (02)
+Sept-03 16:06:26.336 [TaskFinalizer-1] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'PublishDir' minSize=10; maxSize=30; workQueue=LinkedBlockingQueue[-1]; allowCoreThreadTimeout=false
+Sept-03 16:06:29.774 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 7; name: NFCORE_BACTMAP:BACTMAP:BOWTIE2_BUILD (genome.fna.gz); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/9e/1f708f48fe9eefec38a184e1f82e04]
+Sept-03 16:06:29.781 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:29.782 [Task submitter] INFO  nextflow.Session - [2d/d80d0b] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:SHORTREAD_FASTP:FASTP_PAIRED (02)
+Sept-03 16:06:32.597 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 5; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:SHORTREAD_FASTP:FASTP_PAIRED (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/2d/d80d0b0c8beade0fb9a45a29584854]
+Sept-03 16:06:32.606 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:32.606 [Task submitter] INFO  nextflow.Session - [28/ade2c6] Submitted process > NFCORE_BACTMAP:BACTMAP:FASTQSCAN_RAW (02)
+Sept-03 16:06:32.746 [TaskFinalizer-3] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:SHORTREAD_FASTP:FASTP_PAIRED > Skipping output binding because one or more optional files are missing: fileoutparam<4:1>
+Sept-03 16:06:32.746 [TaskFinalizer-3] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:SHORTREAD_FASTP:FASTP_PAIRED > Skipping output binding because one or more optional files are missing: fileoutparam<5:1>
+Sept-03 16:06:33.481 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 6; name: NFCORE_BACTMAP:BACTMAP:FASTQC (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/ca/55e42d694f7600264428204dc1da90]
+Sept-03 16:06:33.490 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:33.491 [Task submitter] INFO  nextflow.Session - [ce/ff2343] Submitted process > NFCORE_BACTMAP:BACTMAP:FASTQSCAN_RAW (01)
+Sept-03 16:06:33.922 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 4; name: NFCORE_BACTMAP:BACTMAP:FASTQSCAN_RAW (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/28/ade2c6e7cb9067ee99db2c2b908924]
+Sept-03 16:06:33.928 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:33.929 [Task submitter] INFO  nextflow.Session - [e3/683de9] Submitted process > NFCORE_BACTMAP:BACTMAP:FASTQC (01)
+Sept-03 16:06:34.733 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 3; name: NFCORE_BACTMAP:BACTMAP:FASTQSCAN_RAW (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/ce/ff2343a924635db7a72e376060072e]
+Sept-03 16:06:34.737 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:34.738 [Task submitter] INFO  nextflow.Session - [01/7368ef] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:SHORTREAD_FASTP:FASTP_PAIRED (01)
+Sept-03 16:06:37.818 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 2; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:SHORTREAD_FASTP:FASTP_PAIRED (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/01/7368ef9525085c81b4b6675bda7650]
+Sept-03 16:06:37.838 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:37.843 [Task submitter] INFO  nextflow.Session - [66/931b27] Submitted process > NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:MINIMAP2_ALIGNMENT:MINIMAP2_INDEX
+Sept-03 16:06:37.852 [TaskFinalizer-7] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:SHORTREAD_FASTP:FASTP_PAIRED > Skipping output binding because one or more optional files are missing: fileoutparam<4:1>
+Sept-03 16:06:37.852 [TaskFinalizer-7] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:SHORTREAD_FASTP:FASTP_PAIRED > Skipping output binding because one or more optional files are missing: fileoutparam<5:1>
+Sept-03 16:06:39.972 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 10; name: NFCORE_BACTMAP:BACTMAP:LONGREAD_MAPPING:MINIMAP2_ALIGNMENT:MINIMAP2_INDEX; status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/66/931b278531795448ad5e5c6232d376]
+Sept-03 16:06:39.976 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:39.976 [Task submitter] INFO  nextflow.Session - [cc/b353f6] Submitted process > NFCORE_BACTMAP:BACTMAP:SAMTOOLS_FAIDX (genome.fna)
+Sept-03 16:06:40.777 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 9; name: NFCORE_BACTMAP:BACTMAP:SAMTOOLS_FAIDX (genome.fna); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/cc/b353f626dee8b1efbee45192e00cac]
+Sept-03 16:06:40.780 [TaskFinalizer-9] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SAMTOOLS_FAIDX > Skipping output binding because one or more optional files are missing: fileoutparam<0:1>
+Sept-03 16:06:40.780 [TaskFinalizer-9] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SAMTOOLS_FAIDX > Skipping output binding because one or more optional files are missing: fileoutparam<3:1>
+Sept-03 16:06:40.782 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:40.782 [Task submitter] INFO  nextflow.Session - [23/2834de] Submitted process > NFCORE_BACTMAP:BACTMAP:FASTQSCAN_PROCESSED (02)
+Sept-03 16:06:41.716 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 12; name: NFCORE_BACTMAP:BACTMAP:FASTQSCAN_PROCESSED (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/23/2834de30350282e22b4d9a54d514ff]
+Sept-03 16:06:41.736 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:41.736 [Task submitter] INFO  nextflow.Session - [a6/450cfd] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:FASTQC_PROCESSED (02)
+Sept-03 16:06:42.391 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 1; name: NFCORE_BACTMAP:BACTMAP:FASTQC (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/e3/683de9575596fcc0378cb5a0a49cb7]
+Sept-03 16:06:42.395 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:42.395 [Task submitter] INFO  nextflow.Session - [95/55bd6f] Submitted process > NFCORE_BACTMAP:BACTMAP:FASTQSCANPARSE_RAW
+Sept-03 16:06:44.136 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 13; name: NFCORE_BACTMAP:BACTMAP:FASTQSCANPARSE_RAW; status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/95/55bd6fb7b5a4cecbeda55885ad1a55]
+Sept-03 16:06:44.140 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:44.140 [Task submitter] INFO  nextflow.Session - [5e/acbba0] Submitted process > NFCORE_BACTMAP:BACTMAP:FASTQSCAN_PROCESSED (01)
+Sept-03 16:06:45.109 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 15; name: NFCORE_BACTMAP:BACTMAP:FASTQSCAN_PROCESSED (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5e/acbba084b8166a1ed8c9d53d5873a2]
+Sept-03 16:06:45.113 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:45.113 [Task submitter] INFO  nextflow.Session - [66/afed08] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:FASTQC_PROCESSED (01)
+Sept-03 16:06:46.865 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 11; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:FASTQC_PROCESSED (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/a6/450cfd7d644bec4f184f26e51cde5e]
+Sept-03 16:06:46.870 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:46.871 [Task submitter] INFO  nextflow.Session - [63/62cdb9] Submitted process > NFCORE_BACTMAP:BACTMAP:GET_GENOME_SIZE
+Sept-03 16:06:47.967 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 16; name: NFCORE_BACTMAP:BACTMAP:GET_GENOME_SIZE; status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/63/62cdb9488681b309d4431929d795e7]
+Sept-03 16:06:47.972 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:47.972 [Task submitter] INFO  nextflow.Session - [c7/ef386e] Submitted process > NFCORE_BACTMAP:BACTMAP:READ_STATS (02)
+Sept-03 16:06:49.846 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 17; name: NFCORE_BACTMAP:BACTMAP:READ_STATS (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/c7/ef386e4ef6298304a6c5ddcf94c657]
+Sept-03 16:06:49.851 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:49.851 [Task submitter] INFO  nextflow.Session - [77/4ccef9] Submitted process > NFCORE_BACTMAP:BACTMAP:READ_STATS (01)
+Sept-03 16:06:51.398 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 14; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_PREPROCESSING:FASTQC_PROCESSED (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/66/afed08895f561c015a9c297ce1835d]
+Sept-03 16:06:51.401 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:51.401 [Task submitter] INFO  nextflow.Session - [65/df8d44] Submitted process > NFCORE_BACTMAP:BACTMAP:FASTQSCANPARSE_PROCESSED
+Sept-03 16:06:51.630 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 18; name: NFCORE_BACTMAP:BACTMAP:READ_STATS (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/77/4ccef972e6b148e4c2c36399c4bfab]
+Sept-03 16:06:51.632 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:51.633 [Task submitter] INFO  nextflow.Session - [36/7f4dd8] Submitted process > NFCORE_BACTMAP:BACTMAP:RASUSA (01)
+Sept-03 16:06:53.301 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 19; name: NFCORE_BACTMAP:BACTMAP:FASTQSCANPARSE_PROCESSED; status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/65/df8d44d8ac59173c63fe6f8e04db16]
+Sept-03 16:06:53.304 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:53.304 [Task submitter] INFO  nextflow.Session - [12/6703e6] Submitted process > NFCORE_BACTMAP:BACTMAP:RASUSA (02)
+Sept-03 16:06:54.524 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 21; name: NFCORE_BACTMAP:BACTMAP:RASUSA (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/36/7f4dd8bedf08273844c29eb2575fb9]
+Sept-03 16:06:54.528 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:54.528 [Task submitter] INFO  nextflow.Session - [6f/5afd07] Submitted process > NFCORE_BACTMAP:BACTMAP:READSTATS_PARSE
+Sept-03 16:06:55.189 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 20; name: NFCORE_BACTMAP:BACTMAP:RASUSA (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/12/6703e6dfb70d9dab6f9e5fb4119c8a]
+Sept-03 16:06:55.194 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:55.194 [Task submitter] INFO  nextflow.Session - [8c/99d64a] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BOWTIE2_ALIGN (01)
+Sept-03 16:06:56.529 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 22; name: NFCORE_BACTMAP:BACTMAP:READSTATS_PARSE; status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/6f/5afd078ef907245a6f6dddd9794f4c]
+Sept-03 16:06:56.535 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:56.539 [Task submitter] INFO  nextflow.Session - [f5/587e7e] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BOWTIE2_ALIGN (02)
+Sept-03 16:06:58.929 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 24; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BOWTIE2_ALIGN (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/f5/587e7e33b80ba3a2406ffb8c9a2d94]
+Sept-03 16:06:58.932 [TaskFinalizer-3] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BOWTIE2_ALIGN > Skipping output binding because one or more optional files are missing: fileoutparam<0:1>
+Sept-03 16:06:58.933 [TaskFinalizer-3] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BOWTIE2_ALIGN > Skipping output binding because one or more optional files are missing: fileoutparam<2:1>
+Sept-03 16:06:58.933 [TaskFinalizer-3] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BOWTIE2_ALIGN > Skipping output binding because one or more optional files are missing: fileoutparam<3:1>
+Sept-03 16:06:58.933 [TaskFinalizer-3] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BOWTIE2_ALIGN > Skipping output binding because one or more optional files are missing: fileoutparam<4:1>
+Sept-03 16:06:58.933 [TaskFinalizer-3] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BOWTIE2_ALIGN > Skipping output binding because one or more optional files are missing: fileoutparam<6:1>
+Sept-03 16:06:58.941 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:58.942 [Task submitter] INFO  nextflow.Session - [6a/2c22a0] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT (02)
+Sept-03 16:06:59.150 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 23; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BOWTIE2_ALIGN (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/8c/99d64a9c9727ced3dba913022525d2]
+Sept-03 16:06:59.155 [TaskFinalizer-4] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BOWTIE2_ALIGN > Skipping output binding because one or more optional files are missing: fileoutparam<0:1>
+Sept-03 16:06:59.156 [TaskFinalizer-4] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BOWTIE2_ALIGN > Skipping output binding because one or more optional files are missing: fileoutparam<2:1>
+Sept-03 16:06:59.156 [TaskFinalizer-4] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BOWTIE2_ALIGN > Skipping output binding because one or more optional files are missing: fileoutparam<3:1>
+Sept-03 16:06:59.156 [TaskFinalizer-4] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BOWTIE2_ALIGN > Skipping output binding because one or more optional files are missing: fileoutparam<4:1>
+Sept-03 16:06:59.156 [TaskFinalizer-4] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BOWTIE2_ALIGN > Skipping output binding because one or more optional files are missing: fileoutparam<6:1>
+Sept-03 16:06:59.167 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:06:59.167 [Task submitter] INFO  nextflow.Session - [f1/b44e38] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT (01)
+Sept-03 16:07:00.232 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 25; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/6a/2c22a0080a5a0fc85cbc87a3d5bfd0]
+Sept-03 16:07:00.234 [TaskFinalizer-5] DEBUG nextflow.processor.TaskProcessor - Process `NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT (02)` is unable to find [UnixPath]: `/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/6a/2c22a0080a5a0fc85cbc87a3d5bfd0/02.sorted.cram` (pattern: `02.sorted.cram`)
+Sept-03 16:07:00.235 [TaskFinalizer-5] DEBUG nextflow.processor.TaskProcessor - Process `NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT (02)` is unable to find [UnixPath]: `/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/6a/2c22a0080a5a0fc85cbc87a3d5bfd0/02.sorted.sam` (pattern: `02.sorted.sam`)
+Sept-03 16:07:00.235 [TaskFinalizer-5] DEBUG nextflow.processor.TaskProcessor - Process `NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT (02)` is unable to find [UnixPath]: `/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/6a/2c22a0080a5a0fc85cbc87a3d5bfd0/02.sorted.bam.crai` (pattern: `02.sorted.bam.crai`)
+Sept-03 16:07:00.235 [TaskFinalizer-5] DEBUG nextflow.processor.TaskProcessor - Process `NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT (02)` is unable to find [UnixPath]: `/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/6a/2c22a0080a5a0fc85cbc87a3d5bfd0/02.sorted.bam.csi` (pattern: `02.sorted.bam.csi`)
+Sept-03 16:07:00.235 [TaskFinalizer-5] DEBUG nextflow.processor.TaskProcessor - Process `NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT (02)` is unable to find [UnixPath]: `/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/6a/2c22a0080a5a0fc85cbc87a3d5bfd0/02.sorted.bam.bai` (pattern: `02.sorted.bam.bai`)
+Sept-03 16:07:00.237 [TaskFinalizer-5] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT > Skipping output binding because one or more optional files are missing: fileoutparam<1:1>
+Sept-03 16:07:00.237 [TaskFinalizer-5] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT > Skipping output binding because one or more optional files are missing: fileoutparam<2:1>
+Sept-03 16:07:00.237 [TaskFinalizer-5] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT > Skipping output binding because one or more optional files are missing: fileoutparam<3:1>
+Sept-03 16:07:00.237 [TaskFinalizer-5] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT > Skipping output binding because one or more optional files are missing: fileoutparam<4:1>
+Sept-03 16:07:00.237 [TaskFinalizer-5] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT > Skipping output binding because one or more optional files are missing: fileoutparam<5:1>
+Sept-03 16:07:00.250 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:00.250 [Task submitter] INFO  nextflow.Session - [cd/b9aaaa] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX (02)
+Sept-03 16:07:00.409 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 26; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/f1/b44e38810e91d961d8333d681a4834]
+Sept-03 16:07:00.410 [TaskFinalizer-6] DEBUG nextflow.processor.TaskProcessor - Process `NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT (01)` is unable to find [UnixPath]: `/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/f1/b44e38810e91d961d8333d681a4834/01.sorted.cram` (pattern: `01.sorted.cram`)
+Sept-03 16:07:00.411 [TaskFinalizer-6] DEBUG nextflow.processor.TaskProcessor - Process `NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT (01)` is unable to find [UnixPath]: `/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/f1/b44e38810e91d961d8333d681a4834/01.sorted.sam` (pattern: `01.sorted.sam`)
+Sept-03 16:07:00.411 [TaskFinalizer-6] DEBUG nextflow.processor.TaskProcessor - Process `NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT (01)` is unable to find [UnixPath]: `/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/f1/b44e38810e91d961d8333d681a4834/01.sorted.bam.crai` (pattern: `01.sorted.bam.crai`)
+Sept-03 16:07:00.411 [TaskFinalizer-6] DEBUG nextflow.processor.TaskProcessor - Process `NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT (01)` is unable to find [UnixPath]: `/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/f1/b44e38810e91d961d8333d681a4834/01.sorted.bam.csi` (pattern: `01.sorted.bam.csi`)
+Sept-03 16:07:00.412 [TaskFinalizer-6] DEBUG nextflow.processor.TaskProcessor - Process `NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT (01)` is unable to find [UnixPath]: `/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/f1/b44e38810e91d961d8333d681a4834/01.sorted.bam.bai` (pattern: `01.sorted.bam.bai`)
+Sept-03 16:07:00.413 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:00.414 [Task submitter] INFO  nextflow.Session - [2b/f2fff8] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BEDTOOLS_GENOMECOV (02)
+Sept-03 16:07:00.414 [TaskFinalizer-6] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT > Skipping output binding because one or more optional files are missing: fileoutparam<1:1>
+Sept-03 16:07:00.414 [TaskFinalizer-6] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT > Skipping output binding because one or more optional files are missing: fileoutparam<2:1>
+Sept-03 16:07:00.414 [TaskFinalizer-6] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT > Skipping output binding because one or more optional files are missing: fileoutparam<3:1>
+Sept-03 16:07:00.414 [TaskFinalizer-6] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT > Skipping output binding because one or more optional files are missing: fileoutparam<4:1>
+Sept-03 16:07:00.414 [TaskFinalizer-6] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_SORT > Skipping output binding because one or more optional files are missing: fileoutparam<5:1>
+Sept-03 16:07:01.244 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 27; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/cd/b9aaaa4bd901c2cce46c6be989e124]
+Sept-03 16:07:01.247 [TaskFinalizer-7] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX > Skipping output binding because one or more optional files are missing: fileoutparam<1:1>
+Sept-03 16:07:01.247 [TaskFinalizer-7] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX > Skipping output binding because one or more optional files are missing: fileoutparam<2:1>
+Sept-03 16:07:01.248 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:01.248 [Task submitter] INFO  nextflow.Session - [a6/f9908c] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX (01)
+Sept-03 16:07:02.035 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 28; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BEDTOOLS_GENOMECOV (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/2b/f2fff8ab50eaf0edb2654f6aad3586]
+Sept-03 16:07:02.039 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:02.039 [Task submitter] INFO  nextflow.Session - [18/d45122] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BEDTOOLS_GENOMECOV (01)
+Sept-03 16:07:02.227 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 29; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/a6/f9908cfaebf6bc60c0d30694e5ef48]
+Sept-03 16:07:02.233 [TaskFinalizer-9] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX > Skipping output binding because one or more optional files are missing: fileoutparam<1:1>
+Sept-03 16:07:02.233 [TaskFinalizer-9] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:SAMTOOLS_INDEX > Skipping output binding because one or more optional files are missing: fileoutparam<2:1>
+Sept-03 16:07:02.235 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:02.236 [Task submitter] INFO  nextflow.Session - [f9/896760] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:FREEBAYES (02)
+Sept-03 16:07:03.490 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 30; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BEDTOOLS_GENOMECOV (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/18/d4512282cf4e43fb4a32dd91379d69]
+Sept-03 16:07:03.494 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:03.494 [Task submitter] INFO  nextflow.Session - [5c/16bdb0] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:FREEBAYES (01)
+Sept-03 16:07:03.611 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 31; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:FREEBAYES (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/f9/8967606a680bfec293a3c0c83389a5]
+Sept-03 16:07:03.614 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:03.615 [Task submitter] INFO  nextflow.Session - [0d/dcd7c5] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (02)
+Sept-03 16:07:04.503 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 34; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/0d/dcd7c577dcd342d5e1015cec805b10]
+Sept-03 16:07:04.510 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:04.511 [Task submitter] INFO  nextflow.Session - [ad/d26d13] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (02)
+Sept-03 16:07:04.979 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 32; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:FREEBAYES (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5c/16bdb02a540e7d3f3802470f9337cb]
+Sept-03 16:07:04.982 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:04.982 [Task submitter] INFO  nextflow.Session - [1e/feb312] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (01)
+Sept-03 16:07:05.597 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 37; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/ad/d26d135c3421623c870f390a83dcd4]
+Sept-03 16:07:05.599 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:05.599 [Task submitter] INFO  nextflow.Session - [b5/91c55f] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (01)
+Sept-03 16:07:06.163 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 38; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_STATS (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/1e/feb3121b2b9be303f5750db91b9121]
+Sept-03 16:07:06.168 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:06.168 [Task submitter] INFO  nextflow.Session - [f3/39ab41] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (01)
+Sept-03 16:07:06.521 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 36; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_IDXSTATS (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/b5/91c55f6616eee30cda9e8607c73922]
+Sept-03 16:07:06.524 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:06.525 [Task submitter] INFO  nextflow.Session - [f8/778dba] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (02)
+Sept-03 16:07:07.077 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 35; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/f3/39ab415217b75453da1688c61e6cf5]
+Sept-03 16:07:07.080 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:07.080 [Task submitter] INFO  nextflow.Session - [a7/094f3f] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:BCFTOOLS_SORT (02)
+Sept-03 16:07:07.527 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 33; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:FASTQ_ALIGN_BOWTIE2:BAM_SORT_STATS_SAMTOOLS:BAM_STATS_SAMTOOLS:SAMTOOLS_FLAGSTAT (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/f8/778dbab0d3f05e0c0134077d6c49ce]
+Sept-03 16:07:07.532 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:07.532 [Task submitter] INFO  nextflow.Session - [65/8eff73] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:BCFTOOLS_SORT (01)
+Sept-03 16:07:08.505 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 39; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:BCFTOOLS_SORT (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/a7/094f3ffe626bbc8854f2869d5520f9]
+Sept-03 16:07:08.511 [TaskFinalizer-9] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:BCFTOOLS_SORT > Skipping output binding because one or more optional files are missing: fileoutparam<1:1>
+Sept-03 16:07:08.511 [TaskFinalizer-9] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:BCFTOOLS_SORT > Skipping output binding because one or more optional files are missing: fileoutparam<2:1>
+Sept-03 16:07:08.519 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:08.519 [Task submitter] INFO  nextflow.Session - [8f/e83a46] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:BCFTOOLS_INDEX (02)
+Sept-03 16:07:08.941 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 40; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:BCFTOOLS_SORT (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/65/8eff73ed20f80f3b80f58aef6ed1c1]
+Sept-03 16:07:08.945 [TaskFinalizer-10] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:BCFTOOLS_SORT > Skipping output binding because one or more optional files are missing: fileoutparam<1:1>
+Sept-03 16:07:08.945 [TaskFinalizer-10] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:BCFTOOLS_SORT > Skipping output binding because one or more optional files are missing: fileoutparam<2:1>
+Sept-03 16:07:08.953 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:08.953 [Task submitter] INFO  nextflow.Session - [8d/ccc2af] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:BCFTOOLS_INDEX (01)
+Sept-03 16:07:09.922 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 41; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:BCFTOOLS_INDEX (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/8f/e83a467c674975576ed26792034efa]
+Sept-03 16:07:09.925 [TaskFinalizer-1] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:BCFTOOLS_INDEX > Skipping output binding because one or more optional files are missing: fileoutparam<0:1>
+Sept-03 16:07:09.936 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:09.936 [Task submitter] INFO  nextflow.Session - [07/1d4cbd] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BCFTOOLS_FILTER (02)
+Sept-03 16:07:10.321 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 42; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:BCFTOOLS_INDEX (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/8d/ccc2af9cf489b55bac773c35f53778]
+Sept-03 16:07:10.324 [TaskFinalizer-2] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS:BCFTOOLS_INDEX > Skipping output binding because one or more optional files are missing: fileoutparam<0:1>
+Sept-03 16:07:10.332 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:10.333 [Task submitter] INFO  nextflow.Session - [99/d39d1d] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BCFTOOLS_FILTER (01)
+Sept-03 16:07:11.529 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 43; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BCFTOOLS_FILTER (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/07/1d4cbd0692a6560411b878b5ccb099]
+Sept-03 16:07:11.534 [TaskFinalizer-3] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BCFTOOLS_FILTER > Skipping output binding because one or more optional files are missing: fileoutparam<2:1>
+Sept-03 16:07:11.545 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:11.546 [Task submitter] INFO  nextflow.Session - [cb/dbb593] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BCFTOOLS_QUERY (02)
+Sept-03 16:07:11.882 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 44; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BCFTOOLS_FILTER (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/99/d39d1d636ae867e788c8377254b815]
+Sept-03 16:07:11.886 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:11.886 [Task submitter] INFO  nextflow.Session - [c9/9f6899] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BCFTOOLS_STATS (02)
+Sept-03 16:07:11.887 [TaskFinalizer-4] DEBUG nextflow.processor.TaskProcessor - Process NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BCFTOOLS_FILTER > Skipping output binding because one or more optional files are missing: fileoutparam<2:1>
+Sept-03 16:07:12.889 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 46; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BCFTOOLS_QUERY (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/cb/dbb593e883c020a7cc4c0bd65a8242]
+Sept-03 16:07:12.892 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:12.892 [Task submitter] INFO  nextflow.Session - [0a/b6c69f] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BCFTOOLS_STATS (01)
+Sept-03 16:07:13.183 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 45; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BCFTOOLS_STATS (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/c9/9f68997cc427aff541ff06e80cbb2b]
+Sept-03 16:07:13.189 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:13.189 [Task submitter] INFO  nextflow.Session - [c9/56a217] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BCFTOOLS_QUERY (01)
+Sept-03 16:07:14.347 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 47; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:BCFTOOLS_STATS (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/0a/b6c69f1003435775410cfc2b9b7128]
+Sept-03 16:07:14.350 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:14.350 [Task submitter] INFO  nextflow.Session - [1e/127e09] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BEDTOOLS_SUBTRACT (02)
+Sept-03 16:07:14.561 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 48; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BCFTOOLS_QUERY (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/c9/56a21748201bdbd4f8502dd70fd251]
+Sept-03 16:07:14.573 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:14.574 [Task submitter] INFO  nextflow.Session - [3e/e91bc9] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BEDTOOLS_SUBTRACT (01)
+Sept-03 16:07:15.251 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 49; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BEDTOOLS_SUBTRACT (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/1e/127e0994a3c62d59a809670fc746e3]
+Sept-03 16:07:15.266 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:15.266 [Task submitter] INFO  nextflow.Session - [2a/bdeed5] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BCFTOOLS_CONSENSUS (02)
+Sept-03 16:07:15.484 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 50; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BEDTOOLS_SUBTRACT (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/3e/e91bc9dca93e9a51604840df298d49]
+Sept-03 16:07:15.495 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:15.496 [Task submitter] INFO  nextflow.Session - [52/cd5407] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BCFTOOLS_CONSENSUS (01)
+Sept-03 16:07:16.799 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 51; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BCFTOOLS_CONSENSUS (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/2a/bdeed571f81c38d7cb7fc1503bb0d9]
+Sept-03 16:07:16.809 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:16.809 [Task submitter] INFO  nextflow.Session - [63/2f2d9c] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:RENAME_FASTA_HEADER (02)
+Sept-03 16:07:17.006 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 52; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:BCFTOOLS_CONSENSUS (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/52/cd54074f0b9bda1855bfd3e880019b]
+Sept-03 16:07:17.015 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:17.015 [Task submitter] INFO  nextflow.Session - [bc/b791ff] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:RENAME_FASTA_HEADER (01)
+Sept-03 16:07:18.146 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 53; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:RENAME_FASTA_HEADER (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/63/2f2d9c52d6252184d994f2ae023814]
+Sept-03 16:07:18.154 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:18.154 [Task submitter] INFO  nextflow.Session - [bd/d90415] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:CONCATENATE_FASTA (02)
+Sept-03 16:07:18.239 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 54; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:RENAME_FASTA_HEADER (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/bc/b791fff420a8bc0e1990ed3eb8dc0a]
+Sept-03 16:07:18.248 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:18.248 [Task submitter] INFO  nextflow.Session - [d5/c31d97] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:CONCATENATE_FASTA (01)
+Sept-03 16:07:20.443 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 55; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:CONCATENATE_FASTA (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/bd/d90415487fbcd68843624bbf2ab473]
+Sept-03 16:07:20.460 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:20.461 [Task submitter] INFO  nextflow.Session - [97/b522e4] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:SEQTK_COMP (02)
+Sept-03 16:07:20.582 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 56; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:CONSENSUS_BCFTOOLS:CONCATENATE_FASTA (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/d5/c31d97b605c4e78741f9c84b266d4c]
+Sept-03 16:07:20.595 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:20.595 [Task submitter] INFO  nextflow.Session - [99/2c89a3] Submitted process > NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:SEQTK_COMP (01)
+Sept-03 16:07:21.674 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 57; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:SEQTK_COMP (02); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/97/b522e47fd73d40b48d1afa76b897c0]
+Sept-03 16:07:21.682 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:21.683 [Task submitter] INFO  nextflow.Session - [10/e0bb6a] Submitted process > NFCORE_BACTMAP:BACTMAP:ALIGNPSEUDOGENOMES
+Sept-03 16:07:21.831 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 58; name: NFCORE_BACTMAP:BACTMAP:SHORTREAD_MAPPING:SEQTK_COMP (01); status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/99/2c89a3b0198a1cfffa6a847e83e66b]
+Sept-03 16:07:21.844 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:21.844 [Task submitter] INFO  nextflow.Session - [3a/44bcf7] Submitted process > NFCORE_BACTMAP:BACTMAP:SEQTK_PARSE
+Sept-03 16:07:24.791 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 60; name: NFCORE_BACTMAP:BACTMAP:SEQTK_PARSE; status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/3a/44bcf71b4bf0204c2f7815eff78cfe]
+Sept-03 16:07:26.307 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 59; name: NFCORE_BACTMAP:BACTMAP:ALIGNPSEUDOGENOMES; status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/10/e0bb6a4a1291e3eb40bf3ef47d372c]
+Sept-03 16:07:26.328 [Actor Thread 18] DEBUG nextflow.sort.BigSort - Sort completed -- entries: 34; slices: 1; internal sort time: 0.008 s; external sort time: 0.002 s; total time: 0.01 s
+Sept-03 16:07:26.331 [Actor Thread 18] DEBUG nextflow.file.FileCollector - Saved collect-files list to: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/collect-file/6d543b8ec8483a0980082a68ce81823b
+Sept-03 16:07:26.333 [Actor Thread 18] DEBUG nextflow.file.FileCollector - Deleting file collector temp dir: /var/folders/wr/gthxkvgs07745m5wjpkr6h5h0000gp/T/nxf-2421867686029797323
+Sept-03 16:07:26.348 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-03 16:07:26.348 [Task submitter] INFO  nextflow.Session - [5b/21d638] Submitted process > NFCORE_BACTMAP:BACTMAP:MULTIQC
+Sept-03 16:07:38.459 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 61; name: NFCORE_BACTMAP:BACTMAP:MULTIQC; status: COMPLETED; exit: 0; error: -; workDir: /Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b]
+Sept-03 16:07:38.484 [main] DEBUG nextflow.Session - Session await > all processes finished
+Sept-03 16:07:38.563 [Task monitor] DEBUG n.processor.TaskPollingMonitor - <<< barrier arrives (monitor: local) - terminating tasks monitor poll loop
+Sept-03 16:07:38.563 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Sept-03 16:07:38.573 [main] DEBUG nextflow.util.ThreadPoolManager - Thread pool 'TaskFinalizer' shutdown completed (hard=false)
+Sept-03 16:07:38.573 [main] DEBUG nextflow.util.ThreadPoolManager - Thread pool 'PublishDir' shutdown completed (hard=false)
+Sept-03 16:07:38.582 [main] INFO  nextflow.Nextflow - -[0;35m[nf-core/bactmap][0;32m Pipeline completed successfully[0m-
+Sept-03 16:07:38.587 [main] DEBUG n.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=61; failedCount=0; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=3m 21s; failedDuration=0ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=3; peakCpus=10; peakMemory=24 GB; ]
+Sept-03 16:07:38.588 [main] DEBUG nextflow.trace.TraceFileObserver - Workflow completed -- saving trace file
+Sept-03 16:07:38.589 [main] DEBUG nextflow.trace.ReportObserver - Workflow completed -- rendering execution report
+Sept-03 16:07:39.262 [main] DEBUG nextflow.trace.TimelineObserver - Workflow completed -- rendering execution timeline
+Sept-03 16:07:39.352 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
+Sept-03 16:07:39.394 [main] INFO  org.pf4j.AbstractPluginManager - Stop plugin 'nf-schema@2.3.0'
+Sept-03 16:07:39.394 [main] DEBUG nextflow.plugin.BasePlugin - Plugin stopped nf-schema
+Sept-03 16:07:39.394 [main] DEBUG nextflow.util.ThreadPoolManager - Thread pool 'FileTransfer' shutdown completed (hard=false)
+Sept-03 16:07:39.395 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye

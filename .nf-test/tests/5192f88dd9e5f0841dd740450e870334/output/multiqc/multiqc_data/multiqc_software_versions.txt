@@ -1,0 +1,35 @@
+Sample	multi2single_sequence.py	bcftools	bedtools	bowtie2	samtools	pigz	fastp	fastqc	fastqscan_parser.py	fastqscan	freebayes	gawk	gunzip	minimap2	rasusa	read_stats_parser.py	read_stats.py	sed	seqtk	seqtk_parser.py	nf-core/bactmap	Nextflow
+ALIGNPSEUDOGENOMES	1.0																					
+BCFTOOLS_CONSENSUS		1.2																				
+BCFTOOLS_FILTER		1.21																				
+BCFTOOLS_INDEX		1.21																				
+BCFTOOLS_SORT		1.21																				
+BCFTOOLS_STATS		1.21																				
+BEDTOOLS_GENOMECOV			2.31.1																			
+BEDTOOLS_SUBTRACT			2.31.1																			
+BOWTIE2_ALIGN				2.5.4	1.21	2.8																
+BOWTIE2_BUILD				2.5.4																		
+FASTP_PAIRED							0.24.0															
+FASTQC								0.12.1														
+FASTQC_PROCESSED								0.12.1														
+FASTQSCANPARSE_PROCESSED									1.0													
+FASTQSCANPARSE_RAW									1.0													
+FASTQSCAN_PROCESSED										0.4.4												
+FASTQSCAN_RAW										0.4.4												
+FREEBAYES											1.3.10											
+GET_GENOME_SIZE												5.3.0										
+GUNZIP													1.13									
+MINIMAP2_INDEX														2.29-r1283								
+RASUSA															0.3.0							
+READSTATS_PARSE																1.0						
+READ_STATS																	1.0					
+RENAME_FASTA_HEADER																		4.9				
+SAMTOOLS_FAIDX					1.21																	
+SAMTOOLS_FLAGSTAT					1.21																	
+SAMTOOLS_IDXSTATS					1.21																	
+SAMTOOLS_INDEX					1.21																	
+SAMTOOLS_SORT					1.21																	
+SAMTools Stats					1.21																	
+SEQTK_COMP																			1.4-r122			
+SEQTK_PARSE																				1.0		
+Workflow																					v2.0.0dev	25.04.6
