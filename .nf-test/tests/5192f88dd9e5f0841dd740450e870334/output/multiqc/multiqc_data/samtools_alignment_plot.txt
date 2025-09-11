@@ -1,3 +1,0 @@
-Sample	Mapped (with MQ>0)	MQ0	Unmapped
-01	44012.0	30.0	39908.0
-02	4.0	4.0	40268.0

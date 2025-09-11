@@ -107,4 +107,3 @@ runs:
       shell: bash
       run: |
         sudo rm -rf /home/ubuntu/tests/
-        

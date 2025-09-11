@@ -1,5 +1,0 @@
-Sample	Unique Reads	Duplicate Reads
-01_test_1_raw_1	49336.0	664.0
-01_test_1_raw_2	49398.0	602.0
-02_test_2_raw_1	24942.0	51.0
-02_test_2_raw_2	24956.0	37.0
