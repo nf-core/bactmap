@@ -8,7 +8,7 @@ process RASUSA {
         'biocontainers/rasusa:0.3.0--h779adbc_1' }"
 
     input:
-    tuple val(meta), path(reads) 
+    tuple val(meta), path(reads)
     val genome_size
     val depth_cutoff
 

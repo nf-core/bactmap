@@ -196,7 +196,7 @@ def toolCitationText() {
         params.shortread_qc_tool == "adapterremoval" ? "AdapterRemoval (Schubert et al. 2016)." : "",
         params.shortread_qc_tool == "fastp" ? "fastp (Chen et al. 2018)." : "",
     ].join(' ').trim()
-    
+
     def text_longread_qc = [
         "Long read preprocessing was performed with:",
         params.longread_adapterremoval_tool == "porechop_abi" ? "Porechop_ABI (Bonenfant et al. 2023)," : "",
@@ -228,11 +228,11 @@ def toolCitationText() {
         "BCFtools (Li 2011)",
         "and bedtools (Quinlan and Hall 2010).",
     ].join(' ').trim()
-    
+
     def snps = [
         "Variant and constant sites were extracted from the alignment using SNP-sites (Page et al. 2016).",
     ].join(' ').trim()
-    
+
     def statistics = [
         "Read, mapping and variant statistics were generated with",
         "fastq-scan (Petit 2022),",
@@ -240,7 +240,7 @@ def toolCitationText() {
         "BCFtools (Li 2011)",
         "and seqtk (Li 2012).",
     ].join(' ').trim()
-    
+
     def citation_text = [
         "Tools used in the workflow included:",
         text_seq_qc,
@@ -267,7 +267,7 @@ def toolBibliographyText() {
     def text_shortread_qc = [
         params.shortread_qc_tool == "adapterremoval" ? "<li>Schubert, M., Lindgreen, S., & Orlando, L. (2016). AdapterRemoval v2: rapid adapter trimming, identification, and read merging. BMC Research Notes, 9, 88. <a href=\"https://doi.org/10.1186/s13104-016-1900-2\">10.1186/s13104-016-1900-2</a></li>" : "",
     ].join(' ').trim()
-    
+
     def text_longread_qc = [
         params.longread_adapterremoval_tool == "porechop_abi" ? "<li>Bonenfant, Q., Noé, L., & Touzet, H. (2023). Porechop_ABI: discovering unknown adapters in Oxford Nanopore Technology sequencing reads for downstream trimming. Bioinformatics Advances, 3(1):vbac085. <a href=\"https://10.1093/bioadv/vbac085\">10.1093/bioadv/vbac085</a></li>" : "",
         params.longread_adapterremoval_tool == "porechop" ? "<li>Wick, R. R., Judd, L. M., Gorrie, C. L., & Holt, K. E. (2017). Completing bacterial genome assemblies with multiplex MinION sequencing. Microbial Genomics, 3(10), e000132. <a href=\"https://doi.org/10.1099/mgen.0.000132\">10.1099/mgen.0.000132</a></li>" : "",
@@ -303,7 +303,7 @@ def toolBibliographyText() {
         "<li>Li, H., Handsaker, B., Wysoker, A., Fennell, T., Ruan, J., Homer, N., ... & Durbin, R. (2009). The Sequence Alignment/Map format and SAMtools. Bioinformatics, 25(16), 2078–2079. <a href=\"https://doi.org/10.1093/bioinformatics/btp352\">10.1093/bioinformatics/btp352</a></li>",
         "<li>Li H. (2012). seqtk: Toolkit for processing sequences in FASTA/Q formats. URL: <a href=\"https://github.com/lh3/seqtk\">https://github.com/lh3/seqtk</a></li>"
     ].join(' ').trim()
-    
+
     def reference_text = [
         text_seq_qc,
         text_shortread_qc,

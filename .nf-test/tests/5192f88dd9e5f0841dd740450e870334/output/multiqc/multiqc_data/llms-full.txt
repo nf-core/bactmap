@@ -1097,7 +1097,7 @@ Section:
 <p style="font-size:110%"><b>Generic options</b></p>
 <dl class="dl-horizontal">
     <dt>pipelines_testdata_base_path</dt><dd><samp>https://raw.githubusercontent.com/nf-core/test-datasets/refs/heads/bactmap</samp></dd>
-    <dt>trace_report_suffix</dt><dd><samp>2025-09-03_16-06-18</samp></dd>
+    <dt>trace_report_suffix</dt><dd><samp>2025-09-11_15-08-30</samp></dd>
 </dl>
 <p style="font-size:110%"><b>Core Nextflow options</b></p>
 <dl class="dl-horizontal">
@@ -1106,7 +1106,7 @@ Section:
     <dt>launchDir</dt><dd><samp>/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334</samp></dd>
     <dt>profile</dt><dd><samp>test,docker</samp></dd>
     <dt>projectDir</dt><dd><samp>/Users/ajv37/Documents/Pipelines/bactmap</samp></dd>
-    <dt>runName</dt><dd><samp>irreverent_lumiere</samp></dd>
+    <dt>runName</dt><dd><samp>suspicious_mayer</samp></dd>
     <dt>userName</dt><dd><samp>ajv37</samp></dd>
     <dt>workDir</dt><dd><samp>/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work</samp></dd>
 </dl>

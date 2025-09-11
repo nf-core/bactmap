@@ -10,7 +10,7 @@ import json
 import argparse
 
 def parser_args(args=None):
-    """ 
+    """
     Function for input arguments for read_stats.py
     """
     Description = 'Collect fastq-scan and create a table for each sample'
@@ -20,7 +20,7 @@ def parser_args(args=None):
     return parser.parse_args(args)
 
 def make_dir(path):
-    """ 
+    """
     Function for making a directory from a provided path
     """
     if not len(path) == 0:
@@ -31,7 +31,7 @@ def make_dir(path):
                 raise
 
 def json_to_dataframe(json_files):
-    """ 
+    """
     Function to take list of json files and create a summary table
     """
     json_names = [i.replace('.json', '') for i in json_files]
@@ -77,7 +77,7 @@ def main(args=None):
     ## Merge fastq-scan dataframes
     fastqscan_merged = pd.merge(raw_json_df, processed_json_df, on = ['Sample'])
     fastqscan_merged['%reads_after_processed'] = fastqscan_merged['num_processed_reads'] / fastqscan_merged['num_raw_reads'] * 100
-    
+
     ## Write output file
     fastqscan_merged.to_csv(args.output_file, sep = ',', header = True, index = False)
 

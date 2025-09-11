@@ -10,7 +10,7 @@ include { RENAME_FASTA_HEADER } from '../../../modules/local/fasta_rename/main'
 include { CONCATENATE_FASTA   } from '../../../modules/local/concatenate_fasta/main'
 
 workflow CONSENSUS_BCFTOOLS {
-    
+
     take:
     ch_bam          // channel: [ val(meta), [ bam ] ]
     ch_vcf          // channel: [ val(meta), [ vcf ] ]
@@ -35,9 +35,9 @@ workflow CONSENSUS_BCFTOOLS {
         []
     )
     // ch_versions = ch_versions.mix(BCFTOOLS_QUERY.out.versions.first())
-    
+
     ch_genomecov = ch_bam
-        .multiMap { 
+        .multiMap {
             meta, bam ->
             genomecov: [meta, bam, params.genomecov_scale ]
         }
@@ -51,7 +51,7 @@ workflow CONSENSUS_BCFTOOLS {
     // Make the bed mask
     //
     ch_bedtools_subtract = BEDTOOLS_GENOMECOV.out.genomecov.join(BCFTOOLS_QUERY.out.output)
-    
+
     BEDTOOLS_SUBTRACT (
         ch_bedtools_subtract
         )

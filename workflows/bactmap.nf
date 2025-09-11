@@ -10,9 +10,9 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_bact
 
 // Check input path parameters to see if they exist
 def checkPathParamList = [ params.input, params.fasta, params.multiqc_config,
-                           params.shortread_qc_adapterlist, params.multiqc_logo, 
-                           params.multiqc_methods_description ]
-                            
+                            params.shortread_qc_adapterlist, params.multiqc_logo,
+                            params.multiqc_methods_description ]
+
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
 // Check mandatory parameters
@@ -81,20 +81,20 @@ workflow BACTMAP {
         if ( params.shortread_qc_tool == 'adapterremoval' && !(adapterlist.extension == 'txt') ) error "[nf-core/taxprofiler] ERROR: AdapterRemoval2 adapter list requires a `.txt` format and extension. Check input: --shortread_qc_adapterlist ${params.shortread_qc_adapterlist}"
         if ( params.shortread_qc_tool == 'fastp' && !adapterlist.extension.matches(".*(fa|fasta|fna|fas)") ) error "[nf-core/taxprofiler] ERROR: fastp adapter list requires a `.fasta` format and extension (or fa, fas, fna). Check input: --shortread_qc_adapterlist ${params.shortread_qc_adapterlist}"
     }
-    
+
     take:
     samplesheet // channel: samplesheet read in from --input
     ch_fasta    // channel: path(reference.fasta)
-    
+
     main:
 
     ch_versions = Channel.empty()
     ch_multiqc_files = Channel.empty()
-    
+
     // Validate input files and create separate channels for FASTQ, FASTA, and Nanopore data
     ch_input = samplesheet
         .map { meta, fastq_1, fastq_2 ->
-        
+
             // Define single_end based on the conditions
             if ( !fastq_1 ) {
                 error("ERROR: Please check input samplesheet: entry `fastq_1` doesn't exist!")
@@ -112,9 +112,9 @@ workflow BACTMAP {
             fastq : meta.instrument_platform != 'OXFORD_NANOPORE'
                 return [ meta + [ type: "short" ], fastq_2 ? [ fastq_1, fastq_2 ] : [ fastq_1 ] ]
         }
-    
+
     ch_input_for_fastqc = ch_input.nanopore.mix( ch_input.fastq )
-    
+
     /*
         Reference indexing
     */
@@ -125,26 +125,26 @@ workflow BACTMAP {
         ch_index    = BWAMEM2_INDEX ( ch_fasta ).index
         ch_versions = ch_versions.mix( BWAMEM2_INDEX.out.versions )
     }
-    
+
     /*
         MODULE: Index reference file with Samtools faidx
     */
-    
+
     ch_unzipped_fasta = GUNZIP ( ch_fasta ).gunzip
     ch_versions = ch_versions.mix( GUNZIP.out.versions )
-    
+
     SAMTOOLS_FAIDX (
         ch_unzipped_fasta,
         [ [ id:'no_fai' ],[] ],
         true
     )
     ch_versions = ch_versions.mix( SAMTOOLS_FAIDX.out.versions )
-    
+
     /*
         MODULE: Get genome size
     */
-    
-    sizes       = SAMTOOLS_FAIDX.out.sizes 
+
+    sizes       = SAMTOOLS_FAIDX.out.sizes
     genome_size = GET_GENOME_SIZE(sizes).ch_genome_size
     ch_versions = ch_versions.mix( GET_GENOME_SIZE.out.versions )
 
@@ -152,20 +152,20 @@ workflow BACTMAP {
         MODULE: Run fastq-scan
     */
     FASTQSCAN_RAW (
-       ch_input_for_fastqc
+        ch_input_for_fastqc
     )
     ch_fastqscanraw_fastqscanparse = FASTQSCAN_RAW.out.json
     ch_fastqscanraw_readstats      = FASTQSCAN_RAW.out.json
     ch_versions                    = ch_versions.mix(FASTQSCAN_RAW.out.versions )
-    
+
     /*
         MODULE: Run fastqscanparse
     */
     FASTQSCANPARSE_RAW (
-       ch_fastqscanraw_fastqscanparse.collect{it[1]}.ifEmpty([])
+        ch_fastqscanraw_fastqscanparse.collect{it[1]}.ifEmpty([])
     )
     ch_versions = ch_versions.mix( FASTQSCANPARSE_RAW.out.versions )
-    
+
     /*
         MODULE: Run FastQC
     */
@@ -201,7 +201,7 @@ workflow BACTMAP {
 
     ch_reads_for_fastqscan = ch_shortreads_preprocessed
             .mix( ch_longreads_preprocessed )
-    
+
     /*
         MODULE: Run fastq-scan
     */
@@ -211,20 +211,20 @@ workflow BACTMAP {
     ch_fastqscanprocessed_fastqscanparse = FASTQSCAN_PROCESSED.out.json
     ch_fastqscanprocessed_readstats      = FASTQSCAN_PROCESSED.out.json
     ch_versions                          = ch_versions.mix( FASTQSCAN_PROCESSED.out.versions )
-    
+
     /*
         MODULE: Run fastqscanparse
     */
     FASTQSCANPARSE_PROCESSED (
-       ch_fastqscanprocessed_fastqscanparse.collect{it[1]}.ifEmpty([])
+        ch_fastqscanprocessed_fastqscanparse.collect{it[1]}.ifEmpty([])
     )
     ch_versions = ch_versions.mix( FASTQSCANPARSE_PROCESSED.out.versions )
-    
+
     /*
         MODULE: Calculate read stats
     */
     ch_fastqscanraw_readstats                           // tuple val(meta), path(json)
-        .join( FASTQSCAN_PROCESSED.out.json )           // tuple val(meta), path(json) 
+        .join( FASTQSCAN_PROCESSED.out.json )           // tuple val(meta), path(json)
         .set { ch_readstats }                           // tuple val(meta), path(json), path(json)
 
     READ_STATS (
@@ -278,7 +278,7 @@ workflow BACTMAP {
         ch_reads_runmerged = ch_shortreads_preprocessed
             .mix( ch_longreads_preprocessed )
     }
-    
+
     /*
         MODULE: Perform subsampling
     */
@@ -287,7 +287,7 @@ workflow BACTMAP {
         ch_versions         = ch_versions.mix( RASUSA.out.versions )
     } else {
         ch_reads_subsampled = ch_reads_runmerged
-    }   
+    }
 
     // Create separate channels for FASTQ and Nanopore data
     ch_mapping_input = ch_reads_subsampled
@@ -295,18 +295,18 @@ workflow BACTMAP {
                 nanopore : meta.instrument_platform == 'OXFORD_NANOPORE'
                 fastq : meta.instrument_platform != 'OXFORD_NANOPORE'
             }
-    
+
     /*
         MODULE: Map short-reads
     */
-    SHORTREAD_MAPPING ( 
+    SHORTREAD_MAPPING (
         ch_mapping_input.fastq,
         ch_unzipped_fasta,
         ch_index,
         SAMTOOLS_FAIDX.out.fai
     )
     ch_versions = ch_versions.mix( SHORTREAD_MAPPING.out.versions )
-    
+
     /*
         MODULE: Map long-reads
     */
@@ -328,7 +328,7 @@ workflow BACTMAP {
     )
     ch_seqtk_metadata = SEQTK_PARSE.out.tsv
     ch_versions       = ch_versions.mix( SEQTK_PARSE.out.versions )
-    
+
     /*
         MODULE: Align pseudogenomes
     */
@@ -360,7 +360,7 @@ workflow BACTMAP {
         aligned_pseudogenomes
     )
     ch_versions = ch_versions.mix( SNPSITES.out.versions )
-    
+
     /*
         Collate and save software versions
     */
@@ -387,7 +387,7 @@ workflow BACTMAP {
     summary_params      = paramsSummaryMap(
         workflow, parameters_schema: "nextflow_schema.json")
     ch_workflow_summary = Channel.value(paramsSummaryMultiqc(summary_params))
-    
+
     ch_multiqc_custom_methods_description = params.multiqc_methods_description ?
         file(params.multiqc_methods_description, checkIfExists: true) :
         file("$projectDir/assets/methods_description_template.yml", checkIfExists: true)

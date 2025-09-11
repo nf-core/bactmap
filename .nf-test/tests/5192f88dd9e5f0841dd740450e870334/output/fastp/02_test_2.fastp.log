@@ -46,4 +46,4 @@ JSON report: 02_test_2.fastp.json
 HTML report: 02_test_2.fastp.html
 
 fastp --in1 02_test_2_1.fastq.gz --in2 02_test_2_2.fastq.gz --out1 02_test_2_1.fastp.fastq.gz --out2 02_test_2_2.fastp.fastq.gz --json 02_test_2.fastp.json --html 02_test_2.fastp.html --thread 4 --detect_adapter_for_pe --detect_adapter_for_pe --length_required 50 --cut_front --cut_tail --trim_poly_x --cut_mean_quality 30 --qualified_quality_phred 30 --unqualified_percent_limit 10 
-fastp v0.24.0, time used: 2 seconds
+fastp v0.24.0, time used: 1 seconds

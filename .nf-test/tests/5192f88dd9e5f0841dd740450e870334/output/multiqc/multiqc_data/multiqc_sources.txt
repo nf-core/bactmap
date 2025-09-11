@@ -1,13 +1,13 @@
 Module	Section	Sample Name	Source
-FastQC / Falco (pre-Trimming)	all_sections	01_test_1_raw_1	/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b/5/01_test_1_raw_1_fastqc.zip
-FastQC / Falco (pre-Trimming)	all_sections	01_test_1_raw_2	/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b/6/01_test_1_raw_2_fastqc.zip
-FastQC / Falco (pre-Trimming)	all_sections	02_test_2_raw_1	/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b/3/02_test_2_raw_1_fastqc.zip
-FastQC / Falco (pre-Trimming)	all_sections	02_test_2_raw_2	/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b/4/02_test_2_raw_2_fastqc.zip
-FastQC / Falco (post-Trimming)	all_sections	01_test_1	/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b/11/01_test_1_processed_1_fastqc.zip
-FastQC / Falco (post-Trimming)	all_sections	02_test_2	/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b/9/02_test_2_processed_1_fastqc.zip
-SAMTools Stats	stats	01	/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b/14/01.sorted.stats
-SAMTools Stats	stats	02	/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b/13/02.sorted.stats
-BCFTools	stats	01.filtered	/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b/16/01.bcftools_stats.txt
-BCFTools	stats	02.filtered	/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b/15/02.bcftools_stats.txt
-fastp	all_sections	01_test_1	/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b/8/01_test_1.fastp.json
-fastp	all_sections	02_test_2	/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b/7/02_test_2.fastp.json
+FastQC / Falco (pre-Trimming)	all_sections	01_test_1_raw_1	/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2/5/01_test_1_raw_1_fastqc.zip
+FastQC / Falco (pre-Trimming)	all_sections	01_test_1_raw_2	/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2/6/01_test_1_raw_2_fastqc.zip
+FastQC / Falco (pre-Trimming)	all_sections	02_test_2_raw_1	/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2/3/02_test_2_raw_1_fastqc.zip
+FastQC / Falco (pre-Trimming)	all_sections	02_test_2_raw_2	/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2/4/02_test_2_raw_2_fastqc.zip
+FastQC / Falco (post-Trimming)	all_sections	01_test_1	/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2/11/01_test_1_processed_1_fastqc.zip
+FastQC / Falco (post-Trimming)	all_sections	02_test_2	/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2/9/02_test_2_processed_1_fastqc.zip
+SAMTools Stats	stats	01	/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2/14/01.sorted.stats
+SAMTools Stats	stats	02	/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2/13/02.sorted.stats
+BCFTools	stats	01.filtered	/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2/15/01.bcftools_stats.txt
+BCFTools	stats	02.filtered	/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2/16/02.bcftools_stats.txt
+fastp	all_sections	01_test_1	/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2/8/01_test_1.fastp.json
+fastp	all_sections	02_test_2	/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2/7/02_test_2.fastp.json

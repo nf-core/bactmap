@@ -23,10 +23,10 @@ process BCFTOOLS_CONSENSUS {
     def prefix = task.ext.prefix ?: "${meta.id}"
     def masking = mask ? "-m $mask" : ""
     """
-    bcftools view -v snps $vcf -Oz -o ${prefix}.snps.vcf.gz 
+    bcftools view -v snps $vcf -Oz -o ${prefix}.snps.vcf.gz
 
     bcftools index ${prefix}.snps.vcf.gz
-    
+
     cat $fasta \\
         | bcftools \\
             consensus \\

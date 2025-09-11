@@ -8,7 +8,7 @@ process BEDTOOLS_GENOMECOV {
         'community.wave.seqera.io/library/bedtools_coreutils:a623c13f66d5262b' }"
 
     // simpler input, having removed the sorting option
-    input: 
+    input:
     tuple val(meta), path(intervals), val(scale)
 
     output:
@@ -31,15 +31,15 @@ process BEDTOOLS_GENOMECOV {
 
     def prefix = task.ext.prefix ?: "${meta.id}"
     def cmd = '$4 <'
-    // hard-coded for bcftools_consensus subworkflow. mainly the problem was the awk pipe at the end, we decided to go with a local version of genomecov. 
-    // this is a simpler version than the nf-core version, it expects a bam as interval file, and it does not expect sorting either. we did add a threshold parameter in the nextflow.config in case the user wants to specify the threshold for low coverage 
+    // hard-coded for bcftools_consensus subworkflow. mainly the problem was the awk pipe at the end, we decided to go with a local version of genomecov.
+    // this is a simpler version than the nf-core version, it expects a bam as interval file, and it does not expect sorting either. we did add a threshold parameter in the nextflow.config in case the user wants to specify the threshold for low coverage
     """
     bedtools \\
         genomecov \\
         -ibam $intervals \\
         $args \\
         | awk '${cmd}'$params.genomecov_threshold \\
-        > ${prefix}.bed 
+        > ${prefix}.bed
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

@@ -9,7 +9,7 @@ import glob
 import argparse
 
 def parser_args(args=None):
-    """ 
+    """
     Function for input arguments for read_stats_parser.py
     """
     Description = 'Collect read stats outputs and create a summary table'
@@ -19,7 +19,7 @@ def parser_args(args=None):
     return parser.parse_args(args)
 
 def make_dir(path):
-    """ 
+    """
     Function for making a directory from a provided path
     """
     if not len(path) == 0:
@@ -30,7 +30,7 @@ def make_dir(path):
                 raise
 
 def read_stats_parse(files):
-    """ 
+    """
     Function for creating a dataframe from individual csv files
     """
     file_list = [pd.read_csv(f, sep=',') for f in files]

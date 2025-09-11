@@ -1,36 +1,36 @@
 {
-    "report_multiqc_command": "/usr/local/bin/multiqc --force --config multiqc_config.yml --cl-config custom_logo: \"nf-core-bactmap_logo_light.png\" .",
+    "report_multiqc_command": "/opt/conda/bin/multiqc --force --config multiqc_config.yml --cl-config custom_logo: \"nf-core-bactmap_logo_light.png\" .",
     "report_data_sources": {
         "FastQC / Falco (pre-Trimming)": {
             "all_sections": {
-                "01_test_1_raw_1": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b/5/01_test_1_raw_1_fastqc.zip",
-                "01_test_1_raw_2": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b/6/01_test_1_raw_2_fastqc.zip",
-                "02_test_2_raw_1": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b/3/02_test_2_raw_1_fastqc.zip",
-                "02_test_2_raw_2": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b/4/02_test_2_raw_2_fastqc.zip"
+                "01_test_1_raw_1": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2/5/01_test_1_raw_1_fastqc.zip",
+                "01_test_1_raw_2": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2/6/01_test_1_raw_2_fastqc.zip",
+                "02_test_2_raw_1": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2/3/02_test_2_raw_1_fastqc.zip",
+                "02_test_2_raw_2": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2/4/02_test_2_raw_2_fastqc.zip"
             }
         },
         "FastQC / Falco (post-Trimming)": {
             "all_sections": {
-                "01_test_1": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b/11/01_test_1_processed_1_fastqc.zip",
-                "02_test_2": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b/9/02_test_2_processed_1_fastqc.zip"
+                "01_test_1": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2/11/01_test_1_processed_1_fastqc.zip",
+                "02_test_2": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2/9/02_test_2_processed_1_fastqc.zip"
             }
         },
         "SAMTools Stats": {
             "stats": {
-                "01": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b/14/01.sorted.stats",
-                "02": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b/13/02.sorted.stats"
+                "01": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2/14/01.sorted.stats",
+                "02": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2/13/02.sorted.stats"
             }
         },
         "BCFTools": {
             "stats": {
-                "01.filtered": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b/16/01.bcftools_stats.txt",
-                "02.filtered": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b/15/02.bcftools_stats.txt"
+                "01.filtered": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2/15/01.bcftools_stats.txt",
+                "02.filtered": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2/16/02.bcftools_stats.txt"
             }
         },
         "fastp": {
             "all_sections": {
-                "01_test_1": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b/8/01_test_1.fastp.json",
-                "02_test_2": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b/7/02_test_2.fastp.json"
+                "01_test_1": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2/8/01_test_1.fastp.json",
+                "02_test_2": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2/7/02_test_2.fastp.json"
             }
         }
     },
@@ -255,6 +255,15 @@
                 "filtering_result_too_short_reads": 52.0,
                 "filtering_result_too_long_reads": 0.0,
                 "pct_duplication": 0.002,
+                "before_filtering_total_reads": 100000.0,
+                "before_filtering_total_bases": 12600000.0,
+                "before_filtering_q20_bases": 12028799.0,
+                "before_filtering_q30_bases": 11502740.0,
+                "before_filtering_q20_rate": 0.954667,
+                "before_filtering_q30_rate": 0.912916,
+                "before_filtering_read1_mean_length": 126.0,
+                "before_filtering_read2_mean_length": 126.0,
+                "before_filtering_gc_content": 0.467751,
                 "after_filtering_total_reads": 83950.0,
                 "after_filtering_total_bases": 10507426.0,
                 "after_filtering_q20_bases": 10278511.0,
@@ -264,7 +273,6 @@
                 "after_filtering_read1_mean_length": 125.0,
                 "after_filtering_read2_mean_length": 125.0,
                 "after_filtering_gc_content": 0.467679,
-                "before_filtering_total_reads": 100000.0,
                 "pct_surviving": 83.95,
                 "adapter_cutting_adapter_trimmed_reads": 12.0,
                 "adapter_cutting_adapter_trimmed_bases": 598.0,
@@ -277,6 +285,15 @@
                 "filtering_result_too_short_reads": 4.0,
                 "filtering_result_too_long_reads": 0.0,
                 "pct_duplication": 0.0,
+                "before_filtering_total_reads": 49986.0,
+                "before_filtering_total_bases": 7547886.0,
+                "before_filtering_q20_bases": 7223123.0,
+                "before_filtering_q30_bases": 7047233.0,
+                "before_filtering_q20_rate": 0.956973,
+                "before_filtering_q30_rate": 0.93367,
+                "before_filtering_read1_mean_length": 151.0,
+                "before_filtering_read2_mean_length": 151.0,
+                "before_filtering_gc_content": 0.40498,
                 "after_filtering_total_reads": 40276.0,
                 "after_filtering_total_bases": 6051017.0,
                 "after_filtering_q20_bases": 5845487.0,
@@ -286,7 +303,6 @@
                 "after_filtering_read1_mean_length": 150.0,
                 "after_filtering_read2_mean_length": 149.0,
                 "after_filtering_gc_content": 0.404767,
-                "before_filtering_total_reads": 49986.0,
                 "pct_surviving": 80.57456087704557,
                 "adapter_cutting_adapter_trimmed_reads": 28.0,
                 "adapter_cutting_adapter_trimmed_bases": 1541.0,
@@ -747,10 +763,34 @@
                 "rid": "fastp-pct_adapter",
                 "min": null,
                 "placement": 1000
+            },
+            "before_filtering_read1_mean_length": {
+                "title": "Mean R1 Length",
+                "description": "Mean read length of R1",
+                "suffix": "bp",
+                "hidden": true,
+                "namespace": "fastp",
+                "clean_rid": "fastp-before_filtering_read1_mean_length",
+                "rid": "fastp-before_filtering_read1_mean_length",
+                "min": null,
+                "scale": "GnBu",
+                "placement": 1000
+            },
+            "before_filtering_read2_mean_length": {
+                "title": "Mean R2 Length",
+                "description": "Mean read length of R2",
+                "suffix": "bp",
+                "hidden": true,
+                "namespace": "fastp",
+                "clean_rid": "fastp-before_filtering_read2_mean_length",
+                "rid": "fastp-before_filtering_read2_mean_length",
+                "min": null,
+                "scale": "GnBu",
+                "placement": 1000
             }
         }
     },
-    "report_creation_date": "2025-09-03, 15:07 UTC",
+    "report_creation_date": "2025-09-11, 14:10 UTC",
     "report_plot_data": {
         "fastqc_sequence_counts_plot": {
             "id": "fastqc_sequence_counts_plot",
@@ -853,11 +893,11 @@
                     "uid": "fastqc_sequence_counts_plot",
                     "dconfig": {
                         "title": "FastQC: Sequence Counts",
-                        "subtitle": "4 samples"
+                        "subtitle": "4 bars"
                     },
                     "layout": {
                         "title": {
-                            "text": "FastQC: Sequence Counts<br><sup>4 samples</sup>"
+                            "text": "FastQC: Sequence Counts<br><sup>4 bars</sup>"
                         },
                         "xaxis": {
                             "title": {
@@ -938,7 +978,9 @@
                         "02_test_2_raw_1",
                         "01_test_1_raw_2",
                         "01_test_1_raw_1"
-                    ]
+                    ],
+                    "cats_clustered": null,
+                    "samples_clustered": null
                 }
             ],
             "pconfig": {
@@ -1009,10 +1051,14 @@
                 "x_lines": null,
                 "y_lines": null,
                 "series_label": "samples",
+                "flat_if_very_large": true,
                 "stacking": "relative",
                 "hide_empty": null,
                 "hide_zero_cats": false,
                 "sort_samples": true,
+                "cluster_samples": false,
+                "cluster_method": "complete",
+                "cluster_switch_clustered_active": true,
                 "use_legend": null,
                 "suffix": null,
                 "lab_format": null
@@ -1032,7 +1078,9 @@
             "flat": false,
             "defer_render": false,
             "section_anchor": null,
-            "module_anchor": null
+            "module_anchor": null,
+            "sort_switch_sorted_active": false,
+            "cluster_switch_clustered_active": true
         },
         "fastqc_per_base_sequence_quality_plot": {
             "id": "fastqc_per_base_sequence_quality_plot",
@@ -1207,11 +1255,11 @@
                     "uid": "fastqc_per_base_sequence_quality_plot",
                     "dconfig": {
                         "title": "FastQC: Mean Quality Scores",
-                        "subtitle": "4 samples"
+                        "subtitle": "4 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "FastQC: Mean Quality Scores<br><sup>4 samples</sup>"
+                            "text": "FastQC: Mean Quality Scores<br><sup>4 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": ",.0f",
@@ -1545,7 +1593,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "01_test_1_raw_2",
@@ -1827,7 +1876,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2_raw_1",
@@ -1989,7 +2039,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2_raw_2",
@@ -2151,7 +2202,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 }
@@ -2243,6 +2295,7 @@
                 "x_lines": null,
                 "y_lines": null,
                 "series_label": "samples",
+                "flat_if_very_large": true,
                 "categories": false,
                 "smooth_points": 500,
                 "smooth_points_sumcounts": null,
@@ -2254,7 +2307,10 @@
                     "01_test_1_raw_2": "#5cb85c",
                     "02_test_2_raw_1": "#5cb85c",
                     "02_test_2_raw_2": "#5cb85c"
-                }
+                },
+                "dash_styles": {},
+                "hovertemplates": {},
+                "legend_groups": {}
             },
             "add_log_tab": false,
             "add_pct_tab": false,
@@ -2452,11 +2508,11 @@
                     "uid": "fastqc_per_sequence_quality_scores_plot",
                     "dconfig": {
                         "title": "FastQC: Per Sequence Quality Scores",
-                        "subtitle": "4 samples"
+                        "subtitle": "4 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "FastQC: Per Sequence Quality Scores<br><sup>4 samples</sup>"
+                            "text": "FastQC: Per Sequence Quality Scores<br><sup>4 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": ",.0f",
@@ -2594,7 +2650,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "01_test_1_raw_2",
@@ -2680,7 +2737,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2_raw_1",
@@ -2738,7 +2796,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2_raw_2",
@@ -2824,7 +2883,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 }
@@ -2916,6 +2976,7 @@
                 "x_lines": null,
                 "y_lines": null,
                 "series_label": "samples",
+                "flat_if_very_large": true,
                 "categories": false,
                 "smooth_points": 500,
                 "smooth_points_sumcounts": null,
@@ -2927,7 +2988,10 @@
                     "01_test_1_raw_2": "#5cb85c",
                     "02_test_2_raw_1": "#5cb85c",
                     "02_test_2_raw_2": "#5cb85c"
-                }
+                },
+                "dash_styles": {},
+                "hovertemplates": {},
+                "legend_groups": {}
             },
             "add_log_tab": false,
             "add_pct_tab": false,
@@ -3042,11 +3106,11 @@
                         "ylab": "Percentage",
                         "tt_suffix": "%",
                         "title": "FastQC: Per Sequence GC Content",
-                        "subtitle": "Percentages, 4 samples"
+                        "subtitle": "Percentages, 4 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "FastQC: Per Sequence GC Content<br><sup>Percentages, 4 samples</sup>"
+                            "text": "FastQC: Per Sequence GC Content<br><sup>Percentages, 4 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": null,
@@ -3508,7 +3572,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "01_test_1_raw_2",
@@ -3922,7 +3987,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2_raw_1",
@@ -4336,7 +4402,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2_raw_2",
@@ -4750,7 +4817,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 },
@@ -4763,11 +4831,11 @@
                         "ylab": "Count",
                         "tt_suffix": "",
                         "title": "FastQC: Per Sequence GC Content",
-                        "subtitle": "Counts, 4 samples"
+                        "subtitle": "Counts, 4 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "FastQC: Per Sequence GC Content<br><sup>Counts, 4 samples</sup>"
+                            "text": "FastQC: Per Sequence GC Content<br><sup>Counts, 4 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": null,
@@ -5229,7 +5297,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "01_test_1_raw_2",
@@ -5643,7 +5712,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2_raw_1",
@@ -6057,7 +6127,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2_raw_2",
@@ -6471,7 +6542,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 }
@@ -6502,14 +6574,14 @@
                         "ylab": "Percentage",
                         "tt_suffix": "%",
                         "title": "FastQC: Per Sequence GC Content",
-                        "subtitle": "Percentages, 4 samples"
+                        "subtitle": "Percentages, 4 lines"
                     },
                     {
                         "name": "Counts",
                         "ylab": "Count",
                         "tt_suffix": "",
                         "title": "FastQC: Per Sequence GC Content",
-                        "subtitle": "Counts, 4 samples"
+                        "subtitle": "Counts, 4 lines"
                     }
                 ],
                 "xTitle": null,
@@ -6559,6 +6631,7 @@
                 "x_lines": null,
                 "y_lines": null,
                 "series_label": "samples",
+                "flat_if_very_large": true,
                 "categories": false,
                 "smooth_points": 500,
                 "smooth_points_sumcounts": null,
@@ -6570,7 +6643,10 @@
                     "01_test_1_raw_2": "#5cb85c",
                     "02_test_2_raw_1": "#d9534f",
                     "02_test_2_raw_2": "#d9534f"
-                }
+                },
+                "dash_styles": {},
+                "hovertemplates": {},
+                "legend_groups": {}
             },
             "add_log_tab": false,
             "add_pct_tab": false,
@@ -6768,11 +6844,11 @@
                     "uid": "fastqc_per_base_n_content_plot",
                     "dconfig": {
                         "title": "FastQC: Per Base N Content",
-                        "subtitle": "4 samples"
+                        "subtitle": "4 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "FastQC: Per Base N Content<br><sup>4 samples</sup>"
+                            "text": "FastQC: Per Base N Content<br><sup>4 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": null,
@@ -7106,7 +7182,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "01_test_1_raw_2",
@@ -7388,7 +7465,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2_raw_1",
@@ -7550,7 +7628,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2_raw_2",
@@ -7712,7 +7791,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 }
@@ -7804,6 +7884,7 @@
                 "x_lines": null,
                 "y_lines": null,
                 "series_label": "samples",
+                "flat_if_very_large": true,
                 "categories": false,
                 "smooth_points": 500,
                 "smooth_points_sumcounts": null,
@@ -7815,7 +7896,10 @@
                     "01_test_1_raw_2": "#5cb85c",
                     "02_test_2_raw_1": "#5cb85c",
                     "02_test_2_raw_2": "#5cb85c"
-                }
+                },
+                "dash_styles": {},
+                "hovertemplates": {},
+                "legend_groups": {}
             },
             "add_log_tab": false,
             "add_pct_tab": false,
@@ -7927,11 +8011,11 @@
                     "uid": "fastqc_sequence_duplication_levels_plot",
                     "dconfig": {
                         "title": "FastQC: Sequence Duplication Levels",
-                        "subtitle": "4 samples"
+                        "subtitle": "4 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "FastQC: Sequence Duplication Levels<br><sup>4 samples</sup>"
+                            "text": "FastQC: Sequence Duplication Levels<br><sup>4 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": null,
@@ -8054,7 +8138,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "01_test_1_raw_2",
@@ -8128,7 +8213,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2_raw_1",
@@ -8202,7 +8288,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2_raw_2",
@@ -8276,7 +8363,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 }
@@ -8349,6 +8437,7 @@
                 "x_lines": null,
                 "y_lines": null,
                 "series_label": "samples",
+                "flat_if_very_large": true,
                 "categories": true,
                 "smooth_points": 500,
                 "smooth_points_sumcounts": null,
@@ -8360,7 +8449,10 @@
                     "01_test_1_raw_2": "#5cb85c",
                     "02_test_2_raw_1": "#5cb85c",
                     "02_test_2_raw_2": "#5cb85c"
-                }
+                },
+                "dash_styles": {},
+                "hovertemplates": {},
+                "legend_groups": {}
             },
             "add_log_tab": false,
             "add_pct_tab": false,
@@ -8791,6 +8883,7 @@
                 "x_lines": null,
                 "y_lines": null,
                 "series_label": "samples",
+                "flat_if_very_large": true,
                 "zlab": "z",
                 "min": 0,
                 "max": 1,
@@ -8946,11 +9039,11 @@
                     "uid": "fastp_filtered_reads_plot",
                     "dconfig": {
                         "title": "Fastp: Filtered Reads",
-                        "subtitle": "2 samples"
+                        "subtitle": "2 bars"
                     },
                     "layout": {
                         "title": {
-                            "text": "Fastp: Filtered Reads<br><sup>2 samples</sup>"
+                            "text": "Fastp: Filtered Reads<br><sup>2 bars</sup>"
                         },
                         "xaxis": {
                             "title": {
@@ -9069,7 +9162,9 @@
                     "samples": [
                         "02_test_2",
                         "01_test_1"
-                    ]
+                    ],
+                    "cats_clustered": null,
+                    "samples_clustered": null
                 }
             ],
             "pconfig": {
@@ -9140,10 +9235,14 @@
                 "x_lines": null,
                 "y_lines": null,
                 "series_label": "samples",
+                "flat_if_very_large": true,
                 "stacking": "relative",
                 "hide_empty": null,
                 "hide_zero_cats": false,
                 "sort_samples": true,
+                "cluster_samples": false,
+                "cluster_method": "complete",
+                "cluster_switch_clustered_active": true,
                 "use_legend": null,
                 "suffix": null,
                 "lab_format": null
@@ -9163,7 +9262,9 @@
             "flat": false,
             "defer_render": false,
             "section_anchor": null,
-            "module_anchor": null
+            "module_anchor": null,
+            "sort_switch_sorted_active": false,
+            "cluster_switch_clustered_active": true
         },
         "fastp-insert-size-plot": {
             "id": "fastp-insert-size-plot",
@@ -9252,11 +9353,11 @@
                     "uid": "fastp-insert-size-plot",
                     "dconfig": {
                         "title": "Fastp: Insert Size Distribution",
-                        "subtitle": "2 samples"
+                        "subtitle": "2 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "Fastp: Insert Size Distribution<br><sup>2 samples</sup>"
+                            "text": "Fastp: Insert Size Distribution<br><sup>2 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": null,
@@ -10182,7 +10283,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2",
@@ -11244,7 +11346,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 }
@@ -11317,13 +11420,17 @@
                 "x_lines": null,
                 "y_lines": null,
                 "series_label": "samples",
+                "flat_if_very_large": true,
                 "categories": false,
                 "smooth_points": 300,
                 "smooth_points_sumcounts": false,
                 "extra_series": null,
                 "style": null,
                 "hide_empty": true,
-                "colors": {}
+                "colors": {},
+                "dash_styles": {},
+                "hovertemplates": {},
+                "legend_groups": {}
             },
             "add_log_tab": false,
             "add_pct_tab": false,
@@ -11435,11 +11542,11 @@
                         "name": "Read 1: Before filtering",
                         "ylab": "R1 Before filtering: Sequence Quality",
                         "title": "Fastp: Sequence Quality",
-                        "subtitle": "Read 1: Before filtering, 2 samples"
+                        "subtitle": "Read 1: Before filtering, 2 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "Fastp: Sequence Quality<br><sup>Read 1: Before filtering, 2 samples</sup>"
+                            "text": "Fastp: Sequence Quality<br><sup>Read 1: Before filtering, 2 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": null,
@@ -12001,7 +12108,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2",
@@ -12615,7 +12723,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 },
@@ -12627,11 +12736,11 @@
                         "name": "Read 1: After filtering",
                         "ylab": "R1 After filtering: Sequence Quality",
                         "title": "Fastp: Sequence Quality",
-                        "subtitle": "Read 1: After filtering, 2 samples"
+                        "subtitle": "Read 1: After filtering, 2 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "Fastp: Sequence Quality<br><sup>Read 1: After filtering, 2 samples</sup>"
+                            "text": "Fastp: Sequence Quality<br><sup>Read 1: After filtering, 2 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": null,
@@ -13193,7 +13302,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2",
@@ -13807,7 +13917,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 },
@@ -13819,11 +13930,11 @@
                         "name": "Read 2: Before filtering",
                         "ylab": "R2 Before filtering: Sequence Quality",
                         "title": "Fastp: Sequence Quality",
-                        "subtitle": "Read 2: Before filtering, 2 samples"
+                        "subtitle": "Read 2: Before filtering, 2 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "Fastp: Sequence Quality<br><sup>Read 2: Before filtering, 2 samples</sup>"
+                            "text": "Fastp: Sequence Quality<br><sup>Read 2: Before filtering, 2 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": null,
@@ -14385,7 +14496,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2",
@@ -14999,7 +15111,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 },
@@ -15011,11 +15124,11 @@
                         "name": "Read 2: After filtering",
                         "ylab": "R2 After filtering: Sequence Quality",
                         "title": "Fastp: Sequence Quality",
-                        "subtitle": "Read 2: After filtering, 2 samples"
+                        "subtitle": "Read 2: After filtering, 2 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "Fastp: Sequence Quality<br><sup>Read 2: After filtering, 2 samples</sup>"
+                            "text": "Fastp: Sequence Quality<br><sup>Read 2: After filtering, 2 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": null,
@@ -15577,7 +15690,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2",
@@ -16191,7 +16305,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 }
@@ -16221,25 +16336,25 @@
                         "name": "Read 1: Before filtering",
                         "ylab": "R1 Before filtering: Sequence Quality",
                         "title": "Fastp: Sequence Quality",
-                        "subtitle": "Read 1: Before filtering, 2 samples"
+                        "subtitle": "Read 1: Before filtering, 2 lines"
                     },
                     {
                         "name": "Read 1: After filtering",
                         "ylab": "R1 After filtering: Sequence Quality",
                         "title": "Fastp: Sequence Quality",
-                        "subtitle": "Read 1: After filtering, 2 samples"
+                        "subtitle": "Read 1: After filtering, 2 lines"
                     },
                     {
                         "name": "Read 2: Before filtering",
                         "ylab": "R2 Before filtering: Sequence Quality",
                         "title": "Fastp: Sequence Quality",
-                        "subtitle": "Read 2: Before filtering, 2 samples"
+                        "subtitle": "Read 2: Before filtering, 2 lines"
                     },
                     {
                         "name": "Read 2: After filtering",
                         "ylab": "R2 After filtering: Sequence Quality",
                         "title": "Fastp: Sequence Quality",
-                        "subtitle": "Read 2: After filtering, 2 samples"
+                        "subtitle": "Read 2: After filtering, 2 lines"
                     }
                 ],
                 "xTitle": null,
@@ -16289,13 +16404,17 @@
                 "x_lines": null,
                 "y_lines": null,
                 "series_label": "samples",
+                "flat_if_very_large": true,
                 "categories": false,
                 "smooth_points": 500,
                 "smooth_points_sumcounts": null,
                 "extra_series": null,
                 "style": null,
                 "hide_empty": true,
-                "colors": {}
+                "colors": {},
+                "dash_styles": {},
+                "hovertemplates": {},
+                "legend_groups": {}
             },
             "add_log_tab": false,
             "add_pct_tab": false,
@@ -16407,11 +16526,11 @@
                         "name": "Read 1: Before filtering",
                         "ylab": "R1 Before filtering: Base Content Percent",
                         "title": "Fastp: Read GC Content",
-                        "subtitle": "Read 1: Before filtering, 2 samples"
+                        "subtitle": "Read 1: Before filtering, 2 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "Fastp: Read GC Content<br><sup>Read 1: Before filtering, 2 samples</sup>"
+                            "text": "Fastp: Read GC Content<br><sup>Read 1: Before filtering, 2 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": null,
@@ -16973,7 +17092,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2",
@@ -17587,7 +17707,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 },
@@ -17599,11 +17720,11 @@
                         "name": "Read 1: After filtering",
                         "ylab": "R1 After filtering: Base Content Percent",
                         "title": "Fastp: Read GC Content",
-                        "subtitle": "Read 1: After filtering, 2 samples"
+                        "subtitle": "Read 1: After filtering, 2 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "Fastp: Read GC Content<br><sup>Read 1: After filtering, 2 samples</sup>"
+                            "text": "Fastp: Read GC Content<br><sup>Read 1: After filtering, 2 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": null,
@@ -18165,7 +18286,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2",
@@ -18779,7 +18901,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 },
@@ -18791,11 +18914,11 @@
                         "name": "Read 2: Before filtering",
                         "ylab": "R2 Before filtering: Base Content Percent",
                         "title": "Fastp: Read GC Content",
-                        "subtitle": "Read 2: Before filtering, 2 samples"
+                        "subtitle": "Read 2: Before filtering, 2 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "Fastp: Read GC Content<br><sup>Read 2: Before filtering, 2 samples</sup>"
+                            "text": "Fastp: Read GC Content<br><sup>Read 2: Before filtering, 2 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": null,
@@ -19357,7 +19480,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2",
@@ -19971,7 +20095,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 },
@@ -19983,11 +20108,11 @@
                         "name": "Read 2: After filtering",
                         "ylab": "R2 After filtering: Base Content Percent",
                         "title": "Fastp: Read GC Content",
-                        "subtitle": "Read 2: After filtering, 2 samples"
+                        "subtitle": "Read 2: After filtering, 2 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "Fastp: Read GC Content<br><sup>Read 2: After filtering, 2 samples</sup>"
+                            "text": "Fastp: Read GC Content<br><sup>Read 2: After filtering, 2 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": null,
@@ -20549,7 +20674,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2",
@@ -21163,7 +21289,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 }
@@ -21193,25 +21320,25 @@
                         "name": "Read 1: Before filtering",
                         "ylab": "R1 Before filtering: Base Content Percent",
                         "title": "Fastp: Read GC Content",
-                        "subtitle": "Read 1: Before filtering, 2 samples"
+                        "subtitle": "Read 1: Before filtering, 2 lines"
                     },
                     {
                         "name": "Read 1: After filtering",
                         "ylab": "R1 After filtering: Base Content Percent",
                         "title": "Fastp: Read GC Content",
-                        "subtitle": "Read 1: After filtering, 2 samples"
+                        "subtitle": "Read 1: After filtering, 2 lines"
                     },
                     {
                         "name": "Read 2: Before filtering",
                         "ylab": "R2 Before filtering: Base Content Percent",
                         "title": "Fastp: Read GC Content",
-                        "subtitle": "Read 2: Before filtering, 2 samples"
+                        "subtitle": "Read 2: Before filtering, 2 lines"
                     },
                     {
                         "name": "Read 2: After filtering",
                         "ylab": "R2 After filtering: Base Content Percent",
                         "title": "Fastp: Read GC Content",
-                        "subtitle": "Read 2: After filtering, 2 samples"
+                        "subtitle": "Read 2: After filtering, 2 lines"
                     }
                 ],
                 "xTitle": null,
@@ -21261,13 +21388,17 @@
                 "x_lines": null,
                 "y_lines": null,
                 "series_label": "samples",
+                "flat_if_very_large": true,
                 "categories": false,
                 "smooth_points": 500,
                 "smooth_points_sumcounts": null,
                 "extra_series": null,
                 "style": null,
                 "hide_empty": true,
-                "colors": {}
+                "colors": {},
+                "dash_styles": {},
+                "hovertemplates": {},
+                "legend_groups": {}
             },
             "add_log_tab": false,
             "add_pct_tab": false,
@@ -21379,11 +21510,11 @@
                         "name": "Read 1: Before filtering",
                         "ylab": "R1 Before filtering: Base Content Percent",
                         "title": "Fastp: Read N Content",
-                        "subtitle": "Read 1: Before filtering, 2 samples"
+                        "subtitle": "Read 1: Before filtering, 2 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "Fastp: Read N Content<br><sup>Read 1: Before filtering, 2 samples</sup>"
+                            "text": "Fastp: Read N Content<br><sup>Read 1: Before filtering, 2 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": null,
@@ -21949,7 +22080,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2",
@@ -22563,7 +22695,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 },
@@ -22575,11 +22708,11 @@
                         "name": "Read 1: After filtering",
                         "ylab": "R1 After filtering: Base Content Percent",
                         "title": "Fastp: Read N Content",
-                        "subtitle": "Read 1: After filtering, 2 samples"
+                        "subtitle": "Read 1: After filtering, 2 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "Fastp: Read N Content<br><sup>Read 1: After filtering, 2 samples</sup>"
+                            "text": "Fastp: Read N Content<br><sup>Read 1: After filtering, 2 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": null,
@@ -23145,7 +23278,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2",
@@ -23759,7 +23893,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 },
@@ -23771,11 +23906,11 @@
                         "name": "Read 2: Before filtering",
                         "ylab": "R2 Before filtering: Base Content Percent",
                         "title": "Fastp: Read N Content",
-                        "subtitle": "Read 2: Before filtering, 2 samples"
+                        "subtitle": "Read 2: Before filtering, 2 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "Fastp: Read N Content<br><sup>Read 2: Before filtering, 2 samples</sup>"
+                            "text": "Fastp: Read N Content<br><sup>Read 2: Before filtering, 2 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": null,
@@ -24341,7 +24476,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2",
@@ -24955,7 +25091,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 },
@@ -24967,11 +25104,11 @@
                         "name": "Read 2: After filtering",
                         "ylab": "R2 After filtering: Base Content Percent",
                         "title": "Fastp: Read N Content",
-                        "subtitle": "Read 2: After filtering, 2 samples"
+                        "subtitle": "Read 2: After filtering, 2 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "Fastp: Read N Content<br><sup>Read 2: After filtering, 2 samples</sup>"
+                            "text": "Fastp: Read N Content<br><sup>Read 2: After filtering, 2 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": null,
@@ -25537,7 +25674,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2",
@@ -26151,7 +26289,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 }
@@ -26181,25 +26320,25 @@
                         "name": "Read 1: Before filtering",
                         "ylab": "R1 Before filtering: Base Content Percent",
                         "title": "Fastp: Read N Content",
-                        "subtitle": "Read 1: Before filtering, 2 samples"
+                        "subtitle": "Read 1: Before filtering, 2 lines"
                     },
                     {
                         "name": "Read 1: After filtering",
                         "ylab": "R1 After filtering: Base Content Percent",
                         "title": "Fastp: Read N Content",
-                        "subtitle": "Read 1: After filtering, 2 samples"
+                        "subtitle": "Read 1: After filtering, 2 lines"
                     },
                     {
                         "name": "Read 2: Before filtering",
                         "ylab": "R2 Before filtering: Base Content Percent",
                         "title": "Fastp: Read N Content",
-                        "subtitle": "Read 2: Before filtering, 2 samples"
+                        "subtitle": "Read 2: Before filtering, 2 lines"
                     },
                     {
                         "name": "Read 2: After filtering",
                         "ylab": "R2 After filtering: Base Content Percent",
                         "title": "Fastp: Read N Content",
-                        "subtitle": "Read 2: After filtering, 2 samples"
+                        "subtitle": "Read 2: After filtering, 2 lines"
                     }
                 ],
                 "xTitle": null,
@@ -26249,13 +26388,17 @@
                 "x_lines": null,
                 "y_lines": null,
                 "series_label": "samples",
+                "flat_if_very_large": true,
                 "categories": false,
                 "smooth_points": 500,
                 "smooth_points_sumcounts": null,
                 "extra_series": null,
                 "style": null,
                 "hide_empty": true,
-                "colors": {}
+                "colors": {},
+                "dash_styles": {},
+                "hovertemplates": {},
+                "legend_groups": {}
             },
             "add_log_tab": false,
             "add_pct_tab": false,
@@ -26379,11 +26522,11 @@
                     "uid": "fastqc-1_sequence_counts_plot",
                     "dconfig": {
                         "title": "FastQC: Sequence Counts",
-                        "subtitle": "2 samples"
+                        "subtitle": "2 bars"
                     },
                     "layout": {
                         "title": {
-                            "text": "FastQC: Sequence Counts<br><sup>2 samples</sup>"
+                            "text": "FastQC: Sequence Counts<br><sup>2 bars</sup>"
                         },
                         "xaxis": {
                             "title": {
@@ -26454,7 +26597,9 @@
                     "samples": [
                         "02_test_2",
                         "01_test_1"
-                    ]
+                    ],
+                    "cats_clustered": null,
+                    "samples_clustered": null
                 }
             ],
             "pconfig": {
@@ -26525,10 +26670,14 @@
                 "x_lines": null,
                 "y_lines": null,
                 "series_label": "samples",
+                "flat_if_very_large": true,
                 "stacking": "relative",
                 "hide_empty": null,
                 "hide_zero_cats": false,
                 "sort_samples": true,
+                "cluster_samples": false,
+                "cluster_method": "complete",
+                "cluster_switch_clustered_active": true,
                 "use_legend": null,
                 "suffix": null,
                 "lab_format": null
@@ -26548,7 +26697,9 @@
             "flat": false,
             "defer_render": false,
             "section_anchor": null,
-            "module_anchor": null
+            "module_anchor": null,
+            "sort_switch_sorted_active": false,
+            "cluster_switch_clustered_active": true
         },
         "fastqc-1_per_base_sequence_quality_plot": {
             "id": "fastqc-1_per_base_sequence_quality_plot",
@@ -26723,11 +26874,11 @@
                     "uid": "fastqc-1_per_base_sequence_quality_plot",
                     "dconfig": {
                         "title": "FastQC: Mean Quality Scores",
-                        "subtitle": "2 samples"
+                        "subtitle": "2 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "FastQC: Mean Quality Scores<br><sup>2 samples</sup>"
+                            "text": "FastQC: Mean Quality Scores<br><sup>2 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": ",.0f",
@@ -27061,7 +27212,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2",
@@ -27223,7 +27375,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 }
@@ -27315,6 +27468,7 @@
                 "x_lines": null,
                 "y_lines": null,
                 "series_label": "samples",
+                "flat_if_very_large": true,
                 "categories": false,
                 "smooth_points": 500,
                 "smooth_points_sumcounts": null,
@@ -27324,7 +27478,10 @@
                 "colors": {
                     "01_test_1": "#5cb85c",
                     "02_test_2": "#5cb85c"
-                }
+                },
+                "dash_styles": {},
+                "hovertemplates": {},
+                "legend_groups": {}
             },
             "add_log_tab": false,
             "add_pct_tab": false,
@@ -27520,11 +27677,11 @@
                     "uid": "fastqc-1_per_sequence_quality_scores_plot",
                     "dconfig": {
                         "title": "FastQC: Per Sequence Quality Scores",
-                        "subtitle": "2 samples"
+                        "subtitle": "2 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "FastQC: Per Sequence Quality Scores<br><sup>2 samples</sup>"
+                            "text": "FastQC: Per Sequence Quality Scores<br><sup>2 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": ",.0f",
@@ -27601,7 +27758,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2",
@@ -27627,7 +27785,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 }
@@ -27719,6 +27878,7 @@
                 "x_lines": null,
                 "y_lines": null,
                 "series_label": "samples",
+                "flat_if_very_large": true,
                 "categories": false,
                 "smooth_points": 500,
                 "smooth_points_sumcounts": null,
@@ -27728,7 +27888,10 @@
                 "colors": {
                     "01_test_1": "#5cb85c",
                     "02_test_2": "#5cb85c"
-                }
+                },
+                "dash_styles": {},
+                "hovertemplates": {},
+                "legend_groups": {}
             },
             "add_log_tab": false,
             "add_pct_tab": false,
@@ -27841,11 +28004,11 @@
                         "ylab": "Percentage",
                         "tt_suffix": "%",
                         "title": "FastQC: Per Sequence GC Content",
-                        "subtitle": "Percentages, 2 samples"
+                        "subtitle": "Percentages, 2 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "FastQC: Per Sequence GC Content<br><sup>Percentages, 2 samples</sup>"
+                            "text": "FastQC: Per Sequence GC Content<br><sup>Percentages, 2 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": null,
@@ -28307,7 +28470,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2",
@@ -28721,7 +28885,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 },
@@ -28734,11 +28899,11 @@
                         "ylab": "Count",
                         "tt_suffix": "",
                         "title": "FastQC: Per Sequence GC Content",
-                        "subtitle": "Counts, 2 samples"
+                        "subtitle": "Counts, 2 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "FastQC: Per Sequence GC Content<br><sup>Counts, 2 samples</sup>"
+                            "text": "FastQC: Per Sequence GC Content<br><sup>Counts, 2 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": null,
@@ -29200,7 +29365,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2",
@@ -29614,7 +29780,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 }
@@ -29645,14 +29812,14 @@
                         "ylab": "Percentage",
                         "tt_suffix": "%",
                         "title": "FastQC: Per Sequence GC Content",
-                        "subtitle": "Percentages, 2 samples"
+                        "subtitle": "Percentages, 2 lines"
                     },
                     {
                         "name": "Counts",
                         "ylab": "Count",
                         "tt_suffix": "",
                         "title": "FastQC: Per Sequence GC Content",
-                        "subtitle": "Counts, 2 samples"
+                        "subtitle": "Counts, 2 lines"
                     }
                 ],
                 "xTitle": null,
@@ -29702,6 +29869,7 @@
                 "x_lines": null,
                 "y_lines": null,
                 "series_label": "samples",
+                "flat_if_very_large": true,
                 "categories": false,
                 "smooth_points": 500,
                 "smooth_points_sumcounts": null,
@@ -29711,7 +29879,10 @@
                 "colors": {
                     "01_test_1": "#5cb85c",
                     "02_test_2": "#d9534f"
-                }
+                },
+                "dash_styles": {},
+                "hovertemplates": {},
+                "legend_groups": {}
             },
             "add_log_tab": false,
             "add_pct_tab": false,
@@ -29907,11 +30078,11 @@
                     "uid": "fastqc-1_per_base_n_content_plot",
                     "dconfig": {
                         "title": "FastQC: Per Base N Content",
-                        "subtitle": "2 samples"
+                        "subtitle": "2 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "FastQC: Per Base N Content<br><sup>2 samples</sup>"
+                            "text": "FastQC: Per Base N Content<br><sup>2 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": null,
@@ -30245,7 +30416,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2",
@@ -30407,7 +30579,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 }
@@ -30499,6 +30672,7 @@
                 "x_lines": null,
                 "y_lines": null,
                 "series_label": "samples",
+                "flat_if_very_large": true,
                 "categories": false,
                 "smooth_points": 500,
                 "smooth_points_sumcounts": null,
@@ -30508,7 +30682,10 @@
                 "colors": {
                     "01_test_1": "#5cb85c",
                     "02_test_2": "#5cb85c"
-                }
+                },
+                "dash_styles": {},
+                "hovertemplates": {},
+                "legend_groups": {}
             },
             "add_log_tab": false,
             "add_pct_tab": false,
@@ -30618,11 +30795,11 @@
                     "uid": "fastqc_sequence_length_distribution_plot",
                     "dconfig": {
                         "title": "FastQC: Sequence Length Distribution",
-                        "subtitle": "2 samples"
+                        "subtitle": "2 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "FastQC: Sequence Length Distribution<br><sup>2 samples</sup>"
+                            "text": "FastQC: Sequence Length Distribution<br><sup>2 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": null,
@@ -30824,7 +31001,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2",
@@ -31026,7 +31204,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 }
@@ -31099,6 +31278,7 @@
                 "x_lines": null,
                 "y_lines": null,
                 "series_label": "samples",
+                "flat_if_very_large": true,
                 "categories": false,
                 "smooth_points": 500,
                 "smooth_points_sumcounts": null,
@@ -31108,7 +31288,10 @@
                 "colors": {
                     "01_test_1": "#f0ad4e",
                     "02_test_2": "#f0ad4e"
-                }
+                },
+                "dash_styles": {},
+                "hovertemplates": {},
+                "legend_groups": {}
             },
             "add_log_tab": false,
             "add_pct_tab": false,
@@ -31218,11 +31401,11 @@
                     "uid": "fastqc-1_sequence_duplication_levels_plot",
                     "dconfig": {
                         "title": "FastQC: Sequence Duplication Levels",
-                        "subtitle": "2 samples"
+                        "subtitle": "2 lines"
                     },
                     "layout": {
                         "title": {
-                            "text": "FastQC: Sequence Duplication Levels<br><sup>2 samples</sup>"
+                            "text": "FastQC: Sequence Duplication Levels<br><sup>2 lines</sup>"
                         },
                         "xaxis": {
                             "hoverformat": null,
@@ -31348,7 +31531,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         },
                         {
                             "name": "02_test_2",
@@ -31422,7 +31606,8 @@
                             "width": 2,
                             "dash": null,
                             "showlegend": true,
-                            "marker": null
+                            "marker": null,
+                            "extra_trace_params": {}
                         }
                     ]
                 }
@@ -31495,6 +31680,7 @@
                 "x_lines": null,
                 "y_lines": null,
                 "series_label": "samples",
+                "flat_if_very_large": true,
                 "categories": true,
                 "smooth_points": 500,
                 "smooth_points_sumcounts": null,
@@ -31504,7 +31690,10 @@
                 "colors": {
                     "01_test_1": "#5cb85c",
                     "02_test_2": "#5cb85c"
-                }
+                },
+                "dash_styles": {},
+                "hovertemplates": {},
+                "legend_groups": {}
             },
             "add_log_tab": false,
             "add_pct_tab": false,
@@ -31877,6 +32066,7 @@
                 "x_lines": null,
                 "y_lines": null,
                 "series_label": "samples",
+                "flat_if_very_large": true,
                 "zlab": "z",
                 "min": 0,
                 "max": 1,
@@ -32032,11 +32222,11 @@
                     "uid": "samtools_alignment_plot",
                     "dconfig": {
                         "title": "Samtools: stats: Alignment Scores",
-                        "subtitle": "2 samples"
+                        "subtitle": "2 bars"
                     },
                     "layout": {
                         "title": {
-                            "text": "Samtools: stats: Alignment Scores<br><sup>2 samples</sup>"
+                            "text": "Samtools: stats: Alignment Scores<br><sup>2 bars</sup>"
                         },
                         "xaxis": {
                             "title": {
@@ -32119,7 +32309,9 @@
                     "samples": [
                         "02",
                         "01"
-                    ]
+                    ],
+                    "cats_clustered": null,
+                    "samples_clustered": null
                 }
             ],
             "pconfig": {
@@ -32190,10 +32382,14 @@
                 "x_lines": null,
                 "y_lines": null,
                 "series_label": "samples",
+                "flat_if_very_large": true,
                 "stacking": "relative",
                 "hide_empty": null,
                 "hide_zero_cats": true,
                 "sort_samples": true,
+                "cluster_samples": false,
+                "cluster_method": "complete",
+                "cluster_switch_clustered_active": true,
                 "use_legend": null,
                 "suffix": null,
                 "lab_format": null
@@ -32213,7 +32409,9 @@
             "flat": false,
             "defer_render": false,
             "section_anchor": null,
-            "module_anchor": null
+            "module_anchor": null,
+            "sort_switch_sorted_active": false,
+            "cluster_switch_clustered_active": true
         },
         "samtools-stats-dp": {
             "id": "samtools-stats-dp",
@@ -32830,6 +33028,7 @@
                             "x_lines": null,
                             "y_lines": null,
                             "series_label": "samples",
+                            "flat_if_very_large": false,
                             "namespace": "",
                             "save_file": false,
                             "raw_data_fn": null,
@@ -33789,6 +33988,7 @@
                 "x_lines": null,
                 "y_lines": null,
                 "series_label": "samples",
+                "flat_if_very_large": false,
                 "namespace": "",
                 "save_file": false,
                 "raw_data_fn": null,
@@ -34029,7 +34229,9 @@
                         "bcftools_stats-tstv",
                         "bcftools_stats-number_of_MNPs",
                         "bcftools_stats-number_of_multiallelic_sites",
-                        "bcftools_stats-number_of_multiallelic_SNP_sites"
+                        "bcftools_stats-number_of_multiallelic_SNP_sites",
+                        "fastp-before_filtering_read1_mean_length",
+                        "fastp-before_filtering_read2_mean_length"
                     ],
                     "header_by_metric": {
                         "fastqc_falco_pre_trimming-total_sequences": {
@@ -34759,6 +34961,48 @@
                             "namespace": "BCFTools: Stats",
                             "color": "255,127,0",
                             "hoverformat": null
+                        },
+                        "fastp-before_filtering_read1_mean_length": {
+                            "title": "Mean R1 Length",
+                            "description": "Mean read length of R1",
+                            "suffix": "bp",
+                            "dmin": 0,
+                            "dmax": 151.0,
+                            "hidden": true,
+                            "xaxis": {
+                                "ticksuffix": "bp",
+                                "tickvals": null,
+                                "range": [
+                                    -0.755,
+                                    151.758775
+                                ]
+                            },
+                            "show_only_outliers": false,
+                            "show_points": true,
+                            "namespace": "fastp",
+                            "color": "228,26,28",
+                            "hoverformat": ".2f"
+                        },
+                        "fastp-before_filtering_read2_mean_length": {
+                            "title": "Mean R2 Length",
+                            "description": "Mean read length of R2",
+                            "suffix": "bp",
+                            "dmin": 0,
+                            "dmax": 151.0,
+                            "hidden": true,
+                            "xaxis": {
+                                "ticksuffix": "bp",
+                                "tickvals": null,
+                                "range": [
+                                    -0.755,
+                                    151.758775
+                                ]
+                            },
+                            "show_only_outliers": false,
+                            "show_points": true,
+                            "namespace": "fastp",
+                            "color": "228,26,28",
+                            "hoverformat": ".2f"
                         }
                     },
                     "violin_value_by_sample_by_metric": {
@@ -34909,6 +35153,14 @@
                         "bcftools_stats-number_of_multiallelic_SNP_sites": {
                             "01.filtered": 0,
                             "02.filtered": 0
+                        },
+                        "fastp-before_filtering_read1_mean_length": {
+                            "01_test_1": 126.0,
+                            "02_test_2": 151.0
+                        },
+                        "fastp-before_filtering_read2_mean_length": {
+                            "01_test_1": 126.0,
+                            "02_test_2": 151.0
                         }
                     },
                     "scatter_value_by_sample_by_metric": {
@@ -34945,7 +35197,9 @@
                         "bcftools_stats-tstv": {},
                         "bcftools_stats-number_of_MNPs": {},
                         "bcftools_stats-number_of_multiallelic_sites": {},
-                        "bcftools_stats-number_of_multiallelic_SNP_sites": {}
+                        "bcftools_stats-number_of_multiallelic_SNP_sites": {},
+                        "fastp-before_filtering_read1_mean_length": {},
+                        "fastp-before_filtering_read2_mean_length": {}
                     },
                     "all_samples": [
                         "01",
@@ -35042,6 +35296,7 @@
                             "x_lines": null,
                             "y_lines": null,
                             "series_label": "samples",
+                            "flat_if_very_large": false,
                             "namespace": "",
                             "save_file": true,
                             "raw_data_fn": "multiqc_general_stats",
@@ -37217,6 +37472,108 @@
                                         "bars_zero_centrepoint": false,
                                         "modify": null,
                                         "format": null
+                                    },
+                                    "before_filtering_read1_mean_length": {
+                                        "rid": "fastp-before_filtering_read1_mean_length",
+                                        "clean_rid": "fastp-before_filtering_read1_mean_length",
+                                        "title": "Mean R1 Length",
+                                        "description": "Mean read length of R1",
+                                        "scale": "GnBu",
+                                        "hidden": true,
+                                        "placement": 1000.0,
+                                        "namespace": "fastp",
+                                        "colour": null,
+                                        "color": "228,26,28",
+                                        "max": null,
+                                        "dmax": 151.0,
+                                        "min": null,
+                                        "dmin": 0,
+                                        "ceiling": null,
+                                        "floor": null,
+                                        "minRange": null,
+                                        "minrange": null,
+                                        "shared_key": null,
+                                        "tt_decimals": null,
+                                        "suffix": "bp",
+                                        "cond_formatting_colours": [
+                                            {
+                                                "blue": "#337ab7"
+                                            },
+                                            {
+                                                "lbue": "#5bc0de"
+                                            },
+                                            {
+                                                "pass": "#5cb85c"
+                                            },
+                                            {
+                                                "warn": "#f0ad4e"
+                                            },
+                                            {
+                                                "fail": "#d9534f"
+                                            },
+                                            {
+                                                "male": "#5bc0de"
+                                            },
+                                            {
+                                                "female": "#d9534f"
+                                            }
+                                        ],
+                                        "cond_formatting_rules": {},
+                                        "bgcols": {},
+                                        "bars_zero_centrepoint": false,
+                                        "modify": null,
+                                        "format": null
+                                    },
+                                    "before_filtering_read2_mean_length": {
+                                        "rid": "fastp-before_filtering_read2_mean_length",
+                                        "clean_rid": "fastp-before_filtering_read2_mean_length",
+                                        "title": "Mean R2 Length",
+                                        "description": "Mean read length of R2",
+                                        "scale": "GnBu",
+                                        "hidden": true,
+                                        "placement": 1000.0,
+                                        "namespace": "fastp",
+                                        "colour": null,
+                                        "color": "228,26,28",
+                                        "max": null,
+                                        "dmax": 151.0,
+                                        "min": null,
+                                        "dmin": 0,
+                                        "ceiling": null,
+                                        "floor": null,
+                                        "minRange": null,
+                                        "minrange": null,
+                                        "shared_key": null,
+                                        "tt_decimals": null,
+                                        "suffix": "bp",
+                                        "cond_formatting_colours": [
+                                            {
+                                                "blue": "#337ab7"
+                                            },
+                                            {
+                                                "lbue": "#5bc0de"
+                                            },
+                                            {
+                                                "pass": "#5cb85c"
+                                            },
+                                            {
+                                                "warn": "#f0ad4e"
+                                            },
+                                            {
+                                                "fail": "#d9534f"
+                                            },
+                                            {
+                                                "male": "#5bc0de"
+                                            },
+                                            {
+                                                "female": "#d9534f"
+                                            }
+                                        ],
+                                        "cond_formatting_rules": {},
+                                        "bgcols": {},
+                                        "bars_zero_centrepoint": false,
+                                        "modify": null,
+                                        "format": null
                                     }
                                 },
                                 "rows_by_sgroup": {
@@ -37233,6 +37590,16 @@
                                                     "raw": 0.002,
                                                     "mod": 0.002,
                                                     "fmt": "0.0"
+                                                },
+                                                "before_filtering_read1_mean_length": {
+                                                    "raw": 126.0,
+                                                    "mod": 126.0,
+                                                    "fmt": "126.0"
+                                                },
+                                                "before_filtering_read2_mean_length": {
+                                                    "raw": 126.0,
+                                                    "mod": 126.0,
+                                                    "fmt": "126.0"
                                                 },
                                                 "after_filtering_q30_bases": {
                                                     "raw": 9990761.0,
@@ -37275,6 +37642,16 @@
                                                     "raw": 0.0,
                                                     "mod": 0.0,
                                                     "fmt": "0.0"
+                                                },
+                                                "before_filtering_read1_mean_length": {
+                                                    "raw": 151.0,
+                                                    "mod": 151.0,
+                                                    "fmt": "151.0"
+                                                },
+                                                "before_filtering_read2_mean_length": {
+                                                    "raw": 151.0,
+                                                    "mod": 151.0,
+                                                    "fmt": "151.0"
                                                 },
                                                 "after_filtering_q30_bases": {
                                                     "raw": 5725916.0,
@@ -37440,6 +37817,14 @@
                                 [
                                     3,
                                     "number_of_multiallelic_SNP_sites"
+                                ],
+                                [
+                                    4,
+                                    "before_filtering_read1_mean_length"
+                                ],
+                                [
+                                    4,
+                                    "before_filtering_read2_mean_length"
                                 ]
                             ],
                             "320.0": [
@@ -37558,6 +37943,7 @@
                 "x_lines": null,
                 "y_lines": null,
                 "series_label": "samples",
+                "flat_if_very_large": false,
                 "namespace": "",
                 "save_file": true,
                 "raw_data_fn": "multiqc_general_stats",
@@ -37603,14 +37989,16 @@
     "config_intro_text": null,
     "config_report_comment": "This report has been generated by the <a href=\"https://github.com/nf-core/bactmap/tree/dev\" target=\"_blank\">nf-core/bactmap</a> analysis pipeline. For information about how to interpret these results, please see the <a href=\"https://nf-co.re/bactmap/dev/docs/output\" target=\"_blank\">documentation</a>.\n",
     "config_report_header_info": null,
-    "config_script_path": "/usr/local/lib/python3.13/site-packages/multiqc",
-    "config_short_version": "1.30",
+    "config_script_path": "/opt/conda/lib/python3.13/site-packages/multiqc",
+    "config_short_version": "1.31",
     "config_subtitle": null,
     "config_title": null,
-    "config_version": "1.30",
-    "config_output_dir": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b",
+    "config_version": "1.31",
+    "config_output_dir": "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2",
+    "config_sample_names_rename": [],
+    "config_sample_names_rename_buttons": [],
     "config_analysis_dir_abs": [
-        "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/5b/21d638f6f36252e31333e7eefca37b"
+        "/Users/ajv37/Documents/Pipelines/bactmap/.nf-test/tests/5192f88dd9e5f0841dd740450e870334/work/86/2d4a544459e5fc376ef21a2be091f2"
     ],
     "report_saved_raw_data": {
         "multiqc_fastqc": {
@@ -59839,7 +60227,9 @@
                 "fastp-after_filtering_gc_content": 46.767900000000004,
                 "fastp-after_filtering_q30_rate": 95.08290000000001,
                 "fastp-after_filtering_q30_bases": 9.990761,
-                "fastp-filtering_result_passed_filter_reads": 0.08395
+                "fastp-filtering_result_passed_filter_reads": 0.08395,
+                "fastp-before_filtering_read1_mean_length": 126.0,
+                "fastp-before_filtering_read2_mean_length": 126.0
             },
             "02_test_2": {
                 "fastqc_falco_post_trimming-total_sequences": 0.020138,
@@ -59854,7 +60244,9 @@
                 "fastp-after_filtering_gc_content": 40.4767,
                 "fastp-after_filtering_q30_rate": 94.6273,
                 "fastp-after_filtering_q30_bases": 5.725916,
-                "fastp-filtering_result_passed_filter_reads": 0.040276
+                "fastp-filtering_result_passed_filter_reads": 0.040276,
+                "fastp-before_filtering_read1_mean_length": 151.0,
+                "fastp-before_filtering_read2_mean_length": 151.0
             },
             "01": {
                 "samtools_stats_stats-error_rate": 0.6497852000000001,

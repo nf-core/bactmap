@@ -1,2 +1,0 @@
-task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
-1	70/4870e8	43422	MINIMAP2_ALIGNMENT:MINIMAP2_INDEX	FAILED	127	2025-08-28 18:17:21.956	48ms	27ms	-	-	-	-	-

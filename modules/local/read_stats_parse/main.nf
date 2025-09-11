@@ -23,6 +23,6 @@ process READSTATS_PARSE {
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         read_stats_parser.py: ${parser_version}
-    END_VERSIONS 
+    END_VERSIONS
     """
 }

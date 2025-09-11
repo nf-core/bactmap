@@ -1,3 +1,0 @@
-task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
-1	9a/96cda6	43471	MINIMAP2_ALIGNMENT:MINIMAP2_INDEX	COMPLETED	0	2025-08-28 18:17:25.510	44ms	11ms	-	-	-	-	-
-2	31/04cfc0	43499	MINIMAP2_ALIGNMENT:MINIMAP2_ALIGN (genome)	COMPLETED	0	2025-08-28 18:17:25.644	46ms	14ms	-	-	-	-	-

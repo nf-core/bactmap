@@ -34,9 +34,6 @@ report_section_order:
   bcftools:
     order: 100
 
-# Enable plot export
-export_plots: true
-
 # List of run modules
 run_modules:
   - fastqc

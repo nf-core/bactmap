@@ -29,14 +29,14 @@ workflow LONGREAD_MAPPING {
     BAM_SORT_STATS_SAMTOOLS ( MINIMAP2_ALIGNMENT.out.minimap_align,  ch_fasta )
     ch_multiqc_files = ch_multiqc_files.mix( BAM_SORT_STATS_SAMTOOLS.out.stats )
     ch_versions      = ch_versions.mix(BAM_SORT_STATS_SAMTOOLS.out.versions)
-    
+
     ch_clair3_input = BAM_SORT_STATS_SAMTOOLS.out.bam
         .join(BAM_SORT_STATS_SAMTOOLS.out.bai)
             .multiMap{
                     meta, bam, bai ->
                     bam: [ meta, bam, bai, params.clair3_model, params.clair3_platform ]
             }
-    
+
     CLAIR3 (ch_clair3_input.bam, ch_fasta, ch_faidx)
     ch_versions = ch_versions.mix(CLAIR3.out.versions.first())
 
@@ -49,19 +49,19 @@ workflow LONGREAD_MAPPING {
     ch_bcftool_filter_input = BCFTOOLS_SORT.out.vcf.join(BCFTOOLS_INDEX.out.tbi)
     BCFTOOLS_FILTER ( ch_bcftool_filter_input )
     ch_versions = ch_versions.mix(BCFTOOLS_FILTER.out.versions.first())
-    
+
     ch_bcftool_stats_input = BCFTOOLS_FILTER.out.vcf.join(BCFTOOLS_FILTER.out.tbi)
 
     BCFTOOLS_STATS ( ch_bcftool_stats_input, [ [:], [] ], [ [:], [] ], [ [:], [] ], [ [:], [] ], [ [:], [] ] )
     ch_multiqc_files = ch_multiqc_files.mix( BCFTOOLS_STATS.out.stats )
     ch_versions      = ch_versions.mix(BCFTOOLS_STATS.out.versions.first())
-    
+
     CONSENSUS_BCFTOOLS ( BAM_SORT_STATS_SAMTOOLS.out.bam, BCFTOOLS_FILTER.out.vcf, BCFTOOLS_FILTER.out.tbi, ch_fasta )
     ch_versions = ch_versions.mix( CONSENSUS_BCFTOOLS.out.versions )
-    
+
     SEQTK_COMP( CONSENSUS_BCFTOOLS.out.consensus )
     ch_versions = ch_versions.mix( SEQTK_COMP.out.versions )
-    
+
     emit:
     bam         = BAM_SORT_STATS_SAMTOOLS.out.bam  // channel: [ val(meta), [ bam ] ]
     bai         = BAM_SORT_STATS_SAMTOOLS.out.bai  // channel: [ val(meta), [ bai ] ]
