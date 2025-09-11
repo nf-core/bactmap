@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+## Originally written by Andries van Tonder and released under the MIT license.
+## See git repository (https://github.com/nf-core/bactmap) for full license text.
+
 from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord

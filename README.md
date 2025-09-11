@@ -27,14 +27,14 @@
 
 1. Index reference fasta file (short-read: [`BWA index`](https://github.com/lh3/bwa) or [`Bowtie2 build`](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml); long-read: [`minimap2 index`](https://github.com/lh3/minimap2))
 2. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) or [`falco`](https://github.com/smithlabcode/falco) as an alternative option)
-2. Calculate fastq summary statistics ([`fastq-scan`](https://github.com/rpetit3/fastq-scan))
-3. Perform read pre-processing (optional)
+3. Calculate fastq summary statistics ([`fastq-scan`](https://github.com/rpetit3/fastq-scan))
+4. Perform read pre-processing (optional)
    - Adapter clipping and merging (short-read: [`fastp`](https://github.com/OpenGene/fastp) or [`AdapterRemoval2`](https://github.com/MikkelSchubert/adapterremoval); long-read: [`porechop`](https://github.com/rrwick/Porechop) or [`Porechop_ABI`](https://github.com/bonsai-team/Porechop_ABI))
    - Quality filtering (long-read: [`Filtlong`](https://github.com/rrwick/Filtlong)), [`Nanoq`](https://github.com/esteinig/nanoq)
    - Run merging ([`cat`](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/cat.html))
-4. Downsample fastq files (optional) ([`Rasusa`](https://github.com/mbhall88/rasusa))
-5. Summarise read statistics pre- and post-processing and subsampling ([`read_stats`](https://github.com/nf-core/bactmap/blob/master/modules/local/read_stats/main.nf))
-5. Variant calling
+5. Downsample fastq files (optional) ([`Rasusa`](https://github.com/mbhall88/rasusa))
+6. Summarise read statistics pre- and post-processing and subsampling ([`read_stats`](https://github.com/nf-core/bactmap/blob/master/modules/local/read_stats/main.nf))
+7. Variant calling
   - Map reads to reference (short-read: [`BWA-MEM2`](https://github.com/bwa-mem2/bwa-mem2) or [`Bowtie2`](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml); long-read: [`minimap2`](https://github.com/lh3/minimap2))
   - Sort and index alignments ([`SAMtools view/sort`](https://sourceforge.net/projects/samtools/files/samtools/))
   - Summarise alignment statistics ([`SAMtools stats`](https://sourceforge.net/projects/samtools/files/samtools/))
@@ -43,9 +43,9 @@
   - Summarise variant statistics ([`BCFtools stats`](http://samtools.github.io/bcftools/bcftools.html))
   - Convert filtered bcf to pseudogenome fasta ([`BCFtools consensus`](http://samtools.github.io/bcftools/bcftools.html) and [`BEDtools`](https://bedtools.readthedocs.io/en/latest/content/tools/genomecov.html))
   - Summarise mapping statistics ([`seqtk`](https://github.com/lh3/seqtk))
-6. Create alignment from pseudogenomes by concatenating fasta files having first checked that the sample sequences are high quality ([`alignpseudogenomes`](https://github.com/nf-core/bactmap/blob/master/modules/local/alignpseudogenomes/main.nf))
-7. Extract variant sites from alignment ([`SNP-sites`](https://github.com/sanger-pathogens/snp-sites))
-8. Present QC for raw and processed reads, alignment statistics and variant statistics ([`MultiQC`](http://multiqc.info/))
+8. Create alignment from pseudogenomes by concatenating fasta files having first checked that the sample sequences are high quality ([`alignpseudogenomes`](https://github.com/nf-core/bactmap/blob/master/modules/local/alignpseudogenomes/main.nf))
+9. Extract variant sites from alignment ([`SNP-sites`](https://github.com/sanger-pathogens/snp-sites))
+10. Present QC for raw and processed reads, alignment statistics and variant statistics ([`MultiQC`](http://multiqc.info/))
 
 ## Usage
 
