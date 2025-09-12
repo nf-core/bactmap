@@ -91,7 +91,9 @@ The pipeline runs occasionally fail due to a particular step of the pipeline req
 ### Output
 
 In the resulting directory `results/` you will find a range of directories.
+
 <!--TODO: add a diagram of the output structure -->
+
 ```tree
 results/
 ├── alignpseudogenomes
@@ -110,7 +112,9 @@ results/
 ├── samtools
 ├── snp-sites
 ```
+
 <!--TODO: add a diagram of the output structure -->
+
 To follow the same order as the command construction above
 
 - Pipeline run report is found in `multiqc/` and resource statistics in `pipeline_info`

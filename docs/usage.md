@@ -83,14 +83,13 @@ Input FASTQ _must_ be gzipped.
 While one can include both short-read and long-read data in one run, we recommend that you split these across _two_ pipeline runs. This will make MultiQC run-reports more readable (due to run statistics having vary large number differences).
 :::
 
-| Column                | Description                                                                                                                                                                                               |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample`              | Unique sample name [required].                                                                                                                                                                            |
-| `run_accession`       | Run ID or name unique for each (pairs of) file(s) .Can also supply sample name again here, if only a single run was generated [required].                                                                 |
-| `instrument_platform` | Sequencing platform reads generated on, selected from the EBI ENA [controlled vocabulary](https://www.ebi.ac.uk/ena/portal/api/controlledVocab?field=instrument_platform) [required].                     |
-| `fastq_1`             | Path or URL to sequencing reads or for Illumina R1 sequencing reads in FASTQ format. GZipped compressed files accepted. Can be left empty if data in FASTA is specified. |
-| `fastq_2`             | Path or URL to Illumina R2 sequencing reads in FASTQ format. GZipped compressed files accepted. Can be left empty if single end data.                                    |
-
+| Column                | Description                                                                                                                                                                           |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sample`              | Unique sample name [required].                                                                                                                                                        |
+| `run_accession`       | Run ID or name unique for each (pairs of) file(s) .Can also supply sample name again here, if only a single run was generated [required].                                             |
+| `instrument_platform` | Sequencing platform reads generated on, selected from the EBI ENA [controlled vocabulary](https://www.ebi.ac.uk/ena/portal/api/controlledVocab?field=instrument_platform) [required]. |
+| `fastq_1`             | Path or URL to sequencing reads or for Illumina R1 sequencing reads in FASTQ format. GZipped compressed files accepted. Can be left empty if data in FASTA is specified.              |
+| `fastq_2`             | Path or URL to Illumina R2 sequencing reads in FASTQ format. GZipped compressed files accepted. Can be left empty if single end data.                                                 |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
 
@@ -103,6 +102,7 @@ The reference genome can be specified on the command line as follows:
 ```console
 --fasta '[path to reference genome]'
 ```
+
 The reference genome can be a single FASTA file or a multi-FASTA file. The reference genome can also be a gzipped FASTA file. The pipeline will automatically unzip the file if it is gzipped.
 
 ## Running the pipeline
@@ -174,7 +174,7 @@ There are currently two options for short-read preprocessing: [`fastp`](https://
 For adapter clipping, you can either rely on the tool's default adapter sequences, or supply your own adapters (`--shortread_qc_adapter1` and `--shortread_qc_adapter2`)
 By default, paired-end merging is not activated. If paired-end merging is activated you can also specify whether to include unmerged reads in the reads sent for mapping/variant calling (`--shortread_qc_mergepairs` and `--shortread_qc_includeunmerged`).
 You can also turn off clipping and only perform paired-end merging, if requested. This can be useful when processing data downloaded from the ENA, SRA, or DDBJ (`--shortread_qc_skipadaptertrim`).
-Both tools support length filtering of reads and can be tuned with `--shortread_qc_minlength`. 
+Both tools support length filtering of reads and can be tuned with `--shortread_qc_minlength`.
 
 There are currently two options for long-read Oxford Nanopore processing: [`porechop`](https://github.com/rrwick/Porechop), [`porechop_abi`](https://github.com/bonsai-team/Porechop_ABI).
 
@@ -197,6 +197,7 @@ Some sequencing runs may be too large to process in a reasonable time. In these 
 ### Read mapping
 
 The nf-core/bactmap pipeline provides two strategies to map reads to a reference genome:
+
 - **Short-read mapping**: `bwa-mem2` or `bowtie2`
 - **Long-read mapping**: `minimap2`
 

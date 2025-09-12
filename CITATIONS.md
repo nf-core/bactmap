@@ -2,11 +2,11 @@
 
 ## [nf-core](https://pubmed.ncbi.nlm.nih.gov/32055031/)
 
-  > Ewels PA, Peltzer A, Fillinger S, Patel H, Alneberg J, Wilm A, Garcia MU, Di Tommaso P, Nahnsen S. The nf-core framework for community-curated bioinformatics pipelines. Nat Biotechnol. 2020 Mar;38(3):276-278. doi: 10.1038/s41587-020-0439-x. PubMed PMID: 32055031.
+> Ewels PA, Peltzer A, Fillinger S, Patel H, Alneberg J, Wilm A, Garcia MU, Di Tommaso P, Nahnsen S. The nf-core framework for community-curated bioinformatics pipelines. Nat Biotechnol. 2020 Mar;38(3):276-278. doi: 10.1038/s41587-020-0439-x. PubMed PMID: 32055031.
 
 ## [Nextflow](https://pubmed.ncbi.nlm.nih.gov/28398311/)
 
-  > Di Tommaso P, Chatzou M, Floden EW, Barja PP, Palumbo E, Notredame C. Nextflow enables reproducible computational workflows. Nat Biotechnol. 2017 Apr 11;35(4):316-319. doi: 10.1038/nbt.3820. PubMed PMID: 28398311.
+> Di Tommaso P, Chatzou M, Floden EW, Barja PP, Palumbo E, Notredame C. Nextflow enables reproducible computational workflows. Nat Biotechnol. 2017 Apr 11;35(4):316-319. doi: 10.1038/nbt.3820. PubMed PMID: 28398311.
 
 ## Pipeline tools
 
@@ -15,7 +15,7 @@
   > Schubert M, Lindgreen S, Orlando L. AdapterRemoval v2: rapid adapter trimming, identification, and read merging. BMC Res Notes. 2016 Feb 12;9:88. doi: 10.1186/s13104-016-1900-2. PMID: 26868221; PMCID: PMC4751634.
 
 - [BCFtools](https://www.ncbi.nlm.nih.gov/pubmed/21903627/)
-    
+
   > Li H. A statistical framework for SNP calling, mutation discovery, association mapping and population genetical parameter estimation from sequencing data. Bioinformatics. 2011 Nov 1;27(21):2987-93. doi: 10.1093/bioinformatics/btr509. Epub 2011 Sep 8. PubMed PMID: 21903627; PubMed Central PMCID: PMC3198575.
 
 - [BEDTools](https://pubmed.ncbi.nlm.nih.gov/25199790/)
@@ -27,7 +27,7 @@
   > Langmead B, Salzberg SL. Fast gapped-read alignment with Bowtie 2. Nat Methods. 2012 Mar 4;9(4):357-9. doi: 10.1038/nmeth.1923. PMID: 22388286; PMCID: PMC3322381.
 
 - [BWA MEM 2](https://github.com/bwa-mem2/bwa-mem2)
-    
+
   > Vasimuddin M. Misra S. Li H. Aluru S. Efficient Architecture-Aware Acceleration of BWA-MEM for Multicore Systems. IEEE International Parallel and Distributed Processing Symposium (IPDPS). 2019, pp. 314-324. doi: 10.1109/IPDPS.2019.00041.
 
 - [cat](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/cat.html)
@@ -43,7 +43,7 @@
   > de Sena Brandine G, Smith AD. Falco: high-speed FastQC emulation for quality control of sequencing data. F1000Res. 2019 Nov 7;8:1874. doi: 10.12688/f1000research.21142.2. PMID: 33552473; PMCID: PMC7845152.
 
 - [FastP](https://www.ncbi.nlm.nih.gov/pubmed/30423086/)
-    
+
   > Chen S, Zhou Y, Chen Y, Gu J. fastp: an ultra-fast all-in-one FASTQ preprocessor. Bioinformatics. 2018 Sep 1;34(17):i884-i890. doi: 10.1093/bioinformatics/bty560. PubMed PMID: 30423086; PubMed Central PMCID: PMC6129281.
 
 - [fastq-scan](https://github.com/rpetit3/fastq-scan)
@@ -83,7 +83,7 @@
   > Bonenfant Q, Noé L, Touzet H. Porechop_ABI: discovering unknown adapters in Oxford Nanopore Technology sequencing reads for downstream trimming. Bioinform Adv. 2022 Nov 21;3(1):vbac085. doi: 10.1093/bioadv/vbac085. PMID: 36698762; PMCID: PMC9869717.
 
 - [Rasusa](https://github.com/mbhall88/rasusa)
- 
+
   > Hall MB. Rasusa: Randomly subsample sequencing reads to a specified coverage. 2019. doi:10.5281/zenodo.3731394
 
 - [SAMtools](https://www.ncbi.nlm.nih.gov/pubmed/19505943/)
@@ -95,7 +95,7 @@
   > Li H. seqtk: Toolkit for processing sequences in FASTA/Q formats. 2012. [Online].
 
 - [SNP-sites](https://pubmed.ncbi.nlm.nih.gov/28348851/)
- 
+
   > Page AJ, Taylor B, Delaney AJ, Soares J, Seemann T, Keane JA, Harris SR. SNP-sites: rapid efficient extraction of SNPs from multi-FASTA alignments. Microb Genom. 2016 Apr 29;2(4):e000056. doi: 10.1099/mgen.0.000056. PMID: 28348851; PMCID: PMC5320690.
 
 ## Software packaging/containerisation tools

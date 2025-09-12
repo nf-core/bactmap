@@ -1,4 +1,3 @@
-
 name: "Get number of shards"
 description: "Get the number of nf-test shards for the current CI job"
 inputs:

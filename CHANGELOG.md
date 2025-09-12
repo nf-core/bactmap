@@ -21,14 +21,16 @@ The pipeline is composed of the following steps:
 5. Downsample fastq files (optional) ([`Rasusa`](https://github.com/mbhall88/rasusa))
 6. Summarise read statistics pre- and post-processing and subsampling ([`read_stats`](https://github.com/nf-core/bactmap/blob/master/modules/local/read_stats/main.nf))
 7. Variant calling
-  - Map reads to reference (short-read: [`BWA-MEM2`](https://github.com/bwa-mem2/bwa-mem2) or [`Bowtie2`](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml); long-read: [`minimap2`](https://github.com/lh3/minimap2))
-  - Sort and index alignments ([`SAMtools view/sort`](https://sourceforge.net/projects/samtools/files/samtools/))
-  - Summarise alignment statistics ([`SAMtools stats`](https://sourceforge.net/projects/samtools/files/samtools/))
-  - Call variants (short-read: [`FreeBayes`](https://github.com/freebayes/freebayes); long-read: [`Clair3`](https://github.com/HKU-BAL/Clair3)) 
-  - Filter variants ([`BCFtools filter`](http://samtools.github.io/bcftools/bcftools.html))
-  - Summarise variant statistics ([`BCFtools stats`](http://samtools.github.io/bcftools/bcftools.html))
-  - Convert filtered bcf to pseudogenome fasta ([`BCFtools consensus`](http://samtools.github.io/bcftools/bcftools.html) and [`BEDtools`](https://bedtools.readthedocs.io/en/latest/content/tools/genomecov.html))
-  - Summarise mapping statistics ([`seqtk`](https://github.com/lh3/seqtk))
+
+- Map reads to reference (short-read: [`BWA-MEM2`](https://github.com/bwa-mem2/bwa-mem2) or [`Bowtie2`](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml); long-read: [`minimap2`](https://github.com/lh3/minimap2))
+- Sort and index alignments ([`SAMtools view/sort`](https://sourceforge.net/projects/samtools/files/samtools/))
+- Summarise alignment statistics ([`SAMtools stats`](https://sourceforge.net/projects/samtools/files/samtools/))
+- Call variants (short-read: [`FreeBayes`](https://github.com/freebayes/freebayes); long-read: [`Clair3`](https://github.com/HKU-BAL/Clair3))
+- Filter variants ([`BCFtools filter`](http://samtools.github.io/bcftools/bcftools.html))
+- Summarise variant statistics ([`BCFtools stats`](http://samtools.github.io/bcftools/bcftools.html))
+- Convert filtered bcf to pseudogenome fasta ([`BCFtools consensus`](http://samtools.github.io/bcftools/bcftools.html) and [`BEDtools`](https://bedtools.readthedocs.io/en/latest/content/tools/genomecov.html))
+- Summarise mapping statistics ([`seqtk`](https://github.com/lh3/seqtk))
+
 8. Create alignment from pseudogenomes by concatenating fasta files having first checked that the sample sequences are high quality ([`alignpseudogenomes`](https://github.com/nf-core/bactmap/blob/master/modules/local/alignpseudogenomes/main.nf))
 9. Extract variant sites from alignment ([`SNP-sites`](https://github.com/sanger-pathogens/snp-sites))
 10. Present QC for raw and processed reads, alignment statistics and variant statistics ([`MultiQC`](http://multiqc.info/))
@@ -55,17 +57,17 @@ The pipeline is composed of the following steps:
 3. Estimate genome size ([`mash sketch`](https://mash.readthedocs.io/en/latest/index.html))
 4. Downsample fastq files (Optional) ([`Rasusa`](https://github.com/mbhall88/rasusa))
 5. Variant calling
-    1. Read mapping ([`BWA mem`](https://github.com/lh3/bwa))
-    2. Sort and index alignments ([`SAMtools`](https://sourceforge.net/projects/samtools/files/samtools/))
-    3. Call and filter variants ([`BCFtools`](http://samtools.github.io/bcftools/bcftools.html))
-    4. Convert filtered bcf to pseudogenome fasta ([`vcf2pseudogenome.py`](https://github.com/nf-core/bactmap/blob/dev/bin/vcf2pseudogenome.py))
+   1. Read mapping ([`BWA mem`](https://github.com/lh3/bwa))
+   2. Sort and index alignments ([`SAMtools`](https://sourceforge.net/projects/samtools/files/samtools/))
+   3. Call and filter variants ([`BCFtools`](http://samtools.github.io/bcftools/bcftools.html))
+   4. Convert filtered bcf to pseudogenome fasta ([`vcf2pseudogenome.py`](https://github.com/nf-core/bactmap/blob/dev/bin/vcf2pseudogenome.py))
 6. Create alignment from pseudogenome by concatenating fasta files having first checked that the sample sequences are high quality ([`calculate_fraction_of_non_GATC_bases.py`](https://github.com/nf-core/bactmap/blob/dev/bin/))
 7. Remove recombination (Optional) ([`Gubbins`](https://sanger-pathogens.github.io/gubbins/))
 8. Extract variant sites from alignment ([`SNP-sites`](https://github.com/sanger-pathogens/snp-sites))
 9. Construct phylogenetic tree (Optional)
-    1. Fast/less accurate
-        * neighbour joining [`RapidNJ`](https://birc.au.dk/software/rapidnj/)
-        * approximate maximum likelihood [`FastTree2`](http://www.microbesonline.org/fasttree/))
-    2. Slow/more accurate, maximum likelihood
-        * [`IQ-TREE`](http://www.iqtree.org/),
-        * [`RAxML-NG`](https://github.com/amkozlov/raxml-ng)
+   1. Fast/less accurate
+      - neighbour joining [`RapidNJ`](https://birc.au.dk/software/rapidnj/)
+      - approximate maximum likelihood [`FastTree2`](http://www.microbesonline.org/fasttree/))
+   2. Slow/more accurate, maximum likelihood
+      - [`IQ-TREE`](http://www.iqtree.org/),
+      - [`RAxML-NG`](https://github.com/amkozlov/raxml-ng)

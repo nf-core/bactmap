@@ -35,14 +35,16 @@
 5. Downsample fastq files (optional) ([`Rasusa`](https://github.com/mbhall88/rasusa))
 6. Summarise read statistics pre- and post-processing and subsampling ([`read_stats`](https://github.com/nf-core/bactmap/blob/master/modules/local/read_stats/main.nf))
 7. Variant calling
-  - Map reads to reference (short-read: [`BWA-MEM2`](https://github.com/bwa-mem2/bwa-mem2) or [`Bowtie2`](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml); long-read: [`minimap2`](https://github.com/lh3/minimap2))
-  - Sort and index alignments ([`SAMtools view/sort`](https://sourceforge.net/projects/samtools/files/samtools/))
-  - Summarise alignment statistics ([`SAMtools stats`](https://sourceforge.net/projects/samtools/files/samtools/))
-  - Call variants (short-read: [`FreeBayes`](https://github.com/freebayes/freebayes); long-read: [`Clair3`](https://github.com/HKU-BAL/Clair3)) 
-  - Filter variants ([`BCFtools filter`](http://samtools.github.io/bcftools/bcftools.html))
-  - Summarise variant statistics ([`BCFtools stats`](http://samtools.github.io/bcftools/bcftools.html))
-  - Convert filtered bcf to pseudogenome fasta ([`BCFtools consensus`](http://samtools.github.io/bcftools/bcftools.html) and [`BEDtools`](https://bedtools.readthedocs.io/en/latest/content/tools/genomecov.html))
-  - Summarise mapping statistics ([`seqtk`](https://github.com/lh3/seqtk))
+
+- Map reads to reference (short-read: [`BWA-MEM2`](https://github.com/bwa-mem2/bwa-mem2) or [`Bowtie2`](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml); long-read: [`minimap2`](https://github.com/lh3/minimap2))
+- Sort and index alignments ([`SAMtools view/sort`](https://sourceforge.net/projects/samtools/files/samtools/))
+- Summarise alignment statistics ([`SAMtools stats`](https://sourceforge.net/projects/samtools/files/samtools/))
+- Call variants (short-read: [`FreeBayes`](https://github.com/freebayes/freebayes); long-read: [`Clair3`](https://github.com/HKU-BAL/Clair3))
+- Filter variants ([`BCFtools filter`](http://samtools.github.io/bcftools/bcftools.html))
+- Summarise variant statistics ([`BCFtools stats`](http://samtools.github.io/bcftools/bcftools.html))
+- Convert filtered bcf to pseudogenome fasta ([`BCFtools consensus`](http://samtools.github.io/bcftools/bcftools.html) and [`BEDtools`](https://bedtools.readthedocs.io/en/latest/content/tools/genomecov.html))
+- Summarise mapping statistics ([`seqtk`](https://github.com/lh3/seqtk))
+
 8. Create alignment from pseudogenomes by concatenating fasta files having first checked that the sample sequences are high quality ([`alignpseudogenomes`](https://github.com/nf-core/bactmap/blob/master/modules/local/alignpseudogenomes/main.nf))
 9. Extract variant sites from alignment ([`SNP-sites`](https://github.com/sanger-pathogens/snp-sites))
 10. Present QC for raw and processed reads, alignment statistics and variant statistics ([`MultiQC`](http://multiqc.info/))
@@ -64,7 +66,7 @@ sample,run_accession,instrument_platform,fastq_1,fastq_2
 
 Each row represents a fastq file (single-end) or a pair of fastq files (paired end), either Illumina (short reads) or Oxford Nanopore (long reads).
 
-Additionally, if you are analysing Oxford Nanopore data, you will need to provide the path to a model to use with `Clair3` (specified with `--clair3_model`).  Models for older chemistries and basecallers (e.g. r9.4.1) can be downloaded from [here](https://www.bio8.cs.hku.hk/clair3/clair3_models/). For newer chemistries and basecallers, ONT provides models through [Rerio](https://github.com/nanoporetech/rerio). To download the models for Clair3 from the ONT github, you can use the following commands (each model will be downloaded to the folder `clair3_models/<clair3_model_name>`):
+Additionally, if you are analysing Oxford Nanopore data, you will need to provide the path to a model to use with `Clair3` (specified with `--clair3_model`). Models for older chemistries and basecallers (e.g. r9.4.1) can be downloaded from [here](https://www.bio8.cs.hku.hk/clair3/clair3_models/). For newer chemistries and basecallers, ONT provides models through [Rerio](https://github.com/nanoporetech/rerio). To download the models for Clair3 from the ONT github, you can use the following commands (each model will be downloaded to the folder `clair3_models/<clair3_model_name>`):
 
 ```bash
 # Clone the rerio repository
@@ -73,7 +75,6 @@ git clone https://github.com/nanoporetech/rerio
 # Download all models
 python3 download_model.py --clair3
 ```
-
 
 Now, you can run the pipeline using:
 
@@ -112,7 +113,7 @@ of this pipeline:
 - [Olha Petryk](https://github.com/opetryk)
 - [Richard Agyekum](https://github.com/QuadjoLegend)
 - [Steven Sutcliffe](https://github.com/sgsutcliffe)
-- [Szymon Szyszkowski](https://github.com/project-defiant) 
+- [Szymon Szyszkowski](https://github.com/project-defiant)
 
 Anthony Underwood's time working on the project was funded by the National Institute for Health Research(NIHR) Global Health Research Unit for the Surveillance of Antimicrobial Resistance (Grant Reference Number 16/136/111)
 ![NIHR funded](assets/nihr_logos_funded_by.jpg)
