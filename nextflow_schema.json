@@ -239,121 +239,311 @@
                 }
             }
         },
-        "clair3_options": {
-            "title": "Clair3 options",
+        "preprocessing_general_qc_options": {
+            "title": "Preprocessing general QC options",
             "type": "object",
-            "description": "",
+            "description": "Common options across both long and short read preprocessing QC steps",
             "default": "",
             "properties": {
-                "clair3_model": {
-                    "type": "string"
+                "skip_preprocessing_qc": {
+                    "type": "boolean",
+                    "description": "Specify to skip sequencing quality control of raw sequencing reads",
+                    "fa_icon": "fas fa-forward",
+                    "help_text": "Skipping running of FastQC or Falco maybe useful in cases where you are already running with preprocessed data (e.g. you are also skipping short/long read qc steps) that you already know the quality of."
                 },
-                "clair3_platform": {
+                "preprocessing_qc_tool": {
                     "type": "string",
-                    "default": "hifi"
+                    "default": "fastqc",
+                    "description": "Specify the tool used for quality control of raw sequencing reads",
+                    "enum": ["fastqc", "falco"],
+                    "fa_icon": "fas fa-tools",
+                    "help_text": "Falco is designed as a drop-in replacement for FastQC but written in C++ for faster computation. We particularly recommend using falco when using long reads (due to reduced memory constraints), however is also applicable for short reads."
+                },
+                "save_preprocessed_reads": {
+                    "type": "boolean",
+                    "description": "Save reads from samples that went through the adapter clipping, pair-merging, and length filtering steps for both short and long reads",
+                    "fa_icon": "fas fa-save",
+                    "help_text": "This saves the FASTQ output from the following tools:\\n\\n- fastp\\n- AdapterRemoval\\n- Porechop\\n- Filtlong\\n- Nanoq\\n\\nThese reads will be a mixture of: adapter clipped, quality trimmed, pair-merged, and length filtered, depending on the parameters you set."
+                },
+                "save_analysis_ready_fastqs": {
+                    "type": "boolean",
+                    "description": "Save only the final reads from all read processing steps in results directory.",
+                    "fa_icon": "fas fa-save",
+                    "help_text": "This flag will generate the directory `results/analysis_ready_reads` that contains the reads from the last preprocessing (QC, run merging etc.) step of the pipeline run. \\n\\nThis can be useful if you wish to re-use the final cleaned-up and prepared reads - the data actually used for the actual mapping and variant calling steps of the pipeline - for other analyses or purposes to reduce redundant preprocessing between different pipelines."
                 }
             }
         },
-        "fastq_preprocessing": {
-            "title": "Fastq preprocessing",
+        "preprocessing_short_read_qc_options": {
+            "title": "Preprocessing short-read QC options",
             "type": "object",
-            "description": "",
+            "description": "Options for adapter clipping, quality trimming and pair-merging",
             "default": "",
             "properties": {
-                "preprocessing_qc_tool": {
-                    "type": "string",
-                    "default": "fastqc"
-                },
                 "perform_shortread_qc": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": true,
+                    "fa_icon": "fas fa-toggle-on",
+                    "description": "Turns on short read quality control steps (adapter clipping, read filtering etc.)",
+                    "help_text": "Turns on short read quality control steps (adapter clipping etc.)\\n\\nThis subworkflow can perform:\\n\\n- Adapter removal\\n- Read quality trimming\\n- Read pair merging\\n- Length filtering\\n\\nEither with fastp or AdapterRemoval.\\n\\nRemoving adapters (if present) is recommend to reduce false-positive hits that may occur from 'dirty' or 'contaminated' reference genomes in a profiling database that contain accidentally incorporated adapter sequences. Note that some, but not all, tools support paired-end alignment (utilising information about the insert covered by the pairs). However read pair merging in some cases can be recommend to increase read length (such as in aDNA). Length filtering, and/or complexity can speed up alignment by reducing the number of short unspecific reads that need to be aligned."
                 },
                 "shortread_qc_tool": {
                     "type": "string",
-                    "default": "fastp"
-                },
-                "skip_preprocessing_qc": {
-                    "type": "boolean"
+                    "default": "fastp",
+                    "description": "Specify which tool to use for short-read QC",
+                    "fa_icon": "fas fa-tools",
+                    "enum": ["fastp", "adapterremoval"]
                 },
                 "shortread_qc_skipadaptertrim": {
-                    "type": "boolean"
-                },
-                "shortread_qc_mergepairs": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "Skip adapter trimming",
+                    "fa_icon": "fas fa-forward",
+                    "help_text": "Skip the removal of sequencing adapters. \\n\\nThis often can be useful to speed up run-time of the pipeline when analysing data downloaded from public databases such as the ENA or SRA, as adapters should already be removed (however we recommend to check FastQC results to ensure this is the case)."
                 },
                 "shortread_qc_adapter1": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Specify adapter 1 nucleotide sequence",
+                    "fa_icon": "fas fa-grip-lines",
+                    "help_text": "Specify a custom forward or R1 adapter sequence to be removed from reads. \\n\\nIf not set, the selected short-read QC tool's defaults will be used.\\n\\n> Modifies tool parameter(s):\\n> - fastp: `--adapter_sequence`. fastp default: `AGATCGGAAGAGCACACGTCTGAACTCCAGTCA`\\n> - AdapterRemoval: `--adapter1`. AdapteRemoval2 default: `AGATCGGAAGAGCACACGTCTGAACTCCAGTCACNNNNNNATCTCGTATGCCGTCTTCTGCTTG`"
                 },
                 "shortread_qc_adapter2": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Specify adapter 2 nucleotide sequence",
+                    "fa_icon": "fas fa-grip-lines",
+                    "help_text": "Specify a custom reverse or R2 adapter sequence to be removed from reads. \\n\\nIf not set, the selected short-read QC tool's defaults will be used.\\n\\n> Modifies tool parameter(s):\\n> - fastp: `--adapter_sequence`. fastp default: `AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT`\\n> - AdapterRemoval: `--adapter1`. AdapteRemoval2 default: `AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT`"
                 },
                 "shortread_qc_adapterlist": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Specify a list of all possible adapters to trim. Overrides --shortread_qc_adapter1/2. Formats: .txt (AdapterRemoval) or .fasta. (fastp).",
+                    "fa_icon": "fas fa-th-list",
+                    "help_text": "Allows to supply a file with a list of adapter (combinations) to remove from all files. \\n\\nOverrides the --shortread_qc_adapter1/--shortread_qc_adapter2 parameters . \\n\\nFor AdapterRemoval this consists of a two column table with a `.txt` extension: first column represents forward strand, second column for reverse strand. You must supply all possible combinations, one per line, and this list is applied to all files. See AdapterRemoval documentation for more information.\\n\\nFor fastp this consists of a standard FASTA format with a `.fasta`/`.fa`/`.fna`/`.fas` extension. The adapter sequence in this file should be at least 6bp long, otherwise it will be skipped. fastp trims the adapters present in the FASTA file one by one.\\n\\n> Modifies AdapterRemoval parameter: --adapter-list\\n> Modifies fastp parameter: --adapter_fasta"
+                },
+                "shortread_qc_mergepairs": {
+                    "type": "boolean",
+                    "description": "Turn on merging of read pairs for paired-end data",
+                    "fa_icon": "fas fa-toggle-on",
+                    "help_text": "Turn on the merging of read-pairs of paired-end short read sequencing data. \\n\\n> Modifies tool parameter(s):\\n> - AdapterRemoval: `--collapse`\\n> - fastp: `-m --merged_out`\\n"
                 },
                 "shortread_qc_includeunmerged": {
-                    "type": "boolean"
-                },
-                "shortread_qc_dedup": {
-                    "type": "boolean"
-                },
-                "perform_longread_qc": {
-                    "type": "boolean"
-                },
-                "longread_adapterremoval_tool": {
-                    "type": "string",
-                    "default": "porechop_abi"
-                },
-                "longread_qc_skipadaptertrim": {
-                    "type": "boolean"
-                },
-                "longread_qc_skipqualityfilter": {
-                    "type": "boolean"
-                },
-                "longread_filter_tool": {
-                    "type": "string",
-                    "default": "nanoq"
+                    "type": "boolean",
+                    "description": "Include unmerged reads from paired-end merging in the downstream analysis",
+                    "fa_icon": "fas fa-times-circle",
+                    "help_text": "Turns on the inclusion of unmerged reads in resulting FASTQ file from merging paired-end sequencing data when using `fastp` and/or `AdapterRemoval`. For `fastp` this means the unmerged read pairs are directly included in the output FASTQ file. For `AdapterRemoval`, additional output files containing unmerged reads are all concatenated into one file by the workflow.\\n\\nExcluding unmerged reads can be useful in cases where you prefer to have very short reads (e.g. aDNA), thus excluding longer-reads or possibly faulty reads where one of the pair was discarded.\\n\\n> Adds `fastp` option: `--include_unmerged`\\n"
                 },
                 "shortread_qc_minlength": {
                     "type": "integer",
-                    "default": 15
+                    "default": 50,
+                    "description": "Specify the minimum length of reads to be retained",
+                    "fa_icon": "fas fa-ruler-horizontal",
+                    "help_text": "Specifying a minimum read length filtering can speed up profiling by reducing the number of short unspecific reads that need to be match/aligned to the database.\\n\\n> Modifies tool parameter(s):\\n> - removed from reads `--length_required`\\n> - AdapterRemoval: `--minlength`"
                 },
-                "longread_qc_qualityfilter_keeppercent": {
-                    "type": "integer",
-                    "default": 90
-                },
-                "longread_qc_qualityfilter_minquality": {
-                    "type": "integer",
-                    "default": 7
-                },
-                "longread_qc_qualityfilter_targetbases": {
-                    "type": "integer",
-                    "default": 500000000
-                },
-                "save_preprocessed_reads": {
-                    "type": "boolean"
-                },
-                "save_runmerged_reads": {
+                "shortread_qc_dedup": {
                     "type": "boolean",
-                    "default": true
-                },
-                "perform_runmerging": {
+                    "description": "Perform deduplication of the input reads (fastp only)",
+                    "fa_icon": "fas fa-toggle-on",
+                    "help_text": "This enables the deduplication of processed reads during fastp adapter removal and/or merging. It removes identical reads that are likely artefacts from laboratory protocols (e.g. amplification), and provide no additional sequence information to the library.\\n\\nRemoving duplicates can increase runtime and increase accuracy of abundance calculations.\\n\\n> Modifies tool parameter(s):\\n> fastp: ` --dedup`\\n"
+                }
+            }
+        },
+        "preprocessing_long_read_qc_options": {
+            "title": "Preprocessing long-read QC  options",
+            "type": "object",
+            "description": "Options for adapter clipping, quality trimming, and length filtering",
+            "default": "",
+            "properties": {
+                "perform_longread_qc": {
                     "type": "boolean",
-                    "default": true
+                    "default": true,
+                    "description": "Turns on long read quality control steps (adapter clipping, length filtering etc.)",
+                    "help_text": "Turns on long read quality control steps (adapter clipping, length and/or quality filtering.)\\n\\nRemoving adapters (if present) is recommended to reduce false-positive hits that may occur from 'dirty' or 'contaminated' reference genomes in a profiling database that contain accidentally incorporated adapter sequences.\\n\\nLength filtering, and quality filtering can speed up alignment by reducing the number of unspecific reads that need to be aligned.",
+                    "fa_icon": "fas fa-toggle-on"
                 },
-                "perform_subsampling": {
-                    "type": "boolean",
-                    "default": true
-                },
-                "shortread_mapping_tool": {
+                "longread_adapterremoval_tool": {
                     "type": "string",
-                    "default": "bowtie2"
+                    "default": "porechop",
+                    "description": "Specify which tool to use for adapter trimming.",
+                    "enum": ["porechop", "porechop_abi"],
+                    "help_text": "The performance of Porechop and Porechop_ABI is same in terms of removing adapter reads. However Porechop is no longer updated, Porechop_ABI receives regular updates.",
+                    "fa_icon": "fas fa-hammer"
                 },
-                "subsampling_depth_cutoff": {
-                    "type": "integer",
-                    "default": 100
+                "longread_qc_skipadaptertrim": {
+                    "type": "boolean",
+                    "description": "Skip long-read trimming",
+                    "fa_icon": "fas fa-forward",
+                    "help_text": "Skip removal of adapters by Porechop. This can be useful in some cases to speed up run time - particularly when you are running data downloading from public databases such as the ENA/SRA that should already have adapters removed. We recommend that you check your FastQC results this is indeed the case."
+                },
+                "longread_filter_tool": {
+                    "type": "string",
+                    "default": "nanoq",
+                    "description": "Specify which tool to use for long reads filtering",
+                    "fa_icon": "fas fa-hammer",
+                    "help_text": "Nanoq is a filtering tool only for Nanopore reads. Nanoq is faster and more memory-efficient than Filtlong. Nanoq also provides a summary of input read statistics; see [benchmarking](https://github.com/esteinig/nanoq?tab=readme-ov-file#benchmarks). \\n\\nFiltlong is a good option if you want to keep a certain percentage of reads after filtering, and you can also use it for non-Nanopore long reads."
+                },
+                "longread_qc_skipqualityfilter": {
+                    "type": "boolean",
+                    "description": "Skip long-read length and quality filtering",
+                    "fa_icon": "fas fa-forward",
+                    "help_text": "Skip removal of quality filtering with Filtlong or Nanoq. This will skip length, percent reads, and target bases filtering (see other `--longread_qc_qualityfilter_*` parameters)."
                 },
                 "longread_qc_qualityfilter_minlength": {
                     "type": "integer",
-                    "default": 1000
+                    "default": 1000,
+                    "description": "Specify the minimum length of reads to be retained",
+                    "fa_icon": "fas fa-ruler-horizontal",
+                    "help_text": "Specify the minimum of length of reads to be kept for downstream analysis.\\n\\n> Modifies tool parameter(s):\\n> - Filtlong: `--min_length` or - Nanoq: `--min-len`"
+                },
+                "longread_qc_qualityfilter_keeppercent": {
+                    "type": "integer",
+                    "default": 90,
+                    "description": "Specify the percent of high-quality bases to be retained",
+                    "fa_icon": "fas fa-percent",
+                    "help_text": "Throw out the remaining percentage of reads outside the value. This is measured by bp, not by read count. So this option throws out the worst e.g. 10% of read bases if the parameter is set to `90`.  _Modified from [Filtlong documentation](https://github.com/rrwick/Filtlong)_\\n\\n> Modifies tool parameter(s):\\n> - Filtlong: `--keep_percent`"
+                },
+                "longread_qc_qualityfilter_targetbases": {
+                    "type": "integer",
+                    "default": 500000000,
+                    "description": "Filtlong only: specify the number of high-quality bases in the library to be retained",
+                    "fa_icon": "fas fa-bullseye",
+                    "help_text": "Removes the worst reads until only the specified value of bases remain, useful for very large read sets. If the input read set is less than the specified value, this setting will have no effect. _Modified from [Filtlong documentation](https://github.com/rrwick/Filtlong)_\\n\\n> Modifies tool parameter(s):\\n> - Filtlong: `--keep_percent`"
+                },
+                "longread_qc_qualityfilter_minquality": {
+                    "type": "integer",
+                    "default": 7,
+                    "description": "Nanoq only: specify the minimum average read quality filter (Q)",
+                    "fa_icon": "fas fa-bullseye",
+                    "help_text": "Remove the reads with quality score lower than 7. \\n\\n> Modifies tool parameter(s):\\n> - Nanoq: `--min-qual`"
+                }
+            }
+        },
+        "preprocessing_run_merging_options": {
+            "title": "Preprocessing run-merging options",
+            "type": "object",
+            "description": "Options for per-sample run-merging",
+            "default": "",
+            "properties": {
+                "perform_runmerging": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Turn on run merging",
+                    "fa_icon": "fas fa-toggle-on",
+                    "help_text": "Turns on the concatenation of sequencing runs or libraries with the same sample name.\\n\\nThis can be useful to ensure you get a single profile per sample, rather than one profile per run or library. Note that in some cases comparing profiles of independent _libraries_ may be useful, so this parameter may not always be suitable."
+                },
+                "save_runmerged_reads": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Save reads from samples that went through the run-merging step",
+                    "fa_icon": "fas fa-save",
+                    "help_text": "Save the run- and library-concatenated reads of a given sample in FASTQ format.\\n\\n> \\u26a0\\ufe0f Only samples that went through the run-merging step of the pipeline will be stored in the resulting directory. \\n\\nIf you wish to save the files that go to the classification/profiling steps for samples that _did not_ go through run merging, you must supply the appropriate upstream `--save_<preprocessing_step>` flag.\\n\\n"
+                }
+            }
+        },
+        "sub_sampling_options": {
+            "title": "Sub-sampling options",
+            "type": "object",
+            "description": "Options for sub-sampling reads",
+            "default": "",
+            "properties": {
+                "perform_subsampling": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Turn on sub-sampling of reads with Rasusa",
+                    "fa_icon": "fas fa-toggle-on",
+                    "help_text": "Subsampling sequence reads is a good idea because it reduces computational resources and processing time while still maintaining sufficient data for accurate analysis."
+                },
+                "subsampling_depth_cutoff": {
+                    "type": "integer",
+                    "default": 100,
+                    "description": "Desired coverage depth when sub-sampling",
+                    "fa_icon": "fas fa-ruler-vertical",
+                    "help_text": "100X should more more than enough coverage to perform accurate variant calling"
+                }
+            }
+        },
+        "short_read_mapping_options": {
+            "title": "Short read mapping options",
+            "type": "object",
+            "description": "Options for short-read mapping",
+            "default": "",
+            "properties": {
+                "shortread_mapping_tool": {
+                    "type": "string",
+                    "default": "bowtie2",
+                    "description": "Specify which tool to use for short-read mapping",
+                    "enum": ["bowtie2", "bwa"],
+                    "help_text": "By default the pipeline uses Bowtie2 but BWA mem 2 can also be used for short-read mapping ",
+                    "fa_icon": "fas fa-grip-lines"
+                }
+            }
+        },
+        "long_read_mapping_options": {
+            "title": "Long-read mapping options",
+            "type": "object",
+            "description": "Options for long-read mapping",
+            "default": "",
+            "properties": {
+                "bam_format": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Specify the output format from minimap2 align",
+                    "fa_icon": "fas fa-sign-out-alt",
+                    "help_text": "Saves the output from minimap2 align to a bam file. \\n\\n> Modifies tool parameter(s):\\n> - minimap2: `-a`\\n>\\n. If set to false, the output of minimap2 align is saved to a paf file"
+                },
+                "bam_index_extension": {
+                    "type": "string",
+                    "default": "bai",
+                    "fa_icon": "fas fa-save",
+                    "description": "Specify the bam index file extension"
+                },
+                "cigar_paf_format": {
+                    "type": "boolean",
+                    "description": "Generate CIGAR",
+                    "help_text": "Generate CIGAR. In PAF, the CIGAR is written to the \u2018cg\u2019 custom tag.",
+                    "fa_icon": "fas fa-smoking"
+                },
+                "cigar_bam": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-smoking",
+                    "description": "Write CIGAR with >65535 operators at the CG tag.",
+                    "help_text": "Older tools are unable to convert alignments with >65535 CIGAR ops to BAM. This option makes minimap2 SAM compatible with older tools. Newer tools recognizes this tag and reconstruct the real CIGAR in memory.",
+                    "default": true
+                },
+                "clair3_model": {
+                    "type": "string",
+                    "description": "Path to Clair3 model",
+                    "fa_icon": "fas fa-check-circle"
+                },
+                "clair3_platform": {
+                    "type": "string",
+                    "default": "ont",
+                    "description": "Sequencing platform",
+                    "help_text": "Clair3 can align ONT, PacBio and Illumina sequence data. Here we only support ONT data",
+                    "fa_icon": "fas fa-grip-lines"
+                }
+            }
+        },
+        "consensus_options": {
+            "title": "Consensus options",
+            "type": "object",
+            "description": "Options for creating FASTA consensus files",
+            "default": "",
+            "properties": {
+                "genomecov_threshold": {
+                    "type": "integer",
+                    "default": 9,
+                    "description": "Specify the coverage at which low coverage regions are masked with N",
+                    "fa_icon": "fas fa-bullseye"
+                },
+                "genomecov_scale": {
+                    "type": "string",
+                    "default": 1,
+                    "description": "Scale the coverage by a constant factor",
+                    "help_text": "Each coverage value is multiplied by this factor before being reported. Useful for normalizing coverage by, e.g., reads per million (RPM). Default is 1.0 i.e. unscaled.",
+                    "fa_icon": "fas fa-balance-scale-left"
+                },
+                "non_GATC_threshold": {
+                    "type": "number",
+                    "default": 0.5,
+                    "description": "Maximum non GATC bases (i.e - and N) to allow in consensus FASTA",
+                    "fa_icon": "fas fa-percent"
                 }
             }
         }
@@ -370,111 +560,30 @@
         },
         {
             "$ref": "#/$defs/generic_options"
+        },
+        {
+            "$ref": "#/$defs/preprocessing_general_qc_options"
+        },
+        {
+            "$ref": "#/$defs/preprocessing_short_read_qc_options"
+        },
+        {
+            "$ref": "#/$defs/preprocessing_long_read_qc_options"
+        },
+        {
+            "$ref": "#/$defs/preprocessing_run_merging_options"
+        },
+        {
+            "$ref": "#/$defs/sub_sampling_options"
+        },
+        {
+            "$ref": "#/$defs/short_read_mapping_options"
+        },
+        {
+            "$ref": "#/$defs/long_read_mapping_options"
+        },
+        {
+            "$ref": "#/$defs/consensus_options"
         }
-    ],
-    "properties": {
-        "reference": {
-            "type": "string"
-        },
-        "skip_preprocessing_qc": {
-            "type": "boolean"
-        },
-        "preprocessing_qc_tool": {
-            "type": "string",
-            "default": "fastqc"
-        },
-        "perform_shortread_qc": {
-            "type": "boolean",
-            "default": true
-        },
-        "shortread_qc_tool": {
-            "type": "string",
-            "default": "fastp"
-        },
-        "shortread_qc_skipadaptertrim": {
-            "type": "boolean"
-        },
-        "shortread_qc_mergepairs": {
-            "type": "boolean"
-        },
-        "shortread_qc_includeunmerged": {
-            "type": "boolean"
-        },
-        "shortread_qc_adapter1": {
-            "type": "string"
-        },
-        "shortread_qc_adapter2": {
-            "type": "string"
-        },
-        "shortread_qc_adapterlist": {
-            "type": "string"
-        },
-        "shortread_qc_minlength": {
-            "type": "integer",
-            "default": 15
-        },
-        "shortread_qc_dedup": {
-            "type": "boolean"
-        },
-        "perform_longread_qc": {
-            "type": "boolean",
-            "default": true
-        },
-        "longread_adapterremoval_tool": {
-            "type": "string",
-            "default": "porechop_abi"
-        },
-        "longread_qc_skipadaptertrim": {
-            "type": "boolean"
-        },
-        "longread_qc_skipqualityfilter": {
-            "type": "boolean"
-        },
-        "longread_filter_tool": {
-            "type": "string",
-            "default": "nanoq"
-        },
-        "longread_qc_qualityfilter_minlength": {
-            "type": "integer",
-            "default": 1000
-        },
-        "longread_qc_qualityfilter_keeppercent": {
-            "type": "integer",
-            "default": 90
-        },
-        "longread_qc_qualityfilter_minquality": {
-            "type": "integer",
-            "default": 7
-        },
-        "longread_qc_qualityfilter_targetbases": {
-            "type": "integer",
-            "default": 500000000
-        },
-        "save_preprocessed_reads": {
-            "type": "boolean"
-        },
-        "perform_runmerging": {
-            "type": "boolean",
-            "default": true
-        },
-        "save_runmerged_reads": {
-            "type": "boolean",
-            "default": true
-        },
-        "save_analysis_ready_fastqs": {
-            "type": "boolean"
-        },
-        "perform_subsampling": {
-            "type": "boolean",
-            "default": true
-        },
-        "subsampling_depth_cutoff": {
-            "type": "integer",
-            "default": 100
-        },
-        "shortread_mapping_tool": {
-            "type": "string",
-            "default": "bowtie2"
-        }
-    }
+    ]
 }

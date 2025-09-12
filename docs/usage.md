@@ -6,58 +6,111 @@
 
 ## Introduction
 
-<!-- TODO nf-core: Add documentation about anything specific to running your pipeline. For general topics, please point to (and add to) the main nf-core website. -->
+**nf-core/bactmap** is a bioinformatics best-practice analysis pipeline for mapping short (Illumina) and long reads (Oxford Nanopore) from bacterial WGS to a reference sequence, creating filtered VCF files and making pseudogenomes based on high quality positions in the VCF files.
 
-## Samplesheet input
+In addition to this page, you can find additional usage information on the following pages:
 
-You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row as shown in the examples below.
+- [Tutorials](usage/tutorials.md)
+- [FAQ and Troubleshooting](usage/faq-troubleshooting.md)
 
-```bash
+## General Usage
+
+To run nf-core/bactmap, at a minimum two you require two inputs:
+
+- a sequencing read samplesheet
+- a reference genome
+
+The samplesheet contains metadata and paths to the data of your input samples.
+
+nf-core/bactmap includes optional pre-processing (adapter clipping, merge running etc.) or post-processing (visualisation) steps. These are opt in with a `--perform_<step>` flag. In some cases, the pre- and post-processing steps may also require additional files. Please check the parameters tab of this documentation for more information.
+
+Please see the rest of this page for information about how to prepare input samplesheets and databases and how to run Nextflow pipelines. See the [parameters](https://nf-co.re/bactmap/parameters) documentation for more information about specific options the pipeline also offers.
+
+## Samplesheet inputs
+
+nf-core/bactmap can accept as input raw or preprocessed single- or paired-end short-read (e.g. Illumina) FASTQ files and long-read FASTQ files (e.g. Oxford Nanopore).
+
+You will need to create a samplesheet with information about the samples you would like to analyse before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 5 columns, and a header row as shown in the examples below.
+
+This samplesheet is then specified on the command line as follows:
+
+```console
 --input '[path to samplesheet file]'
 ```
 
 ### Multiple runs of the same sample
 
-The `sample` identifiers have to be the same when you have re-sequenced the same sample more than once e.g. to increase sequencing depth. The pipeline will concatenate the raw reads before performing any downstream analysis. Below is an example for the same sample sequenced across 3 lanes:
+The `sample` identifiers have to be the same when you have re-sequenced the same sample more than once e.g. to increase sequencing depth. The pipeline will concatenate different runs FASTQ files of the same sample before performing mapping and variant calling, when `--perform_runmerging` is supplied. Below is an example for the same sample sequenced across 3 lanes:
 
 ```csv title="samplesheet.csv"
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L003_R1_001.fastq.gz,AEG588A1_S1_L003_R2_001.fastq.gz
-CONTROL_REP1,AEG588A1_S1_L004_R1_001.fastq.gz,AEG588A1_S1_L004_R2_001.fastq.gz
+sample,run_accession,instrument_platform,fastq_1,fastq_2
+2612,lane1,ILLUMINA,2612_lane1_R1.fq.gz,ILLUMINA,2612_lane1_R2.fq.gz
+2612,lane2,ILLUMINA,2612_lane2_R1.fq.gz,ILLUMINA,2612_lane2_R2.fq.gz
+2612,lane3,ILLUMINA,2612_lane3_R1.fq.gz,
 ```
+
+::: info
+Please note that the column name `run_accession` follows the definition of an ENA 'run'.
+A 'run' corresponds to a single or paired-end set of demultiplexed FASTQs.
+Given that demultiplexing of a given library happens per lane, each sequencing pair from each lane is a 'run'.
+Therefore, for each sample, you may get multiple 'runs' consisting of _both_ lanes (of the same library) _and_ sequencing libraries.
+Therefore ensure that each `run_accession` ID is unique, even if from the same sample!
+:::
+
+:::warning
+Runs of the same sample sequenced on Illumina platforms with a combination of single and paired-end data will **not** be run-wise concatenated, unless pair-merging is specified. In the example above, `run3` will be profiled independently of `run1` and `run2` if pairs are not merged.
+:::
 
 ### Full samplesheet
 
-The pipeline will auto-detect whether a sample is single- or paired-end using the information provided in the samplesheet. The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first 3 columns to match those defined in the table below.
+The pipeline will auto-detect whether a sample is single- or paired-end using the information provided in the samplesheet. The samplesheet can have as many columns as you desire, however, there is a strict requirement for the first 5 columns to match those defined in the table below.
 
-A final samplesheet file consisting of both single- and paired-end data may look something like the one below. This is for 6 samples, where `TREATMENT_REP3` has been sequenced twice.
+A final samplesheet file consisting of both single- and paired-end data may look something like the one below. This is for 5 samples, where `2612` has been sequenced twice.
 
 ```csv title="samplesheet.csv"
-sample,fastq_1,fastq_2
-CONTROL_REP1,AEG588A1_S1_L002_R1_001.fastq.gz,AEG588A1_S1_L002_R2_001.fastq.gz
-CONTROL_REP2,AEG588A2_S2_L002_R1_001.fastq.gz,AEG588A2_S2_L002_R2_001.fastq.gz
-CONTROL_REP3,AEG588A3_S3_L002_R1_001.fastq.gz,AEG588A3_S3_L002_R2_001.fastq.gz
-TREATMENT_REP1,AEG588A4_S4_L003_R1_001.fastq.gz,
-TREATMENT_REP2,AEG588A5_S5_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L003_R1_001.fastq.gz,
-TREATMENT_REP3,AEG588A6_S6_L004_R1_001.fastq.gz,
+sample,run_accession,instrument_platform,fastq_1,fastq_2
+2612,ERR5766176,ILLUMINA,/<path>/<to>/fastq/ERX5474932_ERR5766176_1.fastq.gz,/<path>/<to>/fastq/ERX5474932_ERR5766176_2.fastq.gz
+2612,ERR5766180,ILLUMINA,/<path>/<to>/fastq/ERX5474936_ERR5766180_1.fastq.gz,
+2613,ERR5766181,ILLUMINA,/<path>/<to>/fastq/ERX5474937_ERR5766181_1.fastq.gz,/<path>/<to>/fastq/ERX5474937_ERR5766181_2.fastq.gz
+ERR3201952,ERR3201952,OXFORD_NANOPORE,/<path>/<to>/fastq/ERR3201952.fastq.gz,
 ```
 
-| Column    | Description                                                                                                                                                                            |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sample`  | Custom sample name. This entry will be identical for multiple sequencing libraries/runs from the same sample. Spaces in sample names are automatically converted to underscores (`_`). |
-| `fastq_1` | Full path to FastQ file for Illumina short reads 1. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
-| `fastq_2` | Full path to FastQ file for Illumina short reads 2. File has to be gzipped and have the extension ".fastq.gz" or ".fq.gz".                                                             |
+:::warning
+Input FASTQ _must_ be gzipped.
+:::
+
+:::warning
+While one can include both short-read and long-read data in one run, we recommend that you split these across _two_ pipeline runs. This will make MultiQC run-reports more readable (due to run statistics having vary large number differences).
+:::
+
+| Column                | Description                                                                                                                                                                           |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sample`              | Unique sample name [required].                                                                                                                                                        |
+| `run_accession`       | Run ID or name unique for each (pairs of) file(s) .Can also supply sample name again here, if only a single run was generated [required].                                             |
+| `instrument_platform` | Sequencing platform reads generated on, selected from the EBI ENA [controlled vocabulary](https://www.ebi.ac.uk/ena/portal/api/controlledVocab?field=instrument_platform) [required]. |
+| `fastq_1`             | Path or URL to sequencing reads or for Illumina R1 sequencing reads in FASTQ format. GZipped compressed files accepted. Can be left empty if data in FASTA is specified.              |
+| `fastq_2`             | Path or URL to Illumina R2 sequencing reads in FASTQ format. GZipped compressed files accepted. Can be left empty if single end data.                                                 |
 
 An [example samplesheet](../assets/samplesheet.csv) has been provided with the pipeline.
+
+## Reference genome
+
+The reference genome must be provided in FASTA format. The pipeline will automatically index the reference genome using `bwa index` or `bowtie2 build` and `samtools faidx` if not already indexed.
+The reference genome can be provided as a local file or a URL. The pipeline will automatically download the reference genome if a URL is provided.
+The reference genome can be specified on the command line as follows:
+
+```console
+--fasta '[path to reference genome]'
+```
+
+The reference genome can be a single FASTA file or a multi-FASTA file. The reference genome can also be a gzipped FASTA file. The pipeline will automatically unzip the file if it is gzipped.
 
 ## Running the pipeline
 
 The typical command for running the pipeline is as follows:
 
 ```bash
-nextflow run nf-core/bactmap --input ./samplesheet.csv --outdir ./results --genome GRCh37 -profile docker
+nextflow run nf-core/bactmap --input ./samplesheet.csv --outdir ./results --fasta reference.fasta -profile docker
 ```
 
 This will launch the pipeline with the `docker` configuration profile. See below for more information about profiles.
@@ -89,11 +142,66 @@ with:
 ```yaml title="params.yaml"
 input: './samplesheet.csv'
 outdir: './results/'
-genome: 'GRCh37'
+reference: 'reference.fasta'
 <...>
 ```
 
 You can also generate such `YAML`/`JSON` files via [nf-core/launch](https://nf-co.re/launch).
+
+### Sequencing quality control
+
+[`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) gives general quality metrics about your reads. It provides information about the quality score distribution across your reads, per base sequence content (%A/T/G/C), adapter contamination and overrepresented sequences. nf-core bactmap offers [`falco`](https://github.com/smithlabcode/falco) as an drop-in replacement, with supposedly better improvement particularly for long reads.
+
+### Preprocessing Steps
+
+nf-core/bactmap offers two main preprocessing steps for preprocessing raw sequencing reads:
+
+- [**Read processing**](#read-processing): adapter clipping and pair-merging.
+- [**Run merging**](#run-merging): concatenation of multiple FASTQ chunks/sequencing runs/libraries of a sample.
+
+:::info
+You can save the 'final' reads used for classification/profiling from any combination of these steps with `--save_analysis_ready_fastqs`.
+:::
+
+#### Read Processing
+
+Raw sequencing read processing in the form of adapter clipping and paired-end read merging can be activated via the `--perform_shortread_qc` or `--perform_longread_qc` flags.
+
+It is highly recommended to run this on raw reads to remove artifacts from sequencing that can cause false positive identification of taxa (e.g. contaminated reference genomes) and/or skews in taxonomic abundance profiles. If you have public data, normally these should have been corrected for, however you should still check that these steps have indeed been already performed.
+
+There are currently two options for short-read preprocessing: [`fastp`](https://github.com/OpenGene/fastp) or [`adapterremoval`](https://github.com/MikkelSchubert/adapterremoval).
+
+For adapter clipping, you can either rely on the tool's default adapter sequences, or supply your own adapters (`--shortread_qc_adapter1` and `--shortread_qc_adapter2`)
+By default, paired-end merging is not activated. If paired-end merging is activated you can also specify whether to include unmerged reads in the reads sent for mapping/variant calling (`--shortread_qc_mergepairs` and `--shortread_qc_includeunmerged`).
+You can also turn off clipping and only perform paired-end merging, if requested. This can be useful when processing data downloaded from the ENA, SRA, or DDBJ (`--shortread_qc_skipadaptertrim`).
+Both tools support length filtering of reads and can be tuned with `--shortread_qc_minlength`.
+
+There are currently two options for long-read Oxford Nanopore processing: [`porechop`](https://github.com/rrwick/Porechop), [`porechop_abi`](https://github.com/bonsai-team/Porechop_ABI).
+
+For both short-read and long-read preprocessing, you can optionally save the resulting processed reads with `--save_preprocessed_reads`.
+
+#### Run Merging
+
+For samples that may have been sequenced over multiple runs, or for FASTQ files split into multiple chunks, you can activate the ability to merge across all runs or chunks with `--perform_runmerging`.
+
+For more information how to set up your input samplesheet, see [Multiple runs of the same sample](#multiple-runs-of-the-same-sample).
+
+Activating this functionality will concatenate the FASTQ files with the same sample name _after_ the optional preprocessing steps and _before_ mapping/variant calling. Note that libraries with runs of different pairing types will **not** be merged and this will be indicated on output files with a `_se` or `_pe` suffix to the sample name accordingly.
+
+You can optionally save the FASTQ output of the run merging with the `--save_runmerged_reads`.
+
+### Subsampling reads
+
+Some sequencing runs may be too large to process in a reasonable time. In these cases, you can use the `--perform_subsampling` flag to randomly subsample your reads to a specified depth of coverage per sample. This is done before the mapping steps. By default, this step is activated for all samples.
+
+### Read mapping
+
+The nf-core/bactmap pipeline provides two strategies to map reads to a reference genome:
+
+- **Short-read mapping**: `bwa-mem2` or `bowtie2`
+- **Long-read mapping**: `minimap2`
+
+By default, the pipeline will use `bowtie2` for short-read mapping. You can change this with the `shortread_mapping_tool` parameter.
 
 ### Updating the pipeline
 

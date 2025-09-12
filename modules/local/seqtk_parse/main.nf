@@ -3,8 +3,8 @@ process SEQTK_PARSE {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/mulled-v2-9adca5a7d3b24119897cfc20386da6c7fa47bdab:77c1885b47edc369aceb4cccf161a549bdac3d4b-0' :
-        'quay.io/biocontainers/mulled-v2-9adca5a7d3b24119897cfc20386da6c7fa47bdab:77c1885b47edc369aceb4cccf161a549bdac3d4b-0' }"
+        'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/c0/c03d8fbb44376692e10bb9e56be2577fc35446c193637735de9fed182e6b58df/data' :
+        'community.wave.seqera.io/library/pandas:2.3.1--139e2fa6c1f18206' }"
 
     input:
     path tsv
@@ -16,14 +16,13 @@ process SEQTK_PARSE {
     when:
     task.ext.when == null || task.ext.when
 
-    script:
-    script: // This script is bundled with the pipeline in avantonder/mapbac/bin/
+    script: // This script is bundled with the pipeline in avantonder/bactmap/bin/
     def parser_version = '1.0'
     """
     seqtk_parser.py
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         seqtk_parser.py: ${parser_version}
-    END_VERSIONS 
+    END_VERSIONS
     """
 }

@@ -5,7 +5,7 @@ process GET_GENOME_SIZE {
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/gawk:5.3.0' :
         'biocontainers/gawk:5.3.0' }"
-    
+
     input:
     tuple val(meta), path(size_file)
 

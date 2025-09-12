@@ -27,24 +27,25 @@ report_section_order:
     order: 500
   nanoq:
     order: 400
-  samtools:
+  fastqc-1:
     order: 300
-  bcftools:
+  samtools:
     order: 200
-
-# Enable plot export
-export_plots: true
+  bcftools:
+    order: 100
 
 # List of run modules
 run_modules:
   - fastqc
   - fastp
+  - adapterremoval
   - porechop
   - porechop_abi
-  - samtools
-  - bcftools
   - filtlong
   - nanoq
+  - samtools
+  - bcftools
+  - custom_content
 
 # File path filters
 sp:
@@ -52,6 +53,8 @@ sp:
     fn_re: ".*(fastqc|falco)_data.txt$"
   fastqc/zip:
     fn: "*_fastqc.zip"
+  fastp:
+    fn: "*.fastp.json"
   filtlong:
     contents: Scoring long reads
     contents_re: " "
@@ -121,6 +124,22 @@ top_modules:
       extra: |
         ℹ️: If you get the error message 'Error - was not able to plot data.'
         this means that nanoq did not generate any results for the reads, and no statistics are available.
+  - samtools:
+      name: "SAMTools Stats"
+      anchor: "samtools"
+      target: "SAMTools"
+      doi: "10.1093/bioinformatics/btp352"
+      info: "This section of the report shows SAMTools counts/statistics after mapping with Bowtie 2/BWA 2 mem."
+      path_filters:
+        - "*.stats"
+  - "bcftools":
+      name: "BCFTools"
+      anchor: "bcftools"
+      target: "BCFTools"
+      doi: "10.1093/bioinformatics/btp352"
+      info: "This section of the report shows BCFTools stats results for the called variants."
+      path_filters:
+        - "*.txt"
 
 # Table columns for each module
 table_columns_placement:
@@ -138,6 +157,19 @@ table_columns_placement:
     percent_duplicates: 230
     percent_gc: 240
     percent_fails: 250
+  fastp:
+    pct_adapter: 300
+    pct_surviving: 310
+    pct_duplication: 320
+    after_filtering_gc_content: 330
+    after_filtering_q30_rate: 340
+    after_filtering_q30_bases: 350
+    filtering_result_passed_filter_reads: 360
+  Adapter Removal:
+    aligned_total: 360
+    percent_aligned: 370
+    percent_collapsed: 380
+    percent_discarded: 390
   Porechop:
     Input Reads: 500
     Start Trimmed: 510
@@ -159,6 +191,14 @@ table_columns_placement:
   nanoq:
     Reads: 700
     Read N50: 710
+  SAMTools Stats:
+    raw_total_sequences: 800
+    reads_mapped: 810
+    reads_mapped_percent: 820
+    reads_properly_paired_percent: 830
+    non-primary_alignments: 840
+    reads_MQ0_percent: 850
+    error_rate: 860
 
 # Table columns visibility
 table_columns_visible:
@@ -174,6 +214,18 @@ table_columns_visible:
     percent_duplicates: false
     percent_gc: false
     percent_fails: false
+  Adapter Removal:
+    aligned_total: true
+    percent_aligned: true
+    percent_collapsed: true
+    percent_discarded: false
+  fastp:
+    pct_adapter: true
+    pct_surviving: true
+    pct_duplication: false
+    after_filtering_gc_content: false
+    after_filtering_q30_rate: false
+    after_filtering_q30_bases: false
   porechop:
     Input reads: false
     Start Trimmed: true
@@ -210,6 +262,10 @@ table_columns_name:
     percent_gc: "% GC Processed Reads"
     percent_duplicates: "% Dups Processed Reads"
     percent_fails: "% Failed Processed Reads"
+  SAMTools Stats:
+    raw_total_sequences: "Nr. Reads Into Mapping"
+    reads_mapped: "Nr. Mapped Reads"
+    reads_mapped_percent: "% Mapped Reads"
 
 # Clean-up extensions
 extra_fn_clean_exts:

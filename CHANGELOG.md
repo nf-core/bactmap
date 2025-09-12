@@ -5,12 +5,69 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v2.0.0dev - [date]
 
-Initial release of nf-core/bactmap, created with the [nf-core](https://nf-co.re/) template.
+nf-core/bactmap release v2.0.0. The pipeline has been completely rewritten using a fresh template created with [nf-core](https://nf-co.re/).
 
 ### `Added`
+
+The pipeline is composed of the following steps:
+
+1. Index reference fasta file (short-read: [`BWA index`](https://github.com/lh3/bwa) or [`Bowtie2 build`](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml); long-read: [`minimap2 index`](https://github.com/lh3/minimap2))
+2. Read QC ([`FastQC`](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) or [`falco`](https://github.com/smithlabcode/falco) as an alternative option)
+3. Calculate fastq summary statistics ([`fastq-scan`](https://github.com/rpetit3/fastq-scan))
+4. Perform read pre-processing (optional)
+   - Adapter clipping and merging (short-read: [`fastp`](https://github.com/OpenGene/fastp) or [`AdapterRemoval2`](https://github.com/MikkelSchubert/adapterremoval); long-read: [`porechop`](https://github.com/rrwick/Porechop) or [`Porechop_ABI`](https://github.com/bonsai-team/Porechop_ABI))
+   - Quality filtering (long-read: [`Filtlong`](https://github.com/rrwick/Filtlong)), [`Nanoq`](https://github.com/esteinig/nanoq)
+   - Run merging ([`cat`](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/cat.html))
+5. Downsample fastq files (optional) ([`Rasusa`](https://github.com/mbhall88/rasusa))
+6. Summarise read statistics pre- and post-processing and subsampling ([`read_stats`](https://github.com/nf-core/bactmap/blob/master/modules/local/read_stats/main.nf))
+7. Variant calling
+
+- Map reads to reference (short-read: [`BWA-MEM2`](https://github.com/bwa-mem2/bwa-mem2) or [`Bowtie2`](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml); long-read: [`minimap2`](https://github.com/lh3/minimap2))
+- Sort and index alignments ([`SAMtools view/sort`](https://sourceforge.net/projects/samtools/files/samtools/))
+- Summarise alignment statistics ([`SAMtools stats`](https://sourceforge.net/projects/samtools/files/samtools/))
+- Call variants (short-read: [`FreeBayes`](https://github.com/freebayes/freebayes); long-read: [`Clair3`](https://github.com/HKU-BAL/Clair3))
+- Filter variants ([`BCFtools filter`](http://samtools.github.io/bcftools/bcftools.html))
+- Summarise variant statistics ([`BCFtools stats`](http://samtools.github.io/bcftools/bcftools.html))
+- Convert filtered bcf to pseudogenome fasta ([`BCFtools consensus`](http://samtools.github.io/bcftools/bcftools.html) and [`BEDtools`](https://bedtools.readthedocs.io/en/latest/content/tools/genomecov.html))
+- Summarise mapping statistics ([`seqtk`](https://github.com/lh3/seqtk))
+
+8. Create alignment from pseudogenomes by concatenating fasta files having first checked that the sample sequences are high quality ([`alignpseudogenomes`](https://github.com/nf-core/bactmap/blob/master/modules/local/alignpseudogenomes/main.nf))
+9. Extract variant sites from alignment ([`SNP-sites`](https://github.com/sanger-pathogens/snp-sites))
+10. Present QC for raw and processed reads, alignment statistics and variant statistics ([`MultiQC`](http://multiqc.info/))
+
+- Added support for Oxford Nanopore long-read sequencing data.
 
 ### `Fixed`
 
 ### `Dependencies`
 
 ### `Deprecated`
+
+- Recombination removal with [`Gubbins`](https://sanger-pathogens.github.io/gubbins/) has been removed from the pipeline. The user can still run recombination removal using the alignment output from the pipeline.
+- Phylogenetic tree construction has been removed from the pipeline. The user can still run phylogenetic tree construction using the alignment output from the pipeline.
+
+## 1.0.0 - Aluminium Spider - 2021-06-18
+
+Initial release of nf-core/bactmap, created with the [nf-core](https://nf-co.re/) template.
+
+The pipeline is composed of the following steps:
+
+1. Index reference fasta file ([`BWA index`](https://github.com/lh3/bwa))
+2. Trim reads for quality and adapter sequence (Optional) ([`fastp`](https://github.com/OpenGene/fastp))
+3. Estimate genome size ([`mash sketch`](https://mash.readthedocs.io/en/latest/index.html))
+4. Downsample fastq files (Optional) ([`Rasusa`](https://github.com/mbhall88/rasusa))
+5. Variant calling
+   1. Read mapping ([`BWA mem`](https://github.com/lh3/bwa))
+   2. Sort and index alignments ([`SAMtools`](https://sourceforge.net/projects/samtools/files/samtools/))
+   3. Call and filter variants ([`BCFtools`](http://samtools.github.io/bcftools/bcftools.html))
+   4. Convert filtered bcf to pseudogenome fasta ([`vcf2pseudogenome.py`](https://github.com/nf-core/bactmap/blob/dev/bin/vcf2pseudogenome.py))
+6. Create alignment from pseudogenome by concatenating fasta files having first checked that the sample sequences are high quality ([`calculate_fraction_of_non_GATC_bases.py`](https://github.com/nf-core/bactmap/blob/dev/bin/))
+7. Remove recombination (Optional) ([`Gubbins`](https://sanger-pathogens.github.io/gubbins/))
+8. Extract variant sites from alignment ([`SNP-sites`](https://github.com/sanger-pathogens/snp-sites))
+9. Construct phylogenetic tree (Optional)
+   1. Fast/less accurate
+      - neighbour joining [`RapidNJ`](https://birc.au.dk/software/rapidnj/)
+      - approximate maximum likelihood [`FastTree2`](http://www.microbesonline.org/fasttree/))
+   2. Slow/more accurate, maximum likelihood
+      - [`IQ-TREE`](http://www.iqtree.org/),
+      - [`RAxML-NG`](https://github.com/amkozlov/raxml-ng)

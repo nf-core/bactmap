@@ -8,12 +8,12 @@ process BEDTOOLS_GENOMECOV {
         'community.wave.seqera.io/library/bedtools_coreutils:a623c13f66d5262b' }"
 
     // simpler input, having removed the sorting option
-    input: 
+    input:
     tuple val(meta), path(intervals), val(scale)
 
     output:
     tuple val(meta), path("*.bed"), emit: genomecov
-    path  "versions.yml"                   , emit: versions
+    path  "versions.yml"          , emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -30,16 +30,16 @@ process BEDTOOLS_GENOMECOV {
     def buffer   = task.memory ? "--buffer-size=${task.memory.toGiga().intdiv(2)}G" : ''
 
     def prefix = task.ext.prefix ?: "${meta.id}"
-    
-    // hard-coded for bcftools_consensus subworkflow. mainly the problem was the awk pipe at the end, we decided to go with a local version of genomecov. 
-    // this is a simpler version than the nf-core version, it expects a bam as interval file, and it does not expect sorting either. we did add a threshold parameter in the nextflow.config in case the user wants to specify the threshold for low coverage 
+    def cmd = '$4 <'
+    // hard-coded for bcftools_consensus subworkflow. mainly the problem was the awk pipe at the end, we decided to go with a local version of genomecov.
+    // this is a simpler version than the nf-core version, it expects a bam as interval file, and it does not expect sorting either. we did add a threshold parameter in the nextflow.config in case the user wants to specify the threshold for low coverage
     """
     bedtools \\
         genomecov \\
-        -bga \\ 
         -ibam $intervals \\
-        awk '$4 < $params.genomecov_threshold' \\
-        > ${prefix}.bed 
+        $args \\
+        | awk '${cmd}'$params.genomecov_threshold \\
+        > ${prefix}.bed
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -50,7 +50,7 @@ process BEDTOOLS_GENOMECOV {
     stub:
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
-    touch  ${prefix}.${extension}
+    touch ${prefix}.bed
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

@@ -1,0 +1,68 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: "consensus_bcftools"
+description: Create consensus FASTA from a VCF file
+keywords:
+  - vcf
+  - fasta
+  - pseudogenome
+  - consensus
+components:
+  - bcftools/consensus
+  - bcftools/query
+  - bedtools/genomecov
+  - bedtools/subtract
+  - concatenate_fasta
+  - rename_fasta_header
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - ch_bam:
+      type: file
+      description: |
+        The input channel containing the BAM files
+        Structure: [ val(meta), path(bam) ]
+      pattern: "*.{bam}"
+  - ch_vcf:
+      type: file
+      description: |
+        The input channel containing the VCF files
+        Structure: [ val(meta), path(vcf) ]
+      pattern: "*.{vcf,vcf.gz}"
+  - ch_tbi:
+      type: file
+      description: |
+        The input channel containing the VCF index files
+        Structure: [ val(meta), path(tbi) ]
+      pattern: "*.{tbi}"
+  - ch_fasta:
+      type: file
+      description: |
+        Reference genome fasta file
+        Structure: [ path(fasta) ]
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - consensus:
+      type: file
+      description: |
+        Channel containing consensus FASTA files
+        Structure: [ val(meta), path(fasta) ]
+      pattern: "*.fa"
+  - versions:
+      type: file
+      description: |
+        File containing software versions
+        Structure: [ path(versions.yml) ]
+      pattern: "versions.yml"
+authors:
+  - "@MareikeJaniak"
+  - "@sgsutcliffe"
+  - "@avantonder"
+maintainers:
+  - "@avantonder"

@@ -1,0 +1,53 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: "minimap2_alignment"
+description: Map reads to a reference genome using BWA-MEM2 and sort with samtools.
+keywords:
+  - align
+  - fasta
+  - genome
+  - reference
+components:
+  - minimap2/index
+  - minimap2/align
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - ch_ref:
+      type: file
+      description: Reference fasta file
+      pattern: "*.{fasta,fa}"
+  - ch_fasta:
+      type: file
+      description: |
+        List of input FastQ files
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - minimap_align:
+      type: file
+      description: |
+        Channel containing unsorted BAM files
+        Structure: [ val(meta), path(bam_orig) ]
+      pattern: "*.bam"
+  - minimap_index:
+      type: file
+      description: |
+        Channel containing indexed BAM (BAI) files
+        Structure: [ val(meta), path(bai) ]
+      pattern: "*.bai"
+  - versions:
+      type: file
+      description: |
+        Channel containing software versions
+        Structure: [ path(versions.yml) ]
+      pattern: "versions.yml"
+authors:
+  - "@opetryk"
+maintainers:
+  - "@avantonder"

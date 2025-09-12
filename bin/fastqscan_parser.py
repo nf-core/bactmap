@@ -8,7 +8,7 @@ import os
 import argparse
 
 def parser_args(args=None):
-    """ 
+    """
     Function for input arguments for fastqscan_parser.py
     """
     Description = 'Collect fastq-scan outputs and create a summary table'
@@ -18,7 +18,7 @@ def parser_args(args=None):
     return parser.parse_args(args)
 
 def make_dir(path):
-    """ 
+    """
     Function for making a directory from a provided path
     """
     if not len(path) == 0:
@@ -29,7 +29,7 @@ def make_dir(path):
                 raise
 
 def json_to_dataframe(json_files):
-    """ 
+    """
     Function to take list of json files and create a summary table
     """
     json_names = [i.replace('.json', '') for i in json_files]
