@@ -1,5 +1,5 @@
 lint: {}
-nf_core_version: 3.3.2
+nf_core_version: 3.4.1
 repository_type: pipeline
 template:
   author: Andries J. van Tonder
@@ -10,4 +10,4 @@ template:
   org: nf-core
   outdir: .
   skip_features: []
-  version: 2.0.0dev
+  version: 2.0.0
