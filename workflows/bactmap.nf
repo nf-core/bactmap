@@ -184,10 +184,12 @@ workflow BACTMAP {
         SUBWORKFLOW: PERFORM PREPROCESSING
     */
 
-    if ( params.perform_shortread_qc ) {
-        ch_shortreads_preprocessed = SHORTREAD_PREPROCESSING ( ch_input.fastq, adapterlist ).reads
-        ch_versions                = ch_versions.mix( SHORTREAD_PREPROCESSING.out.versions )
-    } else {
+    if (params.perform_shortread_qc) {
+        SHORTREAD_PREPROCESSING(ch_input.fastq, adapterlist)
+        ch_shortreads_preprocessed = SHORTREAD_PREPROCESSING.out.reads
+        ch_versions = ch_versions.mix(SHORTREAD_PREPROCESSING.out.versions)
+    }
+    else {
         ch_shortreads_preprocessed = ch_input.fastq
     }
 
