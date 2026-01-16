@@ -88,8 +88,8 @@ workflow BACTMAP {
 
     main:
 
-    ch_versions = Channel.empty()
-    ch_multiqc_files = Channel.empty()
+    ch_versions = channel.empty()
+    ch_multiqc_files = channel.empty()
 
     // Validate input files and create separate channels for FASTQ, FASTA, and Nanopore data
     ch_input = samplesheet
@@ -138,7 +138,7 @@ workflow BACTMAP {
         [ [ id:'no_fai' ],[] ],
         true
     )
-    ch_versions = ch_versions.mix( SAMTOOLS_FAIDX.out.versions )
+    ch_versions = ch_versions.mix( SAMTOOLS_FAIDX.out.versions_samtools )
 
     /*
         MODULE: Get genome size
@@ -176,7 +176,7 @@ workflow BACTMAP {
             ch_versions = ch_versions.mix( FALCO.out.versions )
         } else {
             FASTQC ( ch_input_for_fastqc )
-            ch_versions = ch_versions.mix( FASTQC.out.versions )
+            ch_versions = ch_versions.mix( FASTQC.out.versions_fastqc )
         }
     }
 
@@ -274,7 +274,7 @@ workflow BACTMAP {
                 [ meta, [ reads ].flatten() ]
             }
 
-        ch_versions = ch_versions.mix(MERGE_RUNS.out.versions)
+        ch_versions = ch_versions.mix(MERGE_RUNS.out.versions_cat)
 
     } else {
         ch_reads_runmerged = ch_shortreads_preprocessed
@@ -366,7 +366,25 @@ workflow BACTMAP {
     /*
         Collate and save software versions
     */
-    softwareVersionsToYAML(ch_versions)
+    def topic_versions = channel.topic("versions")
+        .distinct()
+        .branch { entry ->
+            versions_file: entry instanceof Path
+            versions_tuple: true
+        }
+
+    def topic_versions_string = topic_versions.versions_tuple
+        .map { process, tool, version ->
+            [ process[process.lastIndexOf(':')+1..-1], "  ${tool}: ${version}" ]
+        }
+        .groupTuple(by:0)
+        .map { process, tool_versions ->
+            tool_versions.unique().sort()
+            "${process}:\n${tool_versions.join('\n')}"
+        }
+
+    softwareVersionsToYAML(ch_versions.mix(topic_versions.versions_file))
+        .mix(topic_versions_string)
         .collectFile(
             storeDir: "${params.outdir}/pipeline_info",
             name: 'nf_core_'  +  'bactmap_software_'  + 'mqc_'  + 'versions.yml',

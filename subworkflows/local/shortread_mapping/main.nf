@@ -81,7 +81,7 @@ workflow SHORTREAD_MAPPING {
     ch_versions = ch_versions.mix( CONSENSUS_BCFTOOLS.out.versions )
 
     SEQTK_COMP( CONSENSUS_BCFTOOLS.out.consensus )
-    ch_versions = ch_versions.mix( SEQTK_COMP.out.versions )
+    ch_versions = ch_versions.mix( SEQTK_COMP.out.versions_seqtk )
 
     emit:
     bam         = ch_bam                           // channel: [ val(meta), [ bam ] ]

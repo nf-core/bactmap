@@ -21,8 +21,8 @@ workflow LONGREAD_MAPPING {
     reads    // channel: [meta2, fasta/fastq]
 
     main:
-    ch_versions      = Channel.empty()
-    ch_multiqc_files = Channel.empty()
+    ch_versions      = channel.empty()
+    ch_multiqc_files = channel.empty()
 
     MINIMAP2_ALIGNMENT( ch_fasta, reads )
     ch_versions = ch_versions.mix(MINIMAP2_ALIGNMENT.out.versions)
@@ -48,7 +48,7 @@ workflow LONGREAD_MAPPING {
     ch_versions = ch_versions.mix(BCFTOOLS_INDEX.out.versions.first())
 
     ch_bcftool_view_input = BCFTOOLS_SORT.out.vcf.join(BCFTOOLS_INDEX.out.tbi)
-    BCFTOOLS_VIEW ( ch_bcftool_view_input )
+    BCFTOOLS_VIEW ( ch_bcftool_view_input, '', '', '' )
     ch_versions = ch_versions.mix(BCFTOOLS_VIEW.out.versions.first())
 
     ch_bcftool_norm_input = BCFTOOLS_VIEW.out.vcf.join(BCFTOOLS_VIEW.out.tbi)
@@ -65,7 +65,7 @@ workflow LONGREAD_MAPPING {
     ch_versions = ch_versions.mix( CONSENSUS_BCFTOOLS.out.versions )
 
     SEQTK_COMP( CONSENSUS_BCFTOOLS.out.consensus )
-    ch_versions = ch_versions.mix( SEQTK_COMP.out.versions )
+    ch_versions = ch_versions.mix( SEQTK_COMP.out.versions_seqtk )
 
     emit:
     bam         = BAM_SORT_STATS_SAMTOOLS.out.bam  // channel: [ val(meta), [ bam ] ]

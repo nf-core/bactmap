@@ -31,7 +31,8 @@ The pipeline is built using [Nextflow](https://www.nextflow.io/) and processes d
 - [SAMtools stats](#samtools-stats) - Statistics from mapping
 - [FreeBayes](#freebayes) - Variant calling for Illumina reads
 - [Clair3](#clair3) - Variant calling for Nanopore reads
-- [BCFtools filter](#bcftools-filter) - Filtering of variants
+- [BCFtools filter](#bcftools-filter) - Filtering of Illumina variants
+- [BCFtools norm](#bcftools-norm) - Normalisation of ONT variants
 - [BCFtools stats](#bcftools-stats) - Statistics from variant calling
 - [BCFtools consensus](#bcftools-consensus) - Convert filtered bcf to pseudogenome fasta
 - [seqtk](#seqtk) - Summarise mapping statistics
@@ -313,14 +314,14 @@ It is used with nf-core/bactmap to map short reads to the reference genome.
 </details>
 
 :::info
-While there is a dedicated section in the MultiQC HTML for BWA-MEM2, these values are not displayed by default in the General Stats table. Rather, alignment statistics to host genome is reported via samtools stats module in MultiQC report.
+While there is a dedicated section in the MultiQC HTML for BWA-MEM2, these values are not displayed by default in the General Stats table. Rather, alignment statistics to host genome is reported via samtools stats module in MultiQC report. By default the bam files created are not saved since sorted bam files are produced in the next step
 :::
 
 ### minimap2
 
 [minimap2](https://github.com/lh3/minimap2) is an alignment tool suited to mapping long reads to reference sequences.
 
-It is used with nf-core/bactmap to map short reads to the reference genome.
+It is used with nf-core/bactmap to map long reads to the reference genome.
 
 <details markdown="1">
 <summary>Output files</summary>
@@ -328,8 +329,10 @@ It is used with nf-core/bactmap to map short reads to the reference genome.
 - `minimap2/`
   - `build/`
     - `*.mmi2`: minimap2 indices of reference genome.
-
-</details>
+  - `align/`
+    - `<sample_id>.bam`: BAM file containing reads that aligned against the user-supplied reference genome as well as unmapped reads
+  - `<sample_id>.bam.bai`: Index file for the BAM file
+  </details>
 
 :::info
 minimap2 is not yet supported as a module in MultiQC and therefore there is no dedicated section in the MultiQC HTML. Rather, alignment statistics to host genome is reported via samtools stats module in MultiQC report.
@@ -373,9 +376,7 @@ FreeBayes is a haplotype-based variant detector designed to find SNPs, indels, a
 <summary>Output files</summary>
 
 - `freebayes/`
-  - `variants/`
-    - `<sample_id>.vcf.gz`: VCF file containing variants
-    - `<sample_id>.vcf.gz.tbi`: Index file for the VCF file
+  - `<sample_id>.vcf.gz`: VCF file containing variants
 
 </details>
 
@@ -387,10 +388,7 @@ Clair3 is a variant caller for long-read data. It is used with nf-core/bactmap t
 <summary>Output files</summary>
 
 - `clair3/`
-  - `variants/`
-    - `<sample_id>.vcf.gz`: VCF file containing variants
-    - `<sample_id>.vcf.gz.tbi`: Index file for the VCF file
-    - `<sample_id>.vcf.gz.stats`: Statistics file for the VCF
+  - `<sample_id>.vcf.gz`: VCF file containing variants
 
 </details>
 
@@ -401,8 +399,20 @@ The `BCFtools` software is used to call and filter variants found within the bam
 <details markdown="1">
 <summary>Output files</summary>
 
-- `variants/filtered`
-  - `<sample_id>.vcf.gz` filtered vcf files containing variants
+- `filtered_variants`
+  - `<sample_id>.filtered.vcf.gz` filtered vcf files containing variants
+
+</details>
+
+### BCFtools norm
+
+`BCFtools` norm is used to normalize the variant calls from ONT data.
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `filtered_variants`
+  - `<sample_id>.filtered.vcf.gz` filtered vcf files containing variants
 
 </details>
 

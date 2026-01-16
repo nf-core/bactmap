@@ -19,8 +19,10 @@ workflow SHORTREAD_FASTP {
         paired: it[0]['single_end'] == false
     }
 
-    ch_fastp_input_single = ch_input_for_fastp.single.join(adapterlist)
-    ch_fastp_input_paired = ch_input_for_fastp.paired.join(adapterlist)
+    ch_fastp_input_single = ch_input_for_fastp.single
+        .join( channel.value(adapterlist) )
+    ch_fastp_input_paired = ch_input_for_fastp.paired
+        .join( channel.value(adapterlist))
 
     FASTP_SINGLE(ch_fastp_input_single, false, false, false)
     // Last parameter here turns on merging of PE data
