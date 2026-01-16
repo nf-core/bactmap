@@ -19,9 +19,12 @@ workflow SHORTREAD_FASTP {
         paired: it[0]['single_end'] == false
     }
 
-    FASTP_SINGLE(ch_input_for_fastp.single, adapterlist, false, false, false)
+    ch_fastp_input_single = ch_input_for_fastp.single.join(adapterlist)
+    ch_fastp_input_paired = ch_input_for_fastp.paired.join(adapterlist)
+
+    FASTP_SINGLE(ch_fastp_input_single, false, false, false)
     // Last parameter here turns on merging of PE data
-    FASTP_PAIRED(ch_input_for_fastp.paired, adapterlist, false, false, params.shortread_qc_mergepairs)
+    FASTP_PAIRED(ch_fastp_input_paired, false, false, params.shortread_qc_mergepairs)
 
     if (params.shortread_qc_mergepairs) {
         ch_fastp_reads_prepped_pe = FASTP_PAIRED.out.reads_merged.map { meta, merged_reads ->
