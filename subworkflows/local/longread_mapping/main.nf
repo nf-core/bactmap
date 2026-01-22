@@ -60,7 +60,6 @@ workflow LONGREAD_MAPPING {
     ch_versions = ch_versions.mix( CONSENSUS_BCFTOOLS.out.versions )
 
     SEQTK_COMP( CONSENSUS_BCFTOOLS.out.consensus )
-    ch_versions = ch_versions.mix( SEQTK_COMP.out.versions_seqtk )
 
     emit:
     bam         = BAM_SORT_STATS_SAMTOOLS.out.bam  // channel: [ val(meta), [ bam ] ]
