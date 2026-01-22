@@ -13,7 +13,8 @@ components:
   - clair3
   - bcftools/sort
   - bcftools/index
-  - bcftools/filter
+  - bcftools/view
+  - bcftools/norm
   - bcftools/stats
   - consensus_bcftools
   - seqtk/comp

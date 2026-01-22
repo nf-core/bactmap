@@ -14,7 +14,7 @@ workflow SHORTREAD_PREPROCESSING {
     adapterlist // file
 
     main:
-    ch_versions = channel.empty()
+    ch_versions      = channel.empty()
     ch_multiqc_files = channel.empty()
 
     if (params.shortread_qc_tool == "fastp") {
@@ -35,7 +35,6 @@ workflow SHORTREAD_PREPROCESSING {
 
     if (params.preprocessing_qc_tool == 'fastqc') {
         FASTQC_PROCESSED(ch_processed_reads)
-        ch_versions = ch_versions.mix(FASTQC_PROCESSED.out.versions_fastqc)
         ch_multiqc_files = ch_multiqc_files.mix(FASTQC_PROCESSED.out.zip)
     }
     else if (params.preprocessing_qc_tool == 'falco') {
@@ -46,6 +45,6 @@ workflow SHORTREAD_PREPROCESSING {
 
     emit:
     reads    = ch_processed_reads // channel: [ val(meta), [ reads ] ]
-    versions = ch_versions // channel: [ versions.yml ]
+    versions = ch_versions        // channel: [ versions.yml ]
     mqc      = ch_multiqc_files
 }

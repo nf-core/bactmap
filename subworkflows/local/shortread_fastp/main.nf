@@ -11,8 +11,8 @@ workflow SHORTREAD_FASTP {
     adapterlist
 
     main:
-    ch_versions = Channel.empty()
-    ch_multiqc_files = Channel.empty()
+    ch_versions      = channel.empty()
+    ch_multiqc_files = channel.empty()
 
     ch_input_for_fastp = reads.branch {
         single: it[0]['single_end'] == true
@@ -20,9 +20,9 @@ workflow SHORTREAD_FASTP {
     }
 
     ch_fastp_input_single = ch_input_for_fastp.single
-        .join( channel.value(adapterlist) )
+        .map { meta, reads -> [meta, reads, [] ] }
     ch_fastp_input_paired = ch_input_for_fastp.paired
-        .join( channel.value(adapterlist))
+        .map { meta, reads -> [meta, reads, [] ] }
 
     FASTP_SINGLE(ch_fastp_input_single, false, false, false)
     // Last parameter here turns on merging of PE data
@@ -49,6 +49,6 @@ workflow SHORTREAD_FASTP {
 
     emit:
     reads    = ch_processed_reads // channel: [ val(meta), [ reads ] ]
-    versions = ch_versions // channel: [ versions.yml ]
+    versions = ch_versions        // channel: [ versions.yml ]
     mqc      = ch_multiqc_files
 }

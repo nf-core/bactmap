@@ -9,6 +9,7 @@ components:
   - shortread_fastp
   - shortread_adapterremoval
   - fastqc
+  - falco
 input:
   - meta:
       type: map

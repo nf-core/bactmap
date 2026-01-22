@@ -42,24 +42,19 @@ workflow LONGREAD_MAPPING {
     ch_versions = ch_versions.mix(CLAIR3.out.versions.first())
 
     BCFTOOLS_SORT ( CLAIR3.out.vcf )
-    ch_versions = ch_versions.mix(BCFTOOLS_SORT.out.versions.first())
 
     BCFTOOLS_INDEX ( BCFTOOLS_SORT.out.vcf )
-    ch_versions = ch_versions.mix(BCFTOOLS_INDEX.out.versions.first())
 
     ch_bcftool_view_input = BCFTOOLS_SORT.out.vcf.join(BCFTOOLS_INDEX.out.tbi)
     BCFTOOLS_VIEW ( ch_bcftool_view_input, '', '', '' )
-    ch_versions = ch_versions.mix(BCFTOOLS_VIEW.out.versions.first())
 
     ch_bcftool_norm_input = BCFTOOLS_VIEW.out.vcf.join(BCFTOOLS_VIEW.out.tbi)
     BCFTOOLS_NORM ( ch_bcftool_norm_input, ch_fasta )
-    ch_versions = ch_versions.mix(BCFTOOLS_NORM.out.versions.first())
 
     ch_bcftool_stats_input = BCFTOOLS_NORM.out.vcf.join(BCFTOOLS_NORM.out.tbi)
 
     BCFTOOLS_STATS ( ch_bcftool_stats_input, [ [:], [] ], [ [:], [] ], [ [:], [] ], [ [:], [] ], [ [:], [] ] )
     ch_multiqc_files = ch_multiqc_files.mix( BCFTOOLS_STATS.out.stats )
-    ch_versions      = ch_versions.mix(BCFTOOLS_STATS.out.versions.first())
 
     CONSENSUS_BCFTOOLS ( BAM_SORT_STATS_SAMTOOLS.out.bam, BCFTOOLS_NORM.out.vcf, BCFTOOLS_NORM.out.tbi, ch_fasta )
     ch_versions = ch_versions.mix( CONSENSUS_BCFTOOLS.out.versions )

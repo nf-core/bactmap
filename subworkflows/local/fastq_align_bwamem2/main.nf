@@ -11,7 +11,7 @@ workflow FASTQ_ALIGN_BWAMEM2 {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     //
     // Map reads with BWA 2 mem
