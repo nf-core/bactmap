@@ -46,7 +46,7 @@ workflow LONGREAD_MAPPING {
     BCFTOOLS_INDEX ( BCFTOOLS_SORT.out.vcf )
 
     ch_bcftool_view_input = BCFTOOLS_SORT.out.vcf.join(BCFTOOLS_INDEX.out.tbi)
-    BCFTOOLS_VIEW ( ch_bcftool_view_input, '', '', '' )
+    BCFTOOLS_VIEW ( ch_bcftool_view_input, [], [], [] )
 
     ch_bcftool_norm_input = BCFTOOLS_VIEW.out.vcf.join(BCFTOOLS_VIEW.out.tbi)
     BCFTOOLS_NORM ( ch_bcftool_norm_input, ch_fasta )
