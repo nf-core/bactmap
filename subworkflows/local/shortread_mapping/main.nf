@@ -6,6 +6,7 @@ include { FASTQ_ALIGN_BWAMEM2                         } from '../fastq_align_bwa
 include { FASTQ_ALIGN_BOWTIE2                         } from '../../nf-core/fastq_align_bowtie2/main'
 include { BAM_VARIANT_CALLING_SORT_FREEBAYES_BCFTOOLS } from '../../local/bam_variant_calling_sort_freebayes_bcftools/main'
 include { BCFTOOLS_FILTER                             } from '../../../modules/nf-core/bcftools/filter/main'
+include { BCFTOOLS_NORM                               } from '../../../modules/nf-core/bcftools/norm/main'
 include { BCFTOOLS_STATS                              } from '../../../modules/nf-core/bcftools/stats/main'
 include { CONSENSUS_BCFTOOLS                          } from '../consensus_bcftools/main'
 include { SEQTK_COMP                                  } from '../../../modules/nf-core/seqtk/comp/main.nf'
@@ -70,12 +71,15 @@ workflow SHORTREAD_MAPPING {
 
     BCFTOOLS_FILTER ( ch_bcftool_filter_input )
 
-    ch_bcftool_stats_input = BCFTOOLS_FILTER.out.vcf.join(BCFTOOLS_FILTER.out.tbi)
+    ch_bcftool_norm_input = BCFTOOLS_FILTER.out.vcf.join(BCFTOOLS_FILTER.out.tbi)
+    BCFTOOLS_NORM ( ch_bcftool_norm_input, ch_fasta )
+
+    ch_bcftool_stats_input = BCFTOOLS_NORM.out.vcf.join(BCFTOOLS_NORM.out.tbi)
 
     BCFTOOLS_STATS ( ch_bcftool_stats_input, [ [:], [] ], [ [:], [] ], [ [:], [] ], [ [:], [] ], [ [:], [] ] )
     ch_multiqc_files = ch_multiqc_files.mix( BCFTOOLS_STATS.out.stats )
 
-    CONSENSUS_BCFTOOLS ( ch_bam, BCFTOOLS_FILTER.out.vcf, BCFTOOLS_FILTER.out.tbi, ch_fasta )
+    CONSENSUS_BCFTOOLS ( ch_bam, BCFTOOLS_NORM.out.vcf, BCFTOOLS_NORM.out.tbi, ch_fasta )
     ch_versions = ch_versions.mix( CONSENSUS_BCFTOOLS.out.versions )
 
     SEQTK_COMP( CONSENSUS_BCFTOOLS.out.consensus )
@@ -83,9 +87,9 @@ workflow SHORTREAD_MAPPING {
     emit:
     bam         = ch_bam                           // channel: [ val(meta), [ bam ] ]
     bai         = ch_index                         // channel: [ val(meta), [ bai ] ]
-    vcf         = BCFTOOLS_FILTER.out.vcf          // channel: [ val(meta), path(vcf) ]
-    csi         = BCFTOOLS_FILTER.out.csi          // channel: [ val(meta), path(csi) ]
-    tbi         = BCFTOOLS_FILTER.out.tbi          // channel: [ val(meta), path(tbi) ]
+    vcf         = BCFTOOLS_NORM.out.vcf            // channel: [meta, vcf]
+    csi         = BCFTOOLS_NORM.out.csi            // channel: [ val(meta), path(csi) ]
+    tbi         = BCFTOOLS_NORM.out.tbi            // channel; [meta, tbi]
     stats       = BCFTOOLS_STATS.out.stats         // channel: [meta, stats]
     consensus   = CONSENSUS_BCFTOOLS.out.consensus // channel: [ val(meta), path(consensus) ]
     seqtk_stats = SEQTK_COMP.out.seqtk_stats       // channel: [meta, stats]
