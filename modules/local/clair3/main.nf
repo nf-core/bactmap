@@ -3,9 +3,9 @@ process CLAIR3 {
     label 'process_high'
 
     conda "${moduleDir}/environment.yml"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/clair3:1.0.10--py39hd649744_1':
-        'biocontainers/clair3:1.0.10--py39hd649744_1' }"
+    container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container
+        ? 'https://community-cr-prod.seqera.io/docker/registry/v2/blobs/sha256/e7/e70b0f4389028f4dc88efde1aac7139927c898cf7add680e14724d97fecd3d32/data'
+        : 'community.wave.seqera.io/library/clair3:1.2.0--b1b03d4e9d1b6a2e'}"
 
     input:
     tuple val(meta), path(bam), path(bai), path(model), val(platform)
@@ -33,8 +33,19 @@ process CLAIR3 {
         --output=. \\
         --platform=$platform \\
         --model_path=$model \\
-        --sample_name=${prefix} \\
         $args
+
+    # Rename to add prefix
+    for file in merge_output.vcf.gz \
+            merge_output.vcf.gz.tbi \
+            phased_merge_output.vcf.gz \
+            phased_merge_output.vcf.gz.tbi \
+            merge_output.gvcf.gz \
+            merge_output.gvcf.gz.tbi; do
+    if [ -e "\$file" ]; then
+        mv "\$file" "${prefix}\$file"
+    fi
+    done
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -44,12 +55,14 @@ process CLAIR3 {
 
     stub:
     def args = task.ext.args ?: ''
-    def prefix = task.ext.prefix ?: "${meta.id}"
+    prefix = task.ext.prefix ?: "${meta.id}"
     """
-    echo "" | gzip > ${prefix}.phased_merge_output.vcf.gz
-    touch ${prefix}.phased_merge_output.vcf.gz.tbi
-    echo "" | gzip > ${prefix}.merge_output.vcf.gz
-    touch ${prefix}.merge_output.vcf.gz.tbi
+    echo "" | gzip > ${prefix}phased_merge_output.vcf.gz
+    touch ${prefix}phased_merge_output.vcf.gz.tbi
+    echo "" | gzip > ${prefix}merge_output.vcf.gz
+    touch ${prefix}merge_output.vcf.gz.tbi
+    echo "" | gzip > ${prefix}merge_output.gvcf.gz
+    touch ${prefix}merge_output.gvcf.gz.tbi
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

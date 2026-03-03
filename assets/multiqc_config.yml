@@ -35,6 +35,10 @@ report_section_order:
   bcftools:
     order: 100
 
+custom_logo: "nf-core-bactmap_logo_light.png"
+custom_logo_url: https://nf-co.re/bactmap
+custom_logo_title: "nf-core/bactmap"
+
 # List of run modules
 run_modules:
   - fastqc

@@ -10,7 +10,7 @@ workflow MINIMAP2_ALIGNMENT {
 
     main:
 
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     MINIMAP2_INDEX ( ch_ref )
     ch_versions = ch_versions.mix(MINIMAP2_INDEX.out.versions)

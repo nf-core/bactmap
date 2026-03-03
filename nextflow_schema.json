@@ -226,16 +226,16 @@
                     "hidden": true
                 },
                 "help": {
-                    "type": "string",
-                    "hidden": true
+                    "type": ["boolean", "string"],
+                    "description": "Display the help message."
                 },
                 "help_full": {
-                    "type": "string",
-                    "hidden": true
+                    "type": "boolean",
+                    "description": "Display the full detailed help message."
                 },
                 "show_hidden": {
-                    "type": "string",
-                    "hidden": true
+                    "type": "boolean",
+                    "description": "Display hidden parameters in the help message (only works when --help or --help_full are provided)."
                 }
             }
         },

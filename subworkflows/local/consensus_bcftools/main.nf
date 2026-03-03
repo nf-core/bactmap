@@ -18,7 +18,7 @@ workflow CONSENSUS_BCFTOOLS {
     ch_fasta        // channel: /path/to/genome.fasta
 
     main:
-    ch_versions = Channel.empty()
+    ch_versions = channel.empty()
 
     //
     // Filter variants by allele frequency, zip and index
@@ -34,7 +34,6 @@ workflow CONSENSUS_BCFTOOLS {
         [],
         []
     )
-    // ch_versions = ch_versions.mix(BCFTOOLS_QUERY.out.versions.first())
 
     ch_genomecov = ch_bam
         .multiMap {
@@ -55,7 +54,6 @@ workflow CONSENSUS_BCFTOOLS {
     BEDTOOLS_SUBTRACT (
         ch_bedtools_subtract
         )
-    ch_versions = ch_versions.mix(BEDTOOLS_SUBTRACT.out.versions.first())
 
     ch_consensus = ch_vcf
         .join( ch_tbi)
