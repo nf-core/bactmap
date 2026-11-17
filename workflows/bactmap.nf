@@ -138,7 +138,7 @@ workflow BACTMAP {
     if (params.shortread_mapping_tool == 'bowtie2') {
         ch_index = BOWTIE2_BUILD ( ch_fasta.map { item -> [ [:], item ] } ).index
     } else {
-        ch_index = BWAMEM2_INDEX ( ch_fasta.map { item -> [ [:], item ] } ).index
+        ch_index = BWAMEM2_INDEX ( ch_fasta.map { item -> [ [:], item ] }, 'bwamem2' ).index
     }
 
     /*
@@ -188,7 +188,6 @@ workflow BACTMAP {
     if ( params.perform_longread_qc ) {
         ch_longreads_preprocessed = LONGREAD_PREPROCESSING ( ch_input.nanopore, custom_adapters ).reads
                                         .map { it -> [ it[0], [it[1]] ] }
-        ch_versions               = ch_versions.mix( LONGREAD_PREPROCESSING.out.versions )
     } else {
         ch_longreads_preprocessed = ch_input.nanopore
     }
@@ -353,7 +352,6 @@ workflow BACTMAP {
     SNPSITES(
         aligned_pseudogenomes
     )
-    ch_versions = ch_versions.mix( SNPSITES.out.versions )
 
     /*
         Collate and save software versions
@@ -388,7 +386,7 @@ workflow BACTMAP {
         MODULE: MultiQC
     */
     ch_multiqc_files = ch_multiqc_files.mix(ch_collated_versions)
-    def summary_params = paramsSummaryMap( workflow, parameters_schema: "nextflow_schema.json" )
+    def summary_params = paramsSummaryMap( parameters_schema: "nextflow_schema.json" )
     def ch_workflow_summary = channel.value(paramsSummaryMultiqc(summary_params))
     ch_multiqc_files = ch_multiqc_files.mix(ch_workflow_summary.collectFile(name: 'workflow_summary_mqc.yaml'))
     def ch_multiqc_custom_methods_description = multiqc_methods_description

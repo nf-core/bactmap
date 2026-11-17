@@ -1,7 +1,7 @@
 {
     "-profile test": {
         "content": [
-            52,
+            51,
             {
                 "ALIGNPSEUDOGENOMES": {
                     "python": "3.9.1"
@@ -10,43 +10,43 @@
                     "bcftools": "1.23.1"
                 },
                 "BCFTOOLS_FILTER_LONG_INDELS": {
-                    "bcftools": "1.23.1"
+                    "bcftools": 1.25
                 },
                 "BCFTOOLS_FILTER_LOW_DEPTH": {
-                    "bcftools": "1.23.1"
+                    "bcftools": 1.25
                 },
                 "BCFTOOLS_FILTER_LOW_QUALITY": {
-                    "bcftools": "1.23.1"
+                    "bcftools": 1.25
                 },
                 "BCFTOOLS_FILTER_MIXED_SITE": {
-                    "bcftools": "1.23.1"
+                    "bcftools": 1.25
                 },
-                "BCFTOOLS_INDEX": {
-                    "bcftools": "1.23.1"
+                "BCFTOOLS_INDEX_SHORTREAD": {
+                    "bcftools": 1.25
                 },
                 "BCFTOOLS_NORM": {
-                    "bcftools": "1.23.1"
+                    "bcftools": 1.25
                 },
                 "BCFTOOLS_PLUGINFILLTAGS": {
-                    "bcftools": "1.23.1"
+                    "bcftools": 1.25
                 },
                 "BCFTOOLS_QUERY": {
-                    "bcftools": "1.23.1"
+                    "bcftools": 1.25
                 },
                 "BCFTOOLS_SORT": {
-                    "bcftools": "1.23.1"
+                    "bcftools": 1.25
                 },
                 "BCFTOOLS_STATS": {
-                    "bcftools": "1.23.1"
+                    "bcftools": 1.25
                 },
                 "BCFTOOLS_VIEW_FINAL": {
-                    "bcftools": "1.23.1"
+                    "bcftools": 1.25
                 },
                 "BCFTOOLS_VIEW_NON_ALT": {
-                    "bcftools": "1.23.1"
+                    "bcftools": 1.25
                 },
                 "BCFTOOLS_VIEW_POST_NORM": {
-                    "bcftools": "1.23.1"
+                    "bcftools": 1.25
                 },
                 "BEDTOOLS_GENOMECOV": {
                     "bedtools": "2.31.1"
@@ -55,24 +55,24 @@
                     "bedtools": "2.31.1"
                 },
                 "BOWTIE2_ALIGN": {
-                    "bowtie2": "2.5.4",
+                    "bowtie2": "2.5.5",
                     "pigz": 2.8,
-                    "samtools": 1.21
+                    "samtools": 1.24
                 },
                 "BOWTIE2_BUILD": {
-                    "bowtie2": "2.5.4"
+                    "bowtie2": "2.5.5"
                 },
                 "CONCATENATE_FASTA": {
                     "python": "3.9.1"
                 },
                 "FASTP_PAIRED": {
-                    "fastp": "1.1.0"
+                    "fastp": "1.4.0"
                 },
                 "FASTQC": {
-                    "fastqc": "0.12.1"
+                    "fastqc": "0.13.0"
                 },
                 "FASTQC_PROCESSED": {
-                    "fastqc": "0.12.1"
+                    "fastqc": "0.13.0"
                 },
                 "FASTQSCANPARSE_PROCESSED": {
                     "python": "3.13.5"
@@ -111,22 +111,22 @@
                     "sed": "sed (GNU sed) 4.9"
                 },
                 "SAMTOOLS_FAIDX": {
-                    "samtools": 1.24
+                    "samtools": 1.25
                 },
                 "SAMTOOLS_FLAGSTAT": {
-                    "samtools": 1.24
+                    "samtools": 1.25
                 },
                 "SAMTOOLS_IDXSTATS": {
-                    "samtools": 1.24
+                    "samtools": 1.25
                 },
                 "SAMTOOLS_INDEX": {
-                    "samtools": 1.24
+                    "samtools": 1.25
                 },
                 "SAMTOOLS_SORT": {
-                    "samtools": 1.24
+                    "samtools": 1.25
                 },
                 "SAMTOOLS_STATS": {
-                    "samtools": 1.24
+                    "samtools": 1.25
                 },
                 "SEQTK_COMP": {
                     "seqtk": "1.4-r122"
@@ -135,7 +135,7 @@
                     "python": "3.13.5"
                 },
                 "Workflow": {
-                    "nf-core/bactmap": "v2.0.0"
+                    "nf-core/bactmap": "v2.0.0dev"
                 }
             },
             [
@@ -162,8 +162,6 @@
                 "bowtie2/build/bowtie2/genome.4.bt2",
                 "bowtie2/build/bowtie2/genome.rev.1.bt2",
                 "bowtie2/build/bowtie2/genome.rev.2.bt2",
-                "clair3",
-                "clair3/01.sorted.vcf.gz.tbi",
                 "fastp",
                 "fastp/01_test_1.fastp.html",
                 "fastp/01_test_1.fastp.json",
@@ -199,6 +197,7 @@
                 "fastqscan/raw/02_test_2.raw.json",
                 "freebayes",
                 "freebayes/01.vcf.gz",
+                "freebayes/01.vcf.gz.tbi",
                 "gunzip",
                 "gunzip/genome.fna",
                 "minimap2",
@@ -206,7 +205,13 @@
                 "minimap2/index/genome.mmi",
                 "multiqc",
                 "multiqc/multiqc_data",
+                "multiqc/multiqc_data/bcftools-stats-subtypes.txt",
                 "multiqc/multiqc_data/bcftools_stats_indel-lengths.txt",
+                "multiqc/multiqc_data/bcftools_stats_variant_depths.txt",
+                "multiqc/multiqc_data/bcftools_stats_vqc_Count_Indels.txt",
+                "multiqc/multiqc_data/bcftools_stats_vqc_Count_SNP.txt",
+                "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transitions.txt",
+                "multiqc/multiqc_data/bcftools_stats_vqc_Count_Transversions.txt",
                 "multiqc/multiqc_data/fastp-insert-size-plot.txt",
                 "multiqc/multiqc_data/fastp-seq-content-gc-plot_Read_1_After_filtering.txt",
                 "multiqc/multiqc_data/fastp-seq-content-gc-plot_Read_1_Before_filtering.txt",
@@ -307,11 +312,11 @@
                 "vcf_filter/01.sorted.vcf.gz.tbi"
             ],
             [
-                "01.fa:md5,17e6433115d1ad1b4ffdf384d783dc29",
-                "01.txt:md5,d41d8cd98f00b204e9800998ecf8427e",
-                "01.bcftools_stats.txt:md5,946525c07c2cb695990038a471f03354",
+                "01.fa:md5,1e4fbe02fcd354a9c6a7b7cde8c8097b",
+                "01.txt:md5,3267373885099c220d8235e43113038e",
+                "01.bcftools_stats.txt:md5,33f9b3adb660d66a021fb8923297ef57",
                 "01.bed:md5,3610ca49fad02e567afc984e5ae0cce8",
-                "01.subtracted.bed:md5,3610ca49fad02e567afc984e5ae0cce8",
+                "01.subtracted.bed:md5,ecf7e9d65e45ec604d8f85d9e9a02159",
                 "01.bowtie2.log:md5,81a5da4710835dc42e60430a92ad36e5",
                 "genome.1.bt2:md5,829b755b64d0ca0edfeacffdebef1c0b",
                 "genome.2.bt2:md5,4845f032a953c5a4da5cdf49723eebd2",
@@ -319,38 +324,44 @@
                 "genome.4.bt2:md5,ab585b4ebed19b28fb670547aecdccf0",
                 "genome.rev.1.bt2:md5,a1cc6383eb8d90710502a540f87bfa13",
                 "genome.rev.2.bt2:md5,871b69582268b9404cb1884a401cdc39",
-                "01.sorted.vcf.gz.tbi:md5,a2dddeda3443ee6923aea1edf526879c",
-                "01_test_1.fastp.html:md5,d1feae267509293d0451eda3fd9c9175",
-                "01_test_1.fastp.json:md5,4d6250d87878809fad712f64efadc570",
-                "01_test_1.fastp.log:md5,2cb0555eae7949ee50640f651c739bf9",
-                "02_test_2.fastp.html:md5,b91611808a56899087fefdda5a7f8315",
-                "02_test_2.fastp.json:md5,4b3c4e8666cab929e73a13b72db3d397",
-                "02_test_2.fastp.log:md5,71cc5e44a38657da51d9682b230f4644",
-                "01_test_1_processed_1_fastqc.html:md5,1ff2936c868edcb500fb5f22ae37a7a3",
-                "01_test_1_processed_1_fastqc.zip:md5,584fd267f158b0909282c2fd2612eb83",
-                "01_test_1_processed_2_fastqc.html:md5,5db15fcb3fe5ed7a51c91556cb3c8696",
-                "01_test_1_processed_2_fastqc.zip:md5,3715d692207b9585e3bf7b69491cc52b",
-                "02_test_2_processed_1_fastqc.html:md5,69dfd339e90f0c25aad7d7578b9ffa70",
-                "02_test_2_processed_1_fastqc.zip:md5,c0cf84696564d37fe1de8104afc1c012",
-                "02_test_2_processed_2_fastqc.html:md5,98b08ae8259b950c6e6454848b8bbe65",
-                "02_test_2_processed_2_fastqc.zip:md5,30385d71ecbed65e7e1d57fdc8846229",
-                "01_test_1_raw_1_fastqc.html:md5,78e6238ac0c7f44c0a9e07ea685527e1",
-                "01_test_1_raw_1_fastqc.zip:md5,da601fc8979e49bdbf01933f4072343a",
-                "01_test_1_raw_2_fastqc.html:md5,77c7df36155e4f6a6b31832cee20e8f9",
-                "01_test_1_raw_2_fastqc.zip:md5,c7f81e23536a0473a2e90d3c8fe64c99",
-                "02_test_2_raw_1_fastqc.html:md5,61b8620a1f8f2c42d1c65cf6fcdcd0da",
-                "02_test_2_raw_1_fastqc.zip:md5,b5dddbf4e01ed82ca342a03c94c31868",
-                "02_test_2_raw_2_fastqc.html:md5,a7affcc5a8041674218c5d652a16b0b9",
-                "02_test_2_raw_2_fastqc.zip:md5,55e01c0d719dec0780921290a56c9f64",
+                "01_test_1.fastp.html:md5,5965d54a1d3012ca40b2da2af17b55fe",
+                "01_test_1.fastp.json:md5,6dfc5f826c5b90c54144331aeb7063aa",
+                "01_test_1.fastp.log:md5,94db3bebabfb969d6fabe91305d60356",
+                "02_test_2.fastp.html:md5,976eb29957df1fd2a2920d6618b4cc4b",
+                "02_test_2.fastp.json:md5,71aff8fff50ac98f0943021f4f9528d3",
+                "02_test_2.fastp.log:md5,925b542cabd28548709a2439c5757be5",
+                "01_test_1_processed_1_fastqc.html:md5,ca486128ba5b9b400c5aac6856f10868",
+                "01_test_1_processed_1_fastqc.zip:md5,e794b8ab6322837f2eaf89f69732ca19",
+                "01_test_1_processed_2_fastqc.html:md5,6bd00e111c5a6191e8bcf90d361adb55",
+                "01_test_1_processed_2_fastqc.zip:md5,052fc3c2c0c52e2e31342f54909701fe",
+                "02_test_2_processed_1_fastqc.html:md5,943a80d15d87f34db242b428a1c43850",
+                "02_test_2_processed_1_fastqc.zip:md5,8cfd8d566cc55f7150fbcdd8709cb762",
+                "02_test_2_processed_2_fastqc.html:md5,c0d893a73a4f57bf4d70f62881224be3",
+                "02_test_2_processed_2_fastqc.zip:md5,37e1d01fedff5e2f7be6d450d4172a02",
+                "01_test_1_raw_1_fastqc.html:md5,e9fc965bda3fee1a279754a1ee1682b9",
+                "01_test_1_raw_1_fastqc.zip:md5,b71f0a55e9df138ee2421cea3325deab",
+                "01_test_1_raw_2_fastqc.html:md5,beec21221bd2021d0e30af83cc46b86d",
+                "01_test_1_raw_2_fastqc.zip:md5,d557d2b211c95dd7b80d43218bcbbab0",
+                "02_test_2_raw_1_fastqc.html:md5,0cf42a9ed11694b328df4ef5bd6fcb0b",
+                "02_test_2_raw_1_fastqc.zip:md5,815681185c3e6de630b6e7b86c81605f",
+                "02_test_2_raw_2_fastqc.html:md5,bdca6af56e1c278e38a18b515b805b29",
+                "02_test_2_raw_2_fastqc.zip:md5,537c059dfbd57c5be4fbf99e307d534d",
                 "01_test_1.processed.json:md5,125efed1942221fbf536885fbf475e66",
                 "02_test_2.processed.json:md5,78fbdb421671f255b1c0e12cfe0653a4",
                 "01_test_1.raw.json:md5,39066d3164d2dbdc7a198468cacaf838",
                 "02_test_2.raw.json:md5,3cb79d84ea9de94940e4d1799c0e1c2b",
-                "01.vcf.gz:md5,52889462bf9f6d3e50ebea97f662065c",
+                "01.vcf.gz:md5,4700e8c04b2aaaee98315fcbc9526c9f",
+                "01.vcf.gz.tbi:md5,978778241853374dfc116b5e4d638fc6",
                 "genome.fna:md5,dafd38f5454b54fbea38245d773062a5",
                 "genome.mmi:md5,76c23f17ce1cade4a054bf2763b081db",
-                "bcftools_stats_indel-lengths.txt:md5,53016530d1ac6c18cb1f6ef9f9417728",
-                "fastp-insert-size-plot.txt:md5,162036bf69d2dc7386b43f2bdadac877",
+                "bcftools-stats-subtypes.txt:md5,bba4f519256ee6af251d8e6dc27e3993",
+                "bcftools_stats_indel-lengths.txt:md5,696243604f8ae162df5cb28f693f6084",
+                "bcftools_stats_variant_depths.txt:md5,d80e5a0650ff8357029acdb852df3780",
+                "bcftools_stats_vqc_Count_Indels.txt:md5,3fe85baeefbd5db7ca488d6d4514dfdb",
+                "bcftools_stats_vqc_Count_SNP.txt:md5,85e68eb1312b0d4aa371a6fe23dd4c1b",
+                "bcftools_stats_vqc_Count_Transitions.txt:md5,9b3ad91d005cbe018ed96f78fb625675",
+                "bcftools_stats_vqc_Count_Transversions.txt:md5,0521d2cedcf3cd29030d701713edcf86",
+                "fastp-insert-size-plot.txt:md5,5b5784012a2daba86e64cd1b2af222b0",
                 "fastp-seq-content-gc-plot_Read_1_After_filtering.txt:md5,4edee862ece4eecb5045589a36786591",
                 "fastp-seq-content-gc-plot_Read_1_Before_filtering.txt:md5,e1ed0f20f9ee5f6e08a7e4deb49ceb35",
                 "fastp-seq-content-gc-plot_Read_2_After_filtering.txt:md5,e96f6d5adfea94d5a3c1c1f69b9447fc",
@@ -366,12 +377,12 @@
                 "fastp_filtered_reads_plot.txt:md5,b0bb82fc4a23564c834ef8c4f4706faf",
                 "fastqc-1-status-check-heatmap.txt:md5,2958bbda783b97cef0b64530cbdbb01d",
                 "fastqc-1_per_base_n_content_plot.txt:md5,ab8e8d876edde1e457b3153888c88107",
-                "fastqc-1_per_base_sequence_quality_plot.txt:md5,9e8b520d210127656adab7a734f0191e",
-                "fastqc-1_per_sequence_gc_content_plot_Counts.txt:md5,f1542e9e7398dda884460eaf46795ff5",
-                "fastqc-1_per_sequence_gc_content_plot_Percentages.txt:md5,86db46ff07ff526eee61d9de82ed76c0",
-                "fastqc-1_per_sequence_quality_scores_plot.txt:md5,67c58bd6be8e3404ebc1b438d9fcbf2c",
-                "fastqc-1_sequence_counts_plot.txt:md5,93e8c72254cab3431a2230298d970619",
-                "fastqc-1_sequence_duplication_levels_plot.txt:md5,c11a44d8967bcc3fd978b70c497dbd9a",
+                "fastqc-1_per_base_sequence_quality_plot.txt:md5,ebfcb629f7713a7de62f8cc714227258",
+                "fastqc-1_per_sequence_gc_content_plot_Counts.txt:md5,64b4384f9eef2f7c6256b3df0d68d56a",
+                "fastqc-1_per_sequence_gc_content_plot_Percentages.txt:md5,d2a0fc017d5ba88e777c855bf89732b9",
+                "fastqc-1_per_sequence_quality_scores_plot.txt:md5,c2bc0602f70325f7fb82678c235ad3be",
+                "fastqc-1_sequence_counts_plot.txt:md5,8f0b661870c70fa37b74c81d61be0ad5",
+                "fastqc-1_sequence_duplication_levels_plot.txt:md5,aa27aa03b7e4eeb2a22b8b7ac24194fe",
                 "fastqc-status-check-heatmap.txt:md5,7d06360e828f3e153a0b21051d23911b",
                 "fastqc_per_base_n_content_plot.txt:md5,ea371a265a80840751645c2476c98754",
                 "fastqc_per_base_sequence_quality_plot.txt:md5,6362bc88473fc3c3e6d69a650fce6b3b",
@@ -380,21 +391,21 @@
                 "fastqc_per_sequence_quality_scores_plot.txt:md5,3e61d4e1bc67d2cf85c00d020f6a32a8",
                 "fastqc_sequence_counts_plot.txt:md5,d1c81af14b6675c3f9f04125c1ecb484",
                 "fastqc_sequence_duplication_levels_plot.txt:md5,e32366bc23f5fb89aa60ef7b0f29de03",
-                "fastqc_sequence_length_distribution_plot.txt:md5,cb379474706e24255b725ac25b7d141e",
-                "llms-full.txt:md5,18df87291d6d773a9bb54ab12891c8b4",
-                "multiqc.parquet:md5,bbfd8f6cc733b28527cdab7f876bb867",
-                "multiqc_bcftools_stats_bcftools.txt:md5,be562c3d8a68b2c5e9710dd618663662",
+                "fastqc_sequence_length_distribution_plot.txt:md5,e7bcd66dce7ca3b41a70e518608c4586",
+                "llms-full.txt:md5,855363c94a59eb1179f8c64d6d51eafc",
+                "multiqc.parquet:md5,e926ed196cd1594cdd8e9ef804bdd7ec",
+                "multiqc_bcftools_stats_bcftools.txt:md5,616d946168123191cbd5e78a5eacad8d",
                 "multiqc_citations.txt:md5,efb03f846418245e4baece0dd9fc976b",
-                "multiqc_fastp.txt:md5,ba2ca62a56d21475cd2970bfafdc2e4e",
-                "multiqc_fastqc.txt:md5,1dbca9f02b1b75f5df2ac02c81d78411",
-                "multiqc_fastqc_fastqc-1.txt:md5,6fb9e3135beb3f43f193bdcb67d247b2",
-                "multiqc_general_stats.txt:md5,3f9bf87aec933d587795dd7c3c953614",
-                "multiqc_samtools_stats_samtools.txt:md5,fb55ae18c301b7553bda80c3b44af9ab",
+                "multiqc_fastp.txt:md5,d25552b1003f13ce673585663e888f41",
+                "multiqc_fastqc.txt:md5,1713b28b3a3563925a0e4b582cbe0c6e",
+                "multiqc_fastqc_fastqc-1.txt:md5,961534268aa7df2b55dd6a7abf2ef1db",
+                "multiqc_general_stats.txt:md5,a317b3f1950ef411dcd0b47576a52df7",
+                "multiqc_samtools_stats_samtools.txt:md5,e4a73a0e887113ad9a5ad102351653c6",
                 "samtools-stats-dp.txt:md5,413437e8c5bd664f347ee89111e781e8",
                 "samtools_alignment_plot.txt:md5,ce7f1720ed5841e4d32067c93690d269",
                 "samtools_insert_size.txt:md5,81c2814863c066dfa0adbf2cc3c5270f",
-                "01.fa:md5,ec73cef39989caf8e39d94271a64612c",
-                "aligned_pseudogenomes.fas:md5,ac147a417e8c361b2849c4c251ffb967",
+                "01.fa:md5,1e4bca35479a340e62bfd642cb5c1ecb",
+                "aligned_pseudogenomes.fas:md5,31d80f54f23f87377457355f172a261c",
                 "01.subsampled_1.fastq.gz:md5,67f961708debdc99dd25b6e45199bd5e",
                 "01.subsampled_2.fastq.gz:md5,7d173d53ad835ed689ab7a5c5ac3d89b",
                 "02.subsampled_1.fastq.gz:md5,c3a57b07c737ea41807a08e4d72d5100",
@@ -402,41 +413,41 @@
                 "01_test_1.read_stats.csv:md5,ff40aaa6720a766448a3b8bde72f530f",
                 "02_test_2.read_stats.csv:md5,c0186b0b0464a58d780334ebb63cc70a",
                 "genome.fna.fai:md5,aa44b24652a42e538478dea3492480dd",
-                "01.sorted.bam:md5,1d203b282495a8750207184c8e44c801",
-                "01.sorted.bam.bai:md5,d83b0e57d1815457e0ad9d7d76097076",
+                "01.sorted.bam:md5,d9c0c0e6aab1bb8af636e9e0a22bbe82",
+                "01.sorted.bam.bai:md5,1d1e89031ca344c09b08fa531ee35d84",
                 "01.sorted.flagstat:md5,4f152687b9140a16a48856b0bb216289",
                 "01.sorted.idxstats:md5,aa16d5da39ddbdc94dbeb52ed994c515",
-                "01.sorted.stats:md5,6df12291f56f017fd28ad2c0f1f3ded3",
-                "01.seqtk_stats.tsv:md5,589ff7dc5f0eec7f60c5a940b2500298",
-                "mapping_summary.tsv:md5,55be58907a9b27c18b87ec1e3bdf7a85",
+                "01.sorted.stats:md5,a3d5193ba0a27b767fbe88b43a7aa463",
+                "01.seqtk_stats.tsv:md5,310f87ae231ace3d7fd4db89c8042826",
+                "mapping_summary.tsv:md5,1b182ba670c826da238c9258e234862a",
                 "processed_fastq-scan_summary.tsv:md5,2aa64d4dff6aa9f062872634a2d5c08b",
                 "raw_fastq-scan_summary.tsv:md5,d175a5a6fde88f7275b7833eff01e454",
                 "read_stats_summary.tsv:md5,e24c3bce8a36a7ca8924ed05e45b0ae8",
-                "01.final.vcf.gz:md5,b3b59029e9cd046d3990b201982cea88",
-                "01.final.vcf.gz.tbi:md5,4cb176febbc8c26d717a6c6e67b9c905",
-                "01.low_depth_filtered.vcf.gz:md5,13f656da88deabccd8689888bef4b640",
-                "01.low_depth_filtered.vcf.gz.tbi:md5,4cb176febbc8c26d717a6c6e67b9c905",
-                "01.low_qual_filtered.vcf.gz:md5,27d82ae1ec5de58847eb9fd7967cef79",
-                "01.low_qual_filtered.vcf.gz.tbi:md5,4cb176febbc8c26d717a6c6e67b9c905",
-                "01.mixed_site_filtered.vcf.gz:md5,6e564d49dbc2446174bbbe0b171731da",
-                "01.mixed_site_filtered.vcf.gz.tbi:md5,4cb176febbc8c26d717a6c6e67b9c905",
-                "01.no_long_indels.vcf.gz:md5,72fb899dc270015950bdfa7e7df82c7c",
-                "01.no_long_indels.vcf.gz.tbi:md5,ec4b63bc1140077aabccbccec338d271",
-                "01.non_alt.vcf.gz:md5,d8be42d34d0fefe5e8ab88356868c075",
-                "01.norm.vcf.gz:md5,62e84407be1cdfa37d6ee9cf34cbbad0",
-                "01.norm.vcf.gz.tbi:md5,51423f34134d39fdf41bb42d1dbab46f",
-                "01.norm_sorted.vcf.gz:md5,ed6ae33852f77a87cb01704ed19ad1f2",
-                "01.norm_sorted.vcf.gz.tbi:md5,4cb176febbc8c26d717a6c6e67b9c905",
-                "01.retyped.vcf.gz:md5,2e249d93723298538b1d8170e16d5f28",
-                "01.retyped.vcf.gz.tbi:md5,4cb176febbc8c26d717a6c6e67b9c905",
-                "01.sorted.vcf.gz:md5,2e249d93723298538b1d8170e16d5f28",
-                "01.sorted.vcf.gz.tbi:md5,4cb176febbc8c26d717a6c6e67b9c905"
+                "01.final.vcf.gz:md5,b35f0da8927d14f871a50bd0922a10e8",
+                "01.final.vcf.gz.tbi:md5,ea9c4660bb4885b27db922a1ffe35f11",
+                "01.low_depth_filtered.vcf.gz:md5,e137f7e3e3d12d78dc743229678d8d8d",
+                "01.low_depth_filtered.vcf.gz.tbi:md5,809691f9a1b19e0cf5c9bbee1c8628a6",
+                "01.low_qual_filtered.vcf.gz:md5,624593687df635f5d808499a45ee5fc6",
+                "01.low_qual_filtered.vcf.gz.tbi:md5,dd6d20cb35e1e06892a2267086a09f45",
+                "01.mixed_site_filtered.vcf.gz:md5,ec150103593910709f801bf15651a569",
+                "01.mixed_site_filtered.vcf.gz.tbi:md5,8fc1196c443dceae076d3095c4490a54",
+                "01.no_long_indels.vcf.gz:md5,13b773f039101be0cb4c32727aba5399",
+                "01.no_long_indels.vcf.gz.tbi:md5,9fdfa38c2a065450c74e69c7f0f4c425",
+                "01.non_alt.vcf.gz:md5,936cc9e5028f939f3b520fcc3105d4eb",
+                "01.norm.vcf.gz:md5,3fb889d35cc97072cce0adeee83f94a3",
+                "01.norm.vcf.gz.tbi:md5,dde11b60b5a385a351fc6ae1b77ef5f7",
+                "01.norm_sorted.vcf.gz:md5,c5b1db2b2fe6e0f038a19964c7197ab5",
+                "01.norm_sorted.vcf.gz.tbi:md5,6a9b3375d2a7ab958794e7d0068bf7be",
+                "01.retyped.vcf.gz:md5,d8e076b0b23b273a340b2c02eccc1038",
+                "01.retyped.vcf.gz.tbi:md5,3a12c30579a8e4174eb8f62cf344775f",
+                "01.sorted.vcf.gz:md5,d8e076b0b23b273a340b2c02eccc1038",
+                "01.sorted.vcf.gz.tbi:md5,3a12c30579a8e4174eb8f62cf344775f"
             ]
         ],
-        "timestamp": "2026-07-15T16:22:54.424678",
+        "timestamp": "2026-11-17T17:06:51.55862",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "26.04.0"
+            "nextflow": "26.10.6"
         }
     }
 }
