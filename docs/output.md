@@ -399,7 +399,7 @@ The `BCFtools` software is used to call and filter variants found within the bam
 <details markdown="1">
 <summary>Output files</summary>
 
-- `filtered_variants`
+- `vcf_filter`
   - `<sample_id>.filtered.vcf.gz` filtered vcf files containing variants
 
 </details>
@@ -411,7 +411,7 @@ The `BCFtools` software is used to call and filter variants found within the bam
 <details markdown="1">
 <summary>Output files</summary>
 
-- `filtered_variants`
+- `vcf_filter`
   - `<sample_id>.filtered.vcf.gz` filtered vcf files containing variants
 
 </details>
